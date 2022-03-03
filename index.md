@@ -1,8 +1,4 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/chandrabsingh/learnings/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## welcome to my learning notepad on new tools and technologies
 
 ### codes  
 - [python concepts](codes/python_faqs.html)  
@@ -45,6 +41,6 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 - [lec03 - loss function and optimization](cs231n_cnn/lec03-lossFun-optimization.html)  
 
 
-### Contact
+### contact
 
-You can reach out to me on chandrabsingh07@gmail.com
+you can reach out to me on chandrabsingh07@gmail.com
