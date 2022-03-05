@@ -1,4 +1,4 @@
-## welcome to my learning notepad on new tools and technologies
+## my learning notepad 
 
 ### codes  
 - [python concepts](codes/python_faqs.html)  
