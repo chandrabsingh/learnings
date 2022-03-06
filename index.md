@@ -1,7 +1,8 @@
-here are the notes and understanding of new tools i am learning 
+here are the notes and understanding of the tools i am learning 
 
-### codes  
+### computer science  
 - [python concepts](codes/python_faqs.html)  
+- [system architecture](system_designs/system_architecture.html)
 
 ### stanford-cs221-ai  
 - [lec01 - ai principles and techniques](cs221_ai/lec01-AI-PrinciplesAndTechniques.html)  
