@@ -3,6 +3,14 @@ here are the notes and understanding of the tools i am learning
 ### computer science  
 - [python concepts](codes/python_faqs.html)  
 - [system architecture](system_designs/system_architecture.html)
+- [algorithms](algos/run_algos.html)
+
+### mathematics
+- linear algebra
+- statistics
+- econometrics
+
+### finance
 
 ### stanford-cs221-ai  
 - [lec01 - ai principles and techniques](cs221_ai/lec01-AI-PrinciplesAndTechniques.html)  
@@ -40,7 +48,6 @@ here are the notes and understanding of the tools i am learning
 ### stanford-cs231n-convolutional neural network  
 - [lec02 - image classification](cs231n_cnn/lec02-image-classification.html)    
 - [lec03 - loss function and optimization](cs231n_cnn/lec03-lossFun-optimization.html)  
-
 
 ### contact
 
