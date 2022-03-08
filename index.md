@@ -1,9 +1,10 @@
 here are the notes and understanding of the tools i am learning 
 
 ### computer science  
-- [python concepts](codes/python_faqs.html)  
+- [python faqs](codes/python_faqs.html)  
 - [system architecture](system_designs/system_architecture.html)
 - [algorithms](algos/run_algos.html)
+- [dynamic programming algos](algos/dp_algos.html)
 
 ### mathematics
 - linear algebra
@@ -48,6 +49,9 @@ here are the notes and understanding of the tools i am learning
 ### stanford-cs231n-convolutional neural network  
 - [lec02 - image classification](cs231n_cnn/lec02-image-classification.html)    
 - [lec03 - loss function and optimization](cs231n_cnn/lec03-lossFun-optimization.html)  
+
+### stanford-ee364a-convex optimization 1
+- [lec01 - introduction](ee364a_co1/lec01-Introduction.html)
 
 ### contact
 
