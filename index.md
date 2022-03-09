@@ -4,6 +4,7 @@ here are the notes and understanding of the tools i am learning
 - [python faqs](codes/python_faqs.html)  
 - [system architecture](system_designs/system_architecture.html)
 - [algorithms](algos/run_algos.html)
+- [graph algos](algos/graph_algos.html)
 - [dynamic programming algos](algos/dp_algos.html)
 
 ### mathematics

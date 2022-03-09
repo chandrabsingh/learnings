@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13365,9 +13365,10 @@ True
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Valid-Graph-Tree">Valid Graph Tree<a class="anchor-link" href="#Valid-Graph-Tree">&#182;</a></h3><ul>
-<li>A tree is an undirected graph in which any two vertices are connected by exactly one path. </li>
-<li>Any connected graph without simple cycles is a tree</li>
+<h3 id="Valid-Graph-Tree">Valid Graph Tree<a class="anchor-link" href="#Valid-Graph-Tree">&#182;</a></h3><p>G is a tree iff:</p>
+<ul>
+<li>G is fully connected, that is, for every pair of nodes in G, there is a path between them</li>
+<li>G contains no cycles, that is, there is exactly onne path between each pair of nodes</li>
 </ul>
 
 </div>
@@ -13375,112 +13376,187 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[93]:</div>
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/valid_graph_tree.py</span>
-<span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
-
-    <span class="c1">#         print(f&#39;Arr: {self.rootArr}&#39;)</span>
-
-    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="n">rootOne</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span>
-        <span class="n">rootTwo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">rootOne</span> <span class="o">!=</span> <span class="n">rootTwo</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">rootTwo</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-
-    <span class="c1">#         print(f&#39;N1:{nodeOne}, N2:{nodeTwo}, Arr:{self.rootArr}&#39;)</span>
-
-    <span class="k">def</span> <span class="nf">isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/valid_graph_tree2.py</span>
 <span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Using iterated depth first search</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">validTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+        <span class="c1"># Check if number of edges is one less than number of nodes</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="k">def</span> <span class="nf">checkIfDisjoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">graphRoots</span><span class="p">):</span>
-        <span class="c1">#         print(&#39;graphRoots&#39;, graphRoots)</span>
-        <span class="n">ds</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-            <span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">graphRoots</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">graphRoots</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">graphRoots</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
-        <span class="n">isConnected</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
-            <span class="n">isConnected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">edges</span><span class="p">:</span>
-            <span class="n">isConnected</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">isConnected</span>
-    
-    <span class="k">def</span> <span class="nf">checkIfIsolatedNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">graphDict</span><span class="p">):</span>
-        <span class="k">pass</span>
-        
+        <span class="c1"># Initialize and assign node neighbors in its corresponding index to create adjacency list</span>
+        <span class="c1"># adjList = [[]] * n</span>
+        <span class="n">adjList</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">adjList</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">adjList</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">validTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :type n: int</span>
-<span class="sd">        :type edges: List[List[int]]</span>
-<span class="sd">        :rtype: bool</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">edgeDict</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-            <span class="n">fromNode</span><span class="p">,</span> <span class="n">toNode</span> <span class="o">=</span> <span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">sIfExists</span> <span class="o">=</span> <span class="n">edgeDict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fromNode</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">sIfExists</span> <span class="k">if</span> <span class="n">sIfExists</span> <span class="k">else</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">toNode</span><span class="p">)</span>
-            <span class="n">edgeDict</span><span class="p">[</span><span class="n">fromNode</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+        <span class="c1"># Create parent dictionary which holds parent node information. The first node is assigned -1 parent node</span>
+        <span class="n">parentDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
 
-        <span class="c1">#         print(edgeDict)</span>
-        <span class="n">nodesVisited</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">allNodes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">edgeDict</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
-        <span class="n">allChildCount</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">allNodes</span><span class="p">])</span>
-        <span class="c1">#         print(&#39;allNodesKey&#39;, edgeDict.keys())</span>
-        <span class="c1">#         print(&#39;allNodes&#39;, allNodes)</span>
-        <span class="c1">#         print(&#39;allChildCount&#39;, allChildCount)</span>
+        <span class="c1"># Create stack of adjacent neighbors</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">allNodes</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-        <span class="c1">#         print(&#39;allUniChildCount&#39;, s)</span>
-        <span class="n">allUniChildCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">allUniChildCount</span> <span class="o">==</span> <span class="n">allChildCount</span> <span class="k">else</span> <span class="kc">False</span>
-
-        <span class="n">isConnected</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkIfDisjoint</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">edgeDict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-        <span class="c1"># print(isConnected)</span>
-        
-<span class="c1">#         isIsolatedNode = self.checkIfIsolatedNode(n1, edges, edgeDict)</span>
-
-        <span class="n">finalResult</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">finalResult</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">isConnected</span><span class="p">)</span>
-        <span class="n">finalResult</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">finalResult</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="c1"># loop over all nodes adjacent neighbors starting with node 0 till all nodes are visited</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="c1"># Loop over all adjacent neighbor to corresponding stacked off node</span>
+            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">adjList</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+                <span class="c1"># Ignore the trivial cycles for example A-B-A of undirected graph</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="o">==</span> <span class="n">parentDict</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
+                    <span class="k">continue</span>
+                <span class="c1"># If neighbor is already listed down in parent dictionary key, means there is a cycle in graph</span>
+                <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">parentDict</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="c1"># Append neighbor in the stack having observed them</span>
+                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
+                <span class="n">parentDict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+        <span class="c1"># Return if valid graph will have the same number of nodes</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">parentDict</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span>
 
 
-<span class="c1"># nodes = 5</span>
-<span class="c1"># edges = [[0,1],[0,2],[0,3],[1,4]]</span>
-
-<span class="n">nodes</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
-
+<span class="n">nodes</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+<span class="c1"># nodes = 8</span>
+<span class="c1"># edges = [[0, 1], [0, 3], [1, 2], [4, 5], [6, 7]]</span>
 <span class="c1"># nodes = 1</span>
 <span class="c1"># edges = []</span>
-
-<span class="c1"># nodes = 3</span>
+<span class="c1"># nodes = 2</span>
 <span class="c1"># edges = []</span>
-
-<span class="c1"># nodes = 3</span>
-<span class="c1"># edges = [[1,0]]</span>
 
 <span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">validTree</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>True
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Depth-first-search">Depth-first search<a class="anchor-link" href="#Depth-first-search">&#182;</a></h3><ul>
+<li>adjacency list can be used to look up for the adjacent neighbors of a given node<ul>
+<li>best for cases where number of nodes is more than number of edges</li>
+</ul>
+</li>
+<li>linked list would not be a good choice here</li>
+<li>search till we reach to the depth of graph</li>
+<li>uses stack to solve</li>
+<li>properties of stack - LIFO<ul>
+<li>to go to the previous state, simply remove the current state and we will reach onto the previous state</li>
+<li>uses recursion</li>
+</ul>
+</li>
+<li>algo - traversing all vertices<ul>
+<li>choose a node</li>
+<li>put in stack</li>
+<li>mark it as visited</li>
+<li>pop from stack</li>
+<li>check all the neighboring nodes</li>
+<li>put in stack</li>
+<li>and loop deeper and deeper before checking for the remaining neigboring nodes</li>
+<li>if all nodes are visited go back to the previous</li>
+</ul>
+</li>
+</ul>
+<h4 id="Iterative-depth-first-search">Iterative depth-first search<a class="anchor-link" href="#Iterative-depth-first-search">&#182;</a></h4><ul>
+<li>Undirected graph<ul>
+<li>Undirected graph contains trivial cycle as A - B - A, if there is an undirected edge between node A and node B</li>
+<li>So in undirected graph, detecting cycles should exclude trivial cycles<ul>
+<li>Delete the opp direction edge, that is when you follow A-B, delete the opp edge B-A</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Find-if-path-exists-in-graph-using-DFS">Find if path exists in graph using DFS<a class="anchor-link" href="#Find-if-path-exists-in-graph-using-DFS">&#182;</a></h3><p><img src="images/pathExists.png" width=400 height=400></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/path_exists.py</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">validPath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Validate if the connection between two nodes exist</span>
+<span class="sd">        :param n: number of nodes in graph</span>
+<span class="sd">        :param edges: connections in the graph</span>
+<span class="sd">        :param start: start node</span>
+<span class="sd">        :param end: end node</span>
+<span class="sd">        :return: True if there is a valid path between the nodes otherwise False</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Create and initialize the adjacency list</span>
+        <span class="n">adjPath</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+            <span class="n">adjPath</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">adjPath</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+        <span class="c1"># Create a set to keep track of visited nodes</span>
+        <span class="n">seenSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="c1"># Initialize stack to start with start node</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="c1"># Loop over the stack</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
+            <span class="c1"># Pop current node from the stack</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="c1"># Check if the node is the end node</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="c1"># Validate if node is already visited</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">seenSet</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="c1"># If end node not seen, add it into the set</span>
+            <span class="n">seenSet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="c1"># Add neighbors into the stack</span>
+            <span class="n">stack</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">adjPath</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
+        <span class="c1"># The stack is empty and the end node is not connected</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<span class="c1"># nodes = 5</span>
+<span class="c1"># edges = [[0,1],[0,2],[0,3],[1,4]]</span>
+<span class="c1"># start, end = 2, 3</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+<span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">validPath</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13506,9 +13582,87 @@ True
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Possible-paths-in-DAG-using-DFS">Possible paths in DAG using DFS<a class="anchor-link" href="#Possible-paths-in-DAG-using-DFS">&#182;</a></h3><p><img src="images/possibleDAGpathUsingDFS.png" width=400 height=400></p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/possible_dag_path_using_dfs.py</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">allPaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="c1"># find all possible neighboring nodes to a node</span>
+            <span class="n">nextNodes</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
+            <span class="c1"># Check if the current node is the last node of graph, then loop out</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Copy corresponding path into the main paths container</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+                <span class="k">return</span>
+
+            <span class="c1"># loop over all the neighboring nodes and find dfs of it</span>
+            <span class="k">for</span> <span class="n">nextNode</span> <span class="ow">in</span> <span class="n">nextNodes</span><span class="p">:</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">nextNode</span><span class="p">)</span>
+                <span class="c1"># pop out the last element of connection</span>
+                <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+        <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">graph</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">paths</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">paths</span>
+
+
+<span class="n">graph</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[]]</span>  <span class="c1"># adjacency list</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">allPaths</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[0, 1, 3], [0, 2, 3]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Breadth-first-search">Breadth-first search<a class="anchor-link" href="#Breadth-first-search">&#182;</a></h3><ul>
+<li>search layer by layer instead of </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
