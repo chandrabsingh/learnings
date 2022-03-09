@@ -1,5 +1,8 @@
 here are the notes and understanding of the tools i am learning 
 
+### why-how-what
+- multi-armed bandits, thompson sampling, ab testing
+
 ### computer science  
 - [python faqs](codes/python_faqs.html)  
 - [system architecture](system_designs/system_architecture.html)
