@@ -13221,11 +13221,24 @@ $( document ).ready(function(){
 </ul>
 </li>
 </ul>
-<ul>
-<li><a href="https://github.com/Netflix">Netflix Github repository</a></li>
-<li><a href="https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da">Netflix Viewing Data</a></li>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Uber">Uber<a class="anchor-link" href="#Uber">&#182;</a></h3><ul>
+<li>How does uber work</li>
 </ul>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Google-Search">Google Search<a class="anchor-link" href="#Google-Search">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13249,6 +13262,8 @@ $( document ).ready(function(){
 <li>Oracle</li>
 <li>MSSQL</li>
 <li>Sybase</li>
+<li>Hadoop</li>
+<li>MapReduce</li>
 <li>Cassandra</li>
 <li>MongoDB</li>
 <li>Reddis</li>
@@ -13549,7 +13564,31 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Memory-cache">Memory cache<a class="anchor-link" href="#Memory-cache">&#182;</a></h3>
+<h3 id="Fault-tolerance">Fault tolerance<a class="anchor-link" href="#Fault-tolerance">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Distributed-system">Distributed system<a class="anchor-link" href="#Distributed-system">&#182;</a></h3><ul>
+<li>There are four capabilities that are involved in a resilient, scalable, distributed system:<ul>
+<li><strong>Load balancing (aka spraying)</strong> - The ability to spread a load source in an arbitrary manner to certain servers in a distributed system;</li>
+<li><strong>Partition targeting (aka routing)</strong> - The ability to direct a request to a particular sever based on attributes of the request and/or the service that handles the request;</li>
+<li><strong>Partitioning (aka sharding)</strong> - The ability to divide a domain into discrete, identifiable sub-divisions that together form the whole; and</li>
+<li><strong>Replication</strong> - The use of events, transaction logs, state copy, or other means to provide (i) resiliency to server failure, (ii) dynamic repartitioning, (iii) immediate access to non-mutating state, and (iv) local cache copies of mutating state.<br>
+$\tiny{\text{Source - Quora}}$  </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Caching">Caching<a class="anchor-link" href="#Caching">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13691,13 +13730,9 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Microservice">Microservice<a class="anchor-link" href="#Microservice">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Microservice">Microservice<a class="anchor-link" href="#Microservice">&#182;</a></h3><ul>
+<li><a href="https://martinfowler.com/articles/microservices.html">Architecture</a></li>
+</ul>
 
 </div>
 </div>
@@ -13705,6 +13740,9 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sharded-services">Sharded services<a class="anchor-link" href="#Sharded-services">&#182;</a></h3><ul>
+<li>Do we have sharding of services, or is it applicable only in database management?</li>
+</ul>
 
 </div>
 </div>
@@ -13712,6 +13750,49 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sharding-database">Sharding database<a class="anchor-link" href="#Sharding-database">&#182;</a></h3><h4 id="Types-of-partitioning">Types of partitioning<a class="anchor-link" href="#Types-of-partitioning">&#182;</a></h4><ul>
+<li>Horizontal partitioning(sharding) <ul>
+<li>separating table rows into multiple tables with same schema </li>
+</ul>
+</li>
+<li>Vertical partitioning<ul>
+<li>separating columns into distinct tables</li>
+</ul>
+</li>
+</ul>
+<h4 id="What-is-Sharding">What is Sharding<a class="anchor-link" href="#What-is-Sharding">&#182;</a></h4><ul>
+<li>breaking data into logical shards</li>
+<li>distribute these logical shards into separate database nodes or into physical shards</li>
+<li>physical shards can hold multiple logical shards</li>
+<li>helps in mitigating impact of outages</li>
+</ul>
+<h4 id="Benefits-of-sharding">Benefits of sharding<a class="anchor-link" href="#Benefits-of-sharding">&#182;</a></h4><ul>
+<li>horizontal scaling or scaling out<ul>
+<li>adding more machines to exsiting stack to spread out load and allow for more traffic</li>
+</ul>
+</li>
+<li>vertical scaling or scaling up<ul>
+<li>upgrading hardware by adding more RAM or CPU</li>
+</ul>
+</li>
+</ul>
+<h4 id="Sharding-architectures">Sharding architectures<a class="anchor-link" href="#Sharding-architectures">&#182;</a></h4><ul>
+<li>Key based sharding<ul>
+<li>hash based sharding based on partition key</li>
+</ul>
+</li>
+<li>Range based sharding<ul>
+<li>for example, price range</li>
+</ul>
+</li>
+<li>Directory based sharding<ul>
+<li>maintain lookup table</li>
+<li>Multiple tenants might share the same shard, but the data for a single tenant won't be spread across multiple shards</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/shardTable.png" width=600 height=600><br>
+$\tiny{\text{Types of Partitioning - digitalocean.com}}$</p>
 
 </div>
 </div>
@@ -13719,6 +13800,40 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Hashing">Hashing<a class="anchor-link" href="#Hashing">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Messaging">Messaging<a class="anchor-link" href="#Messaging">&#182;</a></h3><h4 id="HTTP-GET-vs-POST-Message">HTTP GET vs POST Message<a class="anchor-link" href="#HTTP-GET-vs-POST-Message">&#182;</a></h4><ul>
+<li>GET is used for viewing something, without changing it<ul>
+<li>fetch data</li>
+<li>GET carries request parameter appended in URL string </li>
+</ul>
+</li>
+<li>POST is used for changing something<ul>
+<li>change pwd</li>
+<li>writing data into resources</li>
+<li>POST carries request parameter in message body which makes it more secure way of transferring data</li>
+</ul>
+</li>
+</ul>
+<h4 id="HTTP-codes">HTTP codes<a class="anchor-link" href="#HTTP-codes">&#182;</a></h4><p><img src="images/http_codes.png" width=600 height=600><br>
+$\tiny{\text{https://datatracker.ietf.org/}}$</p>
+<h4 id="Messaging-patterns">Messaging patterns<a class="anchor-link" href="#Messaging-patterns">&#182;</a></h4><ul>
+<li>Client-Server</li>
+<li>Publish-Subscribe</li>
+<li>Push-Pull</li>
+<li>Polling</li>
+<li>Conventional sockets<ul>
+<li>One-to-one</li>
+<li>Many-to-one</li>
+<li>One-to-many(multicast)</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
