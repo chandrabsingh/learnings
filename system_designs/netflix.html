@@ -13191,6 +13191,209 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Netlfix-Recommendations">Netlfix Recommendations<a class="anchor-link" href="#Netlfix-Recommendations">&#182;</a></h3><ul>
+<li>Netflix Prize - 2006 - improve accuracy by 10%, earlier was Cinematch</li>
+<li>beat existing Netflix RMSE of 0.9525 to 0.8572 or less</li>
+<li>Korbell team - Progress Prize 8.43% improvement - 107 algorithms - 2000 hours of work</li>
+<li>2 algorithms with best performance <ul>
+<li>Matrix Factorization or the Singular Value Decomposition SVD </li>
+<li>Restricted Boltzmann Machines (RBM)</li>
+<li>SVD provided 0.8914 RMSE and RBM 0.8990 RMSE</li>
+<li>a linear blend reduced the error to 0.88</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/netflixPrice.png" width=600 height=600><br>
+$\tiny{\text{NetflixTechBlog}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-does-media-streaming-work">How does media streaming work<a class="anchor-link" href="#How-does-media-streaming-work">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Personalization-algorithms">Personalization algorithms<a class="anchor-link" href="#Personalization-algorithms">&#182;</a></h3><ul>
+<li>Different household members will have different tastes</li>
+<li>Optimize both accuracy and diversity</li>
+<li>Adapt to the taste, which encourages trust in the system</li>
+<li>connected with Facebook which gives personalization algorithm generate recommendations based on social circle</li>
+<li>genre personalization<ul>
+<li>choice of genre</li>
+<li>subset of titles within that genre</li>
+<li>ranking among those titles</li>
+</ul>
+</li>
+<li>freshness and diversity</li>
+<li>Similarity is another personalization<ul>
+<li>most popular, </li>
+<li>top rated, </li>
+<li>based on your taste preferences</li>
+<li>similar titles</li>
+<li>more like "title watched"</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Building-a-network-of-similarity">Building a network of similarity<a class="anchor-link" href="#Building-a-network-of-similarity">&#182;</a></h3><p><a href="http://kamalua07.blogspot.com/2011/04/more-like-this-building-network-of.html">http://kamalua07.blogspot.com/2011/04/more-like-this-building-network-of.html</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Caching-at-Netflix">Caching at Netflix<a class="anchor-link" href="#Caching-at-Netflix">&#182;</a></h3><p><a href="https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix">https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix</a>
+<a href="https://www.linkedin.com/in/shashishekar/#experience">https://www.linkedin.com/in/shashishekar/#experience</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Netflix-components">Netflix components<a class="anchor-link" href="#Netflix-components">&#182;</a></h3><ul>
+<li>How does netflix work on cloud?<ul>
+<li>AWS<ul>
+<li>components that dont involve video streaming</li>
+</ul>
+</li>
+<li>OpenConnect<ul>
+<li>use it for video streaming</li>
+<li>OpenConnect is Netflix's proprietary CDN - Content Delivery Network<ul>
+<li>CDN - network of distributed servers</li>
+<li>distributed across geographies for low latency</li>
+<li>maintained by Netflix</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/netflix_system_design.png" width=600 height=600><br>
+$\tiny{\text{YouTube - TechDummies}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>How does Netflix support different clients<ul>
+<li>all the apps are written using platform specific code</li>
+<li>Netflix web app is written using React.js</li>
+<li>why React.js?<ul>
+<li>startup speed</li>
+<li>run time performance</li>
+<li>modularity</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>How does Netflix load balancing work<ul>
+<li>uses Amazon's Elastic Load Balancer ELB service to different front-end instances/services</li>
+<li>ELB is configured so that load is first balanced across the zones and then instances</li>
+<li>2-tier balancing scheme</li>
+<li>first tier consists of DNS based round-robin balancing across different zones</li>
+<li>zones are logical grouping of servers</li>
+<li>second tier is an array of instances which does round-robin load balancing across instances </li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/netflixLoadBalancer.png" width=400 height=400><br>
+$\tiny{\text{YouTube - Load Balancer - TechDummies}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>How Netflix onboards video<ul>
+<li>lot of preprocessing<ul>
+<li>converting videos into different resolutions</li>
+<li>this process is called transcoding<ul>
+<li>optimization for particular type of device</li>
+<li>each format is of different resolutions</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>a video is broken into </li>
+<li>it also file optimize for different network<ul>
+<li>depending on fast or slow bandwidth, resolution and format will be different</li>
+<li>adaptive bitrate steaming<ul>
+<li>where if the bandwidth improves/deteriorate, the experience/streaming will switch accordingly</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>multiple copies of same movie is saved across different geography of different format/resolution<ul>
+<li>more than 1000 copies are made for each movie</li>
+</ul>
+</li>
+<li>uses lot of parallel workers<ul>
+<li>breaks movie into different pieces/chunks and puts into a queue</li>
+<li>pieces from the queue will then be picked from different workers</li>
+<li>workers will then merge these clips and place them into Amazon S3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/netflixOC.png" width=600 height=600><br>
+$\tiny{\text{YouTube - OpenConnect - TechDummies}}$</p>
+<p><img src="./images/netflixTranscoding.png" width=600 height=600><br>
+$\tiny{\text{YouTube - Transcoding - TechDummies}}$</p>
+<p><img src="./images/netflixVideoStreaming.png" width=400 height=400><br>
+$\tiny{\text{YouTube - Streaming workers - TechDummies}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>How does OpenConnect work<ul>
+<li>all the different formats are uploaded into OC </li>
+<li>when user makes request<ul>
+<li>based on the AWS data centers, models, </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>-</p>
 
 </div>
 </div>
@@ -13219,6 +13422,9 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Cloud-based-Microservices-architecture">Cloud based Microservices architecture<a class="anchor-link" href="#Cloud-based-Microservices-architecture">&#182;</a></h3><ul>
+<li><a href="https://medium.com/swlh/a-design-analysis-of-cloud-based-microservices-architecture-at-netflix-98836b2da45f">https://medium.com/swlh/a-design-analysis-of-cloud-based-microservices-architecture-at-netflix-98836b2da45f</a></li>
+</ul>
 
 </div>
 </div>
@@ -13226,41 +13432,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<p>Netflix - Titus</p>
 
 </div>
 </div>
