@@ -5,17 +5,22 @@ here are the notes and understanding of the tools i am learning
 
 ### computer science  
 - [python faqs](codes/python_faqs.html)  
-- [system architecture](system_designs/system_architecture.html)
 - [algorithms](algos/run_algos.html)
 - [graph algos](algos/graph_algos.html)
 - [dynamic programming algos](algos/dp_algos.html)
+- [system architecture](system_designs/system_architecture.html)
+- [netflix system architecture](system_designs/netflix.html)
 
 ### mathematics
 - linear algebra
 - statistics
 - econometrics
+- stochastic calculus
 
 ### finance
+
+### recommenders
+- als on movielens using pysparck
 
 ### stanford-cs221-ai  
 - [lec01 - ai principles and techniques](cs221_ai/lec01-AI-PrinciplesAndTechniques.html)  

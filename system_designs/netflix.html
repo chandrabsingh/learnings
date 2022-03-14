@@ -13191,7 +13191,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Netlfix-Recommendations">Netlfix Recommendations<a class="anchor-link" href="#Netlfix-Recommendations">&#182;</a></h3><ul>
+<h3 id="Netflix-Recommendations">Netflix Recommendations<a class="anchor-link" href="#Netflix-Recommendations">&#182;</a></h3><ul>
 <li>Netflix Prize - 2006 - improve accuracy by 10%, earlier was Cinematch</li>
 <li>beat existing Netflix RMSE of 0.9525 to 0.8572 or less</li>
 <li>Korbell team - Progress Prize 8.43% improvement - 107 algorithms - 2000 hours of work</li>
@@ -13262,8 +13262,10 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Caching-at-Netflix">Caching at Netflix<a class="anchor-link" href="#Caching-at-Netflix">&#182;</a></h3><p><a href="https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix">https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix</a>
-<a href="https://www.linkedin.com/in/shashishekar/#experience">https://www.linkedin.com/in/shashishekar/#experience</a></p>
+<h3 id="Caching-at-Netflix">Caching at Netflix<a class="anchor-link" href="#Caching-at-Netflix">&#182;</a></h3><ul>
+<li><a href="https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix">https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix</a></li>
+<li><a href="https://www.linkedin.com/in/shashishekar/#experience">https://www.linkedin.com/in/shashishekar/#experience</a></li>
+</ul>
 
 </div>
 </div>
@@ -13271,8 +13273,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Netflix-components">Netflix components<a class="anchor-link" href="#Netflix-components">&#182;</a></h3><ul>
-<li>How does netflix work on cloud?<ul>
+<h3 id="Netflix-components">Netflix components<a class="anchor-link" href="#Netflix-components">&#182;</a></h3><h4 id="Netflix-on-cloud">Netflix on cloud<a class="anchor-link" href="#Netflix-on-cloud">&#182;</a></h4><ul>
 <li>AWS<ul>
 <li>components that dont involve video streaming</li>
 </ul>
@@ -13288,9 +13289,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<p><img src="./images/netflix_system_design.png" width=600 height=600><br>
+<p><img src="./images/netflix_system_design.png" width=800 height=800><br>
 $\tiny{\text{YouTube - TechDummies}}$</p>
 
 </div>
@@ -13299,27 +13298,22 @@ $\tiny{\text{YouTube - TechDummies}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>How does Netflix support different clients<ul>
+<h4 id="How-does-Netflix-support-different-clients">How does Netflix support different clients<a class="anchor-link" href="#How-does-Netflix-support-different-clients">&#182;</a></h4><ul>
 <li>all the apps are written using platform specific code</li>
 <li>Netflix web app is written using React.js</li>
 <li>why React.js?<ul>
 <li>startup speed</li>
 <li>run time performance</li>
 <li>modularity</li>
+<li>How does Netflix load balancing work</li>
 </ul>
 </li>
-</ul>
-</li>
-<li>How does Netflix load balancing work<ul>
 <li>uses Amazon's Elastic Load Balancer ELB service to different front-end instances/services</li>
 <li>ELB is configured so that load is first balanced across the zones and then instances</li>
 <li>2-tier balancing scheme</li>
 <li>first tier consists of DNS based round-robin balancing across different zones</li>
 <li>zones are logical grouping of servers</li>
 <li>second tier is an array of instances which does round-robin load balancing across instances </li>
-</ul>
-</li>
 </ul>
 <p><img src="./images/netflixLoadBalancer.png" width=400 height=400><br>
 $\tiny{\text{YouTube - Load Balancer - TechDummies}}$</p>
@@ -13330,8 +13324,7 @@ $\tiny{\text{YouTube - Load Balancer - TechDummies}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>How Netflix onboards video<ul>
+<h4 id="How-Netflix-onboards-video">How Netflix onboards video<a class="anchor-link" href="#How-Netflix-onboards-video">&#182;</a></h4><ul>
 <li>lot of preprocessing<ul>
 <li>converting videos into different resolutions</li>
 <li>this process is called transcoding<ul>
@@ -13361,8 +13354,6 @@ $\tiny{\text{YouTube - Load Balancer - TechDummies}}$</p>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
 <p><img src="./images/netflixOC.png" width=600 height=600><br>
 $\tiny{\text{YouTube - OpenConnect - TechDummies}}$</p>
 <p><img src="./images/netflixTranscoding.png" width=600 height=600><br>
@@ -13376,13 +13367,10 @@ $\tiny{\text{YouTube - Streaming workers - TechDummies}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>How does OpenConnect work<ul>
+<h4 id="How-does-OpenConnect-work">How does OpenConnect work<a class="anchor-link" href="#How-does-OpenConnect-work">&#182;</a></h4><ul>
 <li>all the different formats are uploaded into OC </li>
 <li>when user makes request<ul>
 <li>based on the AWS data centers, models, </li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -13393,7 +13381,115 @@ $\tiny{\text{YouTube - Streaming workers - TechDummies}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>-</p>
+<h4 id="Why-Zuul">Why Zuul<a class="anchor-link" href="#Why-Zuul">&#182;</a></h4><ul>
+<li>handles request from devices and websites to backend of streaming application</li>
+<li>supports dynamic routing to different backend clusters</li>
+<li>supports monitoring and route requests to multiple Amazon scaling services</li>
+<li>supports authentication and security</li>
+<li>helps in gauging performance while stress testing, by increasing traffic to a particular cluster</li>
+<li>load shedding</li>
+<li>multi region resiliency - routing requests across AWS regions</li>
+</ul>
+<p><em>"The following are the key characteristics of a Zuul Filter:<br>
+-Type: most often defines the stage during the routing flow when the Filter will be applied (although it can be any custom string)<br>
+-Execution Order: applied within the Type, defines the order of execution across multiple Filters<br>
+-Criteria: the conditions required in order for the Filter to be executed<br>
+-Action: the action to be executed if the Criteria is met"</em><br>
+$\tiny{\text{Github - Zuul Filter Characteristics - Zuul}}$</p>
+<p><em>"There are several standard Filter types that correspond to the typical lifecycle of a request:<br>
+-PRE Filters execute before routing to the origin. Examples include request authentication, choosing origin servers, and logging debug info.<br>
+-ROUTING Filters handle routing the request to an origin. This is where the origin HTTP request is built and sent using Apache HttpClient or Netflix Ribbon.<br>
+-POST Filters execute after the request has been routed to the origin. Examples include adding standard HTTP headers to the response, gathering statistics and metrics, and streaming the response from the origin to the client.<br>
+-ERROR Filters execute when an error occurs during one of the other phases.</em><br>
+$\tiny{\text{Github - Zuul Filter Types - Zuul}}$</p>
+<ul>
+<li>Summary<ul>
+<li>Netty handlers handles the inward/outward messaging into the network protocol, web server, connection management and proxying</li>
+<li>Inbound filters run before proxying the request and is used for authentication, routing, or decorating request</li>
+<li>Endpoint filters is used to return static response or proxy request to backend service</li>
+<li>Outbound filters are applied after a response has been returned for gzipping, or handling metrics or customizing headers</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/netflixZuul.png" width=400 height=400><br>
+$\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Why-Hystrix">Why Hystrix<a class="anchor-link" href="#Why-Hystrix">&#182;</a></h4><ul>
+<li>Netflix uses microservices architecture</li>
+<li>there is a dependency of quick throughput of these services to respond quickly</li>
+<li>critical services are identified to prevent cascading service failure</li>
+<li>each service is configured a set timeout withing which it needs to respond back</li>
+<li>Netflix's stateless microservices architecture helps in routing the service request if it does not respond in timely fashion</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Why-EVCache">Why EVCache<a class="anchor-link" href="#Why-EVCache">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>
