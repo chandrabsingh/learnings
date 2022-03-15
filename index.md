@@ -2,6 +2,8 @@ here are the notes and understanding of the tools i am learning
 
 ### why-how-what
 - multi-armed bandits, thompson sampling, ab testing
+- [netflix system architecture](system_designs/netflix.html)
+- alternating least squares, collaborative filtering, pyspark
 
 ### computer science  
 - [python faqs](codes/python_faqs.html)  
@@ -20,7 +22,7 @@ here are the notes and understanding of the tools i am learning
 ### finance
 
 ### recommenders
-- als on movielens using pysparck
+- alternating least squares, collaborative filtering, pyspark
 
 ### stanford-cs221-ai  
 - [lec01 - ai principles and techniques](cs221_ai/lec01-AI-PrinciplesAndTechniques.html)  
