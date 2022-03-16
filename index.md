@@ -3,7 +3,7 @@ here are the notes and understanding of the tools i am learning
 ### why-how-what
 - multi-armed bandits, thompson sampling, ab testing
 - [netflix system architecture](system_designs/netflix.html)
-- alternating least squares, collaborative filtering, pyspark
+- [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 
 ### computer science  
 - [python faqs](codes/python_faqs.html)  
