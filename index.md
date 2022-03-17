@@ -14,7 +14,7 @@ here are the notes and understanding of the tools i am learning
 - [netflix system architecture](system_designs/netflix.html)
 
 ### mathematics
-- linear algebra
+- [linear algebra](maths/linear_algebra.html)
 - statistics
 - econometrics
 - stochastic calculus
