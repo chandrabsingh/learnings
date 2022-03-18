@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "274.1875px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.390625px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13944,7 +13944,7 @@ Mean average precision = 0.0033258968835808275
     <span class="p">)</span>
 
     <span class="n">rmse_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rmse</span><span class="p">())</span>
-
+    
 <span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rmse_score</span><span class="p">]</span>
 <span class="n">rmse_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rmse_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
 </pre></div>
@@ -14419,17 +14419,17 @@ No JAVA_HOME set</p>
 <code>mkdir -p $RECO_ENV/etc/conda/deactivate.d</code></p>
 </blockquote>
 </li>
-<li>Then, create the file \$RECO_ENV/etc/conda/activate.d/env_vars.sh and add:
-<pre><code>#!/bin/sh
-RECO_ENV=$(conda env list | grep reco | awk '{print $NF}')
-export PYSPARK_PYTHON=$RECO_ENV/bin/python
-export PYSPARK_DRIVER_PYTHON=$RECO_ENV/bin/python
-unset SPARK_HOME</code></pre>
+<li>Then, create the file <code>\$RECO_ENV/etc/conda/activate.d/env_vars.sh</code> and add:<blockquote><p><code>#!/bin/sh</code><br>
+<code>RECO_ENV=$(conda env list | grep reco | awk '{print $NF}')</code><br>
+<code>export PYSPARK_PYTHON=$RECO_ENV/bin/python</code><br>
+<code>export PYSPARK_DRIVER_PYTHON=$RECO_ENV/bin/python</code><br>
+<code>unset SPARK_HOME</code></p>
+</blockquote>
 </li>
-<li>This will export the variables every time we do <code>conda activate reco</code>. To unset these variables when we deactivate the environment, create the file $RECO_ENV/etc/conda/deactivate.d/env_vars.sh and add:
-<pre><code>#!/bin/sh
-unset PYSPARK_PYTHON
-unset PYSPARK_DRIVER_PYTHON</code></pre>
+<li>This will export the variables every time we do <code>conda activate reco</code>. To unset these variables when we deactivate the environment, create the file <code>$RECO_ENV/etc/conda/deactivate.d/env_vars.sh</code> and add:<blockquote><p><code>#!/bin/sh</code><br>
+<code>unset PYSPARK_PYTHON</code><br>
+<code>unset PYSPARK_DRIVER_PYTHON</code></p>
+</blockquote>
 </li>
 <li>Register environment as kernel in Jupyter<blockquote><p><code>python -m ipykernel install --name reco --display-name "Python (reco)"</code></p>
 </blockquote>
@@ -14491,7 +14491,12 @@ unset PYSPARK_DRIVER_PYTHON</code></pre>
 </li>
 </ul>
 </li>
-<li>model-based methods (latent factor model)</li>
+<li>model-based methods (latent factor model)<ul>
+<li>assumption is significant portions of the rows and columns of data matrices are highly correlated</li>
+<li>can be well approximated using a low-rank matrix</li>
+<li>other alternative is using expectation-maximization (EM) technique with dimensionality reduction</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -14503,7 +14508,116 @@ unset PYSPARK_DRIVER_PYTHON</code></pre>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ALS-algorithm">ALS algorithm<a class="anchor-link" href="#ALS-algorithm">&#182;</a></h2><h3 id="Why-not-SVD">Why not SVD<a class="anchor-link" href="#Why-not-SVD">&#182;</a></h3><h3 id="Sparsity">Sparsity<a class="anchor-link" href="#Sparsity">&#182;</a></h3>
+<h2 id="ALS-algorithm">ALS algorithm<a class="anchor-link" href="#ALS-algorithm">&#182;</a></h2><h3 id="Low-rank-approximation">Low-rank approximation<a class="anchor-link" href="#Low-rank-approximation">&#182;</a></h3><ul>
+<li>low rank approximation is used for data compression in images </li>
+<li>As image is an array of pixels, we can write it as a matrix</li>
+<li>find $B \approx AX$</li>
+</ul>
+<p><img src="../maths/images/low_rank_appr11.png" width=400 height=200><br>
+$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$</p>
+<ul>
+<li>column $b_{j}$ can be represented as a linear combination of columns that we picked for A</li>
+<li>column $b_{j}$ is approximately sum of some constant $\chi_{0}a_{0}$, $\chi_{1}a_{1}$, ..., </li>
+<li>we want to pick the best set of $\chi_{j}$ for this</li>
+<li>minimize that over all possible choices of x, which is known as linear least squares problem
+<img src="../maths/images/low_rank_appr2.png" width=400 height=400><br>
+$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$   </li>
+</ul>
+<ul>
+<li>if A has linearly independent columns, then the best such solution is given by $x_{j} = A^{-1}b_{j}$</li>
+<li>but because A has more rows than columns, we can't do that</li>
+<li>instead we can use <strong>pseudo-inverse</strong>, which is $x_{j} = (A^{T}A)^{-1}A^{T}b_{j}$</li>
+<li>this gives us $b_{j} \approx Ax_{j} = A(A^{T}A)^{-1}A^{T}b_{j} $
+<img src="../maths/images/low_rank_appr3.png" width=200 height=200><br>
+$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$   </li>
+</ul>
+<ul>
+<li>To apply low-rank approximation in recommender system, assuming all entries in ratings matrix M are observed</li>
+<li>the matrix R is $(m x n)$ of rank $k \ll \min{\{m,n\}} $  <blockquote><p>$M = LR^{T}$</p>
+<ul>
+<li>where L is $m x k$ matrix and R is $n x k$ matrix, i.e., both L and R are rank-k factors</li>
+</ul>
+</blockquote>
+</li>
+<li>using one of below factorization methods we can approximately express the product of rank-k factors as <blockquote><p>$\hat{M} \approx L_{k}R_{k}^{T}$</p>
+</blockquote>
+</li>
+<li>The error of this approximation represents the noise in the underlying ratings matrix that cannot be modeled<blockquote><p>$\| (M-LR^{T})\|^{2}$</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://dustinstansbury.github.io/theclevermachine/assets/images/svd-data-compression/low-rank-approximation.png" width=300 height=300><br>
+$\tiny{\text{Low rank matrix decomposition - https://dustinstansbury.github.io/}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Unconstrained-Matrix-Factorization">Unconstrained Matrix Factorization<a class="anchor-link" href="#Unconstrained-Matrix-Factorization">&#182;</a></h4><ul>
+<li>How can one determine factors U and V, so that the specified matrix R matches closely with $UV^{T}$  <blockquote><p>$R = UV^{T}$</p>
+</blockquote>
+</li>
+<li>This can be formulated as an optimization problem wrt matrices U and V  <blockquote><p>Minimize $J = \frac{1}{2}\| R - UV^{T}\|^{2}$</p>
+<ul>
+<li>subject to no constraints on U and V. </li>
+</ul>
+</blockquote>
+</li>
+<li>The smaller the objective function is, better will be the quality of factorization</li>
+<li>This is a quadratic loss function</li>
+<li>This can be achieved by any of gradient descent methods</li>
+<li>However, in this matrix there are missing entries, so the objective function is not well defined </li>
+<li>Let the set of user-item pair (i,j) which are observed in R, be denoted by S<blockquote><p>$S = \{(i,j) : r_{ij}\text{ is observed}\}$</p>
+</blockquote>
+</li>
+<li>The predicted matrix R is <blockquote><p>$\hat{r}_{ij} = \sum\limits_{s=1}^{k}u_{is}v_{js}$</p>
+</blockquote>
+</li>
+<li>The difference between observed and predicted entries will be<blockquote><p>$e_{ij} = (r_{ij} - \hat{r}_{ij}) = (r_{ij} - \sum_{s=1}^{k}u_{is}v_{js})$</p>
+</blockquote>
+</li>
+<li>The modified objective function that works over observed entries in S only is<blockquote><p>Minimize $J = \frac{1}{2}\sum\limits_{(i,j \in S)}e_{ij}^{2} = \frac{1}{2}\sum\limits_{(i,j \in S)}(r_{ij} - \sum\limits_{s=1}^{k}u_{is}v_{js})^{2} $</p>
+</blockquote>
+</li>
+<li>This can be achieved simply with gradient descent methods</li>
+</ul>
+<h4 id="Regularization">Regularization<a class="anchor-link" href="#Regularization">&#182;</a></h4><ul>
+<li>Regularization reduces the tendency of model to overfit at the expense of introducing a bias in the model</li>
+<li>It discourages large values of the coefficients in U and V in order to encourage stability. </li>
+<li>So, a regularization term $\frac{\lambda}{2}(\|U\|^{2} + \|U\|^{2})$ is added to the objective function, where λ &gt; 0 is the regularization parameter<blockquote><p>Minimize $\begin{equation}\\
+\begin{aligned}\\
+J &amp;= \frac{1}{2}\sum\limits_{(i,j \in S )}e_{ij}^{2} + \frac{\lambda}{2}\sum\limits_{i=1}^{m} \sum\limits_{s=1}^{k} u_{is}^{2} + \frac{\lambda}{2}\sum\limits_{j=1}^{n} \sum\limits_{s=1}^{k} v_{js}^{2} \\  
+&amp;= \frac{1}{2}\sum\limits_{(i,j \in S)} \left(r_{ij} - \sum\limits_{s=1}^{k}u_{is}v_{js} \right)^{2} + \frac{\lambda}{2}\sum\limits_{i=1}^{m} \sum\limits_{s=1}^{k} u_{is}^{2} + \frac{\lambda}{2}\sum\limits_{j=1}^{n} \sum\limits_{s=1}^{k} v_{js}^{2} \\
+\end{aligned}\\
+\end{equation} $</p>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Implicit-Feedback">Implicit Feedback<a class="anchor-link" href="#Implicit-Feedback">&#182;</a></h4><ul>
+<li>Implicit feedback data sets such as web click-streams can help in recommendations about future activity</li>
+<li>In explicit feedback matrices, ratings correspond to (highly discriminated) preferences, whereas in implicit feedback matrices, ratings correspond to (less discriminated) confidences</li>
+<li>Implicit feedbacks are one that are inferred rather than direct as in explicit feedback matrices</li>
+<li>Such feedbacks are easier to obtain</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Other-factorization-algorithms">Other factorization algorithms<a class="anchor-link" href="#Other-factorization-algorithms">&#182;</a></h3><p>The surprise library provides good collection of recommender system matrix factorization algorithms like SVD, SVD++, Non-negative Matrix Factorization(NMF), Probabilistic Matrix Factorization(PMF)</p>
+<h4 id="SVD">SVD<a class="anchor-link" href="#SVD">&#182;</a></h4><p>The method usually referred to as "SVD" used in the context of recommendations is not strictly the mathematical Singular Value Decomposition of a matrix but rather an approximate way to compute the <a href="#Low-rank-approximation">low-rank approximation</a> of the matrix by minimizing the squared error loss. A more accurate, albeit more generic, way to call this would be Matrix Factorization.  The initial version of this approach in the context of the Netflix Prize was presented by Simon Funk in his famous <a href="https://sifter.org/~simon/journal/20061211.html">Try This at Home</a> blogpost</p>
+<h4 id="SVD++">SVD++<a class="anchor-link" href="#SVD++">&#182;</a></h4><h4 id="NMF">NMF<a class="anchor-link" href="#NMF">&#182;</a></h4><h4 id="PMF">PMF<a class="anchor-link" href="#PMF">&#182;</a></h4><h3 id="Sparsity">Sparsity<a class="anchor-link" href="#Sparsity">&#182;</a></h3><h3 id="Distributed-ALS">Distributed ALS<a class="anchor-link" href="#Distributed-ALS">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14528,11 +14642,11 @@ unset PYSPARK_DRIVER_PYTHON</code></pre>
 </ul>
 </li>
 <li>Stage<ul>
-<li>Each job gets divided into smaller sets of tasks that depend on each other</li>
+<li>Each job gets divided into smaller sets of tasks called stages that depend on each other</li>
 </ul>
 </li>
 <li>Task<ul>
-<li>it is a single unit of work or executor sent to Spark executor</li>
+<li>it is a single unit of work or execution sent to Spark executor</li>
 </ul>
 </li>
 </ul>
@@ -14576,7 +14690,7 @@ unset PYSPARK_DRIVER_PYTHON</code></pre>
 </ul>
 <h4 id="How-to-launch-Spark">How to launch Spark<a class="anchor-link" href="#How-to-launch-Spark">&#182;</a></h4><ul>
 <li>four way of using Spark interpreters: <ul>
-<li>pyspark</li>
+<li>pyspark api</li>
 <li>spark-shell</li>
 <li>spark-sql</li>
 <li>sparkR</li>
@@ -14715,116 +14829,55 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Data column names</span>
-<span class="n">MOVIELENS_DATA_SIZE</span> <span class="o">=</span> <span class="s2">&quot;100k&quot;</span>
-<span class="n">COL_USER</span> <span class="o">=</span> <span class="s2">&quot;UserId&quot;</span>
-<span class="n">COL_ITEM</span> <span class="o">=</span> <span class="s2">&quot;MovieId&quot;</span>
-<span class="n">COL_RATING</span> <span class="o">=</span> <span class="s2">&quot;Rating&quot;</span>
-<span class="n">COL_PREDICTION</span> <span class="o">=</span> <span class="s2">&quot;prediction&quot;</span>
-<span class="n">COL_TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;Timestamp&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+    <span class="s2">&quot;regParam&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="k">def</span> <span class="nf">testModelPerformance</span><span class="p">(</span><span class="n">param_dict</span><span class="p">):</span>
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">generate_param_grid</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
 
+    <span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">(</span>
-    <span class="p">(</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_USER</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">()),</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_ITEM</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">()),</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">()),</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_TIMESTAMP</span><span class="p">,</span> <span class="n">LongType</span><span class="p">()),</span>
-    <span class="p">)</span>
-<span class="p">)</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">:</span>
+        <span class="n">als</span> <span class="o">=</span> <span class="n">ALS</span><span class="p">(</span>        
+            <span class="n">userCol</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span> 
+            <span class="n">itemCol</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span> 
+            <span class="n">ratingCol</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span> 
+            <span class="n">coldStartStrategy</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">g</span>
+        <span class="p">)</span>
 
+        <span class="n">model</span> <span class="o">=</span> <span class="n">als</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfs_train</span><span class="p">)</span>
 
-<span class="c1"># Model hyper parameters </span>
-<span class="n">RANK</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">MAX_ITER</span> <span class="o">=</span> <span class="mi">15</span>
-<span class="n">REG_PARAM</span> <span class="o">=</span> <span class="mf">0.05</span>
+        <span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dfs_test</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">)</span>
 
-<span class="c1"># Number of recommended items</span>
-<span class="n">K</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRatingEvaluation</span><span class="p">(</span>
+            <span class="n">dfs_test</span><span class="p">,</span> 
+            <span class="n">dfs_pred</span><span class="p">,</span>
+            <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
+            <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
+            <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
+            <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span>
+        <span class="p">)</span>
 
-<span class="c1"># Initialize a Spark session</span>
-<span class="n">spark</span> <span class="o">=</span> <span class="n">start_or_get_spark</span><span class="p">(</span><span class="s2">&quot;ALS Deep Dive&quot;</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;16g&quot;</span><span class="p">)</span>
+        <span class="n">rmse_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rmse</span><span class="p">())</span>
 
-<span class="c1"># Data is read from csv into a Spark DataFrame</span>
-<span class="n">dfs</span> <span class="o">=</span> <span class="n">movielens</span><span class="o">.</span><span class="n">load_spark_df</span><span class="p">(</span><span class="n">spark</span><span class="o">=</span><span class="n">spark</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">MOVIELENS_DATA_SIZE</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span>
+    <span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rmse_score</span><span class="p">]</span>
+    <span class="n">mae_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">mae</span><span class="p">())</span>
+    <span class="n">rsquared_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rsquared</span><span class="p">())</span>
+    <span class="n">exp_var_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">exp_var</span><span class="p">())</span>
+    
+    <span class="n">rmse_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rmse_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
+    <span class="n">mae_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mae_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
+    <span class="n">rsquared_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rsquared_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
+    <span class="n">exp_var_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">exp_var_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
 
-<span class="c1"># Data is then randomly split by 80-20 ratio for training and testing.</span>
-<span class="n">dfs_train</span><span class="p">,</span> <span class="n">dfs_test</span> <span class="o">=</span> <span class="n">spark_random_split</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="c1"># Train a movielens model</span>
-<span class="n">als</span> <span class="o">=</span> <span class="n">ALS</span><span class="p">(</span>
-    <span class="n">maxIter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span> 
-    <span class="n">rank</span><span class="o">=</span><span class="n">RANK</span><span class="p">,</span>
-    <span class="n">regParam</span><span class="o">=</span><span class="n">REG_PARAM</span><span class="p">,</span> 
-    <span class="n">userCol</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span> 
-    <span class="n">itemCol</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span> 
-    <span class="n">ratingCol</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span> 
-    <span class="n">coldStartStrategy</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span>
-<span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">als</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfs_train</span><span class="p">)</span>
-
-<span class="c1"># Prediction with the model</span>
-<span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dfs_test</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">)</span>
-
-<span class="c1"># evaluate the model performance </span>
-<span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRatingEvaluation</span><span class="p">(</span>
-    <span class="n">dfs_test</span><span class="p">,</span> 
-    <span class="n">dfs_pred</span><span class="p">,</span>
-    <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
-    <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
-    <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
-    <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;RMSE score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rmse</span><span class="p">()),</span>
-    <span class="s2">&quot;MAE score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">mae</span><span class="p">()),</span>
-    <span class="s2">&quot;R2 score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rsquared</span><span class="p">()),</span>
-    <span class="s2">&quot;Explained variance score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">exp_var</span><span class="p">()),</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-
-<span class="c1"># Get the cross join of all user-item pairs and score them.</span>
-<span class="n">users</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">COL_USER</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
-<span class="n">items</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">COL_ITEM</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
-<span class="n">user_item</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">crossJoin</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-<span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">user_item</span><span class="p">)</span>
-
-<span class="c1"># Fix the ambiguous col exception</span>
-<span class="n">dfs1</span> <span class="o">=</span> <span class="n">dfs_pred</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;pred&quot;</span><span class="p">)</span>
-<span class="n">dfs2</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
-
-<span class="c1"># Make predictions</span>
-<span class="n">dfs_pred_exclude_train</span> <span class="o">=</span> <span class="n">dfs1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dfs2</span><span class="p">,</span>
-    <span class="p">(</span><span class="n">dfs1</span><span class="p">[</span><span class="n">COL_USER</span><span class="p">]</span> <span class="o">==</span> <span class="n">dfs2</span><span class="p">[</span><span class="n">COL_USER</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dfs1</span><span class="p">[</span><span class="n">COL_ITEM</span><span class="p">]</span> <span class="o">==</span> <span class="n">dfs2</span><span class="p">[</span><span class="n">COL_ITEM</span><span class="p">]),</span>
-    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span>
-<span class="p">)</span>
-
-<span class="n">dfs_pred_final</span> <span class="o">=</span> <span class="n">dfs_pred_exclude_train</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">dfs_pred_exclude_train</span><span class="p">[</span><span class="s2">&quot;train.Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isNull</span><span class="p">())</span> \
-    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;pred.&#39;</span> <span class="o">+</span> <span class="n">COL_USER</span><span class="p">,</span> <span class="s1">&#39;pred.&#39;</span> <span class="o">+</span> <span class="n">COL_ITEM</span><span class="p">,</span> <span class="s1">&#39;pred.&#39;</span> <span class="o">+</span> <span class="s2">&quot;prediction&quot;</span><span class="p">)</span>
-
-<span class="c1"># Evaluate predictions</span>
-<span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRankingEvaluation</span><span class="p">(</span>
-    <span class="n">dfs_test</span><span class="p">,</span> 
-    <span class="n">dfs_pred_final</span><span class="p">,</span>
-    <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
-    <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
-    <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
-    <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="n">K</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Precision@k = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">precision_at_k</span><span class="p">()),</span>
-    <span class="s2">&quot;Recall@k = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">recall_at_k</span><span class="p">()),</span>
-    <span class="s2">&quot;NDCG@k = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">ndcg_at_k</span><span class="p">()),</span>
-    <span class="s2">&quot;Mean average precision = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">map_at_k</span><span class="p">()),</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="p">)</span>
+    <span class="n">rmse_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rmse_score_array</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">),</span> 
+                           <span class="n">columns</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;reg. parameter&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">rmse_df</span>
 </pre></div>
 
     </div>
@@ -14841,11 +14894,7 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|█████████████████████████████████████| 4.81k/4.81k [00:02&lt;00:00, 2.07kKB/s]
-22/03/15 20:24:11 WARN InstanceBuilder$NativeBLAS: Failed to load implementation from:dev.ludovic.netlib.blas.JNIBLAS
-22/03/15 20:24:11 WARN InstanceBuilder$NativeBLAS: Failed to load implementation from:dev.ludovic.netlib.blas.ForeignLinkerBLAS
-22/03/15 20:24:11 WARN InstanceBuilder$NativeLAPACK: Failed to load implementation from:dev.ludovic.netlib.lapack.JNILAPACK
-/Users/chandrasingh/opt/anaconda3/envs/reco/lib/python3.8/site-packages/pyspark/sql/context.py:125: FutureWarning: Deprecated in 3.0.0. Use SparkSession.builder.getOrCreate() instead.
+<pre>/Users/chandrasingh/opt/anaconda3/envs/reco/lib/python3.8/site-packages/pyspark/sql/context.py:125: FutureWarning: Deprecated in 3.0.0. Use SparkSession.builder.getOrCreate() instead.
   warnings.warn(
                                                                                 </pre>
 </div>
@@ -14853,40 +14902,214 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 
 <div class="output_area">
 
-    <div class="prompt"></div>
+    <div class="prompt output_prompt">Out[66]:</div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>RMSE score = 0.9712979601924561
-MAE score = 0.7564664901170141
-R2 score = 0.2544972737907505
-Explained variance score = 0.2595239783578941
-</pre>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>reg. parameter</th>
+      <th>0.001</th>
+      <th>0.050</th>
+      <th>0.100</th>
+      <th>0.200</th>
+      <th>0.300</th>
+      <th>0.400</th>
+      <th>0.500</th>
+      <th>0.600</th>
+      <th>0.700</th>
+      <th>0.800</th>
+      <th>0.900</th>
+      <th>1.000</th>
+    </tr>
+    <tr>
+      <th>rank</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>1.0960</td>
+      <td>0.9384</td>
+      <td>0.9231</td>
+      <td>0.9390</td>
+      <td>0.9775</td>
+      <td>1.0206</td>
+      <td>1.0637</td>
+      <td>1.1138</td>
+      <td>1.1703</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1.3490</td>
+      <td>0.9702</td>
+      <td>0.9277</td>
+      <td>0.9392</td>
+      <td>0.9787</td>
+      <td>1.0211</td>
+      <td>1.0639</td>
+      <td>1.1138</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>1.4847</td>
+      <td>0.9819</td>
+      <td>0.9299</td>
+      <td>0.9385</td>
+      <td>0.9784</td>
+      <td>1.0209</td>
+      <td>1.0638</td>
+      <td>1.1138</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1.5350</td>
+      <td>0.9824</td>
+      <td>0.9294</td>
+      <td>0.9395</td>
+      <td>0.9792</td>
+      <td>1.0214</td>
+      <td>1.0639</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>1.5790</td>
+      <td>0.9874</td>
+      <td>0.9298</td>
+      <td>0.9400</td>
+      <td>0.9797</td>
+      <td>1.0217</td>
+      <td>1.0641</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>1.5733</td>
+      <td>0.9782</td>
+      <td>0.9278</td>
+      <td>0.9399</td>
+      <td>0.9794</td>
+      <td>1.0214</td>
+      <td>1.0640</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>1.5805</td>
+      <td>0.9791</td>
+      <td>0.9263</td>
+      <td>0.9400</td>
+      <td>0.9798</td>
+      <td>1.0219</td>
+      <td>1.0642</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>1.5718</td>
+      <td>0.9717</td>
+      <td>0.9275</td>
+      <td>0.9401</td>
+      <td>0.9794</td>
+      <td>1.0214</td>
+      <td>1.0640</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>1.5657</td>
+      <td>0.9646</td>
+      <td>0.9257</td>
+      <td>0.9405</td>
+      <td>0.9796</td>
+      <td>1.0215</td>
+      <td>1.0640</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>1.5647</td>
+      <td>0.9659</td>
+      <td>0.9244</td>
+      <td>0.9401</td>
+      <td>0.9800</td>
+      <td>1.0220</td>
+      <td>1.0642</td>
+      <td>1.1139</td>
+      <td>1.1702</td>
+      <td>1.2321</td>
+      <td>1.2987</td>
+      <td>1.3693</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>                                                                                </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Precision@k = 0.044856839872746565
-Recall@k = 0.015691596089178084
-NDCG@k = 0.03985187574555374
-Mean average precision = 0.0037979946125529323
-</pre>
-</div>
 </div>
 
 </div>
@@ -14895,7 +15118,55 @@ Mean average precision = 0.0037979946125529323
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">rmse_df</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.4g&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[68]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:xlabel=&#39;reg. parameter&#39;, ylabel=&#39;rank&#39;&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="als_deep_dive_files/als_deep_dive_72_1.png"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(dir(pyspark))</span>
@@ -14908,6 +15179,9 @@ Mean average precision = 0.0037979946125529323
 <span class="c1"># help(SparkRankingEvaluation)</span>
 <span class="c1"># help(SparkRatingEvaluation)</span>
 <span class="c1"># help(ALS)</span>
+
+<span class="c1"># help(model.transform)</span>
+<span class="c1"># dir(pyspark.ml.recommendation)</span>
 </pre></div>
 
     </div>
@@ -14925,17 +15199,11 @@ Mean average precision = 0.0037979946125529323
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Improvements">Improvements<a class="anchor-link" href="#Improvements">&#182;</a></h2><h3 id="Explicit-rating">Explicit rating<a class="anchor-link" href="#Explicit-rating">&#182;</a></h3><h3 id="Implicit-rating">Implicit rating<a class="anchor-link" href="#Implicit-rating">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ol>
 <li>Recommender Systems by Charu C. Aggarwal</li>
 <li>Learning Spark 2.0 by Jules S. Damji, Brooke Wenig, Tathagata Das &amp; Denny Lee</li>
-<li><strong>ToRead</strong>: Collaborative Filtering for Implicit Feedback Datasets, by Yifan Hu, Yehuda Koren, Chris Volinsky</li>
+<li>Collaborative Filtering for Implicit Feedback Datasets, by Yifan Hu, Yehuda Koren, Chris Volinsky</li>
+<li><a href="https://github.com/gpfvic/IRR/blob/master/Factorization%20meets%20the%20neighborhood-%20a%20multifaceted%20collaborative%20filtering%20model.pdf">Factorization Meets the Neighborhood: a Multifaceted Collaborative Filtering Model by Yehuda Koren</a></li>
 <li><a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html">Spark Programming Guide @ spark.apache.org</a></li>
 <li><a href="https://towardsdatascience.com/strategies-of-spark-join-c0e7b4572bcf">Spark Join Strategies @ towardsdatascience.com</a></li>
 <li><a href="https://towardsdatascience.com/build-recommendation-system-with-pyspark-using-alternating-least-squares-als-matrix-factorisation-ebe1ad2e7679">Collaborative Filtering @ towardsdatascience.com</a></li>

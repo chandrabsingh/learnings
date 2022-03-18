@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13407,6 +13407,38 @@ $\Rightarrow \hat{y} = \Sigma\hat{x}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reduced-SVD">Reduced SVD<a class="anchor-link" href="#Reduced-SVD">&#182;</a></h3><blockquote><p>$A = U_{L}\Sigma_{TL}V_{L}^{H}$ (Reduced SVD)</p>
+<blockquote><p>where $A \in \mathbb R ^{mxn}, U_{L} \in \mathbb R ^{mxr}, V_{L} \in \mathbb R ^{nxr}, \Sigma_{TL} \in \mathbb R ^{rxr}, $</p>
+</blockquote>
+<p>$A = U \Sigma V^{T}$ (SVD)</p>
+<blockquote><p>where $A \in \mathbb R ^{mxn}, U \in \mathbb R ^{mxm}, V \in \mathbb R ^{nxn}, \Sigma \in \mathbb R ^{mxn}, $</p>
+</blockquote>
+</blockquote>
+<p><img src="./images/reducedSVD1.png" width=400 height=400><br>
+$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$</p>
+<p><img src="./images/reducedSVD2.png" width=400 height=400><br>
+$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SVD-of-nonsingular-matrices">SVD of nonsingular matrices<a class="anchor-link" href="#SVD-of-nonsingular-matrices">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>
@@ -13421,6 +13453,103 @@ $\Rightarrow \hat{y} = \Sigma\hat{x}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="What-is-condition-number-of-matrix">What is condition number of matrix<a class="anchor-link" href="#What-is-condition-number-of-matrix">&#182;</a></h3><ul>
+<li>A condition number for a matrix measures how sensitive the answer is to perturbations in the input data and to roundoff errors made during the solution process</li>
+<li>There will be different condition numbers, when we are solving linear equations, inverting a matrix, finding its eigenvalues, or computing the exponential </li>
+<li>A matrix can be poorly conditioned for inversion while the eigenvalue problem is well conditioned</li>
+<li>It is given by<blockquote><p>$\kappa(A) = \|A\| \|A^{-1}\|$</p>
+</blockquote>
+</li>
+<li>If a matrix is singular, then its condition number is infinite</li>
+</ul>
+<p><img src="./images/reducedSVD1.png" width=400 height=400><br>
+$\tiny{\text{Prof Michael G. Rozman - https://www.phys.uconn.edu/}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="What-does-rank-of-a-matrix-tell-us?">What does rank of a matrix tell us?<a class="anchor-link" href="#What-does-rank-of-a-matrix-tell-us?">&#182;</a></h3><ul>
+<li><p>The rank of a matrix is the maximum number of its linearly independent column vectors (or row vectors). It also can be shown that the columns (rows) of a square matrix are linearly independent only if the matrix is nonsingular. In other words, the rank of any nonsingular matrix of order n is n.</p>
+</li>
+<li><p>The rank of a matrix is the dimension of the subspace spanned by its rows. The dimension of the column space is equal to the rank. This has important consequences; for instance, if A is an m × n matrix and m ≥ n, then rank (A) ≤ n, but if m &lt; n, then rank (A) ≤ m. It follows that if a matrix is not square, either its columns or its rows must be linearly dependent.</p>
+</li>
+<li><p>For any m × n matrix, rank (A) + nullity (A) = n. Thus, if A is n × n, then for A to be nonsingular, nullity (A) must be zero.</p>
+</li>
+</ul>
+<h3 id="What-is-a-permutation-matrix?">What is a permutation matrix?<a class="anchor-link" href="#What-is-a-permutation-matrix?">&#182;</a></h3><ul>
+<li>A permutation matrix is the result of repeatedly interchanging the rows and columns of an identity matrix.</li>
+<li>Each row of a permutation matrix has one entry equal to and all the other entries equal to 0</li>
+<li>Each column of a permutation matrix has one entry equal to and all the other entries equal to 0</li>
+<li>Let P be a permutation matrix. Then, its rows are the standard basis of the space of 1 x K vectors, and its columns are the standard basis of the space of vectors K x 1</li>
+<li>A permutation matrix is full rank</li>
+<li>A permutation matrix is an orthogonal matrix, that is, its transpose is equal to its inverse $P^{-1} = P^{T}$</li>
+</ul>
 
 </div>
 </div>
@@ -13430,7 +13559,7 @@ $\Rightarrow \hat{y} = \Sigma\hat{x}$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Best-rank-k-approximation">Best rank k-approximation<a class="anchor-link" href="#Best-rank-k-approximation">&#182;</a></h3><p><img src="./images/best_rank_kappr1.png" width=400 height=400><br>
 $\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$</p>
-<p><img src="./images/best_rank_kappr2.png" width=600 height=600><br>
+<p><img src="./images/best_rank_kappr2.png" width=400 height=400><br>
 $\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$</p>
 
 </div>
