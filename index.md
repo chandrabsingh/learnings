@@ -1,4 +1,4 @@
-here are the notes and understanding of the tools i am learning 
+here are the notes and understanding of the tools i am learning during sabbatical work break
 
 ### why-how-what
 - multi-armed bandits, thompson sampling, ab testing
@@ -12,6 +12,8 @@ here are the notes and understanding of the tools i am learning
 - [dynamic programming algos](algos/dp_algos.html)
 - [system architecture](system_designs/system_architecture.html)
 - [netflix system architecture](system_designs/netflix.html)
+- [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
+- [fastai intro](pytorch_fastai/01_fastai_intro.html)
 
 ### mathematics
 - [linear algebra](maths/linear_algebra.html)
@@ -22,7 +24,7 @@ here are the notes and understanding of the tools i am learning
 ### finance
 
 ### recommenders
-- alternating least squares, collaborative filtering, pyspark
+- [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 
 ### stanford-cs221-ai  
 - [lec01 - ai principles and techniques](cs221_ai/lec01-AI-PrinciplesAndTechniques.html)  
