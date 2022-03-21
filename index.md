@@ -15,7 +15,7 @@ here are the notes and understanding of the tools i am learning during sabbatica
 - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
 - [fastai intro](pytorch_fastai/01_fastai_intro.html)
 
-### mathematics
+### mathematics-notes
 - [linear algebra](maths/linear_algebra.html)
 - statistics
 - econometrics
@@ -26,7 +26,7 @@ here are the notes and understanding of the tools i am learning during sabbatica
 ### recommenders
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 
-### stanford-cs221-ai  
+### stanford-cs221-ai-notes  
 - [lec01 - ai principles and techniques](cs221_ai/lec01-AI-PrinciplesAndTechniques.html)  
 - [lec02 - linear classifiers and stochastic gradient descent](cs221_ai/lec02-LinearClassifiers-SGD.html)  
 - [lec03 - features and neural network](cs221_ai/lec03-Features-NN.html)  
@@ -34,14 +34,14 @@ here are the notes and understanding of the tools i am learning during sabbatica
 - [lec05 - search 1 - dynamic programming and uniform cost search](cs221_ai/lec05-DynamicProg-UniformCostSearch.html)  
 - [lec06 - search 2 - a\*](cs221_ai/lec06-Search2-Astar.html)  
 
-### stanford-cs224w-machine learning for graphs  
+### stanford-cs224w-machine learning for graphs-notes  
 - [lec01 - introduction machine learning for graphs](cs224w_ml_graph/lec01_Introduction_MLforGraphs.html)  
 - [lec02 - traditional methods](cs224w_ml_graph/lec02-TraditionalMethods.html)  
 - [lec03 - node embeddings](cs224w_ml_graph/lec03-NodeEmbeddings.html)  
 - [lec04 - link analysis and page rank](cs224w_ml_graph/lec04-linkAnalysis-PageRank.html)  
 - [lec05 - message passing and node classification](cs224w_ml_graph/lec05-MessagePassing-NodeClassification.html)  
 
-### stanford-cs229-machine learning  
+### stanford-cs229-machine learning-notes
 - [lec02 - linear regression and gradient descent](cs229_ml/lec02-LinearReg-GradientDescent.html)  
 - [lec03 - locally weighted and logistic regression](cs229_ml/lec03-LocallyWeighted-LogisticRegression.html)  
 - [lec04 - perceptron and generalized linear models](cs229_ml/lec04-Perceptron-GLM.html)   
@@ -59,11 +59,11 @@ here are the notes and understanding of the tools i am learning during sabbatica
 - [lec17 - mdp and value policy iteration](cs229_ml/lec17-MDPs-ValuePolicyIteration.html)  
 - [lec18 - continous mdp and model simulation](cs229_ml/lec18-continuousMDPs-ModelSimulation.html)  
 
-### stanford-cs231n-convolutional neural network  
+### stanford-cs231n-convolutional neural network-notes  
 - [lec02 - image classification](cs231n_cnn/lec02-image-classification.html)    
 - [lec03 - loss function and optimization](cs231n_cnn/lec03-lossFun-optimization.html)  
 
-### stanford-ee364a-convex optimization 1
+### stanford-ee364a-convex optimization 1-notes
 - [lec01 - introduction](ee364a_co1/lec01-Introduction.html)
 
 ### contact
