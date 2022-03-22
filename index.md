@@ -14,6 +14,7 @@ here are the notes and understanding of the tools i am learning during sabbatica
 - [netflix system architecture](system_designs/netflix.html)
 - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
 - [fastai intro](pytorch_fastai/01_fastai_intro.html)
+- [ml glossary](algos/ml_glossary.html)
 
 ### mathematics-notes
 - [linear algebra](maths/linear_algebra.html)
