@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.390625px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13199,7 +13199,24 @@ $\tiny{\text{Wikipedia}}$</p>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Most-common">Most common<a class="anchor-link" href="#Most-common">&#182;</a></h3><h4 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression">&#182;</a></h4><p>Linear regression helps us model the relationship between two variables by fitting a linear equation to observed data. The most common method for fitting a regression line is the method of least-squares. This method calculates the best-fitting line for the observed data by minimizing the sum of the squares of the vertical deviations from each data point to the line (if a point lies on the fitted line exactly, then its vertical deviation is 0). Because the deviations are first squared, then summed, there are no cancellations between positive and negative values.</p>
-<h4 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h4><h4 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h4><p><a href="#Decision-Tree">Link</a></p>
+<p>We assume here that $y|x; \theta \sim \mathbb N(\mu, \sigma^{2})$</p>
+<p>The closed form solution for the $\theta$ that minimizes the cost function is</p>
+<blockquote>$$\theta = (X^{T}X)^{-1}X^{T}y$$
+</blockquote>
+<h4 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h4><p>The logistic regression is used to model the relationship between a set of independent and dependent variables. The dependent variables are categorical in nature, which is predicted based on the probabilities given some characteristics of class variables. The logistic regression uses sigmoid function to assign class labels.</p>
+<p>The logit function is defined as the logarithm of the log odds
+$$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
+<p>A standard logistic sigmoid function is defined as the 
+$$ \sigma(x) = \frac{1}{1+e^{-x}} $$</p>
+<p>The linear part of the model predicts the log-odds of the dataset example in the form of probability using logistic sigmoid function.</p>
+<p>It tries to learn a function that approximates P(Y|X), by assuming that P(Y|X) can be approximated as a sigmoid
+function when applied to the linear combination of input features.<br>
+$$ P(Y = 1|X = x) = \sigma(z) = \sigma(\theta^{T}x) $$,
+where $z = \theta_{0} + \sum\limits_{i=1}^{m}\theta_{i}x_{i} $</p>
+<p>Similarly,
+$$ P(Y = 0|X = x) = 1 - \sigma(\theta^{T}x) $$</p>
+<p>The gradient descent is calculated as the partial derivative of logistic cost function wrt weight, which is used to maximize the logistic cost function.</p>
+<h4 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h4><p><a href="#Decision-Tree">Link</a></p>
 <h4 id="SVM">SVM<a class="anchor-link" href="#SVM">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="kNN">kNN<a class="anchor-link" href="#kNN">&#182;</a></h4><h4 id="K-Means">K-Means<a class="anchor-link" href="#K-Means">&#182;</a></h4><h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Dimensionality-Reduction-Algorithms">Dimensionality Reduction Algorithms<a class="anchor-link" href="#Dimensionality-Reduction-Algorithms">&#182;</a></h4><h4 id="Gradient-Boosting-algorithms">Gradient Boosting algorithms<a class="anchor-link" href="#Gradient-Boosting-algorithms">&#182;</a></h4><h5 id="GBM">GBM<a class="anchor-link" href="#GBM">&#182;</a></h5><h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><h5 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h5><h5 id="CatBoost">CatBoost<a class="anchor-link" href="#CatBoost">&#182;</a></h5>
 </div>
 </div>
@@ -13216,7 +13233,9 @@ $\tiny{\text{Wikipedia}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Regression---Predict-a-value">Regression - Predict a value<a class="anchor-link" href="#Regression---Predict-a-value">&#182;</a></h3><h4 id="Boosted-Decision-Tree-Regression">Boosted Decision Tree Regression<a class="anchor-link" href="#Boosted-Decision-Tree-Regression">&#182;</a></h4><h4 id="Decision-Forest-Regression">Decision Forest Regression<a class="anchor-link" href="#Decision-Forest-Regression">&#182;</a></h4><h4 id="Fast-Forest-Quantile-Regression">Fast Forest Quantile Regression<a class="anchor-link" href="#Fast-Forest-Quantile-Regression">&#182;</a></h4><h4 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression">&#182;</a></h4><h4 id="Local-Linear-Regression">Local Linear Regression<a class="anchor-link" href="#Local-Linear-Regression">&#182;</a></h4><h4 id="Locally-Weighted-Linear-Regression">Locally Weighted Linear Regression<a class="anchor-link" href="#Locally-Weighted-Linear-Regression">&#182;</a></h4><p>Any parametric model can be made local if the fitting method accommodates observation weights.</p>
+<h3 id="Regression---Predict-a-value">Regression - Predict a value<a class="anchor-link" href="#Regression---Predict-a-value">&#182;</a></h3><h4 id="Boosted-Decision-Tree-Regression">Boosted Decision Tree Regression<a class="anchor-link" href="#Boosted-Decision-Tree-Regression">&#182;</a></h4><h4 id="Decision-Forest-Regression">Decision Forest Regression<a class="anchor-link" href="#Decision-Forest-Regression">&#182;</a></h4><h4 id="Fast-Forest-Quantile-Regression">Fast Forest Quantile Regression<a class="anchor-link" href="#Fast-Forest-Quantile-Regression">&#182;</a></h4><h4 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression">&#182;</a></h4><h4 id="Local-Linear-Regression">Local Linear Regression<a class="anchor-link" href="#Local-Linear-Regression">&#182;</a></h4><h4 id="Locally-Weighted-Linear-Regression-(LWR)">Locally Weighted Linear Regression (LWR)<a class="anchor-link" href="#Locally-Weighted-Linear-Regression-(LWR)">&#182;</a></h4><p>Any parametric model can be made local if the fitting method accommodates observation weights. This is a variant of linear regression where the weights of each training example in the cost function is defined as</p>
+<blockquote>$$ w^{(i)}(x) = \exp \left( -\frac{(x^{(i)} - x)^{2}}{2\tau^{2}} \right) $$
+</blockquote>
 <h4 id="Neural-Network-Regression">Neural Network Regression<a class="anchor-link" href="#Neural-Network-Regression">&#182;</a></h4><h4 id="Poisson-Regression">Poisson Regression<a class="anchor-link" href="#Poisson-Regression">&#182;</a></h4><h4 id="Quantile-Regression">Quantile Regression<a class="anchor-link" href="#Quantile-Regression">&#182;</a></h4>
 </div>
 </div>
@@ -13224,7 +13243,14 @@ $\tiny{\text{Wikipedia}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">Classification - Predict a class. Choose from binary (two-class) or multiclass algorithms.<a class="anchor-link" href="#Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">&#182;</a></h3><h4 id="Multiclass-Boosted-Decision-Tree">Multiclass Boosted Decision Tree<a class="anchor-link" href="#Multiclass-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Multiclass-Decision-Forest">Multiclass Decision Forest<a class="anchor-link" href="#Multiclass-Decision-Forest">&#182;</a></h4><h4 id="Multiclass-Logistic-Regression">Multiclass Logistic Regression<a class="anchor-link" href="#Multiclass-Logistic-Regression">&#182;</a></h4><h4 id="Multiclass-Neural-Network">Multiclass Neural Network<a class="anchor-link" href="#Multiclass-Neural-Network">&#182;</a></h4><h4 id="One-vs.-All-Multiclass">One vs. All Multiclass<a class="anchor-link" href="#One-vs.-All-Multiclass">&#182;</a></h4><h4 id="One-vs.-One-Multiclass">One vs. One Multiclass<a class="anchor-link" href="#One-vs.-One-Multiclass">&#182;</a></h4><h4 id="Two-Class-Averaged-Perceptron">Two-Class Averaged Perceptron<a class="anchor-link" href="#Two-Class-Averaged-Perceptron">&#182;</a></h4><h4 id="Two-Class-Boosted-Decision-Tree">Two-Class Boosted Decision Tree<a class="anchor-link" href="#Two-Class-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Two-Class-Decision-Forest">Two-Class Decision Forest<a class="anchor-link" href="#Two-Class-Decision-Forest">&#182;</a></h4><h4 id="Two-Class-Logistic-Regression">Two-Class Logistic Regression<a class="anchor-link" href="#Two-Class-Logistic-Regression">&#182;</a></h4><h4 id="Two-Class-Neural-Network">Two-Class Neural Network<a class="anchor-link" href="#Two-Class-Neural-Network">&#182;</a></h4><h4 id="Two-Class-Support-Vector-Machine">Two Class Support Vector Machine<a class="anchor-link" href="#Two-Class-Support-Vector-Machine">&#182;</a></h4>
+<h3 id="Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">Classification - Predict a class. Choose from binary (two-class) or multiclass algorithms.<a class="anchor-link" href="#Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">&#182;</a></h3><h4 id="Multiclass-Boosted-Decision-Tree">Multiclass Boosted Decision Tree<a class="anchor-link" href="#Multiclass-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Multiclass-Decision-Forest">Multiclass Decision Forest<a class="anchor-link" href="#Multiclass-Decision-Forest">&#182;</a></h4><h4 id="Multiclass-Logistic-Regression-(Softmax-Regression)">Multiclass Logistic Regression (Softmax Regression)<a class="anchor-link" href="#Multiclass-Logistic-Regression-(Softmax-Regression)">&#182;</a></h4><p>Softmax Regression is a generalization of logistic regression where we want to handle multiple classes instead of two classes $(y^{(i)} \in \{0,1\})$</p>
+<h4 id="Multiclass-Neural-Network">Multiclass Neural Network<a class="anchor-link" href="#Multiclass-Neural-Network">&#182;</a></h4><h4 id="One-vs.-All-Multiclass">One vs. All Multiclass<a class="anchor-link" href="#One-vs.-All-Multiclass">&#182;</a></h4><h4 id="One-vs.-One-Multiclass">One vs. One Multiclass<a class="anchor-link" href="#One-vs.-One-Multiclass">&#182;</a></h4><h4 id="Two-Class-Averaged-Perceptron">Two-Class Averaged Perceptron<a class="anchor-link" href="#Two-Class-Averaged-Perceptron">&#182;</a></h4><h4 id="Two-Class-Boosted-Decision-Tree">Two-Class Boosted Decision Tree<a class="anchor-link" href="#Two-Class-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Two-Class-Decision-Forest">Two-Class Decision Forest<a class="anchor-link" href="#Two-Class-Decision-Forest">&#182;</a></h4><h4 id="Two-Class-Logistic-Regression">Two-Class Logistic Regression<a class="anchor-link" href="#Two-Class-Logistic-Regression">&#182;</a></h4><p><a href="#Logistic-Regression">Logistic Regression</a></p>
+<p>The hypothesis looks like</p>
+$$ h_{\theta}(x) = \frac{1}{1+e^{-\theta^{T}x}}$$<p>
+and the model parameters $\theta$ are trained to minimize the cost function
+$$ J(\theta) = - \left [ \sum\limits_{i=0}^{n}y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})] \right]  $$ 
+$$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)}) \log[1- h_{\theta}(x^{(i)})) ]\right] $$</p>
+<h4 id="Two-Class-Neural-Network">Two-Class Neural Network<a class="anchor-link" href="#Two-Class-Neural-Network">&#182;</a></h4><h4 id="Two-Class-Support-Vector-Machine">Two Class Support Vector Machine<a class="anchor-link" href="#Two-Class-Support-Vector-Machine">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13360,7 +13386,7 @@ $\tiny{\text{Wikipedia}}$</p>
 </ul>
 </blockquote>
 <h4 id="Non-linear">Non-linear<a class="anchor-link" href="#Non-linear">&#182;</a></h4><p>The nonlinear problem is usually solved by iterative refinement; at each iteration the system is approximated by a linear one, and thus the core calculation is similar in both cases.</p>
-<h4 id="Ordinary">Ordinary<a class="anchor-link" href="#Ordinary">&#182;</a></h4><h4 id="Weighted">Weighted<a class="anchor-link" href="#Weighted">&#182;</a></h4><h4 id="Generalized">Generalized<a class="anchor-link" href="#Generalized">&#182;</a></h4><h4 id="Partial">Partial<a class="anchor-link" href="#Partial">&#182;</a></h4><h4 id="Total">Total<a class="anchor-link" href="#Total">&#182;</a></h4><h4 id="Non-negative">Non-negative<a class="anchor-link" href="#Non-negative">&#182;</a></h4><h4 id="Ridge-regression">Ridge regression<a class="anchor-link" href="#Ridge-regression">&#182;</a></h4><h4 id="Regularized">Regularized<a class="anchor-link" href="#Regularized">&#182;</a></h4><h4 id="Least-absolute-deviations">Least absolute deviations<a class="anchor-link" href="#Least-absolute-deviations">&#182;</a></h4><h4 id="Iteratively-reweighted">Iteratively reweighted<a class="anchor-link" href="#Iteratively-reweighted">&#182;</a></h4><h4 id="Bayesian">Bayesian<a class="anchor-link" href="#Bayesian">&#182;</a></h4><h4 id="Bayesian-multivariate">Bayesian multivariate<a class="anchor-link" href="#Bayesian-multivariate">&#182;</a></h4><h4 id="Bayes-Estimator">Bayes Estimator<a class="anchor-link" href="#Bayes-Estimator">&#182;</a></h4>
+<h4 id="Ordinary">Ordinary<a class="anchor-link" href="#Ordinary">&#182;</a></h4><h4 id="Weighted">Weighted<a class="anchor-link" href="#Weighted">&#182;</a></h4><h4 id="Generalized">Generalized<a class="anchor-link" href="#Generalized">&#182;</a></h4><h4 id="Partial">Partial<a class="anchor-link" href="#Partial">&#182;</a></h4><h4 id="Total">Total<a class="anchor-link" href="#Total">&#182;</a></h4><h4 id="Non-negative">Non-negative<a class="anchor-link" href="#Non-negative">&#182;</a></h4><h4 id="Ridge-regression">Ridge regression<a class="anchor-link" href="#Ridge-regression">&#182;</a></h4><h4 id="Regularized">Regularized<a class="anchor-link" href="#Regularized">&#182;</a></h4><h4 id="Least-absolute-deviations">Least absolute deviations<a class="anchor-link" href="#Least-absolute-deviations">&#182;</a></h4><h4 id="Iteratively-reweighted">Iteratively reweighted<a class="anchor-link" href="#Iteratively-reweighted">&#182;</a></h4><h4 id="Bayesian">Bayesian<a class="anchor-link" href="#Bayesian">&#182;</a></h4><h4 id="Bayesian-multivariate">Bayesian multivariate<a class="anchor-link" href="#Bayesian-multivariate">&#182;</a></h4><h4 id="Bayes-Estimator">Bayes Estimator<a class="anchor-link" href="#Bayes-Estimator">&#182;</a></h4><h4 id="Probit">Probit<a class="anchor-link" href="#Probit">&#182;</a></h4><h4 id="Logit">Logit<a class="anchor-link" href="#Logit">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13419,6 +13445,20 @@ $\tiny{\text{Wikipedia}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mathematical-functions">Mathematical functions<a class="anchor-link" href="#Mathematical-functions">&#182;</a></h3><h4 id="Logistic/Sigmoid-function">Logistic/Sigmoid function<a class="anchor-link" href="#Logistic/Sigmoid-function">&#182;</a></h4>$$ f(x) = \frac{L}{1+e^{-k(x-x_{0})}} $$<blockquote><p>L - the curve’s maximum value<br>
+$x_{0}$ - the sigmoid’s midpoint<br>
+k - the logistic growth rate or steepness of curve</p>
+</blockquote>
+<h4 id="Standard-logistic-sigmoid-function">Standard logistic sigmoid function<a class="anchor-link" href="#Standard-logistic-sigmoid-function">&#182;</a></h4>$$ \sigma(x) = \frac{1}{1+e^{-x}} $$<blockquote><p>L = 1 - the curve’s maximum value<br>
+$x_{0}$ = 0 - the sigmoid’s midpoint<br>
+k = 1 - the logistic growth rate or steepness of curve</p>
+</blockquote>
+<h4 id="Logit-function">Logit function<a class="anchor-link" href="#Logit-function">&#182;</a></h4><p>The logit function is the logarithm of the odds ratio (log-odds)
+$$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
+<h4 id="Probit-function">Probit function<a class="anchor-link" href="#Probit-function">&#182;</a></h4><h4 id="Softplus-function">Softplus function<a class="anchor-link" href="#Softplus-function">&#182;</a></h4><h4 id="Weighted-sum">Weighted sum<a class="anchor-link" href="#Weighted-sum">&#182;</a></h4>$$ \theta^{T}x = \sum\limits_{i=1}^{n}\theta_{i}x_{i} = \theta_{1}x_{1} + \theta_{2}x_{2} + ... + \theta_{n}x_{n} $$<h4 id="Likelihood-function">Likelihood function<a class="anchor-link" href="#Likelihood-function">&#182;</a></h4><p>The likelihood function defines the joint probability of observed data as a function of parameters of the model
+$$ LL(\theta) = \sum\limits_{i=0}^{n}y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})]  $$</p>
+<h4 id="Gradient-of-log-likelihood-function">Gradient of log likelihood function<a class="anchor-link" href="#Gradient-of-log-likelihood-function">&#182;</a></h4><p>It tries to choose values of $\theta$ that maximizes the function
+$$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[ y^{(i)} - \sigma(\theta^{T}x^{(i)}) \right]x_{j}^{(i)} $$</p>
 
 </div>
 </div>
