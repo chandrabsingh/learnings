@@ -14,6 +14,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [graph algos](algos/graph_algos.html)
   - [dynamic programming algos](algos/dp_algos.html)
   - [system architecture](system_designs/system_architecture.html)
+  - [design patterns](system_designs/design_patterns.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
 
