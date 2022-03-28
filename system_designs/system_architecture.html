@@ -13600,6 +13600,7 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 </ul>
 </li>
 </ul>
+<p>The scalability of application should be tested using load and stress tests by simulating concurrent traffic</p>
 <h3 id="Scale-trade-offs">Scale trade-offs<a class="anchor-link" href="#Scale-trade-offs">&#182;</a></h3><h3 id="Latency">Latency<a class="anchor-link" href="#Latency">&#182;</a></h3><ul>
 <li>Network latency</li>
 <li>Application latency<ul>
@@ -13614,21 +13615,68 @@ $\tiny{\text{DZone - Cassandra-Write-Path}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cost-considerations">Cost considerations<a class="anchor-link" href="#Cost-considerations">&#182;</a></h3>
+<h3 id="Cost-considerations">Cost considerations<a class="anchor-link" href="#Cost-considerations">&#182;</a></h3><h3 id="High-availability">High availability<a class="anchor-link" href="#High-availability">&#182;</a></h3><p>The ability of system to stay online despite failures at infrastructural level in real-time. The hosting time SLA of cloud platforms should be 99.99999% available. The distributed system must be designed to fault-tolerant and redundant.</p>
+<p>To achieve high availability at application level, the entire service is architecturally broken down into granular loosely coupled services called <strong><em>microservices</em></strong>.</p>
+<h4 id="Redundancy">Redundancy<a class="anchor-link" href="#Redundancy">&#182;</a></h4><p>Redundancy is the process of duplicating the server instances and keeping them on standby incase any of the active server instances goes down. It is the fail-safe backup mechanism.</p>
+<p>This helps:</p>
+<ul>
+<li>eliminate single point failures with monolithic architecture</li>
+<li>facilitate fault-tolerant microservices architecture</li>
+</ul>
+<p>Tools like <strong><em>Kubernetes</em></strong> are intelligent enough to add or remove instances on the fly as per requirement, thereby reducing human error.</p>
+<h4 id="Replication">Replication<a class="anchor-link" href="#Replication">&#182;</a></h4><ul>
+<li>running a <strong><em>similar/duplicate node</em></strong>, so that when a few nodes go down, other nodes bear the load. Its a <strong><em>fail-safe backup mechanism</em></strong>.</li>
+</ul>
+<h4 id="High-available-cluster">High available cluster<a class="anchor-link" href="#High-available-cluster">&#182;</a></h4><ul>
+<li>Fail-over cluster, contains a set of nodes running in conjunction with each other that ensures high availability of service</li>
+</ul>
+<p>Tools like <strong><em>Zookeeper</em></strong>, monitor the state of cluster network with <strong><em>heartbeat network</em></strong> and maintain shared distributed memory (to maintain a common state across several nodes in a cluster). It uses node coordinator service to maintain nodes in its cluster.</p>
+<p>Multiple HA clusters run together in one geographical zone to ensure minimum downtime and uninterrupted service.</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Load-balancer">Load balancer<a class="anchor-link" href="#Load-balancer">&#182;</a></h3>
+<h3 id="Load-balancing">Load balancing<a class="anchor-link" href="#Load-balancing">&#182;</a></h3><p>Load balancing enables services to scale well when the traffic load increases. The component that facilitates this are called <em><strong>load balancers</strong></em>. It distributes load across servers in cluster using different algorithms, thereby safe-guarding overloads and spikes in latency.</p>
+<p>Load balancers are <em><strong>single point of contact for client requests</strong></em>. They can be setup to <strong><em>manage traffic</em></strong> at application component level, database component level, message queue level or at backend server level. They regularly perform <strong><em>health checks</em></strong> on the machines in the cluster. They keep track of <em><strong>in service</strong></em> and <strong><em>out of service</em></strong> instances.</p>
+<h4 id="Load-balancers-methods">Load balancers methods<a class="anchor-link" href="#Load-balancers-methods">&#182;</a></h4><ul>
+<li>DNS load balancing</li>
+<li>Hardware based load balancing<ul>
+<li>expensive</li>
+<li>high performance</li>
+</ul>
+</li>
+<li>Software based load balancing<ul>
+<li>cost effective</li>
+<li>flexible</li>
+<li>advanced compared to DNS load balancers</li>
+<li>continually perform health checks</li>
+<li><strong><em>HAProxy</em></strong> one of leading software load balancers</li>
+</ul>
+</li>
+</ul>
+<h4 id="Load-balancing-algorithms">Load balancing algorithms<a class="anchor-link" href="#Load-balancing-algorithms">&#182;</a></h4><ul>
+<li>Round Robin</li>
+<li>Weighted Round Robin</li>
+<li>Least Connection (dynamic)</li>
+<li>Weighted Least Connection</li>
+<li>Resource Based (Adaptive)</li>
+<li>Weighted Response Time</li>
+<li>Source IP Hash</li>
+<li>URL Hash</li>
+<li>Random</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fault-tolerance">Fault tolerance<a class="anchor-link" href="#Fault-tolerance">&#182;</a></h3>
+<h3 id="Fault-tolerance">Fault tolerance<a class="anchor-link" href="#Fault-tolerance">&#182;</a></h3><p>Fault tolerance is the system's ability to stay up and running despite taking hits and faults. The instances/nodes may go offline/down but they come back up, which is called <strong><em>fail soft</em></strong>.</p>
+
 </div>
 </div>
 </div>
@@ -14076,6 +14124,25 @@ $\tiny{\text{https://ably.com/}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bottlenecks">Bottlenecks<a class="anchor-link" href="#Bottlenecks">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="CDN---Content-delivery-network">CDN - Content delivery network<a class="anchor-link" href="#CDN---Content-delivery-network">&#182;</a></h3><p>A content delivery network (CDN) refers to a geographically distributed group of servers which work together to provide fast delivery of Internet content.</p>
+<p>A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos. The popularity of CDN services continues to grow, and today the majority of web traffic is served through CDNs, including traffic from major sites like Facebook, Netflix, and Amazon.</p>
+<p>It helps cache content at the network edge, which improves website performance. Many websites struggle to have their performance needs met by traditional hosting services, which is why they opt for CDNs.</p>
+<p>Benfits of using a CDN:</p>
+<ul>
+<li>Improving website load times</li>
+<li>Reducing bandwidth costs</li>
+<li>Increasing content availability and redundancy</li>
+<li>Improving website security</li>
+</ul>
+<p><img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/540CpDkqSDg6QAPi5nO1AP/b44a3edb5abc4e115ddab9b4d9bf7a32/Learning-How-does-a-CDN-work.svg" alt="How does CDN work"></p>
+<p>$\tiny{\text{cloudflare.com}}$</p>
 
 </div>
 </div>
@@ -14083,6 +14150,9 @@ $\tiny{\text{https://ably.com/}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Point-of-Presence(PoP)">Point of Presence(PoP)<a class="anchor-link" href="#Point-of-Presence(PoP)">&#182;</a></h3><p>A point of presence (PoP) is a demarcation point, access point, or physical location at which two or more networks or communication devices share a connection.</p>
+<p>The routers, switches, servers, and other devices necessary for traffic to cross over networks are all present at PoPs. Internet service providers and edge networks like StackPath typically have multiple points of presence located near large Internet exchange points (IXPs) at which they have peering agreements. The proximity of points of presence and Internet exchange points is one very important factor in how quickly traffic is able to traverse the Internet.</p>
+<p>$\tiny{\text{https://blog.stackpath.com/}}$</p>
 
 </div>
 </div>
@@ -14090,6 +14160,16 @@ $\tiny{\text{https://ably.com/}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Domain-Name-Service-(DNS)">Domain Name Service (DNS)<a class="anchor-link" href="#Domain-Name-Service-(DNS)">&#182;</a></h3><p>This query service maps long IP addresses to domain names such as google.com. There are four key components:</p>
+<ul>
+<li>DNS Resolver </li>
+<li>Root nameserver  </li>
+<li>Top level domain nameserver</li>
+<li>Authorative nameserver</li>
+</ul>
+<p>The authorative server sends list of IP addresses in a round-robin fashion, enabling to use other IP addresses if the client doesn't respond within a time limit.</p>
+<p><img src="https://foxutech.com/wp-content/uploads/2017/09/How-DNS-works.png" alt="How DNS works"></p>
+<p>$\tiny{\text{https://foxutech.com}}$</p>
 
 </div>
 </div>
@@ -14097,6 +14177,174 @@ $\tiny{\text{https://ably.com/}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="System-Design-Problems">System Design Problems<a class="anchor-link" href="#System-Design-Problems">&#182;</a></h3><ul>
+<li>1) Requirements clarifications<ul>
+<li>they are open-ended questions</li>
+<li>they dont have one correct answer</li>
+<li>define end goals of system</li>
+<li>clarify which part of system to focus on</li>
+</ul>
+</li>
+<li>2) Back-of-the-envelope estimation<ul>
+<li>estimate scale of system to design</li>
+<li>how much storage is needed</li>
+<li>what type of storage is required, photos, videos, tweets</li>
+<li>what network bandwidth is expected</li>
+</ul>
+</li>
+<li>3) System interface definition<ul>
+<li>define the main APIs</li>
+<li>define the main contracts expected within the system</li>
+</ul>
+</li>
+<li>4) Defining data model<ul>
+<li>how data flows between components</li>
+<li>define different aspects of data management for example storage</li>
+<li>what type of database to choose - relational or no-sql</li>
+<li>how will storage of photos and videos be done</li>
+</ul>
+</li>
+<li>5) High-level design<ul>
+<li>draw block diagrams, <ul>
+<li>as how many application server, </li>
+<li>how will load balancers be designed, </li>
+<li>what sort of database is required, </li>
+<li>how many read-writes are needed, </li>
+<li>what sort of distributed file storage system is required</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6) Detailed design<ul>
+<li>dig deeper into couple of major components</li>
+<li>which layer would we need caching</li>
+<li>how will we partition the data</li>
+<li>what time will have major tweets and how to optimize </li>
+<li>which components need load balancing</li>
+</ul>
+</li>
+<li>7) Identifying and resolving bottlenecks<ul>
+<li>which components may cause bottlenecks</li>
+<li>how to create redundant serives/applications to serve well</li>
+<li>how to monitor performance of services</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Design-URL-shortening-system-like-bit.ly-or-tinyurl">Design URL shortening system like bit.ly or tinyurl<a class="anchor-link" href="#Design-URL-shortening-system-like-bit.ly-or-tinyurl">&#182;</a></h4><ul>
+<li>What is the need?<ul>
+<li>shorter links</li>
+<li>saves space</li>
+<li>less likely to mistype</li>
+</ul>
+</li>
+<li>What are the requirements of designing such system?<ul>
+<li>Functional requirements<ul>
+<li>shorter link or aliases</li>
+<li>service must redirects them to original link</li>
+<li>users should have a choice of picking up shorter name link</li>
+<li>should expire after standard time span</li>
+</ul>
+</li>
+<li>Non-Functional requirements<ul>
+<li>minimal or no downtime</li>
+<li>url redirection must happen realtime</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="How-hotstar-scaled-10.3-million-concurrent-users">How hotstar scaled 10.3 million concurrent users<a class="anchor-link" href="#How-hotstar-scaled-10.3-million-concurrent-users">&#182;</a></h4><p><a href="https://www.scaleyourapp.com/how-hotstar-scaled-with-10-3-million-concurrent-users-an-architectural-insight/">https://www.scaleyourapp.com/how-hotstar-scaled-with-10-3-million-concurrent-users-an-architectural-insight/</a></p>
+<h4 id="How-facebook-support-global-events">How facebook support global events<a class="anchor-link" href="#How-facebook-support-global-events">&#182;</a></h4><p><a href="https://engineering.fb.com/2018/02/12/production-engineering/how-production-engineers-support-global-events-on-facebook/">https://engineering.fb.com/2018/02/12/production-engineering/how-production-engineers-support-global-events-on-facebook/</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Application-server-features">Application server features<a class="anchor-link" href="#Application-server-features">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Web-server-features">Web server features<a class="anchor-link" href="#Web-server-features">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="API">API<a class="anchor-link" href="#API">&#182;</a></h3><p>Application Protocol Interface</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Proxy-Server">Proxy Server<a class="anchor-link" href="#Proxy-Server">&#182;</a></h3><ul>
+<li>Proxy acts as a firewall</li>
+<li>Multiple clients can talk to the same proxy and can interact on our behalf with the outside world </li>
+<li>Acts as a security layer and protects against phishing and other malwares</li>
+<li>Helps in caching by saving static content</li>
+<li>helps in encrypting/decrypting sensitive client data</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reverse-Proxy-Server">Reverse Proxy Server<a class="anchor-link" href="#Reverse-Proxy-Server">&#182;</a></h3><ul>
+<li>instead of protecting the client, it protects the server</li>
+<li>outside world can interact with reverse proxy server instead of interacting with server directly</li>
+<li>works as load balancing</li>
+<li>helps in caching</li>
+<li>helps in compressing the data, thereby improving the bandwidth and performance of network</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="OAuth-2.0">OAuth 2.0<a class="anchor-link" href="#OAuth-2.0">&#182;</a></h3><p>When we launch Spotify to listen to some music, we may choose into login using Facebook. Spotify logins using Facebook API.</p>
+<ul>
+<li>We may think, Spotify uses Facebook username and password to login. Wrong. <strong><em>It does not</em></strong> </li>
+<li>Passwords are never passed from server to server in an OAuth 2.0 framework</li>
+</ul>
+<p>In the example below, Sarah wants to check her balance in Memorial bank account. She logs into MyBucks application to check her checkings bank account in MyBucks dashboard.</p>
+<ul>
+<li>MyBucks makes an <em><strong>authorization request</strong></em> to memorial bank authorization server</li>
+<li>Memorial bank asks Sarah to <em><strong>authorize</strong></em> MyBucks to access her account balances </li>
+<li>Sarah's authorization is sent back to Memorial Bank <strong><em>authorization server</em></strong> with <em><strong>authorization grant and authorization code</strong></em></li>
+<li>Authorization Server does not hold any of Sarah's account details. It is with <em><strong>Resource Server</strong></em>, so authorization code is used for interactions</li>
+<li>Authorization Server then sends MyBucks application with <em><strong>access token</strong></em> to get Sarah's checking details</li>
+<li>The access token has details of what <strong><em>authorization Sarah provided</em></strong>. In this case its her account balances only</li>
+<li>MyBucks sends <em><strong>access token</strong></em> to Resource Server, which validates the token</li>
+<li>Resource server sends the <strong><em>protected resource</em></strong></li>
+</ul>
+<p><img src="./images/OAuth2.png" alt="OAuth2"></p>
+<p>$\tiny{\text{YouTube - InterSystems Learning Services}}$</p>
 
 </div>
 </div>

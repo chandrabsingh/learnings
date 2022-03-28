@@ -24,6 +24,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - statistics
   - econometrics
   - stochastic calculus
+  - probability
 
 - #### finance
 
