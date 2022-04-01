@@ -13117,14 +13117,27 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/ml_mind_map.png" alt="ML Mind Map"></p>
+<p>$\tiny{\text{Jason Brownlee}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Machine-Learning">Machine Learning<a class="anchor-link" href="#Machine-Learning">&#182;</a></h3><h4 id="Supervised-Learning">Supervised Learning<a class="anchor-link" href="#Supervised-Learning">&#182;</a></h4><p>Supervised Learning is a machine learning approach that uses labeled data to train algorithms into classifying or predicting outcomes accurately.</p>
 <blockquote><ul>
 <li>Types of Supervised Learning algorithms</li>
 </ul>
 </blockquote>
-<h4 id="Unsupervised-Learning">Unsupervised Learning<a class="anchor-link" href="#Unsupervised-Learning">&#182;</a></h4><p>Unsupervised Learning is a machine learning approach that uses unlabeled data to analyze and cluster datasets.</p>
+<h4 id="Unsupervised-Learning">Unsupervised Learning<a class="anchor-link" href="#Unsupervised-Learning">&#182;</a></h4><p>Unsupervised Learning is a machine learning approach that uses unlabeled data to analyze and cluster datasets. It makes inference without knowing the label or outcomes.</p>
 <blockquote><ul>
-<li>Types of Unsupervised Learning algorithms</li>
+<li>Types of Unsupervised Learning algorithms<ul>
+<li>Clustering</li>
+<li>Association</li>
+</ul>
+</li>
 </ul>
 </blockquote>
 <h4 id="Reinforcement-Learning">Reinforcement Learning<a class="anchor-link" href="#Reinforcement-Learning">&#182;</a></h4><p>Reinforcement learning is a machine learning training method based on rewarding desired behaviors and punishing the undesirable ones, thereby learning about the environment by trial and error</p>
@@ -13216,8 +13229,144 @@ where $z = \theta_{0} + \sum\limits_{i=1}^{m}\theta_{i}x_{i} $</p>
 <p>Similarly,
 $$ P(Y = 0|X = x) = 1 - \sigma(\theta^{T}x) $$</p>
 <p>The gradient descent is calculated as the partial derivative of logistic cost function wrt weight, which is used to maximize the logistic cost function.</p>
-<h4 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h4><p><a href="#Decision-Tree">Link</a></p>
-<h4 id="SVM">SVM<a class="anchor-link" href="#SVM">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="kNN">kNN<a class="anchor-link" href="#kNN">&#182;</a></h4><h4 id="K-Means">K-Means<a class="anchor-link" href="#K-Means">&#182;</a></h4><h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Dimensionality-Reduction-Algorithms">Dimensionality Reduction Algorithms<a class="anchor-link" href="#Dimensionality-Reduction-Algorithms">&#182;</a></h4><h4 id="Gradient-Boosting-algorithms">Gradient Boosting algorithms<a class="anchor-link" href="#Gradient-Boosting-algorithms">&#182;</a></h4><h5 id="GBM">GBM<a class="anchor-link" href="#GBM">&#182;</a></h5><h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><h5 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h5><h5 id="CatBoost">CatBoost<a class="anchor-link" href="#CatBoost">&#182;</a></h5>
+<h4 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h4><p><a href="#Decision-Tree">Link (above)</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="SVM">SVM<a class="anchor-link" href="#SVM">&#182;</a></h4><h5 id="Links">Links<a class="anchor-link" href="#Links">&#182;</a></h5><ul>
+<li><a href="https://stats.stackexchange.com/questions/23391/how-does-a-support-vector-machine-svm-work">StackOverflow - How does SVM work</a>
+-<a href="https://static1.squarespace.com/static/58851af9ebbd1a30e98fb283/t/58902fbae4fcb5398aeb7505/1485844411772/SVM+Explained.pdf">SVM Explained - Tristan Fletcher</a></li>
+<li><a href="https://www.baeldung.com/cs/svm-hard-margin-vs-soft-margin">Hard vs Soft margin</a></li>
+<li><a href="https://datamites.com/blog/support-vector-machine-algorithm-svm-understanding-kernel-trick/#:~:text=A%20Kernel%20Trick%20is%20a,Lagrangian%20formula%20using%20Lagrangian%20multipliers.%20(">Kernel trick</a></li>
+</ul>
+<h5 id="Explanation">Explanation<a class="anchor-link" href="#Explanation">&#182;</a></h5><p>SVM should maximize the distance between the two decision boundaries. Mathematically, this means we want to <strong><em>maximize the distance between the hyperplane</em></strong> defined by $w^{T}x+b=−1$ and the hyperplane defined by $w^{T}x+b = 1$. This distance is equal to $\frac{2}{\|w\|}$. This means we want to solve $\max\limits_{w}\frac{2}{\|w\|}$. Equivalently we want $\min\limits_{w}\frac{\|w\|}{2}$</p>
+<p>SVM should also classify all $x^{(i)}$, which means $y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1)$, which gives us the <strong><em>quadratic optimization problem</em></strong></p>
+<blockquote>$$\min\limits_{w,b}\frac{\|w\|^{2}}{2}$$<p><br>
+s.t., $y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1)$ for all $i \in \{1,..N\}$</p>
+</blockquote>
+<p>the above is the <strong><em>hard margin SVM</em></strong>, which is possible iff data is <strong><em>linearly separable</em></strong></p>
+<p>This optimization is called the <strong><em>primal problem</em></strong> and is guaranteed to have a global minimum. We can solve this by introducing <strong><em>Lagrange multipliers</em></strong> and converting it to the <strong><em>dual problem</em></strong></p>
+<p>If we allow misclassifications to happen, we call it <strong><em>soft margin SVM</em></strong> optimization problem. The loss function that we minimize is the hinge loss</p>
+<blockquote><p>$\max\{0, 1-y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1)\}$</p>
+</blockquote>
+<p>The loss of a misclassified point is called a <em><strong>slack variable</strong></em> and is added to the primal problem of hard margin SVM. So the primal problem for soft margin becomes</p>
+<blockquote>$$\min\limits_{w,b}\frac{\|w\|^{2}}{2} + C\sum\limits_{i=0}^{n}\zeta^{(i)}$$<p><br>
+s.t., $y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1 - \zeta^{(i)})$ for all $i \in \{1,..N\}$<br>
+and $\zeta^{(i)} \gt 0$ for all $i \in \{1,..N\}$</p>
+</blockquote>
+<h5 id="Questionnaires">Questionnaires<a class="anchor-link" href="#Questionnaires">&#182;</a></h5><ul>
+<li>What are the goals of SVM?<ul>
+<li>maximizes the margin around separating hyperplane</li>
+<li>classify the class labels as {-1,1}</li>
+</ul>
+</li>
+<li>What does linearly separable means?<ul>
+<li>Linearly separable data means if graphed in two dimensions, it can be separated by straight line.</li>
+</ul>
+</li>
+<li>What is the difference between hard margin SVM and soft margin SVM?<ul>
+<li>if the data is linearly separable, we use hard margin SVM</li>
+<li>if it is impossible to find linear classifier, we allow misclassification of data points, and use appropriate soft margin SVM</li>
+<li>other use case for using soft margin SVM will be <ul>
+<li>if data is linearly separable but the margin is small and the model either tends to overfit or is too sensitive to outliers, in that case, we opt for soft margin SVM and get larger margin, thereby generalizing the model better</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>What is functional margin? </li>
+<li>What is geometric margin?</li>
+<li>What is a kernel?<ul>
+<li>A kernel is a method of placing a two dimensional plane into a higher dimensional space, so that it is curved in the higher dimensional space. (In simple terms, a kernel is a function from the low dimensional space into a higher dimensional space.)</li>
+</ul>
+</li>
+<li>What is kernel trick?<ul>
+<li>SVM works better in two dimensional space which is linearly separable, as for non-linear data SVM finds it difficult to classify. So solve this kernel trick is used. A kernel trick is a method of projecting non-linear data onto higher dimensional space so as to easily classify linearly with a hyperplane. This is achieved using Lagrnagian formula/Lagrnagian multipliers.   </li>
+</ul>
+</li>
+<li>What are the different types of kernel?<ul>
+<li>Fisher Kernel: It is a kernel function that analyses and measures the similarity of two objects. This is done on the basis of sets of measurements for each object and a statistical model.</li>
+<li>Graph Kernel: It is a kernel function that computes an inner product on graphs.</li>
+<li>Polynomial Kernel: It is a kernel commonly used with support vector machines (SVMs). It is also used with other kernelised models that symbolizes the similarity of vectors in a feature space over polynomials of the original variables, allowing learning of non-linear models.</li>
+<li>Radial Basis Function Kernel (RBF): It is a real-valued kernel function whose value depends only on the distance from the origin, or distance from some other point called a centre.</li>
+</ul>
+</li>
+<li>What is support vector mean?<ul>
+<li>support vectors are the data points that lie farthest to the decision surface or hyperplane. They are the data points which are most difficult to classify</li>
+</ul>
+</li>
+<li>Is SVM applied for classification or regression?<ul>
+<li>basically it is a non-probabilistic binary linear classification method</li>
+<li>but different flavors of it SVM exist in a probabilistic classification setting</li>
+<li>applying the kernel trick, we can have non-linear classification</li>
+</ul>
+</li>
+<li>Is SVM a binary method only</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="k-Nearest-Neighbor-(kNN)">k-Nearest Neighbor (kNN)<a class="anchor-link" href="#k-Nearest-Neighbor-(kNN)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="K-Means">K-Means<a class="anchor-link" href="#K-Means">&#182;</a></h4><p>A cluster is a collection of data points aggregated based on its similarities. A centroid is the imaginary location representing the center of the cluster. In the k-means algorithm, k refers to the number of centroids which is defined initially. Each datapoint is allocated to a cluster iteratively based on optimizing the in-cluster variances (squared Euclidean distances).</p>
+<h5 id="Algorithm">Algorithm<a class="anchor-link" href="#Algorithm">&#182;</a></h5><ul>
+<li>Data has no labels : $(x^{(1)}, x^{(2)}, ..., x^{(m)})$</li>
+<li>Initialize cluster centroid $\mu_{1}, \mu_{2}, ..., \mu_{k} \in \mathbb R^{n}$ - by randomly pick k example out of your training set and set cluster centroids to k-randomly chosen examples</li>
+<li><p>Repeat until convergence</p>
+<ul>
+<li>a. Set $c^{(i)} := \text{arg }\min\limits_{j} \Vert (x^{(i)} - \mu_{j})\Vert_{2}$  ("color the points")<ul>
+<li>Set $c^{(i)}$ equal to either j = 1 or 2 depending on whether that example $x^{(i)}$ is closer to cluster centroid 1 or 2</li>
+<li>Notation:<ul>
+<li>L1 norm: $\Vert x \Vert_{1}$</li>
+<li>L2 norm: $\Vert x \Vert$ or $\|x\|^{2}$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>b. For j =1,2,..,k  ("move the cluster centroids")<blockquote><p>$\mu_{j} := \frac{\sum\limits_{i=1}^{m} \mathbb 1 \{c^{(i)} = j\}x^{(i)}} {\sum\limits_{i=1}^{m} \mathbb 1 \{c^{(i)} = j\}}$</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>This algorithm is not guaranteed to converge, as it is a non-convex function</p>
+</li>
+<li>Cost/Distortion function<blockquote><p>$J(c,\mu) = \min\sum\limits_{i=1}^{m}\|x^{(i)} - \mu_{c^{(i)}}\|^{2}$</p>
+</blockquote>
+</li>
+<li>how do you choose k?<ul>
+<li>choose manually, depending on what is the purpose of this algorithm</li>
+<li>if it is meant for market segmentation for 4 categories, it makes sense to have 4 cluster rather than more</li>
+<li>some formula available</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Dimensionality-Reduction-Algorithms">Dimensionality Reduction Algorithms<a class="anchor-link" href="#Dimensionality-Reduction-Algorithms">&#182;</a></h4><h4 id="Gradient-Boosting-algorithms">Gradient Boosting algorithms<a class="anchor-link" href="#Gradient-Boosting-algorithms">&#182;</a></h4><h5 id="GBM">GBM<a class="anchor-link" href="#GBM">&#182;</a></h5><h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><h5 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h5><h5 id="CatBoost">CatBoost<a class="anchor-link" href="#CatBoost">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -13264,7 +13413,7 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h3><h4 id="BIRCH">BIRCH<a class="anchor-link" href="#BIRCH">&#182;</a></h4><h4 id="CURE">CURE<a class="anchor-link" href="#CURE">&#182;</a></h4><h4 id="Hierarchical">Hierarchical<a class="anchor-link" href="#Hierarchical">&#182;</a></h4><h4 id="k-means">k-means<a class="anchor-link" href="#k-means">&#182;</a></h4><h4 id="Expectation&#8211;maximization-(EM)">Expectation&#8211;maximization (EM)<a class="anchor-link" href="#Expectation&#8211;maximization-(EM)">&#182;</a></h4><h4 id="DBSCAN">DBSCAN<a class="anchor-link" href="#DBSCAN">&#182;</a></h4><h4 id="OPTICS">OPTICS<a class="anchor-link" href="#OPTICS">&#182;</a></h4><h4 id="Mean-shift">Mean shift<a class="anchor-link" href="#Mean-shift">&#182;</a></h4>
+<h3 id="Unsupervised-learning">Unsupervised learning<a class="anchor-link" href="#Unsupervised-learning">&#182;</a></h3><h4 id="K-means-clustering">K-means clustering<a class="anchor-link" href="#K-means-clustering">&#182;</a></h4><h4 id="KNN-(k-nearest-neighbors)">KNN (k-nearest neighbors)<a class="anchor-link" href="#KNN-(k-nearest-neighbors)">&#182;</a></h4><h4 id="Hierarchal-clustering">Hierarchal clustering<a class="anchor-link" href="#Hierarchal-clustering">&#182;</a></h4><h4 id="Anomaly-detection">Anomaly detection<a class="anchor-link" href="#Anomaly-detection">&#182;</a></h4><h4 id="Neural-Networks">Neural Networks<a class="anchor-link" href="#Neural-Networks">&#182;</a></h4><h4 id="Principle-Component-Analysis">Principle Component Analysis<a class="anchor-link" href="#Principle-Component-Analysis">&#182;</a></h4><h4 id="Independent-Component-Analysis">Independent Component Analysis<a class="anchor-link" href="#Independent-Component-Analysis">&#182;</a></h4><h4 id="Apriori-algorithm">Apriori algorithm<a class="anchor-link" href="#Apriori-algorithm">&#182;</a></h4><h4 id="Singular-value-decomposition">Singular value decomposition<a class="anchor-link" href="#Singular-value-decomposition">&#182;</a></h4><h3 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h3><h4 id="BIRCH">BIRCH<a class="anchor-link" href="#BIRCH">&#182;</a></h4><h4 id="CURE">CURE<a class="anchor-link" href="#CURE">&#182;</a></h4><h4 id="Hierarchical">Hierarchical<a class="anchor-link" href="#Hierarchical">&#182;</a></h4><h4 id="k-means">k-means<a class="anchor-link" href="#k-means">&#182;</a></h4><h4 id="Expectation&#8211;maximization-(EM)">Expectation&#8211;maximization (EM)<a class="anchor-link" href="#Expectation&#8211;maximization-(EM)">&#182;</a></h4><h4 id="DBSCAN">DBSCAN<a class="anchor-link" href="#DBSCAN">&#182;</a></h4><h4 id="OPTICS">OPTICS<a class="anchor-link" href="#OPTICS">&#182;</a></h4><h4 id="Mean-shift">Mean shift<a class="anchor-link" href="#Mean-shift">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13364,7 +13513,21 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Estimation-methods">Estimation methods<a class="anchor-link" href="#Estimation-methods">&#182;</a></h3><p><a href="https://towardsdatascience.com/essential-parameter-estimation-techniques-in-machine-learning-and-signal-processing-d671c6607aa0">Estimation Techniques</a></p>
-<h4 id="Maximum-Likelihood-(ML)-Estimation">Maximum Likelihood (ML) Estimation<a class="anchor-link" href="#Maximum-Likelihood-(ML)-Estimation">&#182;</a></h4><h4 id="Maximum-a-Posteriori-(MAP)-Estimation">Maximum a Posteriori (MAP) Estimation<a class="anchor-link" href="#Maximum-a-Posteriori-(MAP)-Estimation">&#182;</a></h4><h4 id="Minimum-Mean-Square-Error-(MMSE)-Estimation">Minimum Mean Square Error (MMSE) Estimation<a class="anchor-link" href="#Minimum-Mean-Square-Error-(MMSE)-Estimation">&#182;</a></h4><h4 id="Least-Square-(LS)-Estimation">Least Square (LS) Estimation<a class="anchor-link" href="#Least-Square-(LS)-Estimation">&#182;</a></h4><p>The best fit estimation line in least-square minimizes the sum of squared residuals</p>
+<h4 id="Maximum-Likelihood-(ML)-Estimation">Maximum Likelihood (ML) Estimation<a class="anchor-link" href="#Maximum-Likelihood-(ML)-Estimation">&#182;</a></h4><h4 id="Maximum-a-Posteriori-(MAP)-Estimation">Maximum a Posteriori (MAP) Estimation<a class="anchor-link" href="#Maximum-a-Posteriori-(MAP)-Estimation">&#182;</a></h4><h4 id="Minimum-Mean-Square-Error-(MMSE)-Estimation">Minimum Mean Square Error (MMSE) Estimation<a class="anchor-link" href="#Minimum-Mean-Square-Error-(MMSE)-Estimation">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Expectation-Maximization(EM)-algorithm">Expectation-Maximization(EM) algorithm<a class="anchor-link" href="#Expectation-Maximization(EM)-algorithm">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Least-Square-(LS)-Estimation">Least Square (LS) Estimation<a class="anchor-link" href="#Least-Square-(LS)-Estimation">&#182;</a></h4><p>The best fit estimation line in least-square minimizes the sum of squared residuals</p>
 <ul>
 <li>it has a closed form solution</li>
 </ul>
@@ -13386,7 +13549,8 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 </ul>
 </blockquote>
 <h4 id="Non-linear">Non-linear<a class="anchor-link" href="#Non-linear">&#182;</a></h4><p>The nonlinear problem is usually solved by iterative refinement; at each iteration the system is approximated by a linear one, and thus the core calculation is similar in both cases.</p>
-<h4 id="Ordinary">Ordinary<a class="anchor-link" href="#Ordinary">&#182;</a></h4><h4 id="Weighted">Weighted<a class="anchor-link" href="#Weighted">&#182;</a></h4><h4 id="Generalized">Generalized<a class="anchor-link" href="#Generalized">&#182;</a></h4><h4 id="Partial">Partial<a class="anchor-link" href="#Partial">&#182;</a></h4><h4 id="Total">Total<a class="anchor-link" href="#Total">&#182;</a></h4><h4 id="Non-negative">Non-negative<a class="anchor-link" href="#Non-negative">&#182;</a></h4><h4 id="Ridge-regression">Ridge regression<a class="anchor-link" href="#Ridge-regression">&#182;</a></h4><h4 id="Regularized">Regularized<a class="anchor-link" href="#Regularized">&#182;</a></h4><h4 id="Least-absolute-deviations">Least absolute deviations<a class="anchor-link" href="#Least-absolute-deviations">&#182;</a></h4><h4 id="Iteratively-reweighted">Iteratively reweighted<a class="anchor-link" href="#Iteratively-reweighted">&#182;</a></h4><h4 id="Bayesian">Bayesian<a class="anchor-link" href="#Bayesian">&#182;</a></h4><h4 id="Bayesian-multivariate">Bayesian multivariate<a class="anchor-link" href="#Bayesian-multivariate">&#182;</a></h4><h4 id="Bayes-Estimator">Bayes Estimator<a class="anchor-link" href="#Bayes-Estimator">&#182;</a></h4><h4 id="Probit">Probit<a class="anchor-link" href="#Probit">&#182;</a></h4><h4 id="Logit">Logit<a class="anchor-link" href="#Logit">&#182;</a></h4>
+<h4 id="Ordinary">Ordinary<a class="anchor-link" href="#Ordinary">&#182;</a></h4><h4 id="Weighted">Weighted<a class="anchor-link" href="#Weighted">&#182;</a></h4><h4 id="Generalized">Generalized<a class="anchor-link" href="#Generalized">&#182;</a></h4><h4 id="Partial">Partial<a class="anchor-link" href="#Partial">&#182;</a></h4><h4 id="Total">Total<a class="anchor-link" href="#Total">&#182;</a></h4><h4 id="Non-negative">Non-negative<a class="anchor-link" href="#Non-negative">&#182;</a></h4><h4 id="Ridge-regression">Ridge regression<a class="anchor-link" href="#Ridge-regression">&#182;</a></h4><h4 id="Regularized">Regularized<a class="anchor-link" href="#Regularized">&#182;</a></h4><h4 id="Least-absolute-deviations">Least absolute deviations<a class="anchor-link" href="#Least-absolute-deviations">&#182;</a></h4><h4 id="Iteratively-reweighted">Iteratively reweighted<a class="anchor-link" href="#Iteratively-reweighted">&#182;</a></h4><h4 id="Bayesian">Bayesian<a class="anchor-link" href="#Bayesian">&#182;</a></h4><h4 id="Bayesian-multivariate">Bayesian multivariate<a class="anchor-link" href="#Bayesian-multivariate">&#182;</a></h4><h4 id="Bayes-Estimator">Bayes Estimator<a class="anchor-link" href="#Bayes-Estimator">&#182;</a></h4><h4 id="Probit">Probit<a class="anchor-link" href="#Probit">&#182;</a></h4><h4 id="Logit">Logit<a class="anchor-link" href="#Logit">&#182;</a></h4><h4 id="Kernel-density-estimation-(KDE)">Kernel density estimation (KDE)<a class="anchor-link" href="#Kernel-density-estimation-(KDE)">&#182;</a></h4><p>KDE is a non-parametric way to estimate the probability density function of a random variable</p>
+
 </div>
 </div>
 </div>
@@ -13455,7 +13619,14 @@ k = 1 - the logistic growth rate or steepness of curve</p>
 </blockquote>
 <h4 id="Logit-function">Logit function<a class="anchor-link" href="#Logit-function">&#182;</a></h4><p>The logit function is the logarithm of the odds ratio (log-odds)
 $$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
-<h4 id="Probit-function">Probit function<a class="anchor-link" href="#Probit-function">&#182;</a></h4><h4 id="Softplus-function">Softplus function<a class="anchor-link" href="#Softplus-function">&#182;</a></h4><h4 id="Weighted-sum">Weighted sum<a class="anchor-link" href="#Weighted-sum">&#182;</a></h4>$$ \theta^{T}x = \sum\limits_{i=1}^{n}\theta_{i}x_{i} = \theta_{1}x_{1} + \theta_{2}x_{2} + ... + \theta_{n}x_{n} $$<h4 id="Likelihood-function">Likelihood function<a class="anchor-link" href="#Likelihood-function">&#182;</a></h4><p>The likelihood function defines the joint probability of observed data as a function of parameters of the model
+<h4 id="Probit-function">Probit function<a class="anchor-link" href="#Probit-function">&#182;</a></h4><h4 id="Softplus-function">Softplus function<a class="anchor-link" href="#Softplus-function">&#182;</a></h4><h4 id="Weighted-sum">Weighted sum<a class="anchor-link" href="#Weighted-sum">&#182;</a></h4>$$ \theta^{T}x = \sum\limits_{i=1}^{n}\theta_{i}x_{i} = \theta_{1}x_{1} + \theta_{2}x_{2} + ... + \theta_{n}x_{n} $$<h4 id="Likelihood-function">Likelihood function<a class="anchor-link" href="#Likelihood-function">&#182;</a></h4><ul>
+<li>The likelihood talks about the optimal value of mean or standard deviation or parameters for a distribution given a bunch of observed measurements. </li>
+<li>The likelihood function defines the joint probability of observed data as a function of parameters of the model. </li>
+<li>It gives us a probabilistic prediction to the observed data. </li>
+<li>In terms of hypothesis testing, the likelihood function gives us the probability of varying outcomes given a set of parameters defined in the null hypothesis as $f(\theta \mid x)$ is to inference (finding the likely parameters given a specific outcome).</li>
+</ul>
+$$L(\theta | D) = P(D | \theta) = \prod\limits_{m}P(x_{m}| \theta) $$<p><img src="./images/mle_vs_prob.png" width=400 height=300></p>
+<h4 id="Log-Likelihood-function">Log-Likelihood function<a class="anchor-link" href="#Log-Likelihood-function">&#182;</a></h4><p>The log likelihood for logistic regression is given by 
 $$ LL(\theta) = \sum\limits_{i=0}^{n}y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})]  $$</p>
 <h4 id="Gradient-of-log-likelihood-function">Gradient of log likelihood function<a class="anchor-link" href="#Gradient-of-log-likelihood-function">&#182;</a></h4><p>It tries to choose values of $\theta$ that maximizes the function
 $$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[ y^{(i)} - \sigma(\theta^{T}x^{(i)}) \right]x_{j}^{(i)} $$</p>
@@ -13466,7 +13637,7 @@ $$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h3 id="Additive-Models">Additive Models<a class="anchor-link" href="#Additive-Models">&#182;</a></h3>
 </div>
 </div>
 </div>

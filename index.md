@@ -4,12 +4,14 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - multi-armed bandits, thompson sampling, ab testing
 - [netflix system architecture](system_designs/netflix.html)
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
+- weka visualization
+- root data analysis
 
 ### references
 
 - #### computer science  
-  - [python faqs](codes/python_faqs.html)  
-  - [ml glossary](algos/ml_glossary.html)
+  - [python - conceptual snippets](codes/python_faqs.html)  
+  - [ml - conceptual brief](algos/ml_glossary.html)
   - [algorithms](algos/run_algos.html)
   - [graph algos](algos/graph_algos.html)
   - [dynamic programming algos](algos/dp_algos.html)
@@ -22,6 +24,8 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
   - statistics
+  - statistical inference
+  - causal inference
   - econometrics
   - stochastic calculus
   - probability
