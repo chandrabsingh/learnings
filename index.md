@@ -6,6 +6,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - weka visualization
 - root data analysis
+- mixture models using em algorithm
 
 ### references
 
@@ -20,6 +21,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [design patterns](system_designs/design_patterns.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
+  - tensorflow intro
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
