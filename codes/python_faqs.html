@@ -13126,6 +13126,27 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Print-all-interactive-output">Print all interactive output<a class="anchor-link" href="#Print-all-interactive-output">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[350]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.interactiveshell</span> <span class="kn">import</span> <span class="n">InteractiveShell</span>
+<span class="n">InteractiveShell</span><span class="o">.</span><span class="n">ast_node_interactivity</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="List---Print-memory-size-in-bytes">List - Print memory size in bytes<a class="anchor-link" href="#List---Print-memory-size-in-bytes">&#182;</a></h3>
 </div>
 </div>
@@ -13463,7 +13484,7 @@ namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[214]:</div>
+<div class="prompt input_prompt">In&nbsp;[347]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">## experiment</span>
@@ -13476,9 +13497,31 @@ namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)
   <span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
       <span class="k">pass</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">TestClass</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">)</span> <span class="c1"># contains a list of all the base classes that the given class inherits.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">TestClass2</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(&lt;class &#39;object&#39;&gt;,)
+(&lt;class &#39;object&#39;&gt;,)
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13709,17 +13752,17 @@ False
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="builtins-package">builtins package<a class="anchor-link" href="#builtins-package">&#182;</a></h3>
+<h3 id="TODO---builtins-package">TODO - builtins package<a class="anchor-link" href="#TODO---builtins-package">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[220]:</div>
+<div class="prompt input_prompt">In&nbsp;[346]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import builtins</span>
-<span class="c1"># help(builtins) - lots of learnings out here!!</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">builtins</span>
+<span class="c1"># help(builtins) # - lots of learnings out here!!</span>
 </pre></div>
 
     </div>
@@ -14553,14 +14596,19 @@ power3(3)(2)(1) =  9
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-lambda-expressions-to-process-sequences">Using lambda expressions to process sequences<a class="anchor-link" href="#Using-lambda-expressions-to-process-sequences">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[238]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Using lambda expressions to process sequences</span>
-
-<span class="c1"># Using a lambda expression and map() function to a tuple</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Using a lambda expression and map() function to a tuple</span>
 
 <span class="c1"># 1. Declare a test tuple</span>
 <span class="n">T</span> <span class="o">=</span> <span class="p">(</span> <span class="mf">2.88</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.75</span><span class="p">,</span> <span class="mf">100.55</span> <span class="p">)</span>
@@ -14599,14 +14647,19 @@ T2 =  &lt;generator object &lt;genexpr&gt; at 0x7f7b353cca50&gt;
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-lambda-and-filter-expressions-for-processing-sequences">Using lambda and filter expressions for processing sequences<a class="anchor-link" href="#Using-lambda-and-filter-expressions-for-processing-sequences">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[239]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Processing of sequences in lambda expressions</span>
-
-<span class="c1"># The use of lambda expressions and function filter() for a list</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The use of lambda expressions and function filter() for a list</span>
 
 <span class="c1"># 1. Declare a testable list</span>
 <span class="n">l</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">187</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">17</span> <span class="p">]</span>
@@ -14654,14 +14707,19 @@ l3 =  [15, 11, 20, 17]
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-lambda-and-reduce-expressions-to-process-sequences">Using lambda and reduce expressions to process sequences<a class="anchor-link" href="#Using-lambda-and-reduce-expressions-to-process-sequences">&#182;</a></h3>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[240]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Using lambda expressions to process sequences</span>
-
-<span class="kn">import</span> <span class="nn">functools</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">functools</span>
 
 <span class="c1"># Using lambda expression in reduce() function</span>
 
@@ -15485,46 +15543,16 @@ say_whee()
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[258]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Help on function wraps in module functools:
-
-wraps(wrapped, assigned=(&#39;__module__&#39;, &#39;__name__&#39;, &#39;__qualname__&#39;, &#39;__doc__&#39;, &#39;__annotations__&#39;), updated=(&#39;__dict__&#39;,))
-    Decorator factory to apply update_wrapper() to a wrapper function
-    
-    Returns a decorator that invokes update_wrapper() with the decorated
-    function as the wrapper argument and the arguments to wraps() as the
-    remaining arguments. Default arguments are as for update_wrapper().
-    This is a convenience function to simplify applying partial() to
-    update_wrapper().
-
-</pre>
-</div>
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="TODO---functools-package">TODO - functools package<a class="anchor-link" href="#TODO---functools-package">&#182;</a></h3><p>help(functools.wraps)</p>
+<ul>
+<li>Learn functools a bit more!</li>
+</ul>
 
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -17427,20 +17455,17 @@ __exit__ method
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[308]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import contextlib</span>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="TODO---contextlib-package">TODO - contextlib package<a class="anchor-link" href="#TODO---contextlib-package">&#182;</a></h3><p>import contextlib</p>
+<p>help(contextlib)</p>
+<ul>
+<li>Learn a bit more </li>
+</ul>
 
-<span class="c1"># help(contextlib)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -18955,7 +18980,10 @@ class map(object)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-itertools">Using itertools<a class="anchor-link" href="#Using-itertools">&#182;</a></h3>
+<h3 id="TODO---Using-itertools">TODO - Using itertools<a class="anchor-link" href="#TODO---Using-itertools">&#182;</a></h3><ul>
+<li><a href="https://docs.python.org/3/library/itertools.html">https://docs.python.org/3/library/itertools.html</a></li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -19095,16 +19123,283 @@ class map(object)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Python-classes-are-objects-too">Python classes are objects too<a class="anchor-link" href="#Python-classes-are-objects-too">&#182;</a></h3><ul>
+<li>Instance of type class</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Everything-in-Python-is-an-object-or-an-instance">Everything in Python is an object or an instance<a class="anchor-link" href="#Everything-in-Python-is-an-object-or-an-instance">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[354]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">10.2</span>
+<span class="n">a</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="n">b</span><span class="o">.</span><span class="vm">__class__</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[354]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>int</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[354]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>float</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;int&#39;&gt;
+&lt;class &#39;float&#39;&gt;
+&lt;class &#39;int&#39;&gt;
+&lt;class &#39;float&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[356]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simple_function</span><span class="p">():</span>
+    <span class="k">pass</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">simple_function</span><span class="p">))</span>      <span class="c1"># Output: &lt;class &#39;function&#39;&gt;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">simple_function</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>  <span class="c1"># Output: &lt;class &#39;function&#39;&gt;</span>
+
+<span class="c1"># simple_function is an object of the class function.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;function&#39;&gt;
+&lt;class &#39;function&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[358]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">TestClass</span><span class="p">))</span>       <span class="c1"># Output: &lt;class &#39;type&#39;&gt;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">TestClass</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>   <span class="c1"># Output: &lt;class &#39;type&#39;&gt;</span>
+
+<span class="c1"># This shows that the TestClass class and every other class in Python are objects of the </span>
+<span class="c1"># class type. This type is a class and is different from the type function that returns the </span>
+<span class="c1"># type of object. The type class, from which all the classes are created, is called the </span>
+<span class="c1"># Metaclass in Python</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;type&#39;&gt;
+&lt;class &#39;type&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Metaclass-in-Python"><a href="https://www.honeybadger.io/blog/python-instantiation-metaclass/">Metaclass in Python</a><a class="anchor-link" href="#Metaclass-in-Python">&#182;</a></h3><ul>
-<li>Using type</li>
+<li>Using type - This "type" is a class and is different from the type function that returns type of object.</li>
+<li>Metaclass is a class from which classes are instantiated or metaclass is a class of a class.</li>
 </ul>
 <!-- >>> type(set)
 <class 'type'>
 >>> type(set())
 <class 'set'>
  -->
+
+<p><img src="https://www.honeybadger.io/images/blog/posts/python-instantiation-metaclass/combined.png?1648949733" alt="MetaClass"><br>
+$\tiny{\text{honeybadger.io}}$</p>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[361]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>    <span class="c1"># Output: &lt;class &#39;type&#39;&gt;</span>
+<span class="nb">type</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># Output: &lt;class &#39;type&#39;&gt;</span>
+
+<span class="c1"># Even type of object class is - type</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">TestClass</span><span class="p">())</span> <span class="c1"># Output: &lt;class &#39;type&#39;&gt;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">TestClass</span><span class="p">()))</span> <span class="c1"># Output: &lt;class &#39;type&#39;&gt;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;type&#39;&gt;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[361]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>type</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[361]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>__main__.TestClass</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;__main__.TestClass&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -19238,7 +19533,7 @@ b=[[1], [], []]
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Using-functools">Using functools<a class="anchor-link" href="#Using-functools">&#182;</a></h3>
+
 </div>
 </div>
 </div>
