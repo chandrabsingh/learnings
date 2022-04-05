@@ -1,7 +1,7 @@
 here are the notes and understanding of the tools i learnt during sabbatical work break
 
 ### why-how-what
-- multi-armed bandits, thompson sampling, ab testing
+- [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [netflix system architecture](system_designs/netflix.html)
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - weka visualization
@@ -17,11 +17,13 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [graph algos](algos/graph_algos.html)
   - [dynamic programming algos](algos/dp_algos.html)
   - [cpp algos](algos/cpp_algos.html)
+  - ai algos
   - [system architecture](system_designs/system_architecture.html)
   - [design patterns](system_designs/design_patterns.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
   - tensorflow intro
+  - aws services intro
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
