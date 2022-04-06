@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13142,9 +13142,186 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Reinforcement-Learning-problem">Reinforcement Learning problem<a class="anchor-link" href="#Reinforcement-Learning-problem">&#182;</a></h3>
+<h3 id="Reinforcement-Learning-problem">Reinforcement Learning problem<a class="anchor-link" href="#Reinforcement-Learning-problem">&#182;</a></h3><ul>
+<li>a policy, a reward signal, a value function, and a model of the environment.</li>
+</ul>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="k-armed-Bandit">k-armed Bandit<a class="anchor-link" href="#k-armed-Bandit">&#182;</a></h3>$$\begin{equation} \
+\begin{aligned} \
+q_{*}(a) = \mathbb E[R_{t}|A_{t}=a] \
+\end{aligned} \
+\end{equation}$$$$\begin{equation} \
+\begin{aligned} \
+Q_{t}(a) = \frac{\text{sum of rewards when a taken prior to t}}{\text{number of times a taken prior to t}} = \frac{\sum_{i=1}^{t-1}R_{i}.\mathbb 1_{A_{i}=1}}{\sum_{i=1}^{t-1}\mathbb 1_{A_{i}=1}} \ \end{aligned} \
+\end{equation}$$<p></p>
+$$\begin{equation} \
+\begin{aligned} \
+A_{t} = \text{arg}\max\limits_{a}Q_{t}(a) \
+\end{aligned} \
+\end{equation}$$<h3 id="Exploration-Exploitation">Exploration-Exploitation<a class="anchor-link" href="#Exploration-Exploitation">&#182;</a></h3>$$\begin{equation} \
+\begin{aligned} \
+Q_{n} = \frac{R_{1}+R_{2}+...+R_{n-1}}{n-1} \
+\end{aligned} \
+\end{equation}$$$$\begin{equation} \
+\begin{aligned} \
+Q_{n+1} &amp;= \frac{1}{n}\sum\limits_{i=1}^{n}R_{i}  \\
+ &amp;= \frac{1}{n}\left(R_{n} + \sum\limits_{i=1}^{n-1}R_{i}\right )  \\
+ &amp;= \frac{1}{n}\left(R_{n} + (n-1)\frac{1}{(n-1)}\sum\limits_{i=1}^{n-1}R_{i}\right )  \\
+ &amp;= \frac{1}{n}\left(R_{n} + (n-1)Q_{n} \right )  \\
+\end{aligned} \
+\end{equation}$$<h3 id="Greedy-decisions">Greedy decisions<a class="anchor-link" href="#Greedy-decisions">&#182;</a></h3><h3 id="$\epsilon$-greedy-exploration">$\epsilon$-greedy exploration<a class="anchor-link" href="#$\epsilon$-greedy-exploration">&#182;</a></h3><h3 id="Beta-distribution">Beta distribution<a class="anchor-link" href="#Beta-distribution">&#182;</a></h3><h3 id="Thompson-Sampling">Thompson Sampling<a class="anchor-link" href="#Thompson-Sampling">&#182;</a></h3><p>Thompson sampling is an algorithm for online decision problems where actions are taken sequentially in a manner that must balance between exploiting what is known to maxi- mize immediate performance and investing to accumulate new information that may improve future performance.</p>
+<p>Because the distribution of payouts corresponding to each arm is not listed, the player can learn it only by experimenting. As the gambler learns about the arms’ payouts, she faces a dilemma: in the immediate future she expects to earn more by exploiting arms that yielded high payouts in the past, but by continuing to explore alternative arms she may learn how to earn higher payouts in the future. Can she develop a sequential strategy for pulling arms that balances this tradeoff and maximizes the cumulative payout earned?</p>
+<p>(Bernoulli Bandit) Suppose there are K actions, and when played, any action yields either a success or a failure. Action k ∈ {1, ..., K} produces a success with probability θk ∈ [0, 1]. The success probabilities (θ1,..,θK) are unknown to the agent, but are fixed over time, and therefore can be learned by experimentation. The objective, roughly speaking, is to maximize the cumulative number of successes over T periods, where T is relatively large compared to the number of arms K.</p>
+<p>(Online Shortest Path) An agent commutes from home to work every morning. She would like to commute along the path that requires the least average travel time, but she is uncertain of the travel time along different routes. How can she learn efficiently and minimize the total travel time over a large number of trips?</p>
+<p>This problem is conceptually similar to the Bernoulli bandit in Example 1.1, but here the number of actions is the number of paths in the graph, which generally scales exponentially in the number of edges. This raises substantial challenges. For moderate sized graphs, trying each possible path would require a prohibitive number of samples, and algorithms that require enumerating and searching through the set of all paths to reach a decision will be computationally intractable. An efficient approach therefore needs to leverage the statistical and computational structure of problem.</p>
+<p>In this model, the agent observes the travel time along each edge traversed in a given period. Other feedback models are also natural: the agent might start a timer as she leaves home and checks it once she arrives, effectively only tracking the total travel time of the chosen path. This is closer to the Bernoulli bandit model, where only the realized reward (or cost) of the chosen arm was observed. We have also taken the random edge-delays yt,e to be independent, conditioned on θe. A more realistic model might treat these as correlated random variables, reflect- ing that neighboring roads are likely to be congested at the same time. Rather than design a specialized algorithm for each possible statistical model, we seek a general approach to exploration that accommodates flexible modeling and works for a broad array of problems. We will see that Thompson sampling accommodates such flexible modeling, and offers an elegant and efficient approach to exploration in a wide range of structured decision problems, including the shortest path problem described here.</p>
+<p>Thompson sampling – also known as posterior sampling and probabil- ity matching – was first proposed in 1933 (Thompson, 1933; Thompson, 1935) for allocating experimental effort in two-armed bandit problems arising in clinical trials.</p>
+<p>The objective of this tutorial is to explain when, why, and how to apply Thompson sampling. A range of examples are used to demon- strate how the algorithm can be used to solve a variety of problems and provide clear insight into why it works and when it offers substantial benefit over naive alternatives.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./mab/mab_ts_ab.py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="k">class</span> <span class="nc">MABClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">leverCount</span><span class="p">,</span> <span class="n">probs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span> <span class="c1"># probability to explore </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span> <span class="o">=</span> <span class="n">leverCount</span> <span class="c1"># number of choices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span> <span class="c1"># array of lever probability</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redefineSettings</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">calcAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Select action/lever as per explore-exploit probability</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span> <span class="c1"># explore case</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># exploit case</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">)</span> <span class="c1"># random.choice(self.leverCount)</span>
+
+    <span class="k">def</span> <span class="nf">calcBetaAction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sum_rewards</span><span class="p">,</span> <span class="n">sum_penalties</span><span class="p">):</span>
+        <span class="c1"># Select action/lever as per beta sampling</span>
+        <span class="n">thetas</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">,</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sum_rewards</span><span class="p">,</span> <span class="n">sum_penalties</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">thetas</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">calcReward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionId</span><span class="p">):</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueTrueQStar</span><span class="p">[</span><span class="n">actionId</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">val</span>
+<span class="c1">#         return 1 if (np.random.random() &lt; self.probs[actionId]) else 0</span>
+<span class="c1">#         return val if (np.random.random() &lt; self.probs[actionId]) else 0</span>
+
+    <span class="k">def</span> <span class="nf">calcBetaReward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+        <span class="n">reward</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="n">regret</span> <span class="o">=</span> <span class="n">max_prob</span> <span class="o">-</span> <span class="n">probs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">reward</span><span class="p">,</span> <span class="n">regret</span>
+
+    <span class="k">def</span> <span class="nf">calcQEstimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionId</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionCount</span><span class="p">[</span><span class="n">actionId</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">[</span><span class="n">actionId</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">actionCount</span><span class="p">[</span><span class="n">actionId</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">[</span><span class="n">actionId</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">redefineSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Define individual lever probability</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueTrueQStar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span><span class="p">)</span> <span class="c1"># Reset the valueTrueQStar before each incremental step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionCount</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="n">epsilons</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span> <span class="c1"># , 0.5, 0.9] # Define list of epsilons=exploration</span>
+<span class="c1"># leverCount = 10 # Define number of levers</span>
+<span class="n">runs</span> <span class="o">=</span> <span class="mi">2000</span> <span class="c1"># 500 #</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="c1"># probs = [0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95] # Define lever probability</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.61</span><span class="p">]</span>
+<span class="n">leverCount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+<span class="n">max_prob</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+
+<span class="c1"># rewards = np.zeros((len(epsilons), runs, steps))</span>
+<span class="c1"># penalties = np.zeros((len(epsilons), runs, steps))</span>
+<span class="c1"># actions = np.zeros((len(epsilons), runs, steps))</span>
+<span class="c1"># total_rewards = np.zeros((len(epsilons), steps))</span>
+<span class="c1"># regret = np.zeros((len(epsilons), steps))</span>
+
+<span class="n">experimentCount</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+<span class="n">penalties</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+<span class="n">actions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+<span class="n">total_rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+<span class="n">regret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
+
+
+<span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">epsilon</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epsilons</span><span class="p">):</span> <span class="c1"># loop over all the bandits epsilons</span>
+    <span class="n">bandit</span> <span class="o">=</span> <span class="n">MABClass</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">leverCount</span><span class="p">,</span> <span class="n">probs</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">runs</span><span class="p">)):</span> <span class="c1"># loop over all the runs</span>
+        <span class="n">bandit</span><span class="o">.</span><span class="n">redefineSettings</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span> <span class="c1"># loop over all the steps</span>
+            <span class="n">actionId</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">calcAction</span><span class="p">()</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">calcReward</span><span class="p">(</span><span class="n">actionId</span><span class="p">)</span>
+            <span class="c1"># actionId = bandit.calcBetaAction()</span>
+            <span class="c1"># reward, regret = bandit.calcBetaReward(actionId)</span>
+            <span class="n">bandit</span><span class="o">.</span><span class="n">calcQEstimate</span><span class="p">(</span><span class="n">actionId</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
+            <span class="n">actions</span><span class="p">[</span><span class="n">experimentCount</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">step</span><span class="p">]</span> <span class="o">=</span> <span class="n">actionId</span>
+            <span class="n">rewards</span><span class="p">[</span><span class="n">experimentCount</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">step</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+        <span class="c1"># print(&#39;Test&#39;)</span>
+<span class="n">avgActions</span><span class="p">,</span> <span class="n">avgRewards</span> <span class="o">=</span> <span class="n">actions</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># +</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">eps</span><span class="p">,</span> <span class="n">rewardsY</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">epsilons</span><span class="p">,</span> <span class="n">avgRewards</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rewardsY</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\epsilon$ = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eps</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Steps&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Average reward&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/</span><span class="si">{}</span><span class="s1">.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;mab_avg_rewards&quot;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># -</span>
+
+<span class="c1"># ![MAB Avg Rewards](./images/mab_avg_rewards.png)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/mab_avg_rewards.png" alt="MAB Avg Rewards"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13162,72 +13339,29 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./mab_ts_ab.py</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
-
-<span class="k">class</span> <span class="nc">MABClass</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="n">leverCount</span><span class="p">,</span> <span class="n">probs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span> <span class="o">=</span> <span class="n">epsilon</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span> <span class="o">=</span> <span class="n">leverCount</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">probs</span> <span class="o">=</span> <span class="n">probs</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redefineSettings</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">calcAction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Select action/lever as per explore-exploit probability</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">epsilon</span><span class="p">:</span> <span class="c1"># explore case</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span> <span class="c1"># exploit case</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">)</span> <span class="c1"># random.choice(self.leverCount)</span>
-
-    <span class="k">def</span> <span class="nf">calcReward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionId</span><span class="p">):</span>
-        <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueTrueQStar</span><span class="p">[</span><span class="n">actionId</span><span class="p">]</span>
-<span class="c1">#         return val</span>
-<span class="c1">#         return 1 if (np.random.random() &lt; self.probs[actionId]) else 0</span>
-        <span class="k">return</span> <span class="n">val</span> <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">probs</span><span class="p">[</span><span class="n">actionId</span><span class="p">])</span> <span class="k">else</span> <span class="mi">0</span>
-
-    <span class="k">def</span> <span class="nf">calcQEstimate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actionId</span><span class="p">,</span> <span class="n">reward</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">actionCount</span><span class="p">[</span><span class="n">actionId</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">[</span><span class="n">actionId</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">actionCount</span><span class="p">[</span><span class="n">actionId</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">[</span><span class="n">actionId</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">redefineSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># Define individual lever probability</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">valueTrueQStar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span><span class="p">)</span> <span class="c1"># Reset the valueTrueQStar before each incremental step</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leverCount</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">actionCount</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valueEstimateQ</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-
-<span class="n">epsilons</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]</span> <span class="c1"># Define list of epsilons=exploration</span>
-<span class="n">leverCount</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Define number of levers</span>
-<span class="n">runs</span> <span class="o">=</span> <span class="mi">2000</span>
-<span class="n">steps</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">]</span> <span class="c1"># Define lever probability</span>
-
-<span class="n">rewards</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilons</span><span class="p">),</span> <span class="n">runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
-<span class="n">actions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epsilons</span><span class="p">),</span> <span class="n">runs</span><span class="p">,</span> <span class="n">steps</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">e</span><span class="p">,</span> <span class="n">epsilon</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epsilons</span><span class="p">):</span> <span class="c1"># loop over all the bandits epsilons</span>
-    <span class="n">bandit</span> <span class="o">=</span> <span class="n">MABClass</span><span class="p">(</span><span class="n">epsilon</span><span class="p">,</span> <span class="n">leverCount</span><span class="p">,</span> <span class="n">probs</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">runs</span><span class="p">)):</span> <span class="c1"># loop over all the runs</span>
-        <span class="n">bandit</span><span class="o">.</span><span class="n">redefineSettings</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span> <span class="c1"># loop over all the steps</span>
-            <span class="n">actionId</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">calcAction</span><span class="p">()</span>
-            <span class="n">reward</span> <span class="o">=</span> <span class="n">bandit</span><span class="o">.</span><span class="n">calcReward</span><span class="p">(</span><span class="n">actionId</span><span class="p">)</span>
-            <span class="n">bandit</span><span class="o">.</span><span class="n">calcQEstimate</span><span class="p">(</span><span class="n">actionId</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
-            <span class="n">actions</span><span class="p">[</span><span class="n">e</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">step</span><span class="p">]</span> <span class="o">=</span> <span class="n">actionId</span>
-            <span class="n">rewards</span><span class="p">[</span><span class="n">e</span><span class="p">,</span> <span class="n">run</span><span class="p">,</span> <span class="n">step</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
-        <span class="c1"># print(&#39;Test&#39;)</span>
-<span class="n">avgActions</span><span class="p">,</span> <span class="n">avgRewards</span> <span class="o">=</span> <span class="n">actions</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">rewards</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">eps</span><span class="p">,</span> <span class="n">rewardsY</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">epsilons</span><span class="p">,</span> <span class="n">avgRewards</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rewardsY</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\epsilon$ = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eps</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Steps&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Average reward&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+<span class="c1">#</span>
+<span class="c1"># Set the shape paremeters</span>
+<span class="c1">#</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">10</span>
+<span class="c1">#</span>
+<span class="c1"># Generate the value between</span>
+<span class="c1">#</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span><span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># Plot the beta distribution</span>
+<span class="c1">#</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">.7</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Beta Distribution&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Values of Random Variable X (0, 1)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;15&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -13245,11 +13379,8 @@ $( document ).ready(function(){
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|██████████████████████████████████████| 2000/2000 [00:13&lt;00:00, 149.46it/s]
-100%|██████████████████████████████████████| 2000/2000 [00:13&lt;00:00, 147.51it/s]
-100%|██████████████████████████████████████| 2000/2000 [00:16&lt;00:00, 122.92it/s]
-100%|███████████████████████████████████████| 2000/2000 [00:25&lt;00:00, 79.11it/s]
-100%|███████████████████████████████████████| 2000/2000 [00:32&lt;00:00, 60.68it/s]
+<pre>/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/scipy/stats/_continuous_distns.py:624: RuntimeWarning: overflow encountered in _beta_ppf
+  return _boost._beta_ppf(q, a, b)
 </pre>
 </div>
 </div>
@@ -13262,7 +13393,7 @@ $( document ).ready(function(){
 
 
 <div class="output_png output_subarea ">
-<img src="mab_ts_ab_files/mab_ts_ab_4_1.png"
+<img src="mab_ts_ab_files/mab_ts_ab_9_1.png"
 >
 </div>
 
@@ -13272,61 +13403,56 @@ $( document ).ready(function(){
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">0.4</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_png output_subarea ">
+<img src="mab_ts_ab_files/mab_ts_ab_11_0.png"
+>
+</div>
+
+</div>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
