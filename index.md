@@ -12,14 +12,17 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 
 - #### computer science  
   - [python - conceptual snippets](codes/python_faqs.html)  
-  - [ml - conceptual brief](algos/ml_glossary.html)
-  - [algorithms](algos/run_algos.html)
-  - [graph algos](algos/graph_algos.html)
-  - [dynamic programming algos](algos/dp_algos.html)
-  - [cpp algos](algos/cpp_algos.html)
-  - ai algos
-  - [system architecture](system_designs/system_architecture.html)
-  - [design patterns](system_designs/design_patterns.html)
+  - [python - algorithms](algos/run_algos.html)
+  - [python - graph algos](algos/graph_algos.html)
+  - [python - dynamic programming algos](algos/dp_algos.html)
+  - [c++ - algos](algos/cpp_algos.html)
+  - python - artificial intelligence algos
+  - [software engineering - conceptual brief](system_designs/software_engineering_concepts.html)
+  - [system design - architecture and patterns](system_designs/design_patterns.html)
+  - [system design - use case](system_designs/system_design_use_case.html)
+
+- #### data science
+  - [machine learning - conceptual brief](algos/ml_glossary.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
   - tensorflow intro

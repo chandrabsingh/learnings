@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>design_patterns</title>
+<title>system_design_use_case</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13117,201 +13117,39 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Segment---Monolithic-to-Microservices-to-Monolithic-Architecture">Segment - Monolithic to Microservices to Monolithic Architecture<a class="anchor-link" href="#Segment---Monolithic-to-Microservices-to-Monolithic-Architecture">&#182;</a></h3><p><strong>Core services</strong></p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/">Microsoft Azure - Cloud Design Patterns</a>  </li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven">Event driven architecture</a>   </li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/big-data">Big data architecture</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices">Microservices</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/n-tier">N-tier</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/web-queue-worker">Web Queue worker</a></li>
-<li></li>
+<li>it delivers messages to third-party endpoints</li>
+<li>retries messages upon failure</li>
+<li>archives any undelivered messages</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Asynchronous-request-reply">Asynchronous request reply<a class="anchor-link" href="#Asynchronous-request-reply">&#182;</a></h3><ul>
-<li>Client sends POST request and gets HTTP 202 accepted message</li>
-<li>Client again sends GET request to status endpoint and gets pending HTTP 202 accepted message</li>
-<li>Later status endpoint on job completion sends HTTP 302 redirecting response</li>
-<li>Client fetches resource back from URL</li>
-</ul>
-<p><img src="images/async-request-reply.png" width=600 height=600><br>
-$\tiny{\text{https://docs.microsoft.com/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sharding-database">Sharding database<a class="anchor-link" href="#Sharding-database">&#182;</a></h3><h4 id="Types-of-partitioning">Types of partitioning<a class="anchor-link" href="#Types-of-partitioning">&#182;</a></h4><ul>
-<li>Horizontal partitioning(sharding) <ul>
-<li>separating table rows into multiple tables with same schema </li>
-</ul>
-</li>
-<li>Vertical partitioning<ul>
-<li>separating columns into distinct tables</li>
-</ul>
-</li>
-</ul>
-<h4 id="What-is-Sharding">What is Sharding<a class="anchor-link" href="#What-is-Sharding">&#182;</a></h4><ul>
-<li>breaking data into logical shards</li>
-<li>distribute these logical shards into separate database nodes or into physical shards</li>
-<li>physical shards can hold multiple logical shards</li>
-<li>helps in mitigating impact of outages</li>
-</ul>
-<h4 id="Benefits-of-sharding">Benefits of sharding<a class="anchor-link" href="#Benefits-of-sharding">&#182;</a></h4><ul>
-<li>horizontal scaling or scaling out<ul>
-<li>adding more machines to exsiting stack to spread out load and allow for more traffic</li>
-</ul>
-</li>
-<li>vertical scaling or scaling up<ul>
-<li>upgrading hardware by adding more RAM or CPU</li>
-</ul>
-</li>
-</ul>
-<h4 id="Sharding-architectures">Sharding architectures<a class="anchor-link" href="#Sharding-architectures">&#182;</a></h4><ul>
-<li>Key based sharding<ul>
-<li>hash based sharding based on partition key</li>
-</ul>
-</li>
-<li>Range based sharding<ul>
-<li>for example, price range</li>
-</ul>
-</li>
-<li>Directory based sharding<ul>
-<li>maintain lookup table</li>
-<li>Multiple tenants might share the same shard, but the data for a single tenant won't be spread across multiple shards</li>
-</ul>
-</li>
-</ul>
-<p><img src="images/shardTable.png" width=600 height=600><br>
-$\tiny{\text{Types of Partitioning - digitalocean.com}}$</p>
-<p><img src="images/sharding-tenant-lookup.png" width=600 height=600><br>
-$\tiny{\text{Lookup Partitioning - https://docs.microsoft.com/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Stateful-vs-Stateless">Stateful vs Stateless<a class="anchor-link" href="#Stateful-vs-Stateless">&#182;</a></h3><p><img src="images/stateful_stateless.png" width=400 height=400><br>
-$\tiny{\text{Stateful vs Stateless - https://virtasant.com/}}$</p>
+<p><strong>why not just use a queue here? Building a fully distributed job scheduler seems a bit overdone</strong></p>
 <ul>
-<li>A banking transaction - Stateful
-<img src="images/statefulTransaction.png" width=800 height=800><br>
-$\tiny{\text{Stateful Transaction - https://virtasant.com/}}$   </li>
+<li>At segment, Kafka was already used extensively </li>
+<li>it passes nearly 1M messages per second through it</li>
+<li>it’s been the core building block of all of our streaming pipelines</li>
 </ul>
+<p><strong>When does a queue break down</strong></p>
 <ul>
-<li>A banking transaction - Stateless
-<img src="images/statelessTransaction.png" width=800 height=800><br>
-$\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
+<li>The problem with using any sort of queue is that you are fundamentally limited in terms of how you access data. </li>
+<li>a queue only supports two operations (push and pop)</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Orchestration">Orchestration<a class="anchor-link" href="#Orchestration">&#182;</a></h3><h3 id="Loose-coupling">Loose coupling<a class="anchor-link" href="#Loose-coupling">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Software-Design-Patterns">Software Design Patterns<a class="anchor-link" href="#Software-Design-Patterns">&#182;</a></h3><h4 id="Creational-patterns">Creational patterns<a class="anchor-link" href="#Creational-patterns">&#182;</a></h4><h4 id="Structural-patterns">Structural patterns<a class="anchor-link" href="#Structural-patterns">&#182;</a></h4><h4 id="Behavioral-patterns">Behavioral patterns<a class="anchor-link" href="#Behavioral-patterns">&#182;</a></h4><h4 id="Concurrency-patterns">Concurrency patterns<a class="anchor-link" href="#Concurrency-patterns">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="SOLID-design-principles">SOLID design principles<a class="anchor-link" href="#SOLID-design-principles">&#182;</a></h3><p>The SOLID ideas were introduced by Robert C Martin in his paper:</p>
+<p><img src="https://images.ctfassets.net/i8bfc4nr05rq/526JE4CsskIje2tIoBxmbr/c8108e96a2f99d5d8f1499e08a43e635/asset_sJlQSUXb.png" width=600 height=400></p>
+<p><strong>a single queue architecture</strong>
+<img src="https://images.ctfassets.net/i8bfc4nr05rq/1TMg75tMuAumjmYHu5UvDP/a59d8315041ceb7a48da16c6cdfb16d9/asset_VdRJbhUe.png" width=600 height=400></p>
+<p><strong>What happens when single endpoint gets slow</strong>
+<img src="https://images.ctfassets.net/i8bfc4nr05rq/3wQyQCVvbIwDOS3roQmaUv/ec97341d39dabd25098e627f47028cbc/asset_QVaGLpel.png" width=600 height=400></p>
+<p><strong>queues per destination architecture</strong></p>
 <ul>
-<li>Single-responsibility principle: "There should never be more than one reason for a class to change." In other words, every class should have only one responsibility</li>
-<li>Open–closed principle: "Software entities ... should be open for extension, but closed for modification."</li>
-<li>Liskov substitution principle: "Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it."</li>
-<li>Interface segregation principle: "Many client-specific interfaces are better than one general-purpose interface."</li>
-<li>Dependency inversion principle: "Depend upon abstractions, not concretions."</li>
+<li>updated queueing topology to route events into separate queues based upon the downstream endpoints they would hit</li>
+<li>router was added in front of each queue, which would only publish messages to a queue destined for a specific API endpoint</li>
+<li>segment is a large, multi-tenant system, so some sources of data will generate substantially more load than others</li>
 </ul>
-<h4 id="Single-responsibility-pattern">Single responsibility pattern<a class="anchor-link" href="#Single-responsibility-pattern">&#182;</a></h4><ul>
-<li>Each component has one responsibility only within a system</li>
-<li>With this pattern, the components are loosely coupled and it doesnot impact functionality of other components</li>
-<li>for example, a database cannot contain business logic, its job must remain to persist the data only</li>
-</ul>
-<h4 id="Separation-of-Concerns">Separation of Concerns<a class="anchor-link" href="#Separation-of-Concerns">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Antipatterns">Antipatterns<a class="anchor-link" href="#Antipatterns">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Event-driven-architecture">Event driven architecture<a class="anchor-link" href="#Event-driven-architecture">&#182;</a></h3><h4 id="Publish-Subscribe-pattern">Publish-Subscribe pattern<a class="anchor-link" href="#Publish-Subscribe-pattern">&#182;</a></h4><h4 id="Request-Reply">Request-Reply<a class="anchor-link" href="#Request-Reply">&#182;</a></h4><h4 id="Sockets">Sockets<a class="anchor-link" href="#Sockets">&#182;</a></h4><h4 id="Unix-Sockets">Unix Sockets<a class="anchor-link" href="#Unix-Sockets">&#182;</a></h4><h4 id="Message-Queue">Message Queue<a class="anchor-link" href="#Message-Queue">&#182;</a></h4><h4 id="Producer-Consumer-Queue">Producer Consumer Queue<a class="anchor-link" href="#Producer-Consumer-Queue">&#182;</a></h4><h4 id="SOAP">SOAP<a class="anchor-link" href="#SOAP">&#182;</a></h4><h4 id="REST">REST<a class="anchor-link" href="#REST">&#182;</a></h4><h4 id="Event-channels">Event channels<a class="anchor-link" href="#Event-channels">&#182;</a></h4><h4 id="HTTP-endpoint">HTTP endpoint<a class="anchor-link" href="#HTTP-endpoint">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-service">Web service<a class="anchor-link" href="#Web-service">&#182;</a></h3><p><a href="https://en.wikipedia.org/wiki/Web_service">https://en.wikipedia.org/wiki/Web_service</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="API-design">API design<a class="anchor-link" href="#API-design">&#182;</a></h3><h4 id="RPC-vs-REST-vs-GraphQL">RPC vs REST vs GraphQL<a class="anchor-link" href="#RPC-vs-REST-vs-GraphQL">&#182;</a></h4><h4 id="RPC---Remote-Procedure-Call">RPC - Remote Procedure Call<a class="anchor-link" href="#RPC---Remote-Procedure-Call">&#182;</a></h4><ul>
-<li>call function in remote server</li>
-<li>wrap a function over transport and have an endpoint attached to it, and we get RPC<ul>
-<li>GET /listConversations</li>
-<li>GET /listMessages</li>
-<li>POST /sendMessage</li>
-</ul>
-</li>
-</ul>
-<h4 id="REST">REST<a class="anchor-link" href="#REST">&#182;</a></h4><ul>
-<li><a href="https://hub.packtpub.com/defining-rest-and-its-various-architectural-styles/">https://hub.packtpub.com/defining-rest-and-its-various-architectural-styles/</a></li>
-<li><a href="https://www.altexsoft.com/blog/rest-api-design/">https://www.altexsoft.com/blog/rest-api-design/</a></li>
-<li><a href="https://dev.to/priyanshi_sharma/basic-concepts-to-understand-api-web-services-microservices-3g02">https://dev.to/priyanshi_sharma/basic-concepts-to-understand-api-web-services-microservices-3g02</a></li>
-</ul>
-<h4 id="GraphQL">GraphQL<a class="anchor-link" href="#GraphQL">&#182;</a></h4><h4 id="Webhook">Webhook<a class="anchor-link" href="#Webhook">&#182;</a></h4><ul>
-<li><a href="https://sendgrid.com/blog/whats-webhook/">https://sendgrid.com/blog/whats-webhook/</a></li>
+<p><img src="https://images.ctfassets.net/i8bfc4nr05rq/3mwwfjAAWWVLMmqZhKcEEH/97e2569dfc3ca1fedc9f5da233ce94f3/asset_DLWTCwfw.png" width=600 height=400></p>
+<ul>
+<li><a href="https://segment.com/docs/guides/">https://segment.com/docs/guides/</a></li>
+<li><a href="https://segment.com/blog/goodbye-microservices/">https://segment.com/blog/goodbye-microservices/</a></li>
+<li><a href="https://segment.com/blog/introducing-centrifuge/">https://segment.com/blog/introducing-centrifuge/</a></li>
 </ul>
 
 </div>
@@ -13320,9 +13158,30 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Functional-programming">Functional programming<a class="anchor-link" href="#Functional-programming">&#182;</a></h3><ul>
-<li>Functions dont retain any state</li>
-<li>this means they are stateless and helps in maintaining consistent application wide state</li>
+<h3 id="Istio">Istio<a class="anchor-link" href="#Istio">&#182;</a></h3><p><a href="https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/">https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="LinkedIn">LinkedIn<a class="anchor-link" href="#LinkedIn">&#182;</a></h3><h4 id="Starting-days">Starting days<a class="anchor-link" href="#Starting-days">&#182;</a></h4><p><a href="https://engineering.linkedin.com/architecture/brief-history-scaling-linkedin">https://engineering.linkedin.com/architecture/brief-history-scaling-linkedin</a></p>
+<p>Leo - single monolithic application doing it all. That single app was called Leo. It hosted web servlets for all the various pages, handled business logic, and connected to a handful of LinkedIn databases</p>
+<p>Cloud - manage member to member connections. We needed a system that queried connection data using graph traversals and lived in-memory for top efficiency and performance. to scale independently of Leo, so a separate system for our member graph called Cloud was born - LinkedIn’s first service</p>
+<p>Lucene - member graph service started feeding data into a new search service running Lucene.</p>
+<p><img src="" alt="Master Slave Model">
+<img src="https://content.linkedin.com/content/dam/engineering/en-us/blog/migrated/arch_master_slave_0.png" width=600 height=400></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-do-Pokemon-Go-scale-to-millions-of-request">How do Pokemon Go scale to millions of request<a class="anchor-link" href="#How-do-Pokemon-Go-scale-to-millions-of-request">&#182;</a></h3><ul>
+<li><a href="https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/">https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/</a></li>
+<li><a href="https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests">https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests</a></li>
 </ul>
 
 </div>
@@ -13331,174 +13190,22 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ACID-compliant">ACID compliant<a class="anchor-link" href="#ACID-compliant">&#182;</a></h3><ul>
-<li>Atomicity</li>
-<li>Consistency</li>
-<li>Isolation</li>
-<li>Durability</li>
+<h3 id="How-does-Uber-scale-to-millions-of-concurrent-requests">How does Uber scale to millions of concurrent requests<a class="anchor-link" href="#How-does-Uber-scale-to-millions-of-concurrent-requests">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="What-database-does-Facebook-use">What database does Facebook use<a class="anchor-link" href="#What-database-does-Facebook-use">&#182;</a></h3><ul>
+<li>MySQL is the primary database used for storing all social data</li>
+<li>Memcache is used in addition to MySQL as caching layer</li>
+<li>Cassandra for search</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Staged-event-driven-architecture-(SEDA)">Staged event-driven architecture (SEDA)<a class="anchor-link" href="#Staged-event-driven-architecture-(SEDA)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="iPaaS">iPaaS<a class="anchor-link" href="#iPaaS">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Ingestion-Pipeline-Patterns">Data Ingestion Pipeline Patterns<a class="anchor-link" href="#Data-Ingestion-Pipeline-Patterns">&#182;</a></h3><ul>
-<li><a href="https://www.snaplogic.com/blog/big-data-ingestion-patterns">https://www.snaplogic.com/blog/big-data-ingestion-patterns</a></li>
-<li><a href="https://www.upsolver.com/blog/data-pipeline-architecture-building-blocks-diagrams-and-patterns">https://www.upsolver.com/blog/data-pipeline-architecture-building-blocks-diagrams-and-patterns</a></li>
-<li><a href="https://www.snaplogic.com/glossary/data-ingestion-pipeline">https://www.snaplogic.com/glossary/data-ingestion-pipeline</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Modeling">Data Modeling<a class="anchor-link" href="#Data-Modeling">&#182;</a></h3><ul>
-<li>Relational data modeling</li>
-<li>Dimensional data modeling</li>
-<li>Graphical data modeling</li>
-</ul>
-<p><a href="https://segment.com/blog/data-modeling/">https://segment.com/blog/data-modeling/</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Message-Broker-Models">Message Broker Models<a class="anchor-link" href="#Message-Broker-Models">&#182;</a></h3><ul>
-<li>Point-to-point messaging</li>
-<li>Publish/subscribe messaging</li>
-</ul>
-<p><a href="https://www.ibm.com/cloud/learn/message-brokers#toc-message-br-Qe5q5uIC">https://www.ibm.com/cloud/learn/message-brokers#toc-message-br-Qe5q5uIC</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Micro-frontends">Micro frontends<a class="anchor-link" href="#Micro-frontends">&#182;</a></h3><ul>
-<li>Micro-frontend architecture is a design approach in which a front-end app is decomposed into individual, semi-independent “microapps” working loosely together. The micro-frontend concept is vaguely inspired by, and named after, microservices.</li>
-<li>Micro-frontend architectures may be simpler, and thus easier to reason about and manage.</li>
-<li>Independent development teams can collaborate on a front-end app more easily.</li>
-<li>They can provide a means for migrating from an “old” app by having a “new” app running side by side with it.</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*o9NfGBM20TJDrAfopPj2mg.png" width=600 height=400></p>
-<p><a href="https://www.toptal.com/front-end/micro-frontends-strengths-benefits#:~:text=Micro%2Dfrontend%20architecture%20is%20a,%2C%20and%20named%20after%2C%20microservices">https://www.toptal.com/front-end/micro-frontends-strengths-benefits#:~:text=Micro%2Dfrontend%20architecture%20is%20a,%2C%20and%20named%20after%2C%20microservices</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Service-Mesh">Service Mesh<a class="anchor-link" href="#Service-Mesh">&#182;</a></h3><p><a href="https://istio.io/latest/about/service-mesh/#what-is-a-service-mesh">https://istio.io/latest/about/service-mesh/#what-is-a-service-mesh</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="RESTful-vs-RESTless">RESTful vs RESTless<a class="anchor-link" href="#RESTful-vs-RESTless">&#182;</a></h3><ul>
-<li>Protocol<ul>
-<li>RESTful services use REST architectural style,</li>
-<li>RESTless services use SOAP protocol.</li>
-</ul>
-</li>
-<li>Business logic / Functionality<ul>
-<li>RESTful services use URL to expose business logic,</li>
-<li>RESTless services use the service interface to expose business logic.</li>
-</ul>
-</li>
-<li>Security<ul>
-<li>RESTful inherits security from the underlying transport protocols,</li>
-<li>RESTless defines its own security layer, thus it is considered as more secure.</li>
-</ul>
-</li>
-<li>Data format<ul>
-<li>RESTful supports various data formats such as HTML, JSON, text, etc,</li>
-<li>RESTless supports XML format.</li>
-</ul>
-</li>
-<li>Flexibility<ul>
-<li>RESTful is easier and flexible,</li>
-<li>RESTless is not as easy and flexible.</li>
-</ul>
-</li>
-<li>Bandwidth<ul>
-<li>RESTful services consume less bandwidth and resource,</li>
-<li>RESTless services consume more bandwidth and resources.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<p>To manage BigData Facebook leverages Apache Hadoop, HBase, Hive, Apache Thrift and PrestoDB. All these are used for data ingestion, warehousing and running analytics.</p>
+<p>Apache Cassandra is used for the inbox search</p>
+<p>Beringei &amp; Gorilla, high-performance time-series storage engines are used for infrastructure monitoring.</p>
+<p>LogDevice, a distributed data store is used for storing logs.</p>
 
 </div>
 </div>
