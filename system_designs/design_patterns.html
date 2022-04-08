@@ -13254,6 +13254,13 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Other-design-patterns">Other design patterns<a class="anchor-link" href="#Other-design-patterns">&#182;</a></h3><h4 id="Inversion-of-Control">Inversion of Control<a class="anchor-link" href="#Inversion-of-Control">&#182;</a></h4><h4 id="Dispatcher">Dispatcher<a class="anchor-link" href="#Dispatcher">&#182;</a></h4><h4 id="Dependency-Inversion-principle">Dependency Inversion principle<a class="anchor-link" href="#Dependency-Inversion-principle">&#182;</a></h4><h5 id="Callbacks">Callbacks<a class="anchor-link" href="#Callbacks">&#182;</a></h5><h5 id="Schedulers">Schedulers<a class="anchor-link" href="#Schedulers">&#182;</a></h5><h5 id="Event-Loops">Event Loops<a class="anchor-link" href="#Event-Loops">&#182;</a></h5><h5 id="Dependency-Injection">Dependency Injection<a class="anchor-link" href="#Dependency-Injection">&#182;</a></h5><h5 id="Template-Method">Template Method<a class="anchor-link" href="#Template-Method">&#182;</a></h5><h4 id="Decorator-vs-Wrapper-pattern">Decorator vs Wrapper pattern<a class="anchor-link" href="#Decorator-vs-Wrapper-pattern">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="SOLID-design-principles">SOLID design principles<a class="anchor-link" href="#SOLID-design-principles">&#182;</a></h3><p>The SOLID ideas were introduced by Robert C Martin in his paper:</p>
 <ul>
 <li>Single-responsibility principle: "There should never be more than one reason for a class to change." In other words, every class should have only one responsibility</li>
@@ -13332,10 +13339,26 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="ACID-compliant">ACID compliant<a class="anchor-link" href="#ACID-compliant">&#182;</a></h3><ul>
-<li>Atomicity</li>
-<li>Consistency</li>
-<li>Isolation</li>
-<li>Durability</li>
+<li>Atomicity<ul>
+<li>Transactions are made up of multiple statements</li>
+<li>Atomicity guarantees that either it succeeds completely, or fails completely</li>
+<li>if any statement in a transaction fails to complete, the entire transaction fails and the database is left unchanged</li>
+</ul>
+</li>
+<li>Consistency<ul>
+<li>any data written to database must be valid as per the rules, including constraints, cascades, triggers, and any combination thereof. </li>
+<li>no illegal/incorrect transaction must be allowed</li>
+</ul>
+</li>
+<li>Isolation<ul>
+<li>concurrent execution of transactions leaves database in same state if the transactions were executed sequentially</li>
+<li>incomplete transaction must not be visible to other transactions</li>
+</ul>
+</li>
+<li>Durability<ul>
+<li>if a transaction has been committed it will remain committed during reboot or a system failure or crash</li>
+</ul>
+</li>
 </ul>
 
 </div>
