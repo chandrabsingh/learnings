@@ -13190,7 +13190,135 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-does-Uber-scale-to-millions-of-concurrent-requests">How does Uber scale to millions of concurrent requests<a class="anchor-link" href="#How-does-Uber-scale-to-millions-of-concurrent-requests">&#182;</a></h3>
+<h3 id="How-does-Uber-scale-to-millions-of-concurrent-requests">How does Uber scale to millions of concurrent requests<a class="anchor-link" href="#How-does-Uber-scale-to-millions-of-concurrent-requests">&#182;</a></h3><ul>
+<li>Fulfillment platform<ul>
+<li>goes through series of checks and balances and then triggers fulfillment to create new order for consumer</li>
+<li>order is the intent of consumer</li>
+<li>intent is then translated into jobs that needs to be processed</li>
+<li>this information is stored in spanner</li>
+<li>these jobs are read by matching engine</li>
+<li>offered to any open provider or supplier nearby</li>
+<li>earlier all of this data was saved in <strong>on-prem database</strong> and recently moved to <strong>Spanner</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberRequestFlow.png"></p>
+<ul>
+<li>Challenges with on-prem database<ul>
+<li>No-SQL storage engine <strong>Cassandra</strong> was used to save all real time fulfillment entities</li>
+<li>to maintain serializability on top of Cassandra, <strong>Ringpop</strong> was used to provide individual <strong>entity-level serialization</strong></li>
+<li>Challenges with NoSQL<ul>
+<li>Cassandra follows the principle of <strong>eventual consistency</strong></li>
+<li>there is <strong>no guarantee of low-latency quorum writes with Cassandra</strong></li>
+<li>witnessed complex storage interactions that required multi-row and multi-table writes.</li>
+<li>to tackle this, an application layer framework was build to orchestrate this operation using saga pattern</li>
+<li>these inconsistencies had to be manually corrected</li>
+<li>in real world - two different drivers are dispatched to a customer</li>
+</ul>
+</li>
+<li>Horizontal scaling bottlenecks were observed in overall architecture<ul>
+<li>this was primarily because how application layer was sharded with Ringpop</li>
+<li>properties of traditional SQL-based storage ACID guarantees were observed</li>
+<li>consistency was the primary requirement</li>
+<li>NoSQL requirements with strong ACID guarantees were needed</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Google Spanner was the solution<ul>
+<li>what were the explorations for transitioning from NoSQL to NewSQL<ul>
+<li>Consistency with high resilency and availability were the requirement criterias</li>
+<li>CockroachDB, FoundationDB and Cloud Spanner were considered</li>
+<li>functional requirements were fulfilled<ul>
+<li>scaled horizontally with our benchmarks, and provided a managed solution for cluster management and maintenance</li>
+</ul>
+</li>
+<li>what is the new architecture<ul>
+<li>every user request results in a transaction against one or more rows and across one or more tables in cloud Spanner</li>
+<li>consistent view of data is available both to internal and external customers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberNewFulfillmentArchitecture.png"></p>
+<ul>
+<li>latency is the biggest factor, what is the networking architecture looks like <ul>
+<li>resilient and highly reliable infrastructure to support Uber's workload</li>
+<li>networking infrastructure was divided into 2 major components<ul>
+<li>physical layer consisting of interconnections between Uber and Cloud vendors</li>
+<li>logical layer consisting of virtual connections on top of physical layer to achieve redundancy<ul>
+<li>this is achieved by making multiple routers and having local access points at each physical network route</li>
+<li>leverage Google's private Google access to route using cloud interconnect VLAN attachments</li>
+<li>reduced the need of routing traffic through public internet and provided additional reliability</li>
+<li>benchmarking tests were designed     </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberLowLatencyNetwork.png"></p>
+<ul>
+<li>how was the migration and transition made seemless<ul>
+<li>database topology was significant different from old platform, any kind of live migration of data was ruled out</li>
+<li>most of the data is ephemeral and changing continuously, backups would have resulted in loss of data</li>
+<li>systems were built that will intercept request from user session and attach to the new user session </li>
+<li>till the past order is not complete, this migration is not done</li>
+<li>only open user session with no active orders were migrated to new architecture</li>
+<li>tooling were tested rigorously in testing, staging and shadow environments</li>
+<li>test cities were developed to check migrations with one city at a time</li>
+<li>continuously migrate over 6 month period</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Performance Optimization</p>
+<ul>
+<li>networking stack<ul>
+<li>TCP Reset<ul>
+<li>the spanner session needs to be re-established for the forwarded requests</li>
+<li>by optimizing gRPC channel pool whenever a channel is affected by TCP resets, requests are automatically forwarded temporarily to backup empty gRPC channel</li>
+</ul>
+</li>
+<li>Intermittent packet loss<ul>
+<li>with frequent health checks, broken TCP connections can be detected within 5 sec and graceful connections can be triggered</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>To take advantage of cloud Spanner elasticity, autoscaler was built</p>
+<ul>
+<li>constantly tunes the number of nodes based on CPU utilization target</li>
+<li>as traffic is variable based on constant CPU utilization target, maximum elasticity is achieved from Cloud spanner cluster </li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberAutoscaler.png"></p>
+<ul>
+<li>On-prem cache was made to handle workload which is very read-heavy<ul>
+<li>improves latency and cost</li>
+<li>only route stale reads to Spanner </li>
+<li>allow cache to serve snapshot isolation based on Spanner's queue time</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberOnpremcache.png"></p>
+<ul>
+<li>READ:<ul>
+<li>"How Ringpop from Uber Engineering helps distribute your application"</li>
+<li>Saga pattern - in microservices architecture it tracks all events of distributed transactions as a sequence and decides the rollbacks events in case of a failure</li>
+<li>Planet scale</li>
+<li>Strong read and Stale read</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -13214,6 +13342,304 @@ $( document ).ready(function(){
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="How-is-Git-different-from-any-other-source-systems">How is Git different from any other source systems<a class="anchor-link" href="#How-is-Git-different-from-any-other-source-systems">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-does-Google-Ad-business-model-works">How does Google Ad business model works<a class="anchor-link" href="#How-does-Google-Ad-business-model-works">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">How to create a microservice architecture with Google Cloud - Nylas<a class="anchor-link" href="#How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">&#182;</a></h3><ul>
+<li><p>Workflow Automation</p>
+<ul>
+<li>by collecting data from multiple applications </li>
+<li>compiling insights</li>
+<li>create end-to-end automation workflow</li>
+</ul>
+</li>
+<li><p>handle communication data driving business process automation</p>
+</li>
+<li><p>Problems to tackle</p>
+<ul>
+<li>security</li>
+<li>scalability</li>
+<li>performance</li>
+<li>cost</li>
+</ul>
+</li>
+<li><p>Why Google Cloud</p>
+<ul>
+<li>best distributed technology</li>
+<li>GKE - Google Kubernetes Engine is the best cloud provider to run Kubernetes workload securely at scale </li>
+<li>one of the most performant data stores in Spanner</li>
+</ul>
+</li>
+<li><p>Architecture</p>
+<ul>
+<li>the advantage of using <strong>GKE</strong> is its ability to <strong>handle the container orchestration</strong>, <strong>Cloud Pub/Sub for message bus</strong> and <strong>Cloud Spanner for relational data store</strong>   </li>
+<li>Spanner processes 1B requests per second at peak</li>
+<li>latency of less than 7 milliseconds</li>
+<li>GCP services are very robust</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/nylasOldArchitecture.png"></p>
+<ul>
+<li><p>Transition</p>
+<ul>
+<li>from Python based application to Go - code rewrite<ul>
+<li>services were rewritten in Go </li>
+<li>10x throughput improvement was observed</li>
+</ul>
+</li>
+<li>move from virtual machine instances on AWS EC2 to GKE <ul>
+<li>move the orchestration from <strong>AWS autoscaler group to GKE</strong></li>
+<li>GKE was used to orchestrate containers </li>
+<li>due to security reasons, nodes have to be cycled very quickly</li>
+<li>were able to have upto 15000 nodes in Kubernetes cluster </li>
+<li>other cloud providers dont provide this level of support</li>
+<li><strong>gVisor</strong> is used to run containers to create strong isolation between application and operating system</li>
+<li>helps lock down host memory and storage access and enforce least permission principle at operating system level</li>
+<li><strong>gVisor is an application kernel</strong>, written in Go, that implements substantial portion of Linux system call interface. It provides an additional layer of isolation between running applications and host operating system    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>20TB of data processing in MySQL shards</p>
+<ul>
+<li>Cloud spanner was used to keep application states </li>
+<li>store keys for each accounts that needs to be connected</li>
+<li>fast read/write is extremely critical for large number of calls</li>
+<li>high performance to have predictable end-to-end latency</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/nylasNewArchitecture.png"></p>
+<ul>
+<li><p>PII(Personally Identifiable Information)</p>
+<ul>
+<li>Nylas does not have to hold PII</li>
+<li>for security services</li>
+</ul>
+</li>
+<li><p>Migrated from database centric design to event based design</p>
+<ul>
+<li>message bus is the heart of all application</li>
+<li>to make this transition, Google Pub/Sub was choosen</li>
+<li>Google Pub/Sub allows services to communicate asynchronously with latencies on the order of 100 milliseconds</li>
+<li>in legacy AWS architecture which was more of data driven architecture<ul>
+<li>the data is written into <strong>Dynamo</strong></li>
+<li>then gets converted by <strong>lambda function</strong></li>
+<li>then goes to <strong>Kinesis event stream</strong></li>
+</ul>
+</li>
+<li>in new architecture, this is simplified<ul>
+<li>event it first</li>
+<li>rewrote it directly on Google Pub/Sub</li>
+<li>puts lot of strain on system, with trust that this will get scale and perform reliably and consistently</li>
+<li>on <strong>Google Pub/Sub, the performance latency is minimal</strong></li>
+<li>event bus can act as data store</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Benefits of migrating</p>
+<ul>
+<li><strong>30 times performance on each node</strong> was observed</li>
+<li><strong>Elasticity of architecture</strong> is amazing</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">How to architect an AI/ML powered healthcare platform on Google Cloud - Vida Health<a class="anchor-link" href="#How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">&#182;</a></h3><ul>
+<li>provides comprehensive virtual care solution tailored to personalized health goals and preferences</li>
+<li><p>what are the challenges in building such application</p>
+<ul>
+<li>data coming from different sources of different types </li>
+<li>needs to be integrated seemlessly</li>
+<li>both for mobile and web users</li>
+</ul>
+</li>
+<li><p>Why Google cloud</p>
+<ul>
+<li>50% cost reduction</li>
+<li>developer productivity, one single place to look at</li>
+<li>focus on AI/ML</li>
+</ul>
+</li>
+<li><p>Challenges with ML and AI</p>
+<ul>
+<li>make provider more efficient at their jobs</li>
+<li>use NLP and speech to text - take down notes for doctors/assistants</li>
+<li>how to get more patients<ul>
+<li>depending on severity and acuity of patients </li>
+<li>give signals to providers</li>
+<li>prioritize such cases </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Vidapedia - major recommendation platform - using Workspace and BigQuery. How does it work?</p>
+<ul>
+<li>Vidapedia <ul>
+<li>set of protocols, as Google docs, written to help providers/clinicians </li>
+<li>200 different protocols are created, not feasible to remember/memorize</li>
+<li>how to get such information at high speed</li>
+</ul>
+</li>
+<li>Vidapedia recommendation system does on machine learning<ul>
+<li>look into patient-provider interaction going on</li>
+<li>surface right protocol for such interaction</li>
+<li>ML model detects and triggers particular protocol during or after the session</li>
+<li>provider is able to give right care to patient</li>
+</ul>
+</li>
+<li>this was possible using Google Doc protocols interaction with Google Workspace <ul>
+<li>use this data, index them</li>
+<li>store it in BigQuery</li>
+<li>build ML tools on top of that</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Data pipeline architecture</p>
+<ul>
+<li>data comes from different sources</li>
+<li>providers provide consultation notes</li>
+<li>derive insights </li>
+<li>data gets ingested both in relational and unstructured format</li>
+<li>all these data is saved in BigQuery</li>
+<li>which is then used in analytics application deriving insights</li>
+<li>visualization tools such as data studio and looker</li>
+<li>ml models are built which is then sourced into visualization tools</li>
+<li>exploration in terms of VertexAI for quickly building these models and deploying them</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/vidaDataAnalyticsArchitecture.png"></p>
+<ul>
+<li><p>Transformations</p>
+<ul>
+<li>in past custom ETL pipelines were designed, which is a challenge</li>
+<li>currently <strong>dbt</strong> is used for transformations</li>
+</ul>
+</li>
+<li><p>how is the orchestration done</p>
+<ul>
+<li><strong>Cloud Composer</strong> is used for orchestration the pipeline, scheduling all of this ingest, processing data, and running all the stuff</li>
+</ul>
+</li>
+<li><p>how is security requirement resolved</p>
+<ul>
+<li>patient data is very sensitive</li>
+<li>stringent privacy laws</li>
+<li>use <strong>Google Data Loss Protection(DLP)</strong></li>
+<li><strong>mask PII data</strong></li>
+<li>reduce surface area</li>
+</ul>
+</li>
+<li><p>what is the Web Architecture designed</p>
+<ul>
+<li>SADA practices - well known in the industry</li>
+<li>standard 3-tier architecture</li>
+<li>load balancers at the front</li>
+<li>deployed in Google Kubernetes engine</li>
+<li>middle API layer that returns all the request response</li>
+<li>at the end there is GCS Postgres database, scaling is easy </li>
+<li>easy to scale</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/vidaWebArchitecture.png"></p>
+<ul>
+<li>What next<ul>
+<li>Google Cloud Healthcare API<ul>
+<li>provides managed solution for storing and accessing healthcare data in Google cloud</li>
+</ul>
+</li>
+<li>Google FHIR - Fast Healthcare Interoperability Resources<ul>
+<li>Google fi</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
 </div>
 </div>
 </div>

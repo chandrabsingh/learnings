@@ -20,6 +20,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [software engineering - conceptual brief](system_designs/software_engineering_concepts.html)
   - [system design - architecture and patterns](system_designs/design_patterns.html)
   - [system design - use case](system_designs/system_design_use_case.html)
+  - shell scripting
 
 - #### data science
   - [machine learning - conceptual brief](algos/ml_glossary.html)

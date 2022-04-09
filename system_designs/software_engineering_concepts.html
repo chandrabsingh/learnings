@@ -13398,7 +13398,7 @@ $( document ).ready(function(){
 </ul>
 </li>
 </ul>
-
+<h4 id="DataLake">DataLake<a class="anchor-link" href="#DataLake">&#182;</a></h4><h4 id="BigQuery---data-warehouse">BigQuery - data warehouse<a class="anchor-link" href="#BigQuery---data-warehouse">&#182;</a></h4><h4 id="Why-Postgres">Why Postgres<a class="anchor-link" href="#Why-Postgres">&#182;</a></h4><h4 id="Why-MySQL">Why MySQL<a class="anchor-link" href="#Why-MySQL">&#182;</a></h4><h4 id="-"> <a class="anchor-link" href="#-">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -14328,7 +14328,27 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Virtual-Method-Table">Virtual Method Table<a class="anchor-link" href="#Virtual-Method-Table">&#182;</a></h3><p><a href="https://legacy.python.org/workshops/1998-11/proceedings/papers/lowis/lowis.html">https://legacy.python.org/workshops/1998-11/proceedings/papers/lowis/lowis.html</a></p>
+<h3 id="Virtual-Method-Table">Virtual Method Table<a class="anchor-link" href="#Virtual-Method-Table">&#182;</a></h3><ul>
+<li><a href="https://legacy.python.org/workshops/1998-11/proceedings/papers/lowis/lowis.html">https://legacy.python.org/workshops/1998-11/proceedings/papers/lowis/lowis.html</a></li>
+<li><a href="https://programs.wiki/wiki/detailed-parsing-of-c-virtual-functions-with-examples.html">https://programs.wiki/wiki/detailed-parsing-of-c-virtual-functions-with-examples.html</a></li>
+</ul>
+<blockquote><ul>
+<li>Anyone who knows C++ should know that virtual functions are implemented through a Virtual Table.V-Table for short. In this table, <strong>the address table of the Virtual Function of a class is the main address table</strong>. This table solves the problem of <strong>inheritance and override</strong>, and ensures that it can faithfully reflect the actual function. In this way, the <strong>table is shared by classes in instances of classes with virtual functions</strong>, so when we manipulate a subclass with the pointer of the parent class, the <strong>Virtual Function table becomes important, just like a map</strong>, indicating what functions should actually be called.</li>
+<li><p>The C++ compiler should ensure that the <strong>pointer to the virtual function table exists at the top of the object instance</strong> (this is to ensure the highest performance when fetching the virtual function table - if there is multiple or multiple inheritance).This means that <strong>we get this virtual function table from the address of the object instance, then we can iterate through the function pointer and call the corresponding function.</strong></p>
+</li>
+<li><p>The <strong>inherited class derives a table of virtual functions</strong>, if any, and copies the virtual function address of the parent class.</p>
+</li>
+<li>Virtual functions are <strong>placed in tables in the order in which they are declared</strong>.</li>
+<li><p>The virtual function of the parent class precedes the virtual function of the child class</p>
+</li>
+<li><p>The <strong>override function is placed in the new virtual table where the parent virtual function address</strong> is, that is, the parent virtual function address is overridden, thus <strong>achieving polymorphism.</strong></p>
+</li>
+<li>Functions that are not overwritten are still listed after the virtual table in the declarative order.</li>
+</ul>
+</blockquote>
+<ul>
+<li>codes/cpp_templates/virtual_test.cpp</li>
+</ul>
 
 </div>
 </div>
@@ -14704,6 +14724,100 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Functional-programming-vs-OOP">Functional programming vs OOP<a class="anchor-link" href="#Functional-programming-vs-OOP">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Advantages-of-Physical-layer-vs-Logical-layer-separation">Advantages of Physical layer vs Logical layer separation<a class="anchor-link" href="#Advantages-of-Physical-layer-vs-Logical-layer-separation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Service-Providers">Service Providers<a class="anchor-link" href="#Service-Providers">&#182;</a></h3><ul>
+<li>What are the type of features that service providers offer like Gmail, Microsoft or IMAP</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-capacity-of-shard-services">Calculate capacity of shard services<a class="anchor-link" href="#Calculate-capacity-of-shard-services">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-acceptable-latency">Calculate acceptable latency<a class="anchor-link" href="#Calculate-acceptable-latency">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-hardware-capability">Calculate hardware capability<a class="anchor-link" href="#Calculate-hardware-capability">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculate-scalability-requirements">Calculate scalability requirements<a class="anchor-link" href="#Calculate-scalability-requirements">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Elasticity-of-cloud">Elasticity of cloud<a class="anchor-link" href="#Elasticity-of-cloud">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Features-that-cloud-provides">Features that cloud provides<a class="anchor-link" href="#Features-that-cloud-provides">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
 </div>
 </div>
 </div>
