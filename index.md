@@ -28,6 +28,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
   - tensorflow intro
   - aws services intro
+  - [node4j intro](codes/neo4j_basics.html)
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
