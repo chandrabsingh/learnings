@@ -4,6 +4,8 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [netflix system architecture](system_designs/netflix.html)
+- game of thrones - neo4j database knowledge graph algorithm analysis codes/neo4j_graph_datascience.html
+- [system design - use case](system_designs/system_design_use_case.html)
 - weka visualization
 - root data analysis
 - mixture models using em algorithm
@@ -19,16 +21,16 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - python - artificial intelligence algos
   - [software engineering - conceptual brief](system_designs/software_engineering_concepts.html)
   - [system design - architecture and patterns](system_designs/design_patterns.html)
-  - [system design - use case](system_designs/system_design_use_case.html)
   - shell scripting
 
-- #### data science
+- #### data science and distributed computing
   - [machine learning - conceptual brief](algos/ml_glossary.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
-  - tensorflow intro
+  - [tensorflow intro](pytorch_fastai/01_tensorflow_intro.html)
   - aws services intro
-  - [node4j intro](codes/neo4j_basics.html)
+  - [neo4j native graph database intro](codes/neo4j_basics.html)
+  - cassandra
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
