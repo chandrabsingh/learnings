@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "276.796875px"}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13289,8 +13289,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Database-design">Database design<a class="anchor-link" href="#Database-design">&#182;</a></h3><ul>
-<li>New database design consideration/evolution</li>
+<h4 id="Database-design">Database design<a class="anchor-link" href="#Database-design">&#182;</a></h4><h4 id="New-database-design-consideration/evolution">New database design consideration/evolution<a class="anchor-link" href="#New-database-design-consideration/evolution">&#182;</a></h4><ul>
 <li>SQL vs NoSQL</li>
 <li>RDBMS</li>
 <li>Oracle</li>
@@ -13386,8 +13385,7 @@ $( document ).ready(function(){
 </ul>
 </li>
 <li>ACID<ul>
-<li>no support for ACID transactions</li>
-<li>limited to an extent</li>
+<li>support for ACID transactions, limited to an extent</li>
 <li>when a large application is deployed on hundreds of servers across the globe, the distributed nodes may take some time to reach a global consensus and actual figures as in Twitter like/follower count</li>
 <li>it works on the principle of <strong>eventual consistency</strong></li>
 <li>best fit for analytics use case</li>
@@ -13398,7 +13396,114 @@ $( document ).ready(function(){
 </ul>
 </li>
 </ul>
-<h4 id="DataLake">DataLake<a class="anchor-link" href="#DataLake">&#182;</a></h4><h4 id="BigQuery---data-warehouse">BigQuery - data warehouse<a class="anchor-link" href="#BigQuery---data-warehouse">&#182;</a></h4><h4 id="Why-Postgres">Why Postgres<a class="anchor-link" href="#Why-Postgres">&#182;</a></h4><h4 id="Why-MySQL">Why MySQL<a class="anchor-link" href="#Why-MySQL">&#182;</a></h4><h4 id="-"> <a class="anchor-link" href="#-">&#182;</a></h4>
+<h4 id="DataLake">DataLake<a class="anchor-link" href="#DataLake">&#182;</a></h4><h4 id="BigQuery---data-warehouse">BigQuery - data warehouse<a class="anchor-link" href="#BigQuery---data-warehouse">&#182;</a></h4><h4 id="Why-Postgres">Why Postgres<a class="anchor-link" href="#Why-Postgres">&#182;</a></h4><h4 id="Why-MySQL">Why MySQL<a class="anchor-link" href="#Why-MySQL">&#182;</a></h4><h4 id="Graph-database">Graph database<a class="anchor-link" href="#Graph-database">&#182;</a></h4><h4 id="Document-oriented-database">Document-oriented database<a class="anchor-link" href="#Document-oriented-database">&#182;</a></h4><ul>
+<li>data is generally semi-structured and stored in a JSON-like format</li>
+<li>optimal for use cases that require flexibility and fast, continual development</li>
+<li>MongoDB, CouchDB, Elasticsearch, Google Cloud Datastore, and Amazon DocumentDB</li>
+</ul>
+<h5 id="MongoDB---Document">MongoDB - Document<a class="anchor-link" href="#MongoDB---Document">&#182;</a></h5><ul>
+<li>A <strong>document is a record in a document database</strong>. </li>
+<li>A document typically stores information about one object and any of its related metadata.</li>
+<li>Documents <strong>store data in field-value pairs</strong>. </li>
+<li>The values can be a <strong>variety of types and structures</strong>, including strings, numbers, dates, arrays, or objects. Documents can be stored in formats like JSON, BSON, and XML.</li>
+<li>A <strong>collection is a group of documents</strong>. Collections typically store documents that have similar contents.</li>
+<li>Not all documents in a collection are required to have the same fields, because <strong>document databases have a flexible schema</strong>. Note that <strong>some document databases provide schema validation</strong>, so the schema can optionally be locked down when needed.</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;first_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tom&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tom@example.com&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;cell&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;765-555-5555&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;likes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;fashion&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;spas&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;shopping&quot;</span><span class="w"></span>
+<span class="w">     </span><span class="p">],</span><span class="w"></span>
+<span class="w">     </span><span class="nt">&quot;businesses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">           </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Entertainment 1080&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">           </span><span class="nt">&quot;partner&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jean&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">           </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bankrupt&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">           </span><span class="nt">&quot;date_founded&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-05-19T04:00:00Z&quot;</span><span class="w"></span>
+<span class="w">           </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">           </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Swag for Tweens&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">           </span><span class="nt">&quot;date_founded&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">              </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-11-01T04:00:00Z&quot;</span><span class="w"></span>
+<span class="w">           </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+<h4 id="Key-Value-database">Key-Value database<a class="anchor-link" href="#Key-Value-database">&#182;</a></h4><ul>
+<li>dictionary data structure </li>
+<li>key has to be unique</li>
+<li>commonly used for caching, storing, and managing user sessions, ad servicing, and recommendations</li>
+<li>examples - Redis</li>
+</ul>
+<h4 id="Time-Series-database">Time Series database<a class="anchor-link" href="#Time-Series-database">&#182;</a></h4><h4 id="Wide-Column-database">Wide-Column database<a class="anchor-link" href="#Wide-Column-database">&#182;</a></h4><h4 id="Eventual-vs-Strong-Consistency">Eventual vs Strong Consistency<a class="anchor-link" href="#Eventual-vs-Strong-Consistency">&#182;</a></h4><ul>
+<li>Eventual consistency<ul>
+<li>enables datastores to be highly available</li>
+<li>is also known as <strong>optimistic replication</strong> and is key to distributed systems.</li>
+<li>each data centers have multiple clusters with numerous server nodes running</li>
+<li>data is initially inconsistent but eventually becomes consistent across all the server nodes deployed around the world</li>
+</ul>
+</li>
+<li>Strong consistency<ul>
+<li>data has to be consistent at all times</li>
+<li>to achieve this all nodes need to be locked down while getting updated</li>
+<li>this behavior enables implementation of ACID transactions</li>
+</ul>
+</li>
+</ul>
+<h4 id="Polyglot-persistence">Polyglot persistence<a class="anchor-link" href="#Polyglot-persistence">&#182;</a></h4><ul>
+<li><p><img src="https://www.abhishek-tiwari.com/assets/images/Polyglot-persistence-pattern-for-an-ecommerce-application.png"></p>
+</li>
+</ul>
+<h4 id="CAP-theorem">CAP theorem<a class="anchor-link" href="#CAP-theorem">&#182;</a></h4><ul>
+<li>consistency, availability, partition tolerance(fault tolerance)<ul>
+<li>Consistency<ul>
+<li>Every read receives the most recent write or an error.</li>
+</ul>
+</li>
+<li>Availability<ul>
+<li>Every request receives a (non-error) response, without the guarantee that it contains the most recent write.</li>
+</ul>
+</li>
+<li>Partition tolerance<ul>
+<li>The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.<blockquote><ul>
+<li>No distributed system is safe from network failures, thus network partitioning generally has to be tolerated. In the presence of a partition, one is then left with two options: consistency or availability.  <blockquote><ul>
+<li>When choosing consistency over availability, the system will return an error or a time out if particular information cannot be guaranteed to be up to date due to network partitioning. </li>
+<li>When choosing availability over consistency, the system will always process the query and try to return the most recent available version of the information, even if it cannot guarantee it is up to date due to network partitioning. </li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="BASE-semantics">BASE semantics<a class="anchor-link" href="#BASE-semantics">&#182;</a></h4><ul>
+<li>basically-available, soft-state, eventual consistency</li>
+<li>Eventually consistent services has only liveness guarantee - updates will be observed eventually<ul>
+<li><strong>Basically available:</strong> reading and writing operations are available as much as possible (using all nodes of a database cluster), but might not be consistent (the write might not persist after conflicts are reconciled, the read might not get the latest write)</li>
+<li><strong>Soft-state:</strong> without consistency guarantees, after some amount of time, we only have some probability of knowing the state, since it might not yet have converged</li>
+<li><strong>Eventually consistent:</strong> If we execute some writes and then the system functions long enough, we can know the state of the data; any further reads of that data item will return the same value</li>
+</ul>
+</li>
+</ul>
+<h4 id="Multi-model-database">Multi-model database<a class="anchor-link" href="#Multi-model-database">&#182;</a></h4><ul>
+<li>ArangoDB, CosmosDB, OrientDB, Couchbase, etc</li>
+<li>support multiple data models like the graph, document-oriented, relational, etc. </li>
+<li>They also avert the need for managing multiple persistence technologies in a single service. </li>
+<li>They reduce the operational complexity by notches</li>
+</ul>
+<h4 id="Cassandra">Cassandra<a class="anchor-link" href="#Cassandra">&#182;</a></h4><h4 id="Memcached">Memcached<a class="anchor-link" href="#Memcached">&#182;</a></h4><h4 id="HBase">HBase<a class="anchor-link" href="#HBase">&#182;</a></h4><h4 id="Neo4j">Neo4j<a class="anchor-link" href="#Neo4j">&#182;</a></h4><h4 id="MongoDB">MongoDB<a class="anchor-link" href="#MongoDB">&#182;</a></h4><h4 id="MapReduce">MapReduce<a class="anchor-link" href="#MapReduce">&#182;</a></h4><h4 id="Elasticsearch">Elasticsearch<a class="anchor-link" href="#Elasticsearch">&#182;</a></h4><h4 id="Redis">Redis<a class="anchor-link" href="#Redis">&#182;</a></h4><h4 id="Google-Cloud-Datastore">Google Cloud Datastore<a class="anchor-link" href="#Google-Cloud-Datastore">&#182;</a></h4><h4 id="Redis-vs-Memcached">Redis vs Memcached<a class="anchor-link" href="#Redis-vs-Memcached">&#182;</a></h4><h4 id="Oracle-vs-MySQL">Oracle vs MySQL<a class="anchor-link" href="#Oracle-vs-MySQL">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -14106,6 +14211,25 @@ $\tiny{\text{https://ably.com/}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sockets">Sockets<a class="anchor-link" href="#Sockets">&#182;</a></h3><ul>
+<li>TCP sockets</li>
+<li>SSL sockets</li>
+<li>IPv4/IPv6 connections</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Connection-Pools">Connection Pools<a class="anchor-link" href="#Connection-Pools">&#182;</a></h3><h3 id="Connection-Proxy">Connection Proxy<a class="anchor-link" href="#Connection-Proxy">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="POSIX-message-queue">POSIX message queue<a class="anchor-link" href="#POSIX-message-queue">&#182;</a></h3><h3 id="Windows-message-queues">Windows message queues<a class="anchor-link" href="#Windows-message-queues">&#182;</a></h3><p><a href="https://web.archive.org/web/20120317065349/http://msdn.microsoft.com/en-us/library/ms644927(VS.85">Windows Message Queue</a>.aspx)</p>
 
 </div>
@@ -14789,6 +14913,10 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="User-Session">User Session<a class="anchor-link" href="#User-Session">&#182;</a></h3><ul>
+<li>When a website stores user state, the next time the user logs in they can continue from where they left off</li>
+<li>It would not feel like that one is starting fresh &amp; all the previous activity is lost</li>
+</ul>
 
 </div>
 </div>

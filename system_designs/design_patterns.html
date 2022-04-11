@@ -13339,26 +13339,38 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="ACID-compliant">ACID compliant<a class="anchor-link" href="#ACID-compliant">&#182;</a></h3><ul>
-<li>Atomicity<ul>
+<li><strong>Atomicity</strong><ul>
 <li>Transactions are made up of multiple statements</li>
 <li>Atomicity guarantees that either it succeeds completely, or fails completely</li>
 <li>if any statement in a transaction fails to complete, the entire transaction fails and the database is left unchanged</li>
 </ul>
 </li>
-<li>Consistency<ul>
+<li><strong>Consistency</strong><ul>
 <li>any data written to database must be valid as per the rules, including constraints, cascades, triggers, and any combination thereof. </li>
 <li>no illegal/incorrect transaction must be allowed</li>
 </ul>
 </li>
-<li>Isolation<ul>
+<li><strong>Isolation</strong><ul>
 <li>concurrent execution of transactions leaves database in same state if the transactions were executed sequentially</li>
 <li>incomplete transaction must not be visible to other transactions</li>
 </ul>
 </li>
-<li>Durability<ul>
+<li><strong>Durability</strong><ul>
 <li>if a transaction has been committed it will remain committed during reboot or a system failure or crash</li>
 </ul>
 </li>
+</ul>
+<h3 id="BASE-semantics">BASE semantics<a class="anchor-link" href="#BASE-semantics">&#182;</a></h3><ul>
+<li>basically-available, soft-state, eventual consistency</li>
+<li>Eventually consistent services has only liveness guarantee - updates will be observed eventually<ul>
+<li><strong>Basically available:</strong> reading and writing operations are available as much as possible (using all nodes of a database cluster), but might not be consistent (the write might not persist after conflicts are reconciled, the read might not get the latest write)</li>
+<li><strong>Soft-state:</strong> without consistency guarantees, after some amount of time, we only have some probability of knowing the state, since it might not yet have converged</li>
+<li><strong>Eventually consistent:</strong> If we execute some writes and then the system functions long enough, we can know the state of the data; any further reads of that data item will return the same value</li>
+</ul>
+</li>
+</ul>
+<h3 id="CRUD">CRUD<a class="anchor-link" href="#CRUD">&#182;</a></h3><ul>
+<li>Create, Read, Update, Delete</li>
 </ul>
 
 </div>
@@ -13480,13 +13492,16 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h3 id="Service-Oriented-Architecture">Service Oriented Architecture<a class="anchor-link" href="#Service-Oriented-Architecture">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Programming-Paradigm">Programming Paradigm<a class="anchor-link" href="#Programming-Paradigm">&#182;</a></h3><ul>
+<li><a href="https://en.wikipedia.org/wiki/Programming_paradigm">https://en.wikipedia.org/wiki/Programming_paradigm</a></li>
+</ul>
 
 </div>
 </div>

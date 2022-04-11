@@ -1,9 +1,9 @@
 here are the notes and understanding of the tools i learnt during sabbatical work break
 
 ### why-how-what
+- [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [netflix system architecture](system_designs/netflix.html)
-- [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - weka visualization
 - root data analysis
 - mixture models using em algorithm
