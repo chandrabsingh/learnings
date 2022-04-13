@@ -4,7 +4,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [netflix system architecture](system_designs/netflix.html)
-- game of thrones - neo4j database knowledge graph algorithm analysis codes/neo4j_graph_datascience.html
+- [game of thrones - knowledge graph analysis using neo4j data science library](codes/neo4j_graph_datascience.html)
 - [system design - use case](system_designs/system_design_use_case.html)
 - weka visualization
 - root data analysis
