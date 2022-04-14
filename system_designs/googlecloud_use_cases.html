@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>design_patterns</title>
+<title>googlecloud_use_cases</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "166.796875px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,371 +13117,226 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-do-Pokemon-Go-scale-to-millions-of-request">How do Pokemon Go scale to millions of request<a class="anchor-link" href="#How-do-Pokemon-Go-scale-to-millions-of-request">&#182;</a></h3><ul>
+<li><a href="https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/">https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/</a></li>
+<li><a href="https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests">https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests</a></li>
+</ul>
+<p><strong>How does Pokemon scale?</strong></p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/">Microsoft Azure - Cloud Design Patterns</a>  </li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven">Event driven architecture</a>   </li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/big-data">Big data architecture</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices">Microservices</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/n-tier">N-tier</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/web-queue-worker">Web Queue worker</a></li>
-<li></li>
+<li>uses Google cloud - Google Kubernetes Engine and Spanner</li>
+<li>front end service hosted on GKE, as it is easy to scale</li>
+<li>uses 5000 spanner nodes to handle traffic</li>
+<li>uses 1000 GKE nodes just for Pokemon Go service</li>
+<li>uses microservices for gaming augmentations</li>
+<li>millions of players play the same game at any given moment, unlike other multiplayer games like "World of Warcraft" which split players into multiple realms</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Asynchronous-request-reply">Asynchronous request reply<a class="anchor-link" href="#Asynchronous-request-reply">&#182;</a></h3><ul>
-<li>Client sends POST request and gets HTTP 202 accepted message</li>
-<li>Client again sends GET request to status endpoint and gets pending HTTP 202 accepted message</li>
-<li>Later status endpoint on job completion sends HTTP 302 redirecting response</li>
-<li>Client fetches resource back from URL</li>
-</ul>
-<p><img src="images/async-request-reply.png" width=600 height=600><br>
-$\tiny{\text{https://docs.microsoft.com/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sharding-database">Sharding database<a class="anchor-link" href="#Sharding-database">&#182;</a></h3><h4 id="Types-of-partitioning">Types of partitioning<a class="anchor-link" href="#Types-of-partitioning">&#182;</a></h4><ul>
-<li>Horizontal partitioning(sharding) <ul>
-<li>separating table rows into multiple tables with same schema </li>
-</ul>
-</li>
-<li>Vertical partitioning<ul>
-<li>separating columns into distinct tables</li>
-</ul>
-</li>
-</ul>
-<h4 id="What-is-Sharding">What is Sharding<a class="anchor-link" href="#What-is-Sharding">&#182;</a></h4><ul>
-<li>breaking data into logical shards</li>
-<li>distribute these logical shards into separate database nodes or into physical shards</li>
-<li>physical shards can hold multiple logical shards</li>
-<li>helps in mitigating impact of outages</li>
-</ul>
-<h4 id="Benefits-of-sharding">Benefits of sharding<a class="anchor-link" href="#Benefits-of-sharding">&#182;</a></h4><ul>
-<li>horizontal scaling or scaling out<ul>
-<li>adding more machines to exsiting stack to spread out load and allow for more traffic</li>
-</ul>
-</li>
-<li>vertical scaling or scaling up<ul>
-<li>upgrading hardware by adding more RAM or CPU</li>
-</ul>
-</li>
-</ul>
-<h4 id="Sharding-architectures">Sharding architectures<a class="anchor-link" href="#Sharding-architectures">&#182;</a></h4><ul>
-<li>Key based sharding<ul>
-<li>hash based sharding based on partition key</li>
-</ul>
-</li>
-<li>Range based sharding<ul>
-<li>for example, price range</li>
-</ul>
-</li>
-<li>Directory based sharding<ul>
-<li>maintain lookup table</li>
-<li>Multiple tenants might share the same shard, but the data for a single tenant won't be spread across multiple shards</li>
-</ul>
-</li>
-</ul>
-<p><img src="images/shardTable.png" width=600 height=600><br>
-$\tiny{\text{Types of Partitioning - digitalocean.com}}$</p>
-<p><img src="images/sharding-tenant-lookup.png" width=600 height=600><br>
-$\tiny{\text{Lookup Partitioning - https://docs.microsoft.com/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Stateful-vs-Stateless">Stateful vs Stateless<a class="anchor-link" href="#Stateful-vs-Stateless">&#182;</a></h3><p><img src="images/stateful_stateless.png" width=400 height=400><br>
-$\tiny{\text{Stateful vs Stateless - https://virtasant.com/}}$</p>
+<p><strong>Was the architecture always the same?</strong></p>
 <ul>
-<li>A banking transaction - Stateful
-<img src="images/statefulTransaction.png" width=800 height=800><br>
-$\tiny{\text{Stateful Transaction - https://virtasant.com/}}$   </li>
+<li>starting off, it started on Google Data Store </li>
+<li>later it decided to scale</li>
+<li>Spanner was a choice, as it has consistent indexing that allows to do more complex database schemas with primary and secondary keys</li>
+<li>Data store was also non-relational with atomic and durable transactions </li>
+<li>requirement was to have a relational database with full consistency, so Spanner was chosen, which provided global ACID transactions</li>
+</ul>
+<p><strong>How does the request flow work when one logs into Pokemon Go?</strong></p>
+<ul>
+<li>when a user catches a Pokemon, a request is received through Google Cloud load balancer </li>
+<li>all static media is stored on Google cloud storage bucket, which is downloaded onto the phone when the app is opened on phone</li>
+<li>the load balancers are cached and served through Google cloud SDN</li>
+<li>when a player catches the Pokemon, the GCLB sends a request to GKE cluster</li>
+<li>there is a front end service that sits behind a Nginx reverse proxy </li>
+<li>the request goes from user phone to reverse proxy to one of these player front end services</li>
+<li>there is a spatial query backend, which a cache by location, which stores information that determines <ul>
+<li>where a Pokemon is shown on map, </li>
+<li>where are the gyms </li>
+<li>where are the Pokestops around, </li>
+<li>what is the timezone or any other feature locationwise  </li>
+</ul>
+</li>
+<li>the front end manages the player and their interaction with the game</li>
+<li>the spatial query backend handles the map</li>
+<li>the front end retrieves the information from the squibby to send back to the user</li>
+<li>the spatial query is a custom database that presents the map and the Pokemons</li>
+</ul>
+<p><img src="images/pokemonGo.png"></p>
+<p><strong>What happens when a Pokemon is hunted and caught?</strong></p>
+<ul>
+<li>a request is sent from the front end to the Spanner database where player entity is stored in the store </li>
+<li>if someone is battling in the gym or adding lures enhancing Pokestop, that information is stored on spatial query backend</li>
+<li>eventually the data gets consistent, at which point the player will receive the update and then other players in the vicinity will get update as well</li>
+<li>the front end then will retrieve the information from the spatial query backend and send it back to the user</li>
+<li>this information is also stored using protobuf into Bigtable</li>
+<li>Bigtable is also used for logging and tracking purposes </li>
+<li>Pub/Sub is also used to send topic which is then used for analytics pipeline</li>
+</ul>
+<p><strong>How is it ensured that two people in the same geographic location, see the same Pokemon data and keep that relatively in sync, especially during the events?</strong></p>
+<ul>
+<li>everything in the servers are deterministic</li>
+<li>if they are in same locations, both the players will get returned the same details</li>
+<li>this is achieved using caching which manages precise timing especially when the settings are changed and they need to be in sync across all servers</li>
+</ul>
+<p><strong>How does the data pipelines work and what analytics happen?</strong></p>
+<ul>
+<li>about 10G of data is generated daily and stored in BigQuery</li>
+<li>this data is utilized by data science team</li>
+<li>this is used for marketing purposes, for verification</li>
+<li>Dataflow is used to run batch jobs to process the player logs sitting in Bigtable</li>
+<li>this is used for cheat detection <ul>
+<li>a player in Japan and a minute later they were in Australia</li>
+<li>check for such logs and respond to improper player signals</li>
+</ul>
+</li>
+<li>Google Dataflow is also used to set up Pokestops and gyms and habitat information around the world</li>
+<li>information from various sources are used, like OpenStreetMap, US Geological survey and WayFarer, a crowdsourced website, for players to submit points of interests in their neighborhood and combine all that information to build a living map of the world</li>
+</ul>
+<p><strong>As the traffic grows during events, how does the data pipelines scale?</strong></p>
+<ul>
+<li>with the increase of transactions in pipelines, is managed by BigQuery<ul>
+<li>BigQuery's serverless architecture decouples storage and compute and allows them to scale independently on demand</li>
+</ul>
+</li>
+<li>scaling works premptively on Google cloud to support the traffic</li>
+</ul>
+<p><strong>How is the health of the system monitored during these massive events?</strong></p>
+<ul>
+<li>multiple monitoring systems like Prometheus, Grafana, and Google Cloud Monitoring is used</li>
+</ul>
+<p><strong>What are the next plans?</strong></p>
+<ul>
+<li>exploring Agones and Google Game Servers</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-does-Uber-scale-to-millions-of-concurrent-requests">How does Uber scale to millions of concurrent requests<a class="anchor-link" href="#How-does-Uber-scale-to-millions-of-concurrent-requests">&#182;</a></h3><ul>
+<li>Fulfillment platform<ul>
+<li>goes through series of checks and balances and then triggers fulfillment to create new order for consumer</li>
+<li>order is the intent of consumer</li>
+<li>intent is then translated into jobs that needs to be processed</li>
+<li>this information is stored in spanner</li>
+<li>these jobs are read by matching engine</li>
+<li>offered to any open provider or supplier nearby</li>
+<li>earlier all of this data was saved in <strong>on-prem database</strong> and recently moved to <strong>Spanner</strong></li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberRequestFlow.png"></p>
+<ul>
+<li>Challenges with on-prem database<ul>
+<li>No-SQL storage engine <strong>Cassandra</strong> was used to save all real time fulfillment entities</li>
+<li>to maintain serializability on top of Cassandra, <strong>Ringpop</strong> was used to provide individual <strong>entity-level serialization</strong></li>
+<li>Challenges with NoSQL<ul>
+<li>Cassandra follows the principle of <strong>eventual consistency</strong></li>
+<li>there is <strong>no guarantee of low-latency quorum writes with Cassandra</strong></li>
+<li>witnessed complex storage interactions that required multi-row and multi-table writes.</li>
+<li>to tackle this, an application layer framework was build to orchestrate this operation using saga pattern</li>
+<li>these inconsistencies had to be manually corrected</li>
+<li>in real world - two different drivers are dispatched to a customer</li>
+</ul>
+</li>
+<li>Horizontal scaling bottlenecks were observed in overall architecture<ul>
+<li>this was primarily because how application layer was sharded with Ringpop</li>
+<li>properties of traditional SQL-based storage ACID guarantees were observed</li>
+<li>consistency was the primary requirement</li>
+<li>NoSQL requirements with strong ACID guarantees were needed</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Google Spanner was the solution<ul>
+<li>what were the explorations for transitioning from NoSQL to NewSQL<ul>
+<li>Consistency with high resilency and availability were the requirement criterias</li>
+<li>CockroachDB, FoundationDB and Cloud Spanner were considered</li>
+<li>functional requirements were fulfilled<ul>
+<li>scaled horizontally with our benchmarks, and provided a managed solution for cluster management and maintenance</li>
+</ul>
+</li>
+<li>what is the new architecture<ul>
+<li>every user request results in a transaction against one or more rows and across one or more tables in cloud Spanner</li>
+<li>consistent view of data is available both to internal and external customers</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberNewFulfillmentArchitecture.png"></p>
+<ul>
+<li>latency is the biggest factor, what is the networking architecture looks like <ul>
+<li>resilient and highly reliable infrastructure to support Uber's workload</li>
+<li>networking infrastructure was divided into 2 major components<ul>
+<li>physical layer consisting of interconnections between Uber and Cloud vendors</li>
+<li>logical layer consisting of virtual connections on top of physical layer to achieve redundancy<ul>
+<li>this is achieved by making multiple routers and having local access points at each physical network route</li>
+<li>leverage Google's private Google access to route using cloud interconnect VLAN attachments</li>
+<li>reduced the need of routing traffic through public internet and provided additional reliability</li>
+<li>benchmarking tests were designed     </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/uberLowLatencyNetwork.png"></p>
+<ul>
+<li>how was the migration and transition made seemless<ul>
+<li>database topology was significant different from old platform, any kind of live migration of data was ruled out</li>
+<li>most of the data is ephemeral and changing continuously, backups would have resulted in loss of data</li>
+<li>systems were built that will intercept request from user session and attach to the new user session </li>
+<li>till the past order is not complete, this migration is not done</li>
+<li>only open user session with no active orders were migrated to new architecture</li>
+<li>tooling were tested rigorously in testing, staging and shadow environments</li>
+<li>test cities were developed to check migrations with one city at a time</li>
+<li>continuously migrate over 6 month period</li>
+</ul>
+</li>
 </ul>
 <ul>
-<li>A banking transaction - Stateless
-<img src="images/statelessTransaction.png" width=800 height=800><br>
-$\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Orchestration">Orchestration<a class="anchor-link" href="#Orchestration">&#182;</a></h3><h3 id="Loose-coupling">Loose coupling<a class="anchor-link" href="#Loose-coupling">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Software-Design-Patterns">Software Design Patterns<a class="anchor-link" href="#Software-Design-Patterns">&#182;</a></h3><h4 id="Creational-patterns">Creational patterns<a class="anchor-link" href="#Creational-patterns">&#182;</a></h4><h4 id="Structural-patterns">Structural patterns<a class="anchor-link" href="#Structural-patterns">&#182;</a></h4><h4 id="Behavioral-patterns">Behavioral patterns<a class="anchor-link" href="#Behavioral-patterns">&#182;</a></h4><h4 id="Concurrency-patterns">Concurrency patterns<a class="anchor-link" href="#Concurrency-patterns">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Other-design-patterns">Other design patterns<a class="anchor-link" href="#Other-design-patterns">&#182;</a></h3><h4 id="Inversion-of-Control">Inversion of Control<a class="anchor-link" href="#Inversion-of-Control">&#182;</a></h4><h4 id="Dispatcher">Dispatcher<a class="anchor-link" href="#Dispatcher">&#182;</a></h4><h4 id="Dependency-Inversion-principle">Dependency Inversion principle<a class="anchor-link" href="#Dependency-Inversion-principle">&#182;</a></h4><h5 id="Callbacks">Callbacks<a class="anchor-link" href="#Callbacks">&#182;</a></h5><h5 id="Schedulers">Schedulers<a class="anchor-link" href="#Schedulers">&#182;</a></h5><h5 id="Event-Loops">Event Loops<a class="anchor-link" href="#Event-Loops">&#182;</a></h5><h5 id="Dependency-Injection">Dependency Injection<a class="anchor-link" href="#Dependency-Injection">&#182;</a></h5><h5 id="Template-Method">Template Method<a class="anchor-link" href="#Template-Method">&#182;</a></h5><h4 id="Decorator-vs-Wrapper-pattern">Decorator vs Wrapper pattern<a class="anchor-link" href="#Decorator-vs-Wrapper-pattern">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="SOLID-design-principles">SOLID design principles<a class="anchor-link" href="#SOLID-design-principles">&#182;</a></h3><p>The SOLID ideas were introduced by Robert C Martin in his paper:</p>
+<li><p>Performance Optimization</p>
 <ul>
-<li>Single-responsibility principle: "There should never be more than one reason for a class to change." In other words, every class should have only one responsibility</li>
-<li>Open–closed principle: "Software entities ... should be open for extension, but closed for modification."</li>
-<li>Liskov substitution principle: "Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it."</li>
-<li>Interface segregation principle: "Many client-specific interfaces are better than one general-purpose interface."</li>
-<li>Dependency inversion principle: "Depend upon abstractions, not concretions."</li>
+<li>networking stack<ul>
+<li>TCP Reset<ul>
+<li>the spanner session needs to be re-established for the forwarded requests</li>
+<li>by optimizing gRPC channel pool whenever a channel is affected by TCP resets, requests are automatically forwarded temporarily to backup empty gRPC channel</li>
 </ul>
-<h4 id="Single-responsibility-pattern">Single responsibility pattern<a class="anchor-link" href="#Single-responsibility-pattern">&#182;</a></h4><ul>
-<li>Each component has one responsibility only within a system</li>
-<li>With this pattern, the components are loosely coupled and it doesnot impact functionality of other components</li>
-<li>for example, a database cannot contain business logic, its job must remain to persist the data only</li>
-</ul>
-<h4 id="Separation-of-Concerns">Separation of Concerns<a class="anchor-link" href="#Separation-of-Concerns">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Antipatterns">Antipatterns<a class="anchor-link" href="#Antipatterns">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Event-driven-architecture">Event driven architecture<a class="anchor-link" href="#Event-driven-architecture">&#182;</a></h3><h4 id="Publish-Subscribe-pattern">Publish-Subscribe pattern<a class="anchor-link" href="#Publish-Subscribe-pattern">&#182;</a></h4><h4 id="Request-Reply">Request-Reply<a class="anchor-link" href="#Request-Reply">&#182;</a></h4><h4 id="Sockets">Sockets<a class="anchor-link" href="#Sockets">&#182;</a></h4><h4 id="Unix-Sockets">Unix Sockets<a class="anchor-link" href="#Unix-Sockets">&#182;</a></h4><h4 id="Message-Queue">Message Queue<a class="anchor-link" href="#Message-Queue">&#182;</a></h4><h4 id="Producer-Consumer-Queue">Producer Consumer Queue<a class="anchor-link" href="#Producer-Consumer-Queue">&#182;</a></h4><h4 id="SOAP">SOAP<a class="anchor-link" href="#SOAP">&#182;</a></h4><h4 id="REST">REST<a class="anchor-link" href="#REST">&#182;</a></h4><h4 id="Event-channels">Event channels<a class="anchor-link" href="#Event-channels">&#182;</a></h4><h4 id="HTTP-endpoint">HTTP endpoint<a class="anchor-link" href="#HTTP-endpoint">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-service">Web service<a class="anchor-link" href="#Web-service">&#182;</a></h3><p><a href="https://en.wikipedia.org/wiki/Web_service">https://en.wikipedia.org/wiki/Web_service</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="API-design">API design<a class="anchor-link" href="#API-design">&#182;</a></h3><h4 id="RPC-vs-REST-vs-GraphQL">RPC vs REST vs GraphQL<a class="anchor-link" href="#RPC-vs-REST-vs-GraphQL">&#182;</a></h4><h4 id="RPC---Remote-Procedure-Call">RPC - Remote Procedure Call<a class="anchor-link" href="#RPC---Remote-Procedure-Call">&#182;</a></h4><ul>
-<li>call function in remote server</li>
-<li>wrap a function over transport and have an endpoint attached to it, and we get RPC<ul>
-<li>GET /listConversations</li>
-<li>GET /listMessages</li>
-<li>POST /sendMessage</li>
+</li>
+<li>Intermittent packet loss<ul>
+<li>with frequent health checks, broken TCP connections can be detected within 5 sec and graceful connections can be triggered</li>
 </ul>
 </li>
 </ul>
-<h4 id="REST">REST<a class="anchor-link" href="#REST">&#182;</a></h4><ul>
-<li><a href="https://hub.packtpub.com/defining-rest-and-its-various-architectural-styles/">https://hub.packtpub.com/defining-rest-and-its-various-architectural-styles/</a></li>
-<li><a href="https://www.altexsoft.com/blog/rest-api-design/">https://www.altexsoft.com/blog/rest-api-design/</a></li>
-<li><a href="https://dev.to/priyanshi_sharma/basic-concepts-to-understand-api-web-services-microservices-3g02">https://dev.to/priyanshi_sharma/basic-concepts-to-understand-api-web-services-microservices-3g02</a></li>
-</ul>
-<h4 id="GraphQL">GraphQL<a class="anchor-link" href="#GraphQL">&#182;</a></h4><h4 id="Webhook">Webhook<a class="anchor-link" href="#Webhook">&#182;</a></h4><ul>
-<li><a href="https://sendgrid.com/blog/whats-webhook/">https://sendgrid.com/blog/whats-webhook/</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Functional-programming">Functional programming<a class="anchor-link" href="#Functional-programming">&#182;</a></h3><ul>
-<li>Functions dont retain any state</li>
-<li>this means they are stateless and helps in maintaining consistent application wide state</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ACID-compliant">ACID compliant<a class="anchor-link" href="#ACID-compliant">&#182;</a></h3><ul>
-<li><strong>Atomicity</strong><ul>
-<li>Transactions are made up of multiple statements</li>
-<li>Atomicity guarantees that either it succeeds completely, or fails completely</li>
-<li>if any statement in a transaction fails to complete, the entire transaction fails and the database is left unchanged</li>
+</li>
 </ul>
 </li>
-<li><strong>Consistency</strong><ul>
-<li>any data written to database must be valid as per the rules, including constraints, cascades, triggers, and any combination thereof. </li>
-<li>no illegal/incorrect transaction must be allowed</li>
-</ul>
-</li>
-<li><strong>Isolation</strong><ul>
-<li>concurrent execution of transactions leaves database in same state if the transactions were executed sequentially</li>
-<li>incomplete transaction must not be visible to other transactions</li>
-</ul>
-</li>
-<li><strong>Durability</strong><ul>
-<li>if a transaction has been committed it will remain committed during reboot or a system failure or crash</li>
+<li><p>To take advantage of cloud Spanner elasticity, autoscaler was built</p>
+<ul>
+<li>constantly tunes the number of nodes based on CPU utilization target</li>
+<li>as traffic is variable based on constant CPU utilization target, maximum elasticity is achieved from Cloud spanner cluster </li>
 </ul>
 </li>
 </ul>
-<h3 id="BASE-semantics">BASE semantics<a class="anchor-link" href="#BASE-semantics">&#182;</a></h3><ul>
-<li>basically-available, soft-state, eventual consistency</li>
-<li>Eventually consistent services has only liveness guarantee - updates will be observed eventually<ul>
-<li><strong>Basically available:</strong> reading and writing operations are available as much as possible (using all nodes of a database cluster), but might not be consistent (the write might not persist after conflicts are reconciled, the read might not get the latest write)</li>
-<li><strong>Soft-state:</strong> without consistency guarantees, after some amount of time, we only have some probability of knowing the state, since it might not yet have converged</li>
-<li><strong>Eventually consistent:</strong> If we execute some writes and then the system functions long enough, we can know the state of the data; any further reads of that data item will return the same value</li>
+<p><img src="./images/uberAutoscaler.png"></p>
+<ul>
+<li>On-prem cache was made to handle workload which is very read-heavy<ul>
+<li>improves latency and cost</li>
+<li>only route stale reads to Spanner </li>
+<li>allow cache to serve snapshot isolation based on Spanner's queue time</li>
 </ul>
 </li>
 </ul>
-<h3 id="CRUD">CRUD<a class="anchor-link" href="#CRUD">&#182;</a></h3><ul>
-<li>Create, Read, Update, Delete</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Staged-event-driven-architecture-(SEDA)">Staged event-driven architecture (SEDA)<a class="anchor-link" href="#Staged-event-driven-architecture-(SEDA)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="iPaaS">iPaaS<a class="anchor-link" href="#iPaaS">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Ingestion-Pipeline-Patterns">Data Ingestion Pipeline Patterns<a class="anchor-link" href="#Data-Ingestion-Pipeline-Patterns">&#182;</a></h3><ul>
-<li><a href="https://www.snaplogic.com/blog/big-data-ingestion-patterns">https://www.snaplogic.com/blog/big-data-ingestion-patterns</a></li>
-<li><a href="https://www.upsolver.com/blog/data-pipeline-architecture-building-blocks-diagrams-and-patterns">https://www.upsolver.com/blog/data-pipeline-architecture-building-blocks-diagrams-and-patterns</a></li>
-<li><a href="https://www.snaplogic.com/glossary/data-ingestion-pipeline">https://www.snaplogic.com/glossary/data-ingestion-pipeline</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Modeling">Data Modeling<a class="anchor-link" href="#Data-Modeling">&#182;</a></h3><ul>
-<li>Relational data modeling</li>
-<li>Dimensional data modeling</li>
-<li>Graphical data modeling</li>
-</ul>
-<p><a href="https://segment.com/blog/data-modeling/">https://segment.com/blog/data-modeling/</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Message-Broker-Models">Message Broker Models<a class="anchor-link" href="#Message-Broker-Models">&#182;</a></h3><ul>
-<li>Point-to-point messaging</li>
-<li>Publish/subscribe messaging</li>
-</ul>
-<p><a href="https://www.ibm.com/cloud/learn/message-brokers#toc-message-br-Qe5q5uIC">https://www.ibm.com/cloud/learn/message-brokers#toc-message-br-Qe5q5uIC</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Micro-frontends">Micro frontends<a class="anchor-link" href="#Micro-frontends">&#182;</a></h3><ul>
-<li>Micro-frontend architecture is a design approach in which a front-end app is decomposed into individual, semi-independent “microapps” working loosely together. The micro-frontend concept is vaguely inspired by, and named after, microservices.</li>
-<li>Micro-frontend architectures may be simpler, and thus easier to reason about and manage.</li>
-<li>Independent development teams can collaborate on a front-end app more easily.</li>
-<li>They can provide a means for migrating from an “old” app by having a “new” app running side by side with it.</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*o9NfGBM20TJDrAfopPj2mg.png" width=600 height=400></p>
-<p><a href="https://www.toptal.com/front-end/micro-frontends-strengths-benefits#:~:text=Micro%2Dfrontend%20architecture%20is%20a,%2C%20and%20named%20after%2C%20microservices">https://www.toptal.com/front-end/micro-frontends-strengths-benefits#:~:text=Micro%2Dfrontend%20architecture%20is%20a,%2C%20and%20named%20after%2C%20microservices</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Service-Mesh">Service Mesh<a class="anchor-link" href="#Service-Mesh">&#182;</a></h3><p><a href="https://istio.io/latest/about/service-mesh/#what-is-a-service-mesh">https://istio.io/latest/about/service-mesh/#what-is-a-service-mesh</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="RESTful-vs-RESTless">RESTful vs RESTless<a class="anchor-link" href="#RESTful-vs-RESTless">&#182;</a></h3><ul>
-<li>Protocol<ul>
-<li>RESTful services use REST architectural style,</li>
-<li>RESTless services use SOAP protocol.</li>
-</ul>
-</li>
-<li>Business logic / Functionality<ul>
-<li>RESTful services use URL to expose business logic,</li>
-<li>RESTless services use the service interface to expose business logic.</li>
-</ul>
-</li>
-<li>Security<ul>
-<li>RESTful inherits security from the underlying transport protocols,</li>
-<li>RESTless defines its own security layer, thus it is considered as more secure.</li>
-</ul>
-</li>
-<li>Data format<ul>
-<li>RESTful supports various data formats such as HTML, JSON, text, etc,</li>
-<li>RESTless supports XML format.</li>
-</ul>
-</li>
-<li>Flexibility<ul>
-<li>RESTful is easier and flexible,</li>
-<li>RESTless is not as easy and flexible.</li>
-</ul>
-</li>
-<li>Bandwidth<ul>
-<li>RESTful services consume less bandwidth and resource,</li>
-<li>RESTless services consume more bandwidth and resources.</li>
+<p><img src="./images/uberOnpremcache.png"></p>
+<ul>
+<li>READ:<ul>
+<li>"How Ringpop from Uber Engineering helps distribute your application"</li>
+<li>Saga pattern - in microservices architecture it tracks all events of distributed transactions as a sequence and decides the rollbacks events in case of a failure</li>
+<li>Planet scale</li>
+<li>Strong read and Stale read</li>
 </ul>
 </li>
 </ul>
@@ -13492,15 +13347,106 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Service-Oriented-Architecture">Service Oriented Architecture<a class="anchor-link" href="#Service-Oriented-Architecture">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Programming-Paradigm">Programming Paradigm<a class="anchor-link" href="#Programming-Paradigm">&#182;</a></h3><ul>
-<li><a href="https://en.wikipedia.org/wiki/Programming_paradigm">https://en.wikipedia.org/wiki/Programming_paradigm</a></li>
+<h3 id="How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">How to create a microservice architecture with Google Cloud - Nylas<a class="anchor-link" href="#How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">&#182;</a></h3><ul>
+<li><p>Workflow Automation</p>
+<ul>
+<li>by collecting data from multiple applications </li>
+<li>compiling insights</li>
+<li>create end-to-end automation workflow</li>
+</ul>
+</li>
+<li><p>handle communication data driving business process automation</p>
+</li>
+<li><p>Problems to tackle</p>
+<ul>
+<li>security</li>
+<li>scalability</li>
+<li>performance</li>
+<li>cost</li>
+</ul>
+</li>
+<li><p>Why Google Cloud</p>
+<ul>
+<li>best distributed technology</li>
+<li>GKE - Google Kubernetes Engine is the best cloud provider to run Kubernetes workload securely at scale </li>
+<li>one of the most performant data stores in Spanner</li>
+</ul>
+</li>
+<li><p>Architecture</p>
+<ul>
+<li>the advantage of using <strong>GKE</strong> is its ability to <strong>handle the container orchestration</strong>, <strong>Cloud Pub/Sub for message bus</strong> and <strong>Cloud Spanner for relational data store</strong>   </li>
+<li>Spanner processes 1B requests per second at peak</li>
+<li>latency of less than 7 milliseconds</li>
+<li>GCP services are very robust</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/nylasOldArchitecture.png"></p>
+<ul>
+<li><p>Transition</p>
+<ul>
+<li>from Python based application to Go - code rewrite<ul>
+<li>services were rewritten in Go </li>
+<li>10x throughput improvement was observed</li>
+</ul>
+</li>
+<li>move from virtual machine instances on AWS EC2 to GKE <ul>
+<li>move the orchestration from <strong>AWS autoscaler group to GKE</strong></li>
+<li>GKE was used to orchestrate containers </li>
+<li>due to security reasons, nodes have to be cycled very quickly</li>
+<li>were able to have upto 15000 nodes in Kubernetes cluster </li>
+<li>other cloud providers dont provide this level of support</li>
+<li><strong>gVisor</strong> is used to run containers to create strong isolation between application and operating system</li>
+<li>helps lock down host memory and storage access and enforce least permission principle at operating system level</li>
+<li><strong>gVisor is an application kernel</strong>, written in Go, that implements substantial portion of Linux system call interface. It provides an additional layer of isolation between running applications and host operating system    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>20TB of data processing in MySQL shards</p>
+<ul>
+<li>Cloud spanner was used to keep application states </li>
+<li>store keys for each accounts that needs to be connected</li>
+<li>fast read/write is extremely critical for large number of calls</li>
+<li>high performance to have predictable end-to-end latency</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/nylasNewArchitecture.png"></p>
+<ul>
+<li><p>PII(Personally Identifiable Information)</p>
+<ul>
+<li>Nylas does not have to hold PII</li>
+<li>for security services</li>
+</ul>
+</li>
+<li><p>Migrated from database centric design to event based design</p>
+<ul>
+<li>message bus is the heart of all application</li>
+<li>to make this transition, Google Pub/Sub was choosen</li>
+<li>Google Pub/Sub allows services to communicate asynchronously with latencies on the order of 100 milliseconds</li>
+<li>in legacy AWS architecture which was more of data driven architecture<ul>
+<li>the data is written into <strong>Dynamo</strong></li>
+<li>then gets converted by <strong>lambda function</strong></li>
+<li>then goes to <strong>Kinesis event stream</strong></li>
+</ul>
+</li>
+<li>in new architecture, this is simplified<ul>
+<li>event it first</li>
+<li>rewrote it directly on Google Pub/Sub</li>
+<li>puts lot of strain on system, with trust that this will get scale and perform reliably and consistently</li>
+<li>on <strong>Google Pub/Sub, the performance latency is minimal</strong></li>
+<li>event bus can act as data store</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Benefits of migrating</p>
+<ul>
+<li><strong>30 times performance on each node</strong> was observed</li>
+<li><strong>Elasticity of architecture</strong> is amazing</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -13509,13 +13455,119 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Circuit-design-patttern">Circuit design patttern<a class="anchor-link" href="#Circuit-design-patttern">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">How to architect an AI/ML powered healthcare platform on Google Cloud - Vida Health<a class="anchor-link" href="#How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">&#182;</a></h3><ul>
+<li>provides comprehensive virtual care solution tailored to personalized health goals and preferences</li>
+<li><p>what are the challenges in building such application</p>
+<ul>
+<li>data coming from different sources of different types </li>
+<li>needs to be integrated seemlessly</li>
+<li>both for mobile and web users</li>
+</ul>
+</li>
+<li><p>Why Google cloud</p>
+<ul>
+<li>50% cost reduction</li>
+<li>developer productivity, one single place to look at</li>
+<li>focus on AI/ML</li>
+</ul>
+</li>
+<li><p>Challenges with ML and AI</p>
+<ul>
+<li>make provider more efficient at their jobs</li>
+<li>use NLP and speech to text - take down notes for doctors/assistants</li>
+<li>how to get more patients<ul>
+<li>depending on severity and acuity of patients </li>
+<li>give signals to providers</li>
+<li>prioritize such cases </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Vidapedia - major recommendation platform - using Workspace and BigQuery. How does it work?</p>
+<ul>
+<li>Vidapedia <ul>
+<li>set of protocols, as Google docs, written to help providers/clinicians </li>
+<li>200 different protocols are created, not feasible to remember/memorize</li>
+<li>how to get such information at high speed</li>
+</ul>
+</li>
+<li>Vidapedia recommendation system does on machine learning<ul>
+<li>look into patient-provider interaction going on</li>
+<li>surface right protocol for such interaction</li>
+<li>ML model detects and triggers particular protocol during or after the session</li>
+<li>provider is able to give right care to patient</li>
+</ul>
+</li>
+<li>this was possible using Google Doc protocols interaction with Google Workspace <ul>
+<li>use this data, index them</li>
+<li>store it in BigQuery</li>
+<li>build ML tools on top of that</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Data pipeline architecture</p>
+<ul>
+<li>data comes from different sources</li>
+<li>providers provide consultation notes</li>
+<li>derive insights </li>
+<li>data gets ingested both in relational and unstructured format</li>
+<li>all these data is saved in BigQuery</li>
+<li>which is then used in analytics application deriving insights</li>
+<li>visualization tools such as data studio and looker</li>
+<li>ml models are built which is then sourced into visualization tools</li>
+<li>exploration in terms of VertexAI for quickly building these models and deploying them</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/vidaDataAnalyticsArchitecture.png"></p>
+<ul>
+<li><p>Transformations</p>
+<ul>
+<li>in past custom ETL pipelines were designed, which is a challenge</li>
+<li>currently <strong>dbt</strong> is used for transformations</li>
+</ul>
+</li>
+<li><p>how is the orchestration done</p>
+<ul>
+<li><strong>Cloud Composer</strong> is used for orchestration the pipeline, scheduling all of this ingest, processing data, and running all the stuff</li>
+</ul>
+</li>
+<li><p>how is security requirement resolved</p>
+<ul>
+<li>patient data is very sensitive</li>
+<li>stringent privacy laws</li>
+<li>use <strong>Google Data Loss Protection(DLP)</strong></li>
+<li><strong>mask PII data</strong></li>
+<li>reduce surface area</li>
+</ul>
+</li>
+<li><p>what is the Web Architecture designed</p>
+<ul>
+<li>SADA practices - well known in the industry</li>
+<li>standard 3-tier architecture</li>
+<li>load balancers at the front</li>
+<li>deployed in Google Kubernetes engine</li>
+<li>middle API layer that returns all the request response</li>
+<li>at the end there is GCS Postgres database, scaling is easy </li>
+<li>easy to scale</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/vidaWebArchitecture.png"></p>
+<ul>
+<li>What next<ul>
+<li>Google Cloud Healthcare API<ul>
+<li>provides managed solution for storing and accessing healthcare data in Google cloud</li>
+</ul>
+</li>
+<li>Google FHIR - Fast Healthcare Interoperability Resources<ul>
+<li>Explore and integrate google health services and api</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -13523,6 +13575,48 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-are-the-video-monitoring-system-architectured---Arcules?">How are the video monitoring system architectured - Arcules?<a class="anchor-link" href="#How-are-the-video-monitoring-system-architectured---Arcules?">&#182;</a></h3><p><strong>How does Arcules work?</strong></p>
+<ul>
+<li>Arcules takes information from multitude of IoT devices, captures it, processes it and then pushes it into the Google cloud</li>
+</ul>
+<p><strong>What is video security as a service?</strong></p>
+<ul>
+<li>it is like a SaaS based product, that is storing videos. Its competitors are video management services(VMS)</li>
+<li>the collected vides help finding incidences or people within video, all captured in cameras</li>
+</ul>
+<p><strong>What is the high level architecture</strong></p>
+<ul>
+<li>the customers have a small appliance at the edge that allows buffering information before sending it to the cloud</li>
+<li>it can be deployed inside of bare metal or VMware</li>
+<li>Kubernetes allows deploying multiple containers </li>
+<li>last mile piece - allows near zero latency</li>
+<li>have 90 microservices in GKE</li>
+<li>different types of load balancers are used as HTTP/HTTPS and endpoint connections, along with instances of L4 with WebRTC</li>
+<li>also use IoT core, which is used for metadata that flows up through some the services at the edge, which gets fed into pub/sub, which then gets fed into BigQuery</li>
+</ul>
+<p><strong>What type of databases are used?</strong></p>
+<ul>
+<li>different types of dbs are used</li>
+<li>use cloud SQL, both Postgres and a bit of MySQL</li>
+<li>graph database like Arango is used for NIST based permission graph, which makes permission way better for horizontally scaling</li>
+<li>Singlestore is used for high rate of ingestion, with 400,000 inserts per second</li>
+<li>Postgres is mostly used for device configuration storage</li>
+<li>BigQuery is used for slow storage, which is powerful to run jobs across large datasets</li>
+</ul>
+<p><strong>Storing video chunks in cloud storage</strong></p>
+<ul>
+<li>videos are stored today inside of custom container format H.264</li>
+<li>every videos have keyframes</li>
+<li>these keyframes are chunked up, depending on the camera, will be one, two or four second</li>
+<li>these informations are aggregated up, so that no extra spending is required on PUT requests</li>
+<li>all the messages fly through pub/sub</li>
+</ul>
+<p><strong>How are the CI/CD microservices deployed</strong></p>
+<ul>
+<li>deployment is typically through Seneca, with build process through the cloud build platform</li>
+<li>heavy users of container services for container management</li>
+</ul>
+<p><img src="images/arculesArch.png"></p>
 
 </div>
 </div>
@@ -13530,6 +13624,32 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="CBS-Interactive-AI/ML-Group">CBS Interactive AI/ML Group<a class="anchor-link" href="#CBS-Interactive-AI/ML-Group">&#182;</a></h3><ul>
+<li><a href="https://youtu.be/hX71H78UYAc">https://youtu.be/hX71H78UYAc</a></li>
+</ul>
+<p><strong>Functional Infrastructure</strong>
+<img src="images/googleFunctionalInfra.png"></p>
+<p><strong>Content Awareness Architecture</strong>
+<img src="images/googleContentAwarenessProduct.png"></p>
+<p><strong>Video Services</strong></p>
+<ul>
+<li>the video narratives are broken down into<ul>
+<li>foreground information that drives the story forward</li>
+<li>background information that provides the setting
+<img src="images/googleFunctionalInfra.png"></li>
+</ul>
+</li>
+</ul>
+<p><strong>Recommendations and Search</strong></p>
+<ul>
+<li>goal - general purpose recommendations to brands with simple API interface</li>
+<li>accomplished dynamically using Redis<ul>
+<li>recommendation combination at request time is fast</li>
+<li>backend failures only result in delays in updating recommendations</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/googleGenReco.png"></p>
 
 </div>
 </div>
@@ -13537,13 +13657,46 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>these recommendation models must generate new recommendations without fear of breaking</li>
+<li>the front end of these recommendation models must be distinctly different from the backend of already generated recommendations<ul>
+<li>applying business logic on one and not the other</li>
+</ul>
+</li>
+<li>goal is to serve the best recommendation at any given time</li>
+<li>Google cloud endpoints play a crucial role in this <ul>
+<li>it handles authentication, monitoring as well as giving us a central place for API documentation</li>
+</ul>
+</li>
+<li>Admiral decides what recommendations are selected and what recommendations are returned<ul>
+<li>this is the only choke point for reliability</li>
+<li>Admiral servees using JSON blobs</li>
+<li>business logics can be easily changed in Admiral</li>
+</ul>
+</li>
+<li>The ingest process starts with Trawler, which sources data into the content awareness system </li>
+<li>this is then augmented with Cloud AI APIs and store it</li>
+<li>GenReco is three cron jobs, which is an auto-scaling worker service</li>
+<li>Data collector sources data from content awareness system which is augmented with the output of the cloud AI APIs<ul>
+<li>it stores it in GenReco in a format that can be used</li>
+</ul>
+</li>
+<li>If every piece of compared against every other piece of content, it will be an intractable problem with lots of resources and many useless comparisons. GenReco submit helps in this<ul>
+<li>first step is a filter to identify based on some initial processing, content that is most likely to be recommended</li>
+<li>they are then submitted as jobs to auto-scaling workers</li>
+<li>these workers then compute the actual similarity metrics</li>
+<li>they can then scale up when the content creation is high and scale down when no content is coming through</li>
+</ul>
+</li>
+<li>the last step is GenReco where the recommendations are actually created <ul>
+<li>all the comparisons are pulled that are computed by workers </li>
+<li>generate the best recommendations of that particular time</li>
+</ul>
+</li>
+<li>the recommendations can have score, order, weight, interleaving</li>
+<li>all this is required is to have models in Redis, which can be combined dynamically</li>
+</ul>
+<p><img src="images/googleFutureDirection.png"></p>
 
 </div>
 </div>

@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "276.796875px"}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "276.796875px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -14156,7 +14156,9 @@ $\tiny{\text{https://ably.com/}}$</p>
 <li>Client-Server</li>
 <li>Publish-Subscribe<ul>
 <li><a href="https://ably.com/topic/pub-sub">https://ably.com/topic/pub-sub</a></li>
+<li>Topic </li>
 <li><a href="https://cloud.google.com/pubsub/docs/subscriber">https://cloud.google.com/pubsub/docs/subscriber</a></li>
+<li><a href="https://www.bmc.com/blogs/pub-sub-publish-subscribe/">https://www.bmc.com/blogs/pub-sub-publish-subscribe/</a></li>
 </ul>
 </li>
 <li>Push-Pull</li>
@@ -14917,6 +14919,105 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <li>When a website stores user state, the next time the user logs in they can continue from where they left off</li>
 <li>It would not feel like that one is starting fresh &amp; all the previous activity is lost</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Algorithms">Algorithms<a class="anchor-link" href="#Algorithms">&#182;</a></h3><h4 id="Completeness">Completeness<a class="anchor-link" href="#Completeness">&#182;</a></h4><h4 id="Time-complexity">Time complexity<a class="anchor-link" href="#Time-complexity">&#182;</a></h4><h4 id="Space-complexity">Space complexity<a class="anchor-link" href="#Space-complexity">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Hypervisor">Hypervisor<a class="anchor-link" href="#Hypervisor">&#182;</a></h3><ul>
+<li>Hypervisor makes virtualization possible. </li>
+<li>It is also called virtual machine monitor. </li>
+<li>It divides host system and allocates the resources to each of the divided virtual environment. </li>
+<li>there can be multiple operating system in a single host system</li>
+</ul>
+<ul>
+<li>Type 1 hypervisor <ul>
+<li>native hypervisor</li>
+<li>runs directly on the underlying host system</li>
+<li>it has direct access to host system hardware, so does not require base server operating system</li>
+</ul>
+</li>
+<li>Type 2 hypervisor<ul>
+<li>they make use of underlying host operating system</li>
+<li>hosted hypervisor</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Virtualization">Virtualization<a class="anchor-link" href="#Virtualization">&#182;</a></h3><h3 id="Containerization">Containerization<a class="anchor-link" href="#Containerization">&#182;</a></h3><ul>
+<li>An application that is developed and deployed is bundled and wrapped together with all its configuration files and dependencies. This is <strong>containerization</strong> and the bundle is called <strong>container</strong>. Examples of containerization environments are Docker and Kubernetes.</li>
+</ul>
+<h3 id="Virtualization-vs-Containerization">Virtualization vs Containerization<a class="anchor-link" href="#Virtualization-vs-Containerization">&#182;</a></h3><ul>
+<li>Container provide an isolated environment for running the application</li>
+<li>the entire user space is explicitly dedicated to application</li>
+<li>any changes made inside container is not reflected to the host or other containers running on the same host</li>
+<li>container is the abstraction of application layer</li>
+<li>each ocntainer is a different application</li>
+</ul>
+<ul>
+<li>hypervisor gives the entire virtual machine to the guest which includes the kernel as well</li>
+<li>virtual machine is the abstraction of hardware layer and each virtual machine is a physical machine</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bare-metal-deployment">Bare metal deployment<a class="anchor-link" href="#Bare-metal-deployment">&#182;</a></h3><h4 id="Bare-Metal-vs.-Virtual-Machine-Deployments">Bare Metal vs. Virtual Machine Deployments<a class="anchor-link" href="#Bare-Metal-vs.-Virtual-Machine-Deployments">&#182;</a></h4><ul>
+<li><a href="https://www.containiq.com/post/deploying-kubernetes-on-bare-metal">https://www.containiq.com/post/deploying-kubernetes-on-bare-metal</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>

@@ -5,7 +5,9 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [netflix system architecture](system_designs/netflix.html)
 - [game of thrones - knowledge graph analysis using neo4j data science library](codes/neo4j_graph_datascience.html)
-- [system design - use case](system_designs/system_design_use_case.html)
+- [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
+- system design - aws - use cases
+- [system design - use cases](system_designs/general_use_cases.html)
 - weka visualization
 - root data analysis
 - mixture models using em algorithm
