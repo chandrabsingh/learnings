@@ -23,6 +23,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - python - artificial intelligence algos
   - [software engineering - conceptual brief](system_designs/software_engineering_concepts.html)
   - [system design - architecture and patterns](system_designs/design_patterns.html)
+  - [python - design patterns](system_designs/design_patterns_python.html)
   - shell scripting
 
 - #### data science and distributed computing
