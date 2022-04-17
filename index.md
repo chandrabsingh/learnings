@@ -45,6 +45,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - probability
 
 - #### finance
+  - [quant basics](finance/quant_basics.html) 
 
 ### lecture notes
 
