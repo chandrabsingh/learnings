@@ -12954,22 +12954,22 @@ td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: #ffffcc }
 .highlight { background: #f8f8f8; }
-.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
 .highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
-.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
 .highlight .gd { color: #A00000 } /* Generic.Deleted */
 .highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gr { color: #E40000 } /* Generic.Error */
 .highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
 .highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
 .highlight .gs { font-weight: bold } /* Generic.Strong */
 .highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
@@ -12982,15 +12982,15 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .kt { color: #B00040 } /* Keyword.Type */
 .highlight .m { color: #666666 } /* Literal.Number */
 .highlight .s { color: #BA2121 } /* Literal.String */
-.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .na { color: #687822 } /* Name.Attribute */
 .highlight .nb { color: #008000 } /* Name.Builtin */
 .highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
 .highlight .no { color: #880000 } /* Name.Constant */
 .highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
 .highlight .nf { color: #0000FF } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nl { color: #767600 } /* Name.Label */
 .highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
 .highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
 .highlight .nv { color: #19177C } /* Name.Variable */
@@ -13007,11 +13007,11 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
 .highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
 .highlight .s2 { color: #BA2121 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
 .highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
 .highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
 .highlight .s1 { color: #BA2121 } /* Literal.String.Single */
 .highlight .ss { color: #19177C } /* Literal.String.Symbol */
 .highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "332.796875px"}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,34 +13117,117 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="System-Architecture-for-Personalization-and-Recommendation"><a href="https://netflixtechblog.com/system-architectures-for-personalization-and-recommendation-e081aa94b5d8">System Architecture for Personalization and Recommendation</a><a class="anchor-link" href="#System-Architecture-for-Personalization-and-Recommendation">&#182;</a></h3><p>-</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="images/netflix_architecture.png" width=600 height=600><br>
+<h3 id="System-Architecture-for-Personalization-and-Recommendation"><a href="https://netflixtechblog.com/system-architectures-for-personalization-and-recommendation-e081aa94b5d8">System Architecture for Personalization and Recommendation</a><a class="anchor-link" href="#System-Architecture-for-Personalization-and-Recommendation">&#182;</a></h3><h4 id="Online-Computation">Online Computation<a class="anchor-link" href="#Online-Computation">&#182;</a></h4><ul>
+<li>subject to SLA with maximum latency to respond recommendation</li>
+<li>fallback mechanism of precomputed result is adopted in case of failures</li>
+<li>computational expensive</li>
+</ul>
+<h4 id="Offline-computation">Offline computation<a class="anchor-link" href="#Offline-computation">&#182;</a></h4><ul>
+<li>less limitation on latency, providing more choices to complex algorithms</li>
+<li>aggregate stats periodically</li>
+<li>new algorithms testing </li>
+<li>allows focus on experiments than optimization</li>
+</ul>
+<h4 id="Nearline-computation">Nearline computation<a class="anchor-link" href="#Nearline-computation">&#182;</a></h4><ul>
+<li>intermediate compromise between two modes</li>
+<li>allows system to be more responsive</li>
+<li>sandbox for applying incremental learning algorithms</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*qqTSkHNOzukJ5r-b54-wJQ.png"></p>
+<h4 id="ways-to-combine-these-3-approaches">ways to combine these 3 approaches<a class="anchor-link" href="#ways-to-combine-these-3-approaches">&#182;</a></h4><ul>
+<li>fallback</li>
+<li>partial precomputation in offline mode allowing less costly operation in online mode</li>
+<li>modeling can be done in hybrid offline/online manner <ul>
+<li>use case of Matrix Factorization calculation <ul>
+<li>can be done in hybrid online/offline way</li>
+<li>some factors can be precomputed offline while others updated in real-time</li>
+</ul>
+</li>
+<li>use case of unsupervised clustering <ul>
+<li>offline computation of cluster centers </li>
+<li>online assignment of clusters</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Offline-Jobs">Offline Jobs<a class="anchor-link" href="#Offline-Jobs">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*cwfWTmdtk0Z6pOl9uVU0JA.png" alt="Offline Jobs - Netflix">
 $\tiny{\text{NetflixTechBlog}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Links">Links<a class="anchor-link" href="#Links">&#182;</a></h3><ul>
-<li>Chukwa</li>
-<li><a href="https://github.com/Netflix">Netflix Github repository</a></li>
-<li><a href="https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da">Netflix Viewing Data</a></li>
-<li><a href="https://netflixtechblog.com/">Netflix tech blog</a></li>
-<li>Spinnaker</li>
-<li>Chaos Monkey</li>
-<li><a href="https://github.com/Netflix/concurrency-limits">concurrency-limits</a></li>
-<li><a href="https://www.slideshare.net/FaisalZakariaSiddiqi/linkedin-talk-at-netflix-ml-platform-meetup-sep-2019">Netflix ML Presentation</a></li>
-<li><a href="">Netflix Research</a></li>
-<li><a href="https://netflixtechblog.com/ml-platform-meetup-infra-for-contextual-bandits-and-reinforcement-learning-4a90305948ef">Bandit and RL</a></li>
+<ul>
+<li>scheduled periodic jobs</li>
+<li>two primary types <ul>
+<li>model training<ul>
+<li>collect data</li>
+<li>apply ML algo</li>
+<li>online learning techniques also possible</li>
+</ul>
+</li>
+<li>batch computation of intermediate or final results</li>
+</ul>
+</li>
+<li>these queries run over large amounts of data<ul>
+<li>run on Hadoop via Hive or Pig jobs</li>
+<li>once completed, publish results and notify subscribers</li>
+<li>support different repo as HDFS, S3, Cassandra</li>
+<li>handle errors, allow monitoring</li>
+</ul>
+</li>
+<li>this is supported using internal tool called <strong>Hermes</strong> <ul>
+<li>this covers use cases similar to Apache Kafka, but is not a message/event queue system</li>
+</ul>
+</li>
+</ul>
+<h4 id="Signals-and-Models">Signals and Models<a class="anchor-link" href="#Signals-and-Models">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*8lw3s6XZxOUTGM0yVJLJxA.png" alt="Signals and Models">
+$\tiny{\text{NetflixTechBlog}}$</p>
+<ul>
+<li>In all modes either online or offline computation, three type of inputs are required - models, data, and signals<ul>
+<li>Models - small parameter files that have been previously trained offline</li>
+<li>Data - is previously processed information stored in database, such as movie metadata or popularity </li>
+<li>Signals - refer to information inputed to algorithm obtained from live services and other user-related information such as watch history, or context data such as session, device, date, or time</li>
+</ul>
+</li>
+</ul>
+<h4 id="Event-and-Data-Distribution">Event and Data Distribution<a class="anchor-link" href="#Event-and-Data-Distribution">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*dzpP6wfwejPQ-xKUDJlukg.png" alt="Event and Data Distribution">
+$\tiny{\text{NetflixTechBlog}}$</p>
+<ul>
+<li>goal: translate interaction data into insights</li>
+<li>source: <ul>
+<li>user interface such as smart TVs, tablets, game consoles</li>
+<li>user events such as click, browses, viewing history</li>
+</ul>
+</li>
+<li>events: time sensitive information</li>
+<li>data: dense information where latency is not concern</li>
+<li>near-real-time event flow is managed through an internal framework called <strong>Manhattan</strong>, similar to Twitter Storm<ul>
+<li>data flow is managed through logging through Chukwa to Hadoop </li>
+<li>Hermes is used for publish-subscribe mechanism</li>
+</ul>
+</li>
+</ul>
+<h4 id="Recommendation-results">Recommendation results<a class="anchor-link" href="#Recommendation-results">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*Y1oZvmQnwc7lJTL07Q4eXg.png" alt="Recommendation Results">
+$\tiny{\text{NetflixTechBlog}}$</p>
+<ul>
+<li><p>goal: personalized recommendations</p>
+<ul>
+<li>mostly offline algorithms are applied</li>
+<li>freshness applied using online algorithms real-time signals</li>
+</ul>
+</li>
+<li><p>offline and intermediate results stored in Cassandra, EVCache, and MySQL</p>
+<ul>
+<li>MySQL allows storage of structured relational data <ul>
+<li>not scalable  in distributed environments</li>
+</ul>
+</li>
+<li>Cassandra and EVCache both provide key-value stores </li>
+<li>Cassandra is a standard solution for distributed and scalable no-SQL store </li>
+<li>Cassandra works well generally<ul>
+<li>however for intensive and constant write operations, EVCache gives better performance</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>optimal solution is required to handle conflicting goals of query complexity, read/write latency, and transactional consistency </li>
 </ul>
 
 </div>
@@ -13155,7 +13238,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Rapid-Event-Notification-System-(RENO)"><a href="https://netflixtechblog.com/rapid-event-notification-system-at-netflix-6deb1d2b57d1">Rapid Event Notification System (RENO)</a><a class="anchor-link" href="#Rapid-Event-Notification-System-(RENO)">&#182;</a></h3><ul>
 <li>To maintain real time experience, RENO facilitates server initiated communication in scalable and extensible manner</li>
-<li>the system needs to be asynchronous that supports both online and offline computation</li>
+<li>the system works asynchronously that supports both online and offline computation</li>
 <li>seemless experience across platforms and devices</li>
 <li>requires more than traditional request-response model</li>
 <li>Use cases<ul>
@@ -13165,7 +13248,8 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li>profile changes</li>
 </ul>
 </li>
-<li>Design decisions<ul>
+<li><p>Design decisions</p>
+<ul>
 <li>Single Events Source<ul>
 <li>listen for events from different microservices</li>
 <li>real time event flow is managed by Manhattan project</li>
@@ -13175,15 +13259,53 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li>Event prioritization<ul>
 <li>wide ranging use cases</li>
 <li>segmented event processing</li>
-<li>different events will have different priority</li>
+<li>different events and traffic will have different priority</li>
 </ul>
 </li>
-<li>Hybrid Communication Model</li>
-<li>Targeted Delivery</li>
-<li>Managing High RPS</li>
+<li>Hybrid Communication Model<ul>
+<li>key challenge is to support multiple platforms</li>
+<li>a pull model would result in chatty applications</li>
+<li>a push model would result in missing notifications</li>
+<li>hybrid is the best solution</li>
+</ul>
+</li>
+<li>Targeted Delivery<ul>
+<li>device specific notification delivery</li>
+<li>limits outgoing traffic footprint</li>
+</ul>
+</li>
+<li>Managing High RPS<ul>
+<li>at peak times, serves 150k events/second</li>
+<li>thundering herd problem<ul>
+<li>large number of processes/threads waiting for an event are awoken, but only one process is able to handle the event</li>
+<li>results in system freeze</li>
+</ul>
+</li>
+<li>few optimizations<ul>
+<li>event age filter</li>
+<li>notifications to online devices only, using Zuul</li>
+<li>to keep thresholds under threshold, aggressive cluster scale-up configurations</li>
+<li>merge duplicate events </li>
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li><p>RENO service is broken into following components:</p>
+<ul>
+<li>Event triggers</li>
+<li>Event Management Engine</li>
+<li>Event Priority Based Queue</li>
+<li>Event Priority Based Clusters</li>
+<li>Outbound Messaging System</li>
+<li>Persistent Store (Cassandra)</li>
+</ul>
+</li>
+<li><p>RENO is the centralized rapid notification service for all Netflix products</p>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/0*i6o12AqlvqZDMcAj"></p>
 
 </div>
 </div>
@@ -13198,8 +13320,22 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li>2 algorithms with best performance <ul>
 <li>Matrix Factorization or the Singular Value Decomposition SVD </li>
 <li>Restricted Boltzmann Machines (RBM)</li>
-<li>SVD provided 0.8914 RMSE and RBM 0.8990 RMSE</li>
+<li>SVD resulted in RMSE of 0.8914 </li>
+<li>RBM resulted in RMSE of 0.8990 </li>
 <li>a linear blend reduced the error to 0.88</li>
+</ul>
+</li>
+<li>75% of people follow recommendations</li>
+</ul>
+<ul>
+<li>Type of personalization<ul>
+<li>Diversity - suited as per family member </li>
+<li>Awareness - adapt to the change in taste</li>
+<li>Explanations - friends watch history, explicit taste preferences and ratings</li>
+<li>Genre collections, subsets within genre, ranking of those titles</li>
+<li>Freshness - Most popular, Top rated</li>
+<li>Similarity - More like 'XYZ'</li>
+<li>Ranking </li>
 </ul>
 </li>
 </ul>
@@ -13390,18 +13526,24 @@ $\tiny{\text{YouTube - Streaming workers - TechDummies}}$</p>
 <li>load shedding</li>
 <li>multi region resiliency - routing requests across AWS regions</li>
 </ul>
-<p><em>"The following are the key characteristics of a Zuul Filter:<br>
--Type: most often defines the stage during the routing flow when the Filter will be applied (although it can be any custom string)<br>
--Execution Order: applied within the Type, defines the order of execution across multiple Filters<br>
--Criteria: the conditions required in order for the Filter to be executed<br>
--Action: the action to be executed if the Criteria is met"</em><br>
-$\tiny{\text{Github - Zuul Filter Characteristics - Zuul}}$</p>
-<p><em>"There are several standard Filter types that correspond to the typical lifecycle of a request:<br>
--PRE Filters execute before routing to the origin. Examples include request authentication, choosing origin servers, and logging debug info.<br>
--ROUTING Filters handle routing the request to an origin. This is where the origin HTTP request is built and sent using Apache HttpClient or Netflix Ribbon.<br>
--POST Filters execute after the request has been routed to the origin. Examples include adding standard HTTP headers to the response, gathering statistics and metrics, and streaming the response from the origin to the client.<br>
--ERROR Filters execute when an error occurs during one of the other phases.</em><br>
-$\tiny{\text{Github - Zuul Filter Types - Zuul}}$</p>
+<blockquote><p>The following are the key characteristics of a Zuul Filter:</p>
+<ul>
+<li>Type: most often defines the stage during the routing flow when the Filter will be applied (although it can be any custom string)  </li>
+<li>Execution Order: applied within the Type, defines the order of execution across multiple Filters  </li>
+<li>Criteria: the conditions required in order for the Filter to be executed  </li>
+<li>Action: the action to be executed if the Criteria is met  </li>
+</ul>
+</blockquote>
+<p>$\tiny{\text{Github - Zuul Filter Characteristics - Zuul}}$</p>
+<blockquote><p>There are several standard Filter types that correspond to the typical lifecycle of a request:</p>
+<ul>
+<li>PRE Filters execute before routing to the origin. Examples include request authentication, choosing origin servers, and logging debug info.  </li>
+<li>ROUTING Filters handle routing the request to an origin. This is where the origin HTTP request is built and sent using Apache HttpClient or Netflix Ribbon.  </li>
+<li>POST Filters execute after the request has been routed to the origin. Examples include adding standard HTTP headers to the response, gathering statistics and metrics, and streaming the response from the origin to the client.  </li>
+<li>ERROR Filters execute when an error occurs during one of the other phases</li>
+</ul>
+</blockquote>
+<p>$\tiny{\text{Github - Zuul Filter Types - Zuul}}$</p>
 <ul>
 <li>Summary<ul>
 <li>Netty handlers handles the inward/outward messaging into the network protocol, web server, connection management and proxying</li>
@@ -13413,6 +13555,9 @@ $\tiny{\text{Github - Zuul Filter Types - Zuul}}$</p>
 </ul>
 <p><img src="./images/netflixZuul.png" width=400 height=400><br>
 $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
+<ul>
+<li><a href="https://qconnewyork.com/ny2018/presentation/architectures-youve-always-wondered-about-presentation">https://qconnewyork.com/ny2018/presentation/architectures-youve-always-wondered-about-presentation</a></li>
+</ul>
 
 </div>
 </div>
@@ -13441,6 +13586,12 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Why-Mantis">Why Mantis<a class="anchor-link" href="#Why-Mantis">&#182;</a></h4><ul>
+<li><p><a href="https://netflixtechblog.com/open-sourcing-mantis-a-platform-for-building-cost-effective-realtime-operations-focused-5b8ff387813a">https://netflixtechblog.com/open-sourcing-mantis-a-platform-for-building-cost-effective-realtime-operations-focused-5b8ff387813a</a></p>
+</li>
+<li><p>track events in real time at device specific granularity</p>
+</li>
+</ul>
 
 </div>
 </div>
@@ -13448,6 +13599,14 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Why-Big-Data">Why Big Data<a class="anchor-link" href="#Why-Big-Data">&#182;</a></h4><ul>
+<li>facilitates algorithms and analytics</li>
+<li>use Hadoop, Hive, Pig, Parquet, Presto, Spark</li>
+<li>use Genie is a powerful, REST-based abstraction to data processing frameworks, notably Hadoop</li>
+<li>Inviso provides detailed insights into performance of Hadoop jobs and clusters</li>
+<li>Lipstick provides visual workflow representation of Pig jobs</li>
+<li>Aegisthus enables bulk abstraction of data out of Cassandra for downstream analytic processing</li>
+</ul>
 
 </div>
 </div>
@@ -13455,14 +13614,14 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h4 id="Manhattan">Manhattan<a class="anchor-link" href="#Manhattan">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h4 id="Titus">Titus<a class="anchor-link" href="#Titus">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13528,14 +13687,18 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Netflix - Titus</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><ul>
+<li>Chukwa</li>
+<li><a href="https://github.com/Netflix">Netflix Github repository</a></li>
+<li><a href="https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da">Netflix Viewing Data</a></li>
+<li><a href="https://netflixtechblog.com/">Netflix tech blog</a></li>
+<li>Spinnaker</li>
+<li>Chaos Monkey</li>
+<li><a href="https://github.com/Netflix/concurrency-limits">concurrency-limits</a></li>
+<li><a href="https://www.slideshare.net/FaisalZakariaSiddiqi/linkedin-talk-at-netflix-ml-platform-meetup-sep-2019">Netflix ML Presentation</a></li>
+<li><a href="">Netflix Research</a></li>
+<li><a href="https://netflixtechblog.com/ml-platform-meetup-infra-for-contextual-bandits-and-reinforcement-learning-4a90305948ef">Bandit and RL</a></li>
+</ul>
 
 </div>
 </div>
