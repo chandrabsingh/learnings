@@ -13133,7 +13133,8 @@ $( document ).ready(function(){
 <li>allows system to be more responsive</li>
 <li>sandbox for applying incremental learning algorithms</li>
 </ul>
-<p><img src="https://miro.medium.com/max/1400/1*qqTSkHNOzukJ5r-b54-wJQ.png"></p>
+<p><img src="https://miro.medium.com/max/1400/1*qqTSkHNOzukJ5r-b54-wJQ.png" width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$</p>
 <h4 id="ways-to-combine-these-3-approaches">ways to combine these 3 approaches<a class="anchor-link" href="#ways-to-combine-these-3-approaches">&#182;</a></h4><ul>
 <li>fallback</li>
 <li>partial precomputation in offline mode allowing less costly operation in online mode</li>
@@ -13151,7 +13152,7 @@ $( document ).ready(function(){
 </ul>
 </li>
 </ul>
-<h4 id="Offline-Jobs">Offline Jobs<a class="anchor-link" href="#Offline-Jobs">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*cwfWTmdtk0Z6pOl9uVU0JA.png" alt="Offline Jobs - Netflix">
+<h4 id="Offline-Jobs">Offline Jobs<a class="anchor-link" href="#Offline-Jobs">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*cwfWTmdtk0Z6pOl9uVU0JA.png" width=500 height=500>
 $\tiny{\text{NetflixTechBlog}}$</p>
 <ul>
 <li>scheduled periodic jobs</li>
@@ -13177,7 +13178,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-<h4 id="Signals-and-Models">Signals and Models<a class="anchor-link" href="#Signals-and-Models">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*8lw3s6XZxOUTGM0yVJLJxA.png" alt="Signals and Models">
+<h4 id="Signals-and-Models">Signals and Models<a class="anchor-link" href="#Signals-and-Models">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*8lw3s6XZxOUTGM0yVJLJxA.png" width=500 height=500>
 $\tiny{\text{NetflixTechBlog}}$</p>
 <ul>
 <li>In all modes either online or offline computation, three type of inputs are required - models, data, and signals<ul>
@@ -13187,7 +13188,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-<h4 id="Event-and-Data-Distribution">Event and Data Distribution<a class="anchor-link" href="#Event-and-Data-Distribution">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*dzpP6wfwejPQ-xKUDJlukg.png" alt="Event and Data Distribution">
+<h4 id="Event-and-Data-Distribution">Event and Data Distribution<a class="anchor-link" href="#Event-and-Data-Distribution">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*dzpP6wfwejPQ-xKUDJlukg.png" width=500 height=500>
 $\tiny{\text{NetflixTechBlog}}$</p>
 <ul>
 <li>goal: translate interaction data into insights</li>
@@ -13204,7 +13205,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-<h4 id="Recommendation-results">Recommendation results<a class="anchor-link" href="#Recommendation-results">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*Y1oZvmQnwc7lJTL07Q4eXg.png" alt="Recommendation Results">
+<h4 id="Recommendation-results">Recommendation results<a class="anchor-link" href="#Recommendation-results">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*Y1oZvmQnwc7lJTL07Q4eXg.png" width=500 height=500>
 $\tiny{\text{NetflixTechBlog}}$</p>
 <ul>
 <li><p>goal: personalized recommendations</p>
@@ -13305,7 +13306,8 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li><p>RENO is the centralized rapid notification service for all Netflix products</p>
 </li>
 </ul>
-<p><img src="https://miro.medium.com/max/1400/0*i6o12AqlvqZDMcAj"></p>
+<p><img src="https://miro.medium.com/max/1400/0*i6o12AqlvqZDMcAj" width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$</p>
 
 </div>
 </div>
@@ -13328,7 +13330,8 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li>75% of people follow recommendations</li>
 </ul>
 <ul>
-<li>Type of personalization<ul>
+<li><p>Type of personalization</p>
+<ul>
 <li>Diversity - suited as per family member </li>
 <li>Awareness - adapt to the change in taste</li>
 <li>Explanations - friends watch history, explicit taste preferences and ratings</li>
@@ -13338,7 +13341,77 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li>Ranking </li>
 </ul>
 </li>
+<li><p>Goal: rank attractive items</p>
+</li>
+<li>Learning to rank<ul>
+<li>application of ML (supervised, semisupervised, RL), to construct ranking models for information retrieval systems</li>
+<li>supervised classification methods are used for ranking<ul>
+<li>Logistic Regression, </li>
+<li>Support Vector Machines, </li>
+<li>Neural Networks, or </li>
+<li>Decision Tree-based methods <ul>
+<li>Gradient Boosted Decision Trees (GBDT)</li>
 </ul>
+</li>
+<li>RankSVM or RankBoost.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Linear regression</li>
+<li>Logistic regression</li>
+<li>Elastic nets</li>
+<li>Singular Value Decomposition</li>
+<li>Restricted Boltzmann Machines</li>
+<li>Markov Chains</li>
+<li>Latent Dirichlet Allocation</li>
+<li>Association Rules</li>
+<li>Gradient Boosted Decision Trees</li>
+<li>Random Forests</li>
+<li>Clustering techniques from the simple k-means to novel graphical approaches such as Affinity Propagation</li>
+<li>Matrix factorization</li>
+</ul>
+<ul>
+<li>A/B testing (bucket testing)<ul>
+<li>how to integrate our machine learning approaches into this data-driven A/B test culture<ul>
+<li>an offline-online testing process<ul>
+<li>offline testing cycle is a step where we test and optimize our algorithms prior to performing online A/B testing<ul>
+<li>to measure model performance in offline mode using<ul>
+<li>track ranking measures such as <ul>
+<li>- normalized discounted cumulative gain, 
+- mean reciprocal rank, or 
+- fraction of concordant pairs, </li>
+</ul>
+</li>
+<li>track classification metrics such as <ul>
+<li>- accuracy, 
+- precision, 
+- recall, or 
+- F-score</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>measure famous RMSE from the Netflix Prize </li>
+<li>or other more exotic metrics </li>
+<li>track how well these metrics correlate to measurable online gains in our A/B tests</li>
+<li>since mapping is not perfect, offline performance is used only as an indication to make informed decisions on follow up tests</li>
+</ul>
+</li>
+<li>after validating offline testing hypothesis, launch A/B test  </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*30KWZ38MzCXDB9AXjMtGjA.png" width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$</p>
+<p><img src="https://miro.medium.com/max/1400/1*i1g98589DuVhbKDqyIhl1w.png" width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$</p>
 
 </div>
 </div>
@@ -13346,7 +13419,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/netflixPrice.png" width=600 height=600><br>
+<p><img src="./images/netflixPrice.png" width=500 height=500><br>
 $\tiny{\text{NetflixTechBlog}}$</p>
 
 </div>
@@ -13400,7 +13473,80 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Caching-at-Netflix">Caching at Netflix<a class="anchor-link" href="#Caching-at-Netflix">&#182;</a></h3><ul>
 <li><a href="https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix">https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix</a></li>
-<li><a href="https://www.linkedin.com/in/shashishekar/#experience">https://www.linkedin.com/in/shashishekar/#experience</a></li>
+<li><p><a href="https://www.linkedin.com/in/shashishekar/#experience">https://www.linkedin.com/in/shashishekar/#experience</a></p>
+</li>
+<li><p>highly scalable memcache-based caching solution called as <strong>EVCache</strong>(Ephemeral Volatile Cache)</p>
+</li>
+<li>a memcached &amp; spymemcached based caching solution</li>
+<li><p><strong>Why caching?</strong></p>
+<ul>
+<li>fast: faster response time<ul>
+<li>use case: HomePage - algorithm needs to know Users Taste, Movie Viewing History, Queue, Rating, etc</li>
+</ul>
+</li>
+<li>shared: allows session based app to be stateless without sessions in cloud</li>
+<li>scalable: allows NoSQL based persistence like Cassandra/SimpleDB/S3</li>
+</ul>
+</li>
+<li><p><strong>Overview</strong></p>
+<ul>
+<li>distributed Key-Value store - spread across multiple instances</li>
+<li>AWS Zone-Aware and data can be replicated across zones.</li>
+<li>registers and works with Netflix’s internal Naming Service for automatic discovery of new nodes/services.</li>
+<li>stores the data in key-value format<ul>
+<li>Key has to be a non-null String and value can be a non-null byte-array, primitives, or serializable object </li>
+<li>Value should be less than 1 MB</li>
+</ul>
+</li>
+<li>As a generic cache cluster that can be used across various applications, it supports an optional Cache Name, to be used as namespace to avoid key collisions</li>
+<li>Typical cache hit rates are above 99%</li>
+<li>Works well with Netflix Persister Framework for e.g., In-memory -&gt; backed by EVCache -&gt; backed by Cassandra/SimpleDB/S3</li>
+</ul>
+</li>
+<li><p><strong>Elasticity and deployment ease:</strong></p>
+<ul>
+<li>linearly scalable</li>
+<li>monitor capacity </li>
+<li>can add capacity within a minute and potentially re-balance and warm data in the new node within a few minutes</li>
+</ul>
+</li>
+<li><p><strong>Latency:</strong></p>
+<ul>
+<li>response time in low milliseconds</li>
+<li>Reads from EVCache are typically served back from within the same AWS zone</li>
+</ul>
+</li>
+<li><p><strong>Single Zone Deployment:</strong></p>
+<ul>
+<li>scenario: AWS US-EAST Region and Zone-A where an EVCache cluster with 3 instances has a Web Application performing CRUD operations (on the EVcache system)<ul>
+<li>Upon startup, an EVCache Server instance registers with the Naming Service</li>
+<li>During startup of the Web App, the EVCache Client library is initialized which looks up for all the EVCache server instances registered with the Naming Services and establishes a connection with them</li>
+<li>When the Web App needs to perform CRUD operation for a key the EVCache client selects the instance on which these operations can be performed. Consistent Hashing is used to shard the data across the cluster</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*oBCJjtUw80I8O5CO3zZ4Mg.png" width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$</p>
+<ul>
+<li><strong>Multi Zone Deployment:</strong><ul>
+<li>scenario: replication across multiple zones in AWS US-EAST Region. It has an EVCache cluster with 3 instances and a Web App in Zone-A and Zone-B<ul>
+<li>Upon startup, an EVCache Server instance in Zone-A registers with the Naming Service in Zone-A and Zone-B</li>
+<li>During startup of the Web App in Zone-A, the Web App initializes the EVCache Client library which looks up for all the EVCache server instances registered with the Naming Service and connects to them across all zones</li>
+<li>When the Web App in Zone-A needs to read the data for a key, the EVCache client looks up the EVCache Server instance in Zone-A which stores this data and fetches the data from this instance</li>
+<li>When the Web App in Zone-A needs to write or delete the data for a key, the EVCache client looks up the EVCache Server instances in Zone-A and Zone-B and writes or deletes it</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*xPIXw-Lufyqy2JCIVpRu6A.png" width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$</p>
+<ul>
+<li><strong>Case study: Movie and TV show similarity</strong>
+<img src="https://miro.medium.com/max/1400/0*4qVbkm-lCUT3V11p." width=500 height=500>
+$\tiny{\text{NetflixTechBlog}}$   </li>
 </ul>
 
 </div>
@@ -13425,7 +13571,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-<p><img src="./images/netflix_system_design.png" width=800 height=800><br>
+<p><img src="./images/netflix_system_design.png" width=500 height=500><br>
 $\tiny{\text{YouTube - TechDummies}}$</p>
 
 </div>
@@ -13628,6 +13774,45 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A/B-Testing">A/B Testing<a class="anchor-link" href="#A/B-Testing">&#182;</a></h3><ul>
+<li>"Making decisions is easy - what's hard is making the right decisions"</li>
+<li>split sample into two groups<ul>
+<li>Group A - control group - uses base Netflix experience</li>
+<li>Group B - treatment group - based on specific hypothesis</li>
+</ul>
+</li>
+<li>some metrics are specific to hypothesis</li>
+<li>monitor variants of new feature </li>
+<li>individuals in two groups are on average balanced on all dimensions<ul>
+<li>random assignments ensures for example average length of membership is not markedly different</li>
+</ul>
+</li>
+<li>If there’s a positive change, or no evidence of any meaningful change, the new experience is adapted; if there’s evidence of a negative change, prior product experience is rolled back</li>
+<li>A/B tests helps make causal analysis</li>
+<li>Running A/B tests allows substantiate causality and confidently make changes to the product knowing that customers have voted positively for their actions</li>
+<li>With the Top 10 example, the hypothesis read: “Showing members the Top 10 experience will help them find something to watch, increasing member joy and satisfaction.” </li>
+</ul>
+<h4 id="Interpreting-A/B-test-results:-false-positives-and-statistical-significance">Interpreting A/B test results: false positives and statistical significance<a class="anchor-link" href="#Interpreting-A/B-test-results:-false-positives-and-statistical-significance">&#182;</a></h4><ul>
+<li>If a test shows a statistically significant improvement in primary decision metric, the feature is a strong candidate for a roll out</li>
+<li>no approach to decision making can entirely eliminate uncertainty and the possibility of making mistakes</li>
+<li>two types of error<ul>
+<li>false positive (Type I error) occurs when data from the test indicates meaningful difference between control and treatment experiences, but in truth there is no difference<ul>
+<li>a medical test shows result as positive for a disease when patient is healthy</li>
+</ul>
+</li>
+<li>false negative (Type II error), occurs when data do not indicate a meaningful difference between control and treatment, but in reality there is a difference<ul>
+<li>a medical test shows result as negative — when patient is unhealthy</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>two concepts in A/B testing that are closely related to p-value<ul>
+<li>rejection region for a test</li>
+<li>confidence interval for an observation</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*8d7ysHOGOLop7xU4dBY_RQ.gif" width = 500 height= 500></p>
 
 </div>
 </div>
@@ -13687,7 +13872,7 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><ul>
+<h3 id="References-(ToRead)">References (ToRead)<a class="anchor-link" href="#References-(ToRead)">&#182;</a></h3><ul>
 <li>Chukwa</li>
 <li><a href="https://github.com/Netflix">Netflix Github repository</a></li>
 <li><a href="https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da">Netflix Viewing Data</a></li>
@@ -13698,6 +13883,8 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <li><a href="https://www.slideshare.net/FaisalZakariaSiddiqi/linkedin-talk-at-netflix-ml-platform-meetup-sep-2019">Netflix ML Presentation</a></li>
 <li><a href="">Netflix Research</a></li>
 <li><a href="https://netflixtechblog.com/ml-platform-meetup-infra-for-contextual-bandits-and-reinforcement-learning-4a90305948ef">Bandit and RL</a></li>
+<li><a href="http://memcached.org/blog">http://memcached.org/blog</a></li>
+<li><a href="https://code.google.com/archive/p/spymemcached/">https://code.google.com/archive/p/spymemcached/</a></li>
 </ul>
 
 </div>
