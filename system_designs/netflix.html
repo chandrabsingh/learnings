@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "332.796875px"}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "332.796875px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13343,7 +13343,8 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </li>
 <li><p>Goal: rank attractive items</p>
 </li>
-<li>Learning to rank<ul>
+<li><p>Learning to rank</p>
+<ul>
 <li>application of ML (supervised, semisupervised, RL), to construct ranking models for information retrieval systems</li>
 <li>supervised classification methods are used for ranking<ul>
 <li>Logistic Regression, </li>
@@ -13358,7 +13359,7 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </li>
 </ul>
 </li>
-</ul>
+<li><p>commonly used ml algorithms</p>
 <ul>
 <li>Linear regression</li>
 <li>Logistic regression</li>
@@ -13372,6 +13373,8 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <li>Random Forests</li>
 <li>Clustering techniques from the simple k-means to novel graphical approaches such as Affinity Propagation</li>
 <li>Matrix factorization</li>
+</ul>
+</li>
 </ul>
 <ul>
 <li>A/B testing (bucket testing)<ul>
@@ -13428,13 +13431,6 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-does-media-streaming-work">How does media streaming work<a class="anchor-link" href="#How-does-media-streaming-work">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Personalization-algorithms">Personalization algorithms<a class="anchor-link" href="#Personalization-algorithms">&#182;</a></h3><ul>
 <li>Different household members will have different tastes</li>
 <li>Optimize both accuracy and diversity</li>
@@ -13456,14 +13452,6 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Building-a-network-of-similarity">Building a network of similarity<a class="anchor-link" href="#Building-a-network-of-similarity">&#182;</a></h3><p><a href="http://kamalua07.blogspot.com/2011/04/more-like-this-building-network-of.html">http://kamalua07.blogspot.com/2011/04/more-like-this-building-network-of.html</a></p>
 
 </div>
 </div>
@@ -13656,6 +13644,62 @@ $\tiny{\text{YouTube - Streaming workers - TechDummies}}$</p>
 </ul>
 </li>
 </ul>
+<ul>
+<li>OpenConnect delivers 100% of Netlix video traffic</li>
+<li>235 million hours of streaming per day</li>
+<li><p>simultaneous peak traffic, making Netflix Open Connect, highest-volume networks in the world</p>
+</li>
+<li><p>close to 90% of Netflix's traffic is delivered via direct connections between Open Connect and the residential Internet Service Providers (ISPs)</p>
+</li>
+<li>these are localized to the regional point of interconnection that’s geographically closest to Netflix member</li>
+<li>using installed Open Connect Appliances (OCAs) in an ISP’s data center, almost all Netflix content is served from the local OCAs rather than “upstream” from the internet<ul>
+<li>dual benefit of reducing the ISP’s cost of operation and ensuring best possible Netflix experience for their subscribers</li>
+</ul>
+</li>
+<li>OCA in 1000 separate locations around the world  </li>
+</ul>
+<p><img src="./images/netflix_isp_cdn.png" width=400 height=400><br>
+$\tiny{\text{Netflix - Streaming content - 2016}}$</p>
+<p><strong>New Content</strong></p>
+<ul>
+<li>a new content goes through various preprocessing, encoding, bitrates, subtitles and other quality enhancements</li>
+<li>deployed to AWS Simple Storage Service (S3) </li>
+<li>then these are deployed to Open Connect Appliances (OCAs)</li>
+</ul>
+<p><strong>Proactive Caching</strong></p>
+<ul>
+<li>can predict with high accuracy what members will watch and at what time of day </li>
+<li>upload contents to OCAs during non-peak hours bandwidth</li>
+<li>this optimizes disk efficiency by avoiding read/write contention</li>
+</ul>
+<p><strong>OCA Clusters</strong></p>
+<p><strong>Minimizing network distance</strong></p>
+<ul>
+<li>Open Connect global CDN consists of servers that are either physically located in ISP data centers (ISP servers) or IXP data centers (IX servers)</li>
+<li>aims to transmit content across shortest networking path, maximizing members streaming experience</li>
+<li>popularity content ranked by country, region, or other selection criteria are distributed into manifest clusters</li>
+<li>OCAs are grouped into manifest clusters, to distribute one or more copies of the catalog, depending on the popularity of the title</li>
+</ul>
+<p><strong>Maximizing traffic by minimizing inter-server traffic variance</strong></p>
+<ul>
+<li>uses consistent hashing</li>
+<li>results in well balanced cluster</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*7Dja7NTcH0UQhfL427L2lg.png" width=500 height=500>
+$\tiny{\text{Netflix - consistent hashing}}$</p>
+<p><strong>Content organization</strong></p>
+<ul>
+<li>1200 files of content for one episode of The Crown</li>
+<li>by title, encoding profile, bitrate, language</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1170/1*FMvFhiNp0i68ppOuDDUKyg.png" width=500 height=500>
+$\tiny{\text{Netflix - content organization}}$</p>
+<p><strong>Per title encoding optimization</strong></p>
+<p><strong>Adaptive streaming algorithms</strong></p>
+<ul>
+<li>bitrate-resolution pairs (bitrate ladder)</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1266/1*tCdB8E0X6zDJKAhpTLxNBA.png" width=200 height=200></p>
 
 </div>
 </div>
@@ -13725,7 +13769,10 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-EVCache">Why EVCache<a class="anchor-link" href="#Why-EVCache">&#182;</a></h4>
+<h4 id="Why-EVCache">Why EVCache<a class="anchor-link" href="#Why-EVCache">&#182;</a></h4><ul>
+<li><a href="#Caching-at-Netflix">Caching at Netflix (above)</a></li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -13767,7 +13814,124 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Titus">Titus<a class="anchor-link" href="#Titus">&#182;</a></h4>
+<h4 id="Why-Titus">Why Titus<a class="anchor-link" href="#Why-Titus">&#182;</a></h4><ul>
+<li>container management platform</li>
+<li>tight integration between Titus and both Amazon and Netflix infrastructure</li>
+</ul>
+<blockquote><p>Titus aims to enable easy and reliable deployment of containerized batch and service applications. Achieving this goal requires:</p>
+<ul>
+<li>Allowing containerized applications to seamlessly interact with AWS, Netflix, and other cloud services. Interactions with other systems should not be an application burden simply because it is running in a container.</li>
+<li>Operability to ensure the system is capable of running mission critical workloads and meeting SLAs.</li>
+<li>Scalability to run tens of thousands of containers on top of thousands of hosts across a variety of use cases.</li>
+</ul>
+</blockquote>
+<p><img src="https://netflix.github.io/titus/images/titus-arch.png" width=500 height=500>
+$\tiny{\text{netflix.github.io}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Why-Papermill">Why Papermill<a class="anchor-link" href="#Why-Papermill">&#182;</a></h4><ul>
+<li>Schedule Notebooks at Netflix</li>
+<li>Which single tool can data scientist, data engineer, and machine learning engineer work on?<ul>
+<li>Jupyter notebook<ul>
+<li>managed JSON documents with a simple interface to execute code within</li>
+<li>uses Jupyter protocol</li>
+</ul>
+</li>
+<li>Papermill <ul>
+<li>nteract library built for configurable and reliable execution of notebooks in production ecosystems</li>
+<li>it takes notebook path and input parameters, executes the requested notebook, and saves the resulting artifact to another output notebook</li>
+<li>doesn’t modify the source notebook</li>
+<li>as output notebooks are isolated records, it can be used by users in isolation for debugging or creating new templates</li>
+<li>as it controls its own runtime processes, maintainence of notebook kernels is not required</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Overview of nteract's Papermill library
+<img src="https://miro.medium.com/max/1400/0*QLer52L9p-T72bGW" width=500 height=500>
+$\tiny{\text{Netflix TechBlog}}$</p>
+<p>Deeper look at Papermill library
+<img src="https://miro.medium.com/max/1400/0*058TIxB_YEFxmUDy" width=500 height=500>
+$\tiny{\text{Netflix TechBlog}}$</p>
+<p><strong>Scheduling Notebooks</strong></p>
+<p>Running scheduled notebooks on Docker containers
+<img src="https://miro.medium.com/max/1400/0*byeqo-pBXVPU6xjq" width=500 height=500>
+$\tiny{\text{Netflix TechBlog}}$</p>
+<p>Run integration tests with Papermill
+<img src="https://miro.medium.com/max/1400/0*j6RNZN-IO3fXW-Ff" width=500 height=500>
+$\tiny{\text{Netflix TechBlog}}$</p>
+<p><strong>Notebook infrastructure at Netflix</strong>
+<img src="https://miro.medium.com/max/1400/1*WOEEJizYnO8ibtU2l9jWbA.jpeg" width=500 height=500>
+$\tiny{\text{Netflix TechBlog}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Data-at-a-glance-(as-in-Oct-2017)">Data at a glance (as in Oct 2017)<a class="anchor-link" href="#Data-at-a-glance-(as-in-Oct-2017)">&#182;</a></h3><ul>
+<li>launched in 1997</li>
+<li>125+ million hours watched every day<ul>
+<li>peak - 250+ million hours/a day</li>
+</ul>
+</li>
+<li>130 countries worldwide</li>
+<li>4000 different devices</li>
+<li>700+ billion events written/every day<ul>
+<li>peak - a trillion events/a day</li>
+</ul>
+</li>
+<li>60+PB in data warehouse</li>
+<li>grows at a rate of 300TB DW writes/per day</li>
+<li>on average 5PB DW reads</li>
+</ul>
+<p><img src="./images/netflix_eventsArch.png" width=400 height=400>
+$\tiny{\text{YouTube - Netflix Presentation}}$</p>
+<p><img src="./images/netflix_pullData.png" width=400 height=400>
+$\tiny{\text{YouTube - Netflix Presentation}}$</p>
+<p><img src="./images/netflix_pushData.png" width=400 height=400>
+$\tiny{\text{YouTube - Netflix Presentation}}$</p>
+<p><img src="./images/netflix_typeofengineers.png" width=300 height=300></p>
+<p><strong>N Takeaways</strong></p>
+<ul>
+<li>"<strong>Expecting failure</strong> is more efficient than trying to <strong>prevent failure</strong>"</li>
+<li>"<strong>Stale data</strong> is almost always preferred over <strong>unfortunate data</strong>"</li>
+<li>"Delivering <strong>high quality</strong> analytics is really, <strong>really difficult</strong> to do well"</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -13811,8 +13975,24 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <li>confidence interval for an observation</li>
 </ul>
 </li>
+<li>TODO more</li>
 </ul>
-<p><img src="https://miro.medium.com/max/1400/1*8d7ysHOGOLop7xU4dBY_RQ.gif" width = 500 height= 500></p>
+<p><img src="https://miro.medium.com/max/1400/1*8d7ysHOGOLop7xU4dBY_RQ.gif" width = 500 height= 500>
+$\tiny{\text{Netflix- TechBlog}}$</p>
+<h4 id="Interpreting-A/B-test-results:-false-negatives-and-power">Interpreting A/B test results: false negatives and power<a class="anchor-link" href="#Interpreting-A/B-test-results:-false-negatives-and-power">&#182;</a></h4><ul>
+<li>Label the photo of cat as "not cat"</li>
+<li>TODO more</li>
+</ul>
+<h4 id="Power-of-hypothesis-test">Power of hypothesis test<a class="anchor-link" href="#Power-of-hypothesis-test">&#182;</a></h4><blockquote><p>The statistical power of a binary hypothesis test is the probability that the test correctly rejects the null hypothesis ($H_{0}$) when a specific alternative hypothesis ($H_{1}$) is true. It is commonly denoted by $(1-\beta)$ , and represents the chances of a "true positive" detection conditional on the actual existence of an effect to detect. Statistical power ranges from 0 to 1, and as the power of a test increases, the probability $\beta$  of making a type II error by wrongly failing to reject the null hypothesis decreases.</p>
+<ul>
+<li>where $\beta$ is the probability of Type 2 error (false negative)</li>
+<li>$(1-\beta)$ is the probability of true positive, i.e. correctly rejecting the null hypothesis (power of the test)</li>
+<li>$\alpha$ is the probability of Type 1 error (false positive)</li>
+<li>$(1-\alpha)$ is the probability of true negative (correctly not rejecting the null hypothesis)</li>
+</ul>
+</blockquote>
+<p><img src="./images/significance_level_power.png" height=300 width=300>
+$\tiny{\text{Wikipedia}}$</p>
 
 </div>
 </div>
@@ -13885,6 +14065,7 @@ $\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
 <li><a href="https://netflixtechblog.com/ml-platform-meetup-infra-for-contextual-bandits-and-reinforcement-learning-4a90305948ef">Bandit and RL</a></li>
 <li><a href="http://memcached.org/blog">http://memcached.org/blog</a></li>
 <li><a href="https://code.google.com/archive/p/spymemcached/">https://code.google.com/archive/p/spymemcached/</a></li>
+<li><a href="https://netflixtechblog.com/building-confidence-in-a-decision-8705834e6fd8">A/B testing - 5 part series</a></li>
 </ul>
 
 </div>
