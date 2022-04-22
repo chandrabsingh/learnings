@@ -6,7 +6,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [netflix system architecture](system_designs/netflix.html)
 - [game of thrones - knowledge graph analysis using neo4j data science library](codes/neo4j_graph_datascience.html)
 - [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
-- system design - aws - use cases
+- [system design - aws - use cases](system_designs/aws_usecases.html)
 - [system design - use cases](system_designs/general_use_cases.html)
 - weka visualization
 - root data analysis
@@ -25,13 +25,14 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [system design - architecture and patterns](system_designs/design_patterns.html)
   - [python - design patterns](system_designs/design_patterns_python.html)
   - shell scripting
+  - data structures
 
 - #### data science and distributed computing
   - [machine learning - conceptual brief](algos/ml_glossary.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
   - [tensorflow intro](pytorch_fastai/01_tensorflow_intro.html)
-  - aws services intro
+  - [aws components intro](system_designs/aws_cloud_components.html)
   - [neo4j native graph database intro](codes/neo4j_basics.html)
   - cassandra
 

@@ -13219,6 +13219,93 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Twitter">Twitter<a class="anchor-link" href="#Twitter">&#182;</a></h3><p><strong>System design</strong>
+<img src="https://miro.medium.com/max/1400/0*_P92qYpw1_oyYymF.png">
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Data Architecture</strong>
+<img src="https://miro.medium.com/max/1400/0*t4VeHS2SKhJqfoN-.png">
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Write operation - requirements</strong></p>
+<ul>
+<li>User can post or share new tweets(max 140 char)</li>
+<li>User can delete his tweets but not update/edit his posted tweets</li>
+<li>User can mark favorite tweets</li>
+<li>User can follow/unfollow another user 
+— user can see other user’s tweets on his timeline</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1172/0*CDem8tmPJKpjMiRq.png" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Read operation - requirements</strong></p>
+<ul>
+<li>user timeline comprising of the last N number of his tweets</li>
+<li>popular tweets of the users he is following in the descending order of time</li>
+<li>user can search tweets based on keywords</li>
+</ul>
+<p><strong>Microservices</strong></p>
+<ul>
+<li>Tweet service</li>
+<li>User timeline service</li>
+<li>Fanout Service</li>
+<li>Home timeline service</li>
+<li>Social graph service</li>
+<li>Search service</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/0*mB-gbj2ltViojwLj.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p>Search service</p>
+<ul>
+<li>aggregates the user search queries results of user and its followers</li>
+<li>the fanout service passes the tweet to the search service</li>
+</ul>
+<p>Fanout Service</p>
+<ul>
+<li>forwards new tweets to search and home timeline services. In case there are other components/ micro-services as well like trending or notification services</li>
+<li>multiple distributed queues</li>
+<li>when a user sends a tweet message, a social graph service gets generated. </li>
+<li>this gets processed in queue</li>
+<li><p>queue server processes these asynchronous tasks, which eventually persistence.</p>
+</li>
+<li><p>Ingester (or ingestion engine):</p>
+<ul>
+<li>tokenize the tweets into a number of tokens or terms or keywords</li>
+<li>filters out non-useful words</li>
+</ul>
+</li>
+<li>Stemming:<ul>
+<li>the non-useful words root words is found</li>
+</ul>
+</li>
+<li>pass it to search index</li>
+<li>create inverted index and store mapping index of terms</li>
+<li>Blender service: <ul>
+<li>search queries based on inverted index of terms</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/0*--igdsO_hL3bMpui.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>User Timeline service</strong></p>
+<ul>
+<li>return user his timeline which contains all the user tweets in descending order of time</li>
+<li>this service is for the home timeline or other users’ timeline.</li>
+<li>this is designed using a data structure comprising a linked list of user tweets</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/0*yy9cMNIdR5QN5rAA.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Scaling tweets</strong></p>
+<ul>
+<li>partition both the distributed cache and the datastore into several partitions and replicas.</li>
+<li>shard by user ID</li>
+<li>shard by tweet ID</li>
+<li>Two-layer/ level shard by user ID and tweet ID
+<img src="https://miro.medium.com/max/1400/0*selazor6EHXU-6oS.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$ </li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*PYQiOxl8jTj1fIEoZ1TN-g.jpeg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Tweet Id</strong>
+<img src="https://miro.medium.com/max/1400/0*JWp5ZESkot3OIreR.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
 
 </div>
 </div>
@@ -13226,6 +13313,12 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><img src="" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><img src="" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
 
 </div>
 </div>

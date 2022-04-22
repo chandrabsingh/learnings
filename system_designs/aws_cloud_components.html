@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>netflix</title>
+<title>aws_cloud_components</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "332.796875px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,293 +13117,61 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="System-Architecture-for-Personalization-and-Recommendation"><a href="https://netflixtechblog.com/system-architectures-for-personalization-and-recommendation-e081aa94b5d8">System Architecture for Personalization and Recommendation</a><a class="anchor-link" href="#System-Architecture-for-Personalization-and-Recommendation">&#182;</a></h3><h4 id="Online-Computation">Online Computation<a class="anchor-link" href="#Online-Computation">&#182;</a></h4><ul>
-<li>subject to SLA with maximum latency to respond recommendation</li>
-<li>fallback mechanism of precomputed result is adopted in case of failures</li>
-<li>computational expensive</li>
-</ul>
-<h4 id="Offline-computation">Offline computation<a class="anchor-link" href="#Offline-computation">&#182;</a></h4><ul>
-<li>less limitation on latency, providing more choices to complex algorithms</li>
-<li>aggregate stats periodically</li>
-<li>new algorithms testing </li>
-<li>allows focus on experiments than optimization</li>
-</ul>
-<h4 id="Nearline-computation">Nearline computation<a class="anchor-link" href="#Nearline-computation">&#182;</a></h4><ul>
-<li>intermediate compromise between two modes</li>
-<li>allows system to be more responsive</li>
-<li>sandbox for applying incremental learning algorithms</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*qqTSkHNOzukJ5r-b54-wJQ.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<h4 id="ways-to-combine-these-3-approaches">ways to combine these 3 approaches<a class="anchor-link" href="#ways-to-combine-these-3-approaches">&#182;</a></h4><ul>
-<li>fallback</li>
-<li>partial precomputation in offline mode allowing less costly operation in online mode</li>
-<li>modeling can be done in hybrid offline/online manner <ul>
-<li>use case of Matrix Factorization calculation <ul>
-<li>can be done in hybrid online/offline way</li>
-<li>some factors can be precomputed offline while others updated in real-time</li>
+<h3 id="Database:-DynamoDB">Database: DynamoDB<a class="anchor-link" href="#Database:-DynamoDB">&#182;</a></h3><ul>
+<li>serverless, NoSQL db</li>
+<li>adopts a partitioned B-tree datastructure in the cloud</li>
+<li>similar to Redis but unlike Redis is immediately consistent<ul>
+<li>can read immediately</li>
+<li>never gets lost</li>
 </ul>
 </li>
-<li>use case of unsupervised clustering <ul>
-<li>offline computation of cluster centers </li>
-<li>online assignment of clusters</li>
+<li>schemaless</li>
+<li>manage structured or semistructured data, including JSON documents</li>
+<li>aggregating, filter or sort needs to be done post receiving requested data<ul>
+<li>this is unlike relational db </li>
 </ul>
 </li>
+<li>data query and processing is done within application, as a single value or contiguous range of values<ul>
+<li>this is unlike relational db</li>
+<li>in relational db, query is run close to data</li>
 </ul>
 </li>
-</ul>
-<h4 id="Offline-Jobs">Offline Jobs<a class="anchor-link" href="#Offline-Jobs">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*cwfWTmdtk0Z6pOl9uVU0JA.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<ul>
-<li>scheduled periodic jobs</li>
-<li>two primary types <ul>
-<li>model training<ul>
-<li>collect data</li>
-<li>apply ML algo</li>
-<li>online learning techniques also possible</li>
+<li>application: web application, social networks<ul>
+<li>in relational db - OLAP</li>
 </ul>
 </li>
-<li>batch computation of intermediate or final results</li>
-</ul>
-</li>
-<li>these queries run over large amounts of data<ul>
-<li>run on Hadoop via Hive or Pig jobs</li>
-<li>once completed, publish results and notify subscribers</li>
-<li>support different repo as HDFS, S3, Cassandra</li>
-<li>handle errors, allow monitoring</li>
-</ul>
-</li>
-<li>this is supported using internal tool called <strong>Hermes</strong> <ul>
-<li>this covers use cases similar to Apache Kafka, but is not a message/event queue system</li>
-</ul>
-</li>
-</ul>
-<h4 id="Signals-and-Models">Signals and Models<a class="anchor-link" href="#Signals-and-Models">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*8lw3s6XZxOUTGM0yVJLJxA.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<ul>
-<li>In all modes either online or offline computation, three type of inputs are required - models, data, and signals<ul>
-<li>Models - small parameter files that have been previously trained offline</li>
-<li>Data - is previously processed information stored in database, such as movie metadata or popularity </li>
-<li>Signals - refer to information inputed to algorithm obtained from live services and other user-related information such as watch history, or context data such as session, device, date, or time</li>
-</ul>
-</li>
-</ul>
-<h4 id="Event-and-Data-Distribution">Event and Data Distribution<a class="anchor-link" href="#Event-and-Data-Distribution">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*dzpP6wfwejPQ-xKUDJlukg.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<ul>
-<li>goal: translate interaction data into insights</li>
-<li>source: <ul>
-<li>user interface such as smart TVs, tablets, game consoles</li>
-<li>user events such as click, browses, viewing history</li>
-</ul>
-</li>
-<li>events: time sensitive information</li>
-<li>data: dense information where latency is not concern</li>
-<li>near-real-time event flow is managed through an internal framework called <strong>Manhattan</strong>, similar to Twitter Storm<ul>
-<li>data flow is managed through logging through Chukwa to Hadoop </li>
-<li>Hermes is used for publish-subscribe mechanism</li>
-</ul>
-</li>
-</ul>
-<h4 id="Recommendation-results">Recommendation results<a class="anchor-link" href="#Recommendation-results">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*Y1oZvmQnwc7lJTL07Q4eXg.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<ul>
-<li><p>goal: personalized recommendations</p>
-<ul>
-<li>mostly offline algorithms are applied</li>
-<li>freshness applied using online algorithms real-time signals</li>
-</ul>
-</li>
-<li><p>offline and intermediate results stored in Cassandra, EVCache, and MySQL</p>
-<ul>
-<li>MySQL allows storage of structured relational data <ul>
-<li>not scalable  in distributed environments</li>
-</ul>
-</li>
-<li>Cassandra and EVCache both provide key-value stores </li>
-<li>Cassandra is a standard solution for distributed and scalable no-SQL store </li>
-<li>Cassandra works well generally<ul>
-<li>however for intensive and constant write operations, EVCache gives better performance</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>optimal solution is required to handle conflicting goals of query complexity, read/write latency, and transactional consistency </li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Rapid-Event-Notification-System-(RENO)"><a href="https://netflixtechblog.com/rapid-event-notification-system-at-netflix-6deb1d2b57d1">Rapid Event Notification System (RENO)</a><a class="anchor-link" href="#Rapid-Event-Notification-System-(RENO)">&#182;</a></h3><ul>
-<li>To maintain real time experience, RENO facilitates server initiated communication in scalable and extensible manner</li>
-<li>the system works asynchronously that supports both online and offline computation</li>
-<li>seemless experience across platforms and devices</li>
-<li>requires more than traditional request-response model</li>
-<li>Use cases<ul>
-<li>viewing activity, </li>
-<li>personalized experience refresh</li>
-<li>membership plan changes</li>
-<li>profile changes</li>
-</ul>
-</li>
-<li><p>Design decisions</p>
-<ul>
-<li>Single Events Source<ul>
-<li>listen for events from different microservices</li>
-<li>real time event flow is managed by Manhattan project</li>
-<li>Manhattan project - event management framework</li>
-</ul>
-</li>
-<li>Event prioritization<ul>
-<li>wide ranging use cases</li>
-<li>segmented event processing</li>
-<li>different events and traffic will have different priority</li>
-</ul>
-</li>
-<li>Hybrid Communication Model<ul>
-<li>key challenge is to support multiple platforms</li>
-<li>a pull model would result in chatty applications</li>
-<li>a push model would result in missing notifications</li>
-<li>hybrid is the best solution</li>
-</ul>
-</li>
-<li>Targeted Delivery<ul>
-<li>device specific notification delivery</li>
-<li>limits outgoing traffic footprint</li>
-</ul>
-</li>
-<li>Managing High RPS<ul>
-<li>at peak times, serves 150k events/second</li>
-<li>thundering herd problem<ul>
-<li>large number of processes/threads waiting for an event are awoken, but only one process is able to handle the event</li>
-<li>results in system freeze</li>
-</ul>
-</li>
-<li>few optimizations<ul>
-<li>event age filter</li>
-<li>notifications to online devices only, using Zuul</li>
-<li>to keep thresholds under threshold, aggressive cluster scale-up configurations</li>
-<li>merge duplicate events </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>RENO service is broken into following components:</p>
-<ul>
-<li>Event triggers</li>
-<li>Event Management Engine</li>
-<li>Event Priority Based Queue</li>
-<li>Event Priority Based Clusters</li>
-<li>Outbound Messaging System</li>
-<li>Persistent Store (Cassandra)</li>
-</ul>
-</li>
-<li><p>RENO is the centralized rapid notification service for all Netflix products</p>
-</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/0*i6o12AqlvqZDMcAj" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Netflix-Recommendations">Netflix Recommendations<a class="anchor-link" href="#Netflix-Recommendations">&#182;</a></h3><ul>
-<li>Netflix Prize - 2006 - improve accuracy by 10%, earlier was Cinematch</li>
-<li>beat existing Netflix RMSE of 0.9525 to 0.8572 or less</li>
-<li>Korbell team - Progress Prize 8.43% improvement - 107 algorithms - 2000 hours of work</li>
-<li>2 algorithms with best performance <ul>
-<li>Matrix Factorization or the Singular Value Decomposition SVD </li>
-<li>Restricted Boltzmann Machines (RBM)</li>
-<li>SVD resulted in RMSE of 0.8914 </li>
-<li>RBM resulted in RMSE of 0.8990 </li>
-<li>a linear blend reduced the error to 0.88</li>
-</ul>
-</li>
-<li>75% of people follow recommendations</li>
+<li>expensive compared to S3</li>
 </ul>
 <ul>
-<li><p>Type of personalization</p>
-<ul>
-<li>Diversity - suited as per family member </li>
-<li>Awareness - adapt to the change in taste</li>
-<li>Explanations - friends watch history, explicit taste preferences and ratings</li>
-<li>Genre collections, subsets within genre, ranking of those titles</li>
-<li>Freshness - Most popular, Top rated</li>
-<li>Similarity - More like 'XYZ'</li>
-<li>Ranking </li>
-</ul>
-</li>
-<li><p>Goal: rank attractive items</p>
-</li>
-<li><p>Learning to rank</p>
-<ul>
-<li>application of ML (supervised, semisupervised, RL), to construct ranking models for information retrieval systems</li>
-<li>supervised classification methods are used for ranking<ul>
-<li>Logistic Regression, </li>
-<li>Support Vector Machines, </li>
-<li>Neural Networks, or </li>
-<li>Decision Tree-based methods <ul>
-<li>Gradient Boosted Decision Trees (GBDT)</li>
-</ul>
-</li>
-<li>RankSVM or RankBoost.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>commonly used ml algorithms</p>
-<ul>
-<li>Linear regression</li>
-<li>Logistic regression</li>
-<li>Elastic nets</li>
-<li>Singular Value Decomposition</li>
-<li>Restricted Boltzmann Machines</li>
-<li>Markov Chains</li>
-<li>Latent Dirichlet Allocation</li>
-<li>Association Rules</li>
-<li>Gradient Boosted Decision Trees</li>
-<li>Random Forests</li>
-<li>Clustering techniques from the simple k-means to novel graphical approaches such as Affinity Propagation</li>
-<li>Matrix factorization</li>
+<li>to calculate on-demand cost<ul>
+<li>writes per million is expensive than reads per million</li>
+<li>based on estimated read/write per day, estimated price of DynamoDB can be calculated</li>
 </ul>
 </li>
 </ul>
 <ul>
-<li>A/B testing (bucket testing)<ul>
-<li>how to integrate our machine learning approaches into this data-driven A/B test culture<ul>
-<li>an offline-online testing process<ul>
-<li>offline testing cycle is a step where we test and optimize our algorithms prior to performing online A/B testing<ul>
-<li>to measure model performance in offline mode using<ul>
-<li>track ranking measures such as <ul>
-<li>- normalized discounted cumulative gain, 
-- mean reciprocal rank, or 
-- fraction of concordant pairs, </li>
-</ul>
-</li>
-<li>track classification metrics such as <ul>
-<li>- accuracy, 
-- precision, 
-- recall, or 
-- F-score</li>
+<li>indexes<ul>
+<li>local indexes<ul>
+<li>immediately consistent</li>
+<li>downside: <ul>
+<li>the table cannot grow indefinitely</li>
+<li>the partition key need to fit within 10GB</li>
+<li>once exhausted, writet operation will fail</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>measure famous RMSE from the Netflix Prize </li>
-<li>or other more exotic metrics </li>
-<li>track how well these metrics correlate to measurable online gains in our A/B tests</li>
-<li>since mapping is not perfect, offline performance is used only as an indication to make informed decisions on follow up tests</li>
+<li>global indexes<ul>
+<li>no size constraint</li>
+<li>eventually consistent</li>
+<li>downside: <ul>
+<li>internal queue like system between main table and global index</li>
+<li>if provisioned throughput insufficient and queue gets full<ul>
+<li>write operation will fail</li>
 </ul>
 </li>
-<li>after validating offline testing hypothesis, launch A/B test  </li>
+<li>internal state of queue cannot be monitored<ul>
+<li>to prevent - monitor throttle request count on global indexes</li>
 </ul>
 </li>
 </ul>
@@ -13411,44 +13179,32 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 </ul>
 </li>
 </ul>
-<p><img src="https://miro.medium.com/max/1400/1*30KWZ38MzCXDB9AXjMtGjA.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<p><img src="https://miro.medium.com/max/1400/1*i1g98589DuVhbKDqyIhl1w.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/netflixPrice.png" width=500 height=500><br>
-$\tiny{\text{NetflixTechBlog}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Personalization-algorithms">Personalization algorithms<a class="anchor-link" href="#Personalization-algorithms">&#182;</a></h3><ul>
-<li>Different household members will have different tastes</li>
-<li>Optimize both accuracy and diversity</li>
-<li>Adapt to the taste, which encourages trust in the system</li>
-<li>connected with Facebook which gives personalization algorithm generate recommendations based on social circle</li>
-<li>genre personalization<ul>
-<li>choice of genre</li>
-<li>subset of titles within that genre</li>
-<li>ranking among those titles</li>
+</li>
+</ul>
+<ul>
+<li>new feature: Amazon DynamoDB Accelerator (DAX)<ul>
+<li>cache service</li>
+<li>suitable for read-intensive workloads</li>
+<li>if cache miss occurs, it will extract from db</li>
+<li>saves money, by reducing read requests on DynamoDB</li>
+<li>used by Tinder, Expedia, Genesys</li>
 </ul>
 </li>
-<li>freshness and diversity</li>
-<li>Similarity is another personalization<ul>
-<li>most popular, </li>
-<li>top rated, </li>
-<li>based on your taste preferences</li>
-<li>similar titles</li>
-<li>more like "title watched"</li>
+</ul>
+<ul>
+<li>compared to othere NoSQL<ul>
+<li>supports data models like key-value pairs and document data structures like JSON, XML</li>
+<li>lacks support of columnar data sets like Cassandra and HBase</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>integration with other AWS services<ul>
+<li>Cloud Watch <ul>
+<li>monitors performance, resource utilization and operational health of DynamoDB</li>
+<li>keeps eye on various metrics and triggers alarm on threshold breach</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -13459,83 +13215,27 @@ $\tiny{\text{NetflixTechBlog}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Caching-at-Netflix">Caching at Netflix<a class="anchor-link" href="#Caching-at-Netflix">&#182;</a></h3><ul>
-<li><a href="https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix">https://www.slideshare.net/ShashiShekarMadappa/evcache-at-netflix</a></li>
-<li><p><a href="https://www.linkedin.com/in/shashishekar/#experience">https://www.linkedin.com/in/shashishekar/#experience</a></p>
-</li>
-<li><p>highly scalable memcache-based caching solution called as <strong>EVCache</strong>(Ephemeral Volatile Cache)</p>
-</li>
-<li>a memcached &amp; spymemcached based caching solution</li>
-<li><p><strong>Why caching?</strong></p>
-<ul>
-<li>fast: faster response time<ul>
-<li>use case: HomePage - algorithm needs to know Users Taste, Movie Viewing History, Queue, Rating, etc</li>
-</ul>
-</li>
-<li>shared: allows session based app to be stateless without sessions in cloud</li>
-<li>scalable: allows NoSQL based persistence like Cassandra/SimpleDB/S3</li>
-</ul>
-</li>
-<li><p><strong>Overview</strong></p>
-<ul>
-<li>distributed Key-Value store - spread across multiple instances</li>
-<li>AWS Zone-Aware and data can be replicated across zones.</li>
-<li>registers and works with Netflix’s internal Naming Service for automatic discovery of new nodes/services.</li>
-<li>stores the data in key-value format<ul>
-<li>Key has to be a non-null String and value can be a non-null byte-array, primitives, or serializable object </li>
-<li>Value should be less than 1 MB</li>
-</ul>
-</li>
-<li>As a generic cache cluster that can be used across various applications, it supports an optional Cache Name, to be used as namespace to avoid key collisions</li>
-<li>Typical cache hit rates are above 99%</li>
-<li>Works well with Netflix Persister Framework for e.g., In-memory -&gt; backed by EVCache -&gt; backed by Cassandra/SimpleDB/S3</li>
-</ul>
-</li>
-<li><p><strong>Elasticity and deployment ease:</strong></p>
-<ul>
-<li>linearly scalable</li>
-<li>monitor capacity </li>
-<li>can add capacity within a minute and potentially re-balance and warm data in the new node within a few minutes</li>
-</ul>
-</li>
-<li><p><strong>Latency:</strong></p>
-<ul>
-<li>response time in low milliseconds</li>
-<li>Reads from EVCache are typically served back from within the same AWS zone</li>
-</ul>
-</li>
-<li><p><strong>Single Zone Deployment:</strong></p>
-<ul>
-<li>scenario: AWS US-EAST Region and Zone-A where an EVCache cluster with 3 instances has a Web Application performing CRUD operations (on the EVcache system)<ul>
-<li>Upon startup, an EVCache Server instance registers with the Naming Service</li>
-<li>During startup of the Web App, the EVCache Client library is initialized which looks up for all the EVCache server instances registered with the Naming Services and establishes a connection with them</li>
-<li>When the Web App needs to perform CRUD operation for a key the EVCache client selects the instance on which these operations can be performed. Consistent Hashing is used to shard the data across the cluster</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*oBCJjtUw80I8O5CO3zZ4Mg.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<ul>
-<li><strong>Multi Zone Deployment:</strong><ul>
-<li>scenario: replication across multiple zones in AWS US-EAST Region. It has an EVCache cluster with 3 instances and a Web App in Zone-A and Zone-B<ul>
-<li>Upon startup, an EVCache Server instance in Zone-A registers with the Naming Service in Zone-A and Zone-B</li>
-<li>During startup of the Web App in Zone-A, the Web App initializes the EVCache Client library which looks up for all the EVCache server instances registered with the Naming Service and connects to them across all zones</li>
-<li>When the Web App in Zone-A needs to read the data for a key, the EVCache client looks up the EVCache Server instance in Zone-A which stores this data and fetches the data from this instance</li>
-<li>When the Web App in Zone-A needs to write or delete the data for a key, the EVCache client looks up the EVCache Server instances in Zone-A and Zone-B and writes or deletes it</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*xPIXw-Lufyqy2JCIVpRu6A.png" width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$</p>
-<ul>
-<li><strong>Case study: Movie and TV show similarity</strong>
-<img src="https://miro.medium.com/max/1400/0*4qVbkm-lCUT3V11p." width=500 height=500>
-$\tiny{\text{NetflixTechBlog}}$   </li>
-</ul>
+<h3 id="Storage:-S3">Storage: S3<a class="anchor-link" href="#Storage:-S3">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Compute:-EC2">Compute: EC2<a class="anchor-link" href="#Compute:-EC2">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Compute:-EC2-Auto-Scaling">Compute: EC2 Auto Scaling<a class="anchor-link" href="#Compute:-EC2-Auto-Scaling">&#182;</a></h3><h3 id="Compute:-Lambda">Compute: Lambda<a class="anchor-link" href="#Compute:-Lambda">&#182;</a></h3><h3 id="Networking-&amp;-Content-Delivery:-ELB">Networking &amp; Content Delivery: ELB<a class="anchor-link" href="#Networking-&amp;-Content-Delivery:-ELB">&#182;</a></h3><h3 id="Networking-&amp;-Content-Delivery:-Route-53">Networking &amp; Content Delivery: Route 53<a class="anchor-link" href="#Networking-&amp;-Content-Delivery:-Route-53">&#182;</a></h3><h3 id="Management-&amp;-Governance:-CloudFormation">Management &amp; Governance: CloudFormation<a class="anchor-link" href="#Management-&amp;-Governance:-CloudFormation">&#182;</a></h3><h3 id="Application-Integration:-SQS">Application Integration: SQS<a class="anchor-link" href="#Application-Integration:-SQS">&#182;</a></h3><h3 id="Media-Service:-Kinesis">Media Service: Kinesis<a class="anchor-link" href="#Media-Service:-Kinesis">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>
@@ -13543,24 +13243,6 @@ $\tiny{\text{NetflixTechBlog}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Netflix-components">Netflix components<a class="anchor-link" href="#Netflix-components">&#182;</a></h3><h4 id="Netflix-on-cloud">Netflix on cloud<a class="anchor-link" href="#Netflix-on-cloud">&#182;</a></h4><ul>
-<li>AWS<ul>
-<li>components that dont involve video streaming</li>
-</ul>
-</li>
-<li>OpenConnect<ul>
-<li>use it for video streaming</li>
-<li>OpenConnect is Netflix's proprietary CDN - Content Delivery Network<ul>
-<li>CDN - network of distributed servers</li>
-<li>distributed across geographies for low latency</li>
-<li>maintained by Netflix</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/netflix_system_design.png" width=500 height=500><br>
-$\tiny{\text{YouTube - TechDummies}}$</p>
 
 </div>
 </div>
@@ -13568,405 +13250,9 @@ $\tiny{\text{YouTube - TechDummies}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="How-does-Netflix-support-different-clients">How does Netflix support different clients<a class="anchor-link" href="#How-does-Netflix-support-different-clients">&#182;</a></h4><ul>
-<li>all the apps are written using platform specific code</li>
-<li>Netflix web app is written using React.js</li>
-<li>why React.js?<ul>
-<li>startup speed</li>
-<li>run time performance</li>
-<li>modularity</li>
-<li>How does Netflix load balancing work</li>
+<h3 id="General-terms">General terms<a class="anchor-link" href="#General-terms">&#182;</a></h3><ul>
+<li><strong>Provisioned capacity</strong> helps ensure that your retrieval capacity for expedited retrievals is available when you need it. Each unit of capacity ensures that at least three expedited retrievals can be performed every five minutes and provides up to 150 MB/s of retrieval throughput.</li>
 </ul>
-</li>
-<li>uses Amazon's Elastic Load Balancer ELB service to different front-end instances/services</li>
-<li>ELB is configured so that load is first balanced across the zones and then instances</li>
-<li>2-tier balancing scheme</li>
-<li>first tier consists of DNS based round-robin balancing across different zones</li>
-<li>zones are logical grouping of servers</li>
-<li>second tier is an array of instances which does round-robin load balancing across instances </li>
-</ul>
-<p><img src="./images/netflixLoadBalancer.png" width=400 height=400><br>
-$\tiny{\text{YouTube - Load Balancer - TechDummies}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="How-Netflix-onboards-video">How Netflix onboards video<a class="anchor-link" href="#How-Netflix-onboards-video">&#182;</a></h4><ul>
-<li>lot of preprocessing<ul>
-<li>converting videos into different resolutions</li>
-<li>this process is called transcoding<ul>
-<li>optimization for particular type of device</li>
-<li>each format is of different resolutions</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>a video is broken into </li>
-<li>it also file optimize for different network<ul>
-<li>depending on fast or slow bandwidth, resolution and format will be different</li>
-<li>adaptive bitrate steaming<ul>
-<li>where if the bandwidth improves/deteriorate, the experience/streaming will switch accordingly</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>multiple copies of same movie is saved across different geography of different format/resolution<ul>
-<li>more than 1000 copies are made for each movie</li>
-</ul>
-</li>
-<li>uses lot of parallel workers<ul>
-<li>breaks movie into different pieces/chunks and puts into a queue</li>
-<li>pieces from the queue will then be picked from different workers</li>
-<li>workers will then merge these clips and place them into Amazon S3</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/netflixOC.png" width=600 height=600><br>
-$\tiny{\text{YouTube - OpenConnect - TechDummies}}$</p>
-<p><img src="./images/netflixTranscoding.png" width=600 height=600><br>
-$\tiny{\text{YouTube - Transcoding - TechDummies}}$</p>
-<p><img src="./images/netflixVideoStreaming.png" width=400 height=400><br>
-$\tiny{\text{YouTube - Streaming workers - TechDummies}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="How-does-OpenConnect-work">How does OpenConnect work<a class="anchor-link" href="#How-does-OpenConnect-work">&#182;</a></h4><ul>
-<li>all the different formats are uploaded into OC </li>
-<li>when user makes request<ul>
-<li>based on the AWS data centers, models, </li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>OpenConnect delivers 100% of Netlix video traffic</li>
-<li>235 million hours of streaming per day</li>
-<li><p>simultaneous peak traffic, making Netflix Open Connect, highest-volume networks in the world</p>
-</li>
-<li><p>close to 90% of Netflix's traffic is delivered via direct connections between Open Connect and the residential Internet Service Providers (ISPs)</p>
-</li>
-<li>these are localized to the regional point of interconnection that’s geographically closest to Netflix member</li>
-<li>using installed Open Connect Appliances (OCAs) in an ISP’s data center, almost all Netflix content is served from the local OCAs rather than “upstream” from the internet<ul>
-<li>dual benefit of reducing the ISP’s cost of operation and ensuring best possible Netflix experience for their subscribers</li>
-</ul>
-</li>
-<li>OCA in 1000 separate locations around the world  </li>
-</ul>
-<p><img src="./images/netflix_isp_cdn.png" width=400 height=400><br>
-$\tiny{\text{Netflix - Streaming content - 2016}}$</p>
-<p><strong>New Content</strong></p>
-<ul>
-<li>a new content goes through various preprocessing, encoding, bitrates, subtitles and other quality enhancements</li>
-<li>deployed to AWS Simple Storage Service (S3) </li>
-<li>then these are deployed to Open Connect Appliances (OCAs)</li>
-</ul>
-<p><strong>Proactive Caching</strong></p>
-<ul>
-<li>can predict with high accuracy what members will watch and at what time of day </li>
-<li>upload contents to OCAs during non-peak hours bandwidth</li>
-<li>this optimizes disk efficiency by avoiding read/write contention</li>
-</ul>
-<p><strong>OCA Clusters</strong></p>
-<p><strong>Minimizing network distance</strong></p>
-<ul>
-<li>Open Connect global CDN consists of servers that are either physically located in ISP data centers (ISP servers) or IXP data centers (IX servers)</li>
-<li>aims to transmit content across shortest networking path, maximizing members streaming experience</li>
-<li>popularity content ranked by country, region, or other selection criteria are distributed into manifest clusters</li>
-<li>OCAs are grouped into manifest clusters, to distribute one or more copies of the catalog, depending on the popularity of the title</li>
-</ul>
-<p><strong>Maximizing traffic by minimizing inter-server traffic variance</strong></p>
-<ul>
-<li>uses consistent hashing</li>
-<li>results in well balanced cluster</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*7Dja7NTcH0UQhfL427L2lg.png" width=500 height=500>
-$\tiny{\text{Netflix - consistent hashing}}$</p>
-<p><strong>Content organization</strong></p>
-<ul>
-<li>1200 files of content for one episode of The Crown</li>
-<li>by title, encoding profile, bitrate, language</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1170/1*FMvFhiNp0i68ppOuDDUKyg.png" width=500 height=500>
-$\tiny{\text{Netflix - content organization}}$</p>
-<p><strong>Per title encoding optimization</strong></p>
-<p><strong>Adaptive streaming algorithms</strong></p>
-<ul>
-<li>bitrate-resolution pairs (bitrate ladder)</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1266/1*tCdB8E0X6zDJKAhpTLxNBA.png" width=200 height=200></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-Zuul">Why Zuul<a class="anchor-link" href="#Why-Zuul">&#182;</a></h4><ul>
-<li>handles request from devices and websites to backend of streaming application</li>
-<li>supports dynamic routing to different backend clusters</li>
-<li>supports monitoring and route requests to multiple Amazon scaling services</li>
-<li>supports authentication and security</li>
-<li>helps in gauging performance while stress testing, by increasing traffic to a particular cluster</li>
-<li>load shedding</li>
-<li>multi region resiliency - routing requests across AWS regions</li>
-</ul>
-<blockquote><p>The following are the key characteristics of a Zuul Filter:</p>
-<ul>
-<li>Type: most often defines the stage during the routing flow when the Filter will be applied (although it can be any custom string)  </li>
-<li>Execution Order: applied within the Type, defines the order of execution across multiple Filters  </li>
-<li>Criteria: the conditions required in order for the Filter to be executed  </li>
-<li>Action: the action to be executed if the Criteria is met  </li>
-</ul>
-</blockquote>
-<p>$\tiny{\text{Github - Zuul Filter Characteristics - Zuul}}$</p>
-<blockquote><p>There are several standard Filter types that correspond to the typical lifecycle of a request:</p>
-<ul>
-<li>PRE Filters execute before routing to the origin. Examples include request authentication, choosing origin servers, and logging debug info.  </li>
-<li>ROUTING Filters handle routing the request to an origin. This is where the origin HTTP request is built and sent using Apache HttpClient or Netflix Ribbon.  </li>
-<li>POST Filters execute after the request has been routed to the origin. Examples include adding standard HTTP headers to the response, gathering statistics and metrics, and streaming the response from the origin to the client.  </li>
-<li>ERROR Filters execute when an error occurs during one of the other phases</li>
-</ul>
-</blockquote>
-<p>$\tiny{\text{Github - Zuul Filter Types - Zuul}}$</p>
-<ul>
-<li>Summary<ul>
-<li>Netty handlers handles the inward/outward messaging into the network protocol, web server, connection management and proxying</li>
-<li>Inbound filters run before proxying the request and is used for authentication, routing, or decorating request</li>
-<li>Endpoint filters is used to return static response or proxy request to backend service</li>
-<li>Outbound filters are applied after a response has been returned for gzipping, or handling metrics or customizing headers</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/netflixZuul.png" width=400 height=400><br>
-$\tiny{\text{SlideShare - Lifecycle of a Request - Zuul@Netflix}}$</p>
-<ul>
-<li><a href="https://qconnewyork.com/ny2018/presentation/architectures-youve-always-wondered-about-presentation">https://qconnewyork.com/ny2018/presentation/architectures-youve-always-wondered-about-presentation</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-Hystrix">Why Hystrix<a class="anchor-link" href="#Why-Hystrix">&#182;</a></h4><ul>
-<li>Netflix uses microservices architecture</li>
-<li>there is a dependency of quick throughput of these services to respond quickly</li>
-<li>critical services are identified to prevent cascading service failure</li>
-<li>each service is configured a set timeout withing which it needs to respond back</li>
-<li>Netflix's stateless microservices architecture helps in routing the service request if it does not respond in timely fashion</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-EVCache">Why EVCache<a class="anchor-link" href="#Why-EVCache">&#182;</a></h4><ul>
-<li><a href="#Caching-at-Netflix">Caching at Netflix (above)</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-Mantis">Why Mantis<a class="anchor-link" href="#Why-Mantis">&#182;</a></h4><ul>
-<li><p><a href="https://netflixtechblog.com/open-sourcing-mantis-a-platform-for-building-cost-effective-realtime-operations-focused-5b8ff387813a">https://netflixtechblog.com/open-sourcing-mantis-a-platform-for-building-cost-effective-realtime-operations-focused-5b8ff387813a</a></p>
-</li>
-<li><p>track events in real time at device specific granularity</p>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-Big-Data">Why Big Data<a class="anchor-link" href="#Why-Big-Data">&#182;</a></h4><ul>
-<li>facilitates algorithms and analytics</li>
-<li>use Hadoop, Hive, Pig, Parquet, Presto, Spark</li>
-<li>use Genie is a powerful, REST-based abstraction to data processing frameworks, notably Hadoop</li>
-<li>Inviso provides detailed insights into performance of Hadoop jobs and clusters</li>
-<li>Lipstick provides visual workflow representation of Pig jobs</li>
-<li>Aegisthus enables bulk abstraction of data out of Cassandra for downstream analytic processing</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Manhattan">Manhattan<a class="anchor-link" href="#Manhattan">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-Titus">Why Titus<a class="anchor-link" href="#Why-Titus">&#182;</a></h4><ul>
-<li>container management platform</li>
-<li>tight integration between Titus and both Amazon and Netflix infrastructure</li>
-</ul>
-<blockquote><p>Titus aims to enable easy and reliable deployment of containerized batch and service applications. Achieving this goal requires:</p>
-<ul>
-<li>Allowing containerized applications to seamlessly interact with AWS, Netflix, and other cloud services. Interactions with other systems should not be an application burden simply because it is running in a container.</li>
-<li>Operability to ensure the system is capable of running mission critical workloads and meeting SLAs.</li>
-<li>Scalability to run tens of thousands of containers on top of thousands of hosts across a variety of use cases.</li>
-</ul>
-</blockquote>
-<p><img src="https://netflix.github.io/titus/images/titus-arch.png" width=500 height=500>
-$\tiny{\text{netflix.github.io}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Why-Papermill">Why Papermill<a class="anchor-link" href="#Why-Papermill">&#182;</a></h4><ul>
-<li>Schedule Notebooks at Netflix</li>
-<li>Which single tool can data scientist, data engineer, and machine learning engineer work on?<ul>
-<li>Jupyter notebook<ul>
-<li>managed JSON documents with a simple interface to execute code within</li>
-<li>uses Jupyter protocol</li>
-</ul>
-</li>
-<li>Papermill <ul>
-<li>nteract library built for configurable and reliable execution of notebooks in production ecosystems</li>
-<li>it takes notebook path and input parameters, executes the requested notebook, and saves the resulting artifact to another output notebook</li>
-<li>doesn’t modify the source notebook</li>
-<li>as output notebooks are isolated records, it can be used by users in isolation for debugging or creating new templates</li>
-<li>as it controls its own runtime processes, maintainence of notebook kernels is not required</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>Overview of nteract's Papermill library
-<img src="https://miro.medium.com/max/1400/0*QLer52L9p-T72bGW" width=500 height=500>
-$\tiny{\text{Netflix TechBlog}}$</p>
-<p>Deeper look at Papermill library
-<img src="https://miro.medium.com/max/1400/0*058TIxB_YEFxmUDy" width=500 height=500>
-$\tiny{\text{Netflix TechBlog}}$</p>
-<p><strong>Scheduling Notebooks</strong></p>
-<p>Running scheduled notebooks on Docker containers
-<img src="https://miro.medium.com/max/1400/0*byeqo-pBXVPU6xjq" width=500 height=500>
-$\tiny{\text{Netflix TechBlog}}$</p>
-<p>Run integration tests with Papermill
-<img src="https://miro.medium.com/max/1400/0*j6RNZN-IO3fXW-Ff" width=500 height=500>
-$\tiny{\text{Netflix TechBlog}}$</p>
-<p><strong>Notebook infrastructure at Netflix</strong>
-<img src="https://miro.medium.com/max/1400/1*WOEEJizYnO8ibtU2l9jWbA.jpeg" width=500 height=500>
-$\tiny{\text{Netflix TechBlog}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-at-a-glance-(as-in-Oct-2017)">Data at a glance (as in Oct 2017)<a class="anchor-link" href="#Data-at-a-glance-(as-in-Oct-2017)">&#182;</a></h3><ul>
-<li>launched in 1997</li>
-<li>125+ million hours watched every day<ul>
-<li>peak - 250+ million hours/a day</li>
-</ul>
-</li>
-<li>130 countries worldwide</li>
-<li>4000 different devices</li>
-<li>700+ billion events written/every day<ul>
-<li>peak - a trillion events/a day</li>
-</ul>
-</li>
-<li>60+PB in data warehouse</li>
-<li>grows at a rate of 300TB DW writes/per day</li>
-<li>on average 5PB DW reads</li>
-</ul>
-<p><img src="./images/netflix_eventsArch.png" width=400 height=400>
-$\tiny{\text{YouTube - Netflix Presentation}}$</p>
-<p><img src="./images/netflix_pullData.png" width=400 height=400>
-$\tiny{\text{YouTube - Netflix Presentation}}$</p>
-<p><img src="./images/netflix_pushData.png" width=400 height=400>
-$\tiny{\text{YouTube - Netflix Presentation}}$</p>
-<p><img src="./images/netflix_typeofengineers.png" width=300 height=300></p>
-<p><strong>N Takeaways</strong></p>
-<ul>
-<li>"<strong>Expecting failure</strong> is more efficient than trying to <strong>prevent failure</strong>"</li>
-<li>"<strong>Stale data</strong> is almost always preferred over <strong>unfortunate data</strong>"</li>
-<li>"Delivering <strong>high quality</strong> analytics is really, <strong>really difficult</strong> to do well"</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="A/B-Testing">A/B Testing<a class="anchor-link" href="#A/B-Testing">&#182;</a></h3><ul>
-<li>"Making decisions is easy - what's hard is making the right decisions"</li>
-<li>split sample into two groups<ul>
-<li>Group A - control group - uses base Netflix experience</li>
-<li>Group B - treatment group - based on specific hypothesis</li>
-</ul>
-</li>
-<li>some metrics are specific to hypothesis</li>
-<li>monitor variants of new feature </li>
-<li>individuals in two groups are on average balanced on all dimensions<ul>
-<li>random assignments ensures for example average length of membership is not markedly different</li>
-</ul>
-</li>
-<li>If there’s a positive change, or no evidence of any meaningful change, the new experience is adapted; if there’s evidence of a negative change, prior product experience is rolled back</li>
-<li>A/B tests helps make causal analysis</li>
-<li>Running A/B tests allows substantiate causality and confidently make changes to the product knowing that customers have voted positively for their actions</li>
-<li>With the Top 10 example, the hypothesis read: “Showing members the Top 10 experience will help them find something to watch, increasing member joy and satisfaction.” </li>
-</ul>
-<h4 id="Interpreting-A/B-test-results:-false-positives-and-statistical-significance">Interpreting A/B test results: false positives and statistical significance<a class="anchor-link" href="#Interpreting-A/B-test-results:-false-positives-and-statistical-significance">&#182;</a></h4><ul>
-<li>If a test shows a statistically significant improvement in primary decision metric, the feature is a strong candidate for a roll out</li>
-<li>no approach to decision making can entirely eliminate uncertainty and the possibility of making mistakes</li>
-<li>two types of error<ul>
-<li>false positive (Type I error) occurs when data from the test indicates meaningful difference between control and treatment experiences, but in truth there is no difference<ul>
-<li>a medical test shows result as positive for a disease when patient is healthy</li>
-</ul>
-</li>
-<li>false negative (Type II error), occurs when data do not indicate a meaningful difference between control and treatment, but in reality there is a difference<ul>
-<li>a medical test shows result as negative — when patient is unhealthy</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>two concepts in A/B testing that are closely related to p-value<ul>
-<li>rejection region for a test</li>
-<li>confidence interval for an observation</li>
-</ul>
-</li>
-<li>TODO more</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*8d7ysHOGOLop7xU4dBY_RQ.gif" width = 500 height= 500>
-$\tiny{\text{Netflix- TechBlog}}$</p>
-<h4 id="Interpreting-A/B-test-results:-false-negatives-and-power">Interpreting A/B test results: false negatives and power<a class="anchor-link" href="#Interpreting-A/B-test-results:-false-negatives-and-power">&#182;</a></h4><ul>
-<li>Label the photo of cat as "not cat"</li>
-<li>TODO more</li>
-</ul>
-<h4 id="Power-of-hypothesis-test">Power of hypothesis test<a class="anchor-link" href="#Power-of-hypothesis-test">&#182;</a></h4><blockquote><p>The statistical power of a binary hypothesis test is the probability that the test correctly rejects the null hypothesis ($H_{0}$) when a specific alternative hypothesis ($H_{1}$) is true. It is commonly denoted by $(1-\beta)$ , and represents the chances of a "true positive" detection conditional on the actual existence of an effect to detect. Statistical power ranges from 0 to 1, and as the power of a test increases, the probability $\beta$  of making a type II error by wrongly failing to reject the null hypothesis decreases.</p>
-<ul>
-<li>where $\beta$ is the probability of Type 2 error (false negative)</li>
-<li>$(1-\beta)$ is the probability of true positive, i.e. correctly rejecting the null hypothesis (power of the test)</li>
-<li>$\alpha$ is the probability of Type 1 error (false positive)</li>
-<li>$(1-\alpha)$ is the probability of true negative (correctly not rejecting the null hypothesis)</li>
-</ul>
-</blockquote>
-<p><img src="./images/significance_level_power.png" height=300 width=300>
-$\tiny{\text{Wikipedia}}$</p>
 
 </div>
 </div>
@@ -13995,52 +13281,6 @@ $\tiny{\text{Wikipedia}}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cloud-based-Microservices-architecture">Cloud based Microservices architecture<a class="anchor-link" href="#Cloud-based-Microservices-architecture">&#182;</a></h3><ul>
-<li><a href="https://medium.com/swlh/a-design-analysis-of-cloud-based-microservices-architecture-at-netflix-98836b2da45f">https://medium.com/swlh/a-design-analysis-of-cloud-based-microservices-architecture-at-netflix-98836b2da45f</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="References-(ToRead)">References (ToRead)<a class="anchor-link" href="#References-(ToRead)">&#182;</a></h3><ul>
-<li>Chukwa</li>
-<li><a href="https://github.com/Netflix">Netflix Github repository</a></li>
-<li><a href="https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da">Netflix Viewing Data</a></li>
-<li><a href="https://netflixtechblog.com/">Netflix tech blog</a></li>
-<li>Spinnaker</li>
-<li>Chaos Monkey</li>
-<li><a href="https://github.com/Netflix/concurrency-limits">concurrency-limits</a></li>
-<li><a href="https://www.slideshare.net/FaisalZakariaSiddiqi/linkedin-talk-at-netflix-ml-platform-meetup-sep-2019">Netflix ML Presentation</a></li>
-<li><a href="">Netflix Research</a></li>
-<li><a href="https://netflixtechblog.com/ml-platform-meetup-infra-for-contextual-bandits-and-reinforcement-learning-4a90305948ef">Bandit and RL</a></li>
-<li><a href="http://memcached.org/blog">http://memcached.org/blog</a></li>
-<li><a href="https://code.google.com/archive/p/spymemcached/">https://code.google.com/archive/p/spymemcached/</a></li>
-<li><a href="https://netflixtechblog.com/building-confidence-in-a-decision-8705834e6fd8">A/B testing - 5 part series</a></li>
-</ul>
 
 </div>
 </div>

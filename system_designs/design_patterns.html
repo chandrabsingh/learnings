@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13114,22 +13114,6 @@ $( document ).ready(function(){
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/">Microsoft Azure - Cloud Design Patterns</a>  </li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven">Event driven architecture</a>   </li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/big-data">Big data architecture</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices">Microservices</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/n-tier">N-tier</a></li>
-<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/web-queue-worker">Web Queue worker</a></li>
-<li></li>
-</ul>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13219,13 +13203,24 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Orchestration">Orchestration<a class="anchor-link" href="#Orchestration">&#182;</a></h3><h3 id="Loose-coupling">Loose coupling<a class="anchor-link" href="#Loose-coupling">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Orchestration">Orchestration<a class="anchor-link" href="#Orchestration">&#182;</a></h3><ul>
+<li>Run multiple container instances in each node.</li>
+<li>Load balance traffic between the instances.</li>
+<li>Manage communication between dependent instances in separate nodes.</li>
+<li>Maintain the desired cluster state.</li>
+</ul>
+<p>The container orchestrator:</p>
+<ul>
+<li>automatically scales number of microservice instances based on traffic or resource utilization</li>
+<li>manages containers to reflect the configured desired state</li>
+<li>wraps container for each microservice in a simple service layer, abstracting out complexities of IP address, port, and number of instances</li>
+<li>load balances traffic between microservice instances</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>Kubernetes</li>
+</ul>
+<p><img src="https://docs.microsoft.com/en-us/azure/architecture/microservices/design/images/orchestration/multi-container-cluster-with-orchestrator.png"></p>
 
 </div>
 </div>
@@ -13233,14 +13228,7 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
+<h3 id="Loose-coupling">Loose coupling<a class="anchor-link" href="#Loose-coupling">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -13516,6 +13504,26 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SaaS">SaaS<a class="anchor-link" href="#SaaS">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PaaS">PaaS<a class="anchor-link" href="#PaaS">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="APNS---Apple-Push-Notification-Service">APNS - Apple Push Notification Service<a class="anchor-link" href="#APNS---Apple-Push-Notification-Service">&#182;</a></h3><ul>
+<li><a href="https://developer.apple.com/go/?id=push-notifications">https://developer.apple.com/go/?id=push-notifications</a></li>
+</ul>
+<h3 id="FCM---Google's-Firebase-Cloud-Messaging">FCM - Google's Firebase Cloud Messaging<a class="anchor-link" href="#FCM---Google's-Firebase-Cloud-Messaging">&#182;</a></h3><ul>
+<li><a href="https://firebase.google.com/docs/cloud-messaging">https://firebase.google.com/docs/cloud-messaging</a></li>
+</ul>
 
 </div>
 </div>
@@ -13558,20 +13566,14 @@ $\tiny{\text{Stateless Transaction - https://virtasant.com/}}$   </li>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/">Microsoft Azure - Cloud Design Patterns</a>  </li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/event-driven">Event driven architecture</a>   </li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/big-data">Big data architecture</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices">Microservices</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/n-tier">N-tier</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/web-queue-worker">Web Queue worker</a></li>
+</ul>
 
 </div>
 </div>

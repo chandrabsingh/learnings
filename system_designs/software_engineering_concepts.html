@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "276.796875px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "276.796875px"}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -14117,6 +14117,27 @@ $\tiny{\text{Types of Partitioning - digitalocean.com}}$</p>
 <li>hash collison</li>
 <li>consistent hashing</li>
 </ul>
+<h4 id="Consistent-Hashing">Consistent Hashing<a class="anchor-link" href="#Consistent-Hashing">&#182;</a></h4><ul>
+<li>is a special kind of hashing technique such that when a hash table is resized, only n/m keys need to be remapped on average where n is the number of keys and m is the number of slots. In contrast, in most traditional hash tables, a change in the number of array slots causes nearly all keys to be remapped because the mapping between the keys and the slots is defined by a modular operation.</li>
+<li>it allows requests to be mapped into hash buckets while allowing the system to add and remove nodes flexibly so as to maintain a good load factor on each machine</li>
+<li>the standard way to hash objects is to map them to a search space, and then transfer the load to the mapped computer<ul>
+<li>systems using this policy is likely to suffer when new nodes are added or removed from it</li>
+</ul>
+</li>
+<li>Consistent Hashing maps servers to the key space and assigns requests(mapped to relevant buckets, called load) to the next clockwise server. Servers can then store relevant request data in them while allowing the system flexibility and scalability</li>
+<li>system design scenarios <ul>
+<li>such as fault tolerance - in which a machine crashes</li>
+<li>or scalability - in which a machine needs to be added to process more requests<ul>
+<li>in both these principles consistent hashing is used</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>this principle is used extensively in load balancing, caching, databases</li>
+<li>request allocation</li>
+</ul>
+<p><img src="./images/consistentHashing.png" width=400 height=400>
+$\tiny{\text{YouTube - Gaurav Sen}}$</p>
 
 </div>
 </div>
@@ -14489,7 +14510,7 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="CDN---Content-delivery-network">CDN - Content delivery network<a class="anchor-link" href="#CDN---Content-delivery-network">&#182;</a></h3><p>A content delivery network (CDN) refers to a geographically distributed group of servers which work together to provide fast delivery of Internet content.</p>
+<h3 id="CDN---Content-delivery-network">CDN - Content delivery network<a class="anchor-link" href="#CDN---Content-delivery-network">&#182;</a></h3><blockquote><p>A content delivery network (CDN) refers to a geographically distributed group of servers which work together to provide fast delivery of Internet content.</p>
 <p>A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos. The popularity of CDN services continues to grow, and today the majority of web traffic is served through CDNs, including traffic from major sites like Facebook, Netflix, and Amazon.</p>
 <p>It helps cache content at the network edge, which improves website performance. Many websites struggle to have their performance needs met by traditional hosting services, which is why they opt for CDNs.</p>
 <p>Benfits of using a CDN:</p>
@@ -14499,6 +14520,7 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <li>Increasing content availability and redundancy</li>
 <li>Improving website security</li>
 </ul>
+</blockquote>
 <p><img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/540CpDkqSDg6QAPi5nO1AP/b44a3edb5abc4e115ddab9b4d9bf7a32/Learning-How-does-a-CDN-work.svg" alt="How does CDN work"></p>
 <p>$\tiny{\text{cloudflare.com}}$</p>
 
@@ -14717,7 +14739,16 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="API-Gateway">API Gateway<a class="anchor-link" href="#API-Gateway">&#182;</a></h3>
+<h3 id="API-Gateway">API Gateway<a class="anchor-link" href="#API-Gateway">&#182;</a></h3><ul>
+<li>APIs are the interfaces which applications use to communicate and the gateway is the control point for routing, shaping, and securing that traffic</li>
+<li>Incoming traffic is filtered and routed to the appropriate services.</li>
+</ul>
+<p>Example</p>
+<ul>
+<li>Reverse proxy server. Nginx and HAProxy</li>
+</ul>
+<p><img src="https://docs.microsoft.com/en-us/azure/architecture/microservices/images/gateway.png"></p>
+
 </div>
 </div>
 </div>
@@ -14997,6 +15028,9 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="TTL">TTL<a class="anchor-link" href="#TTL">&#182;</a></h3><ul>
+<li>Time to live</li>
+</ul>
 
 </div>
 </div>
