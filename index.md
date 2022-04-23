@@ -8,6 +8,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
 - [system design - aws - use cases](system_designs/aws_usecases.html)
 - [system design - use cases](system_designs/general_use_cases.html)
+- [a primer on causal inference](maths/causal_inference_learning.html)
 - weka visualization
 - root data analysis
 - mixture models using em algorithm
