@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>ClassificationProblem-PredictAdultIncome</title>
+<title>ml_glossary</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.390625px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,7 +13117,8 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Goal:</strong> Prediction task is to determine whether a person makes over 50K a year.</p>
+<p><img src="./images/ml_mind_map.png" alt="ML Mind Map"></p>
+<p>$\tiny{\text{Jason Brownlee}}$</p>
 
 </div>
 </div>
@@ -13125,1945 +13126,25 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Import packages</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[118]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Load dataset</strong>
-Download the dataset from UCI Machine Learning Repo</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uci_url</span> <span class="o">=</span> <span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data&#39;</span>
-<span class="n">uci_names</span> <span class="o">=</span> <span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.names&#39;</span>
-<span class="c1"># datasetName = &#39;adultCensusDataset.csv&#39;</span>
-<span class="n">datasetName</span> <span class="o">=</span> <span class="s1">&#39;adult-all.csv&#39;</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasetName</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">uci_names</span><span class="p">)</span> <span class="k">as</span> <span class="n">names</span><span class="p">:</span>
-    <span class="n">f1</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f1</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>| This data was extracted from the census bureau database found at
-| http://www.census.gov/ftp/pub/DES/www/welcome.html
-| Donor: Ronny Kohavi and Barry Becker,
-|        Data Mining and Visualization
-|        Silicon Graphics.
-|        e-mail: ronnyk@sgi.com for questions.
-| Split into train-test using MLC++ GenCVFiles (2/3, 1/3 random).
-| 48842 instances, mix of continuous and discrete    (train=32561, test=16281)
-| 45222 if instances with unknown values are removed (train=30162, test=15060)
-| Duplicate or conflicting instances : 6
-| Class probabilities for adult.all file
-| Probability for the label &#39;&gt;50K&#39;  : 23.93% / 24.78% (without unknowns)
-| Probability for the label &#39;&lt;=50K&#39; : 76.07% / 75.22% (without unknowns)
-|
-| Extraction was done by Barry Becker from the 1994 Census database.  A set of
-|   reasonably clean records was extracted using the following conditions:
-|   ((AAGE&gt;16) &amp;&amp; (AGI&gt;100) &amp;&amp; (AFNLWGT&gt;1)&amp;&amp; (HRSWK&gt;0))
-|
-| Prediction task is to determine whether a person makes over 50K
-| a year.
-|
-| First cited in:
-| @inproceedings{kohavi-nbtree,
-|    author={Ron Kohavi},
-|    title={Scaling Up the Accuracy of Naive-Bayes Classifiers: a
-|           Decision-Tree Hybrid},
-|    booktitle={Proceedings of the Second International Conference on
-|               Knowledge Discovery and Data Mining},
-|    year = 1996,
-|    pages={to appear}}
-|
-| Error Accuracy reported as follows, after removal of unknowns from
-|    train/test sets):
-|    C4.5       : 84.46+-0.30
-|    Naive-Bayes: 83.88+-0.30
-|    NBTree     : 85.90+-0.28
-|
-|
-| Following algorithms were later run with the following error rates,
-|    all after removal of unknowns and using the original train/test split.
-|    All these numbers are straight runs using MLC++ with default values.
-|
-|    Algorithm               Error
-| -- ----------------        -----
-| 1  C4.5                    15.54
-| 2  C4.5-auto               14.46
-| 3  C4.5 rules              14.94
-| 4  Voted ID3 (0.6)         15.64
-| 5  Voted ID3 (0.8)         16.47
-| 6  T2                      16.84
-| 7  1R                      19.54
-| 8  NBTree                  14.10
-| 9  CN2                     16.00
-| 10 HOODG                   14.82
-| 11 FSS Naive Bayes         14.05
-| 12 IDTM (Decision table)   14.46
-| 13 Naive-Bayes             16.12
-| 14 Nearest-neighbor (1)    21.42
-| 15 Nearest-neighbor (3)    20.35
-| 16 OC1                     15.04
-| 17 Pebls                   Crashed.  Unknown why (bounds WERE increased)
-|
-| Conversion of original data as follows:
-| 1. Discretized agrossincome into two ranges with threshold 50,000.
-| 2. Convert U.S. to US to avoid periods.
-| 3. Convert Unknown to &#34;?&#34;
-| 4. Run MLC++ GenCVFiles to generate data,test.
-|
-| Description of fnlwgt (final weight)
-|
-| The weights on the CPS files are controlled to independent estimates of the
-| civilian noninstitutional population of the US.  These are prepared monthly
-| for us by Population Division here at the Census Bureau.  We use 3 sets of
-| controls.
-|  These are:
-|          1.  A single cell estimate of the population 16+ for each state.
-|          2.  Controls for Hispanic Origin by age and sex.
-|          3.  Controls by Race, age and sex.
-|
-| We use all three sets of controls in our weighting program and &#34;rake&#34; through
-| them 6 times so that by the end we come back to all the controls we used.
-|
-| The term estimate refers to population totals derived from CPS by creating
-| &#34;weighted tallies&#34; of any specified socio-economic characteristics of the
-| population.
-|
-| People with similar demographic characteristics should have
-| similar weights.  There is one important caveat to remember
-| about this statement.  That is that since the CPS sample is
-| actually a collection of 51 state samples, each with its own
-| probability of selection, the statement only applies within
-| state.
-
-
-&gt;50K, &lt;=50K.
-
-age: continuous.
-workclass: Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked.
-fnlwgt: continuous.
-education: Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool.
-education-num: continuous.
-marital-status: Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse.
-occupation: Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces.
-relationship: Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried.
-race: White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black.
-sex: Female, Male.
-capital-gain: continuous.
-capital-loss: continuous.
-hours-per-week: continuous.
-native-country: United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&amp;Tobago, Peru, Hong, Holand-Netherlands.
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">datasetName</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Raw dataset analysis</strong>
-The dataset</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[47]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>age</th>
-      <th>workclass</th>
-      <th>fnlwgt</th>
-      <th>education</th>
-      <th>education-num</th>
-      <th>marital-status</th>
-      <th>occupation</th>
-      <th>relationship</th>
-      <th>race</th>
-      <th>sex</th>
-      <th>capital-gain</th>
-      <th>capital-loss</th>
-      <th>hours-per-week</th>
-      <th>native-country</th>
-      <th>income</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>39</td>
-      <td>State-gov</td>
-      <td>77516</td>
-      <td>Bachelors</td>
-      <td>13</td>
-      <td>Never-married</td>
-      <td>Adm-clerical</td>
-      <td>Not-in-family</td>
-      <td>White</td>
-      <td>Male</td>
-      <td>2174</td>
-      <td>0</td>
-      <td>40</td>
-      <td>United-States</td>
-      <td>&lt;=50K</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>50</td>
-      <td>Self-emp-not-inc</td>
-      <td>83311</td>
-      <td>Bachelors</td>
-      <td>13</td>
-      <td>Married-civ-spouse</td>
-      <td>Exec-managerial</td>
-      <td>Husband</td>
-      <td>White</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>13</td>
-      <td>United-States</td>
-      <td>&lt;=50K</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>38</td>
-      <td>Private</td>
-      <td>215646</td>
-      <td>HS-grad</td>
-      <td>9</td>
-      <td>Divorced</td>
-      <td>Handlers-cleaners</td>
-      <td>Not-in-family</td>
-      <td>White</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>United-States</td>
-      <td>&lt;=50K</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>53</td>
-      <td>Private</td>
-      <td>234721</td>
-      <td>11th</td>
-      <td>7</td>
-      <td>Married-civ-spouse</td>
-      <td>Handlers-cleaners</td>
-      <td>Husband</td>
-      <td>Black</td>
-      <td>Male</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>United-States</td>
-      <td>&lt;=50K</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>28</td>
-      <td>Private</td>
-      <td>338409</td>
-      <td>Bachelors</td>
-      <td>13</td>
-      <td>Married-civ-spouse</td>
-      <td>Prof-specialty</td>
-      <td>Wife</td>
-      <td>Black</td>
-      <td>Female</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>Cuba</td>
-      <td>&lt;=50K</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[48]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>age</th>
-      <th>workclass</th>
-      <th>fnlwgt</th>
-      <th>education</th>
-      <th>education-num</th>
-      <th>marital-status</th>
-      <th>occupation</th>
-      <th>relationship</th>
-      <th>race</th>
-      <th>sex</th>
-      <th>capital-gain</th>
-      <th>capital-loss</th>
-      <th>hours-per-week</th>
-      <th>native-country</th>
-      <th>income</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>48842.000000</td>
-      <td>48842</td>
-      <td>4.884200e+04</td>
-      <td>48842</td>
-      <td>48842.000000</td>
-      <td>48842</td>
-      <td>48842</td>
-      <td>48842</td>
-      <td>48842</td>
-      <td>48842</td>
-      <td>48842.000000</td>
-      <td>48842.000000</td>
-      <td>48842.000000</td>
-      <td>48842</td>
-      <td>48842</td>
-    </tr>
-    <tr>
-      <th>unique</th>
-      <td>NaN</td>
-      <td>9</td>
-      <td>NaN</td>
-      <td>16</td>
-      <td>NaN</td>
-      <td>7</td>
-      <td>15</td>
-      <td>6</td>
-      <td>5</td>
-      <td>2</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>42</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>top</th>
-      <td>NaN</td>
-      <td>Private</td>
-      <td>NaN</td>
-      <td>HS-grad</td>
-      <td>NaN</td>
-      <td>Married-civ-spouse</td>
-      <td>Prof-specialty</td>
-      <td>Husband</td>
-      <td>White</td>
-      <td>Male</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>United-States</td>
-      <td>&lt;=50K</td>
-    </tr>
-    <tr>
-      <th>freq</th>
-      <td>NaN</td>
-      <td>33906</td>
-      <td>NaN</td>
-      <td>15784</td>
-      <td>NaN</td>
-      <td>22379</td>
-      <td>6172</td>
-      <td>19716</td>
-      <td>41762</td>
-      <td>32650</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>43832</td>
-      <td>37155</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>38.643585</td>
-      <td>NaN</td>
-      <td>1.896641e+05</td>
-      <td>NaN</td>
-      <td>10.078089</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1079.067626</td>
-      <td>87.502314</td>
-      <td>40.422382</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>13.710510</td>
-      <td>NaN</td>
-      <td>1.056040e+05</td>
-      <td>NaN</td>
-      <td>2.570973</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>7452.019058</td>
-      <td>403.004552</td>
-      <td>12.391444</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>17.000000</td>
-      <td>NaN</td>
-      <td>1.228500e+04</td>
-      <td>NaN</td>
-      <td>1.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>28.000000</td>
-      <td>NaN</td>
-      <td>1.175505e+05</td>
-      <td>NaN</td>
-      <td>9.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>40.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>37.000000</td>
-      <td>NaN</td>
-      <td>1.781445e+05</td>
-      <td>NaN</td>
-      <td>10.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>40.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>48.000000</td>
-      <td>NaN</td>
-      <td>2.376420e+05</td>
-      <td>NaN</td>
-      <td>12.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>45.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>90.000000</td>
-      <td>NaN</td>
-      <td>1.490400e+06</td>
-      <td>NaN</td>
-      <td>16.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>99999.000000</td>
-      <td>4356.000000</td>
-      <td>99.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 48842 entries, 0 to 48841
-Data columns (total 15 columns):
- #   Column          Non-Null Count  Dtype 
----  ------          --------------  ----- 
- 0   age             48842 non-null  int64 
- 1   workclass       48842 non-null  object
- 2   fnlwgt          48842 non-null  int64 
- 3   education       48842 non-null  object
- 4   education-num   48842 non-null  int64 
- 5   marital-status  48842 non-null  object
- 6   occupation      48842 non-null  object
- 7   relationship    48842 non-null  object
- 8   race            48842 non-null  object
- 9   sex             48842 non-null  object
- 10  capital-gain    48842 non-null  int64 
- 11  capital-loss    48842 non-null  int64 
- 12  hours-per-week  48842 non-null  int64 
- 13  native-country  48842 non-null  object
- 14  income          48842 non-null  object
-dtypes: int64(6), object(9)
-memory usage: 5.6+ MB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Clean the data</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Count of each categorical class</span>
-
-<span class="n">categoricalCols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">colName</span> <span class="ow">in</span> <span class="n">categoricalCols</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">colName</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="n">colName</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>workclass :  {&#39;Private&#39;: 33307, &#39;Self-emp-not-inc&#39;: 3796, &#39;Local-gov&#39;: 3100, &#39;State-gov&#39;: 1946, &#39;Self-emp-inc&#39;: 1646, &#39;Federal-gov&#39;: 1406, &#39;Without-pay&#39;: 21}  
-
-education :  {&#39;HS-grad&#39;: 14783, &#39;Some-college&#39;: 9899, &#39;Bachelors&#39;: 7570, &#39;Masters&#39;: 2514, &#39;Assoc-voc&#39;: 1959, &#39;11th&#39;: 1619, &#39;Assoc-acdm&#39;: 1507, &#39;10th&#39;: 1223, &#39;7th-8th&#39;: 823, &#39;Prof-school&#39;: 785, &#39;9th&#39;: 676, &#39;12th&#39;: 577, &#39;Doctorate&#39;: 544, &#39;5th-6th&#39;: 449, &#39;1st-4th&#39;: 222, &#39;Preschool&#39;: 72}  
-
-occupation :  {&#39;Craft-repair&#39;: 6020, &#39;Prof-specialty&#39;: 6008, &#39;Exec-managerial&#39;: 5984, &#39;Adm-clerical&#39;: 5540, &#39;Sales&#39;: 5408, &#39;Other-service&#39;: 4808, &#39;Machine-op-inspct&#39;: 2970, &#39;Transport-moving&#39;: 2316, &#39;Handlers-cleaners&#39;: 2046, &#39;Farming-fishing&#39;: 1480, &#39;Tech-support&#39;: 1420, &#39;Protective-serv&#39;: 976, &#39;Priv-house-serv&#39;: 232, &#39;Armed-Forces&#39;: 14}  
-
-marital-status :  {&#39;Married-civ-spouse&#39;: 21055, &#39;Never-married&#39;: 14598, &#39;Divorced&#39;: 6297, &#39;Separated&#39;: 1411, &#39;Widowed&#39;: 1277, &#39;Married-spouse-absent&#39;: 552, &#39;Married-AF-spouse&#39;: 32}  
-
-relationship :  {&#39;Husband&#39;: 18666, &#39;Not-in-family&#39;: 11702, &#39;Own-child&#39;: 6626, &#39;Unmarried&#39;: 4788, &#39;Wife&#39;: 2091, &#39;Other-relative&#39;: 1349}  
-
-sex :  {&#39;Male&#39;: 30527, &#39;Female&#39;: 14695}  
-
-race :  {&#39;White&#39;: 38903, &#39;Black&#39;: 4228, &#39;Asian-Pac-Islander&#39;: 1303, &#39;Amer-Indian-Eskimo&#39;: 435, &#39;Other&#39;: 353}  
-
-income :  {&#39;&lt;=50K&#39;: 34014, &#39;&gt;50K&#39;: 11208}  
-
-native-country :  {&#39;United-States&#39;: 41292, &#39;Mexico&#39;: 903, &#39;Philippines&#39;: 283, &#39;Germany&#39;: 193, &#39;Puerto-Rico&#39;: 175, &#39;Canada&#39;: 163, &#39;El-Salvador&#39;: 147, &#39;India&#39;: 147, &#39;Cuba&#39;: 133, &#39;England&#39;: 119, &#39;China&#39;: 113, &#39;Jamaica&#39;: 103, &#39;South&#39;: 101, &#39;Italy&#39;: 100, &#39;Dominican-Republic&#39;: 97, &#39;Japan&#39;: 89, &#39;Guatemala&#39;: 86, &#39;Vietnam&#39;: 83, &#39;Columbia&#39;: 82, &#39;Poland&#39;: 81, &#39;Haiti&#39;: 69, &#39;Portugal&#39;: 62, &#39;Iran&#39;: 56, &#39;Taiwan&#39;: 55, &#39;Greece&#39;: 49, &#39;Nicaragua&#39;: 48, &#39;Peru&#39;: 45, &#39;Ecuador&#39;: 43, &#39;Ireland&#39;: 36, &#39;France&#39;: 36, &#39;Thailand&#39;: 29, &#39;Hong&#39;: 28, &#39;Cambodia&#39;: 26, &#39;Trinadad&amp;Tobago&#39;: 26, &#39;Yugoslavia&#39;: 23, &#39;Outlying-US(Guam-USVI-etc)&#39;: 22, &#39;Laos&#39;: 21, &#39;Scotland&#39;: 20, &#39;Honduras&#39;: 19, &#39;Hungary&#39;: 18, &#39;Holand-Netherlands&#39;: 1}  
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Look for count of columns with special character &#39;?&#39; in the dataset</span>
-<span class="n">df</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;?&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[51]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>age                  0
-workclass         2799
-fnlwgt               0
-education            0
-education-num        0
-marital-status       0
-occupation        2809
-relationship         0
-race                 0
-sex                  0
-capital-gain         0
-capital-loss         0
-hours-per-week       0
-native-country     857
-income               0
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Clean up the dataset - remove rows having &#39;?&#39;</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;workclass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;workclass&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;occupation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;occupation&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;native-country&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;native-country&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;?&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[56]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>age               0
-workclass         0
-fnlwgt            0
-education         0
-education-num     0
-marital-status    0
-occupation        0
-relationship      0
-race              0
-sex               0
-capital-gain      0
-capital-loss      0
-hours-per-week    0
-native-country    0
-income            0
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[59]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(45222, 15)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[83]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check categorical income(last) column distribution</span>
-<span class="n">vals</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">counter</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Class=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">, Count=</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">, Count%ge=</span><span class="si">{</span><span class="n">v</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span> <span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">%&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Class=&lt;=50K, Count=34014, Count%ge=75.22%
-Class=&gt;50K, Count=11208, Count%ge=24.78%
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check the column datatype before transformation</span>
-<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-Int64Index: 45222 entries, 0 to 48841
-Data columns (total 15 columns):
- #   Column          Non-Null Count  Dtype 
----  ------          --------------  ----- 
- 0   age             45222 non-null  int64 
- 1   workclass       45222 non-null  object
- 2   fnlwgt          45222 non-null  int64 
- 3   education       45222 non-null  object
- 4   education-num   45222 non-null  int64 
- 5   marital-status  45222 non-null  object
- 6   occupation      45222 non-null  object
- 7   relationship    45222 non-null  object
- 8   race            45222 non-null  object
- 9   sex             45222 non-null  object
- 10  capital-gain    45222 non-null  int64 
- 11  capital-loss    45222 non-null  int64 
- 12  hours-per-week  45222 non-null  int64 
- 13  native-country  45222 non-null  object
- 14  income          45222 non-null  object
-dtypes: int64(6), object(9)
-memory usage: 5.5+ MB
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[107]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># transform categorical columns using LabelEncoder into numerical column</span>
-
-<span class="n">labelEncoderDict</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span><span class="n">LabelEncoder</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">categoricalCols</span><span class="p">}</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">categoricalCols</span><span class="p">:</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">labelEncoderDict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="n">x</span><span class="p">]])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/preprocessing/_label.py:115: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[108]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check the top rows</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[108]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>age</th>
-      <th>workclass</th>
-      <th>fnlwgt</th>
-      <th>education</th>
-      <th>education-num</th>
-      <th>marital-status</th>
-      <th>occupation</th>
-      <th>relationship</th>
-      <th>race</th>
-      <th>sex</th>
-      <th>capital-gain</th>
-      <th>capital-loss</th>
-      <th>hours-per-week</th>
-      <th>native-country</th>
-      <th>income</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>39</td>
-      <td>5</td>
-      <td>77516</td>
-      <td>9</td>
-      <td>13</td>
-      <td>4</td>
-      <td>0</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1</td>
-      <td>2174</td>
-      <td>0</td>
-      <td>40</td>
-      <td>38</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>50</td>
-      <td>4</td>
-      <td>83311</td>
-      <td>9</td>
-      <td>13</td>
-      <td>2</td>
-      <td>3</td>
-      <td>0</td>
-      <td>4</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>13</td>
-      <td>38</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>38</td>
-      <td>2</td>
-      <td>215646</td>
-      <td>11</td>
-      <td>9</td>
-      <td>0</td>
-      <td>5</td>
-      <td>1</td>
-      <td>4</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>38</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>53</td>
-      <td>2</td>
-      <td>234721</td>
-      <td>1</td>
-      <td>7</td>
-      <td>2</td>
-      <td>5</td>
-      <td>0</td>
-      <td>2</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>38</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>28</td>
-      <td>2</td>
-      <td>338409</td>
-      <td>9</td>
-      <td>13</td>
-      <td>2</td>
-      <td>9</td>
-      <td>5</td>
-      <td>2</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>40</td>
-      <td>4</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[264]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># display the mapping between the categorical column class and its (values, count, count%)</span>
-
-<span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">categoricalCols</span><span class="p">:</span>
-    <span class="n">le</span> <span class="o">=</span> <span class="n">labelEncoderDict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-    <span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">)))</span>
-    <span class="n">d1</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">d1</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">/</span><span class="n">l</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;%&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>workclass :  {0: (&#39;Federal-gov&#39;, 1406, &#39;3%&#39;), 1: (&#39;Local-gov&#39;, 3100, &#39;6%&#39;), 2: (&#39;Private&#39;, 33307, &#39;73%&#39;), 3: (&#39;Self-emp-inc&#39;, 1646, &#39;3%&#39;), 4: (&#39;Self-emp-not-inc&#39;, 3796, &#39;8%&#39;), 5: (&#39;State-gov&#39;, 1946, &#39;4%&#39;), 6: (&#39;Without-pay&#39;, 21, &#39;0%&#39;)} 
-
-education :  {0: (&#39;10th&#39;, 1223, &#39;2%&#39;), 1: (&#39;11th&#39;, 1619, &#39;3%&#39;), 2: (&#39;12th&#39;, 577, &#39;1%&#39;), 3: (&#39;1st-4th&#39;, 222, &#39;0%&#39;), 4: (&#39;5th-6th&#39;, 449, &#39;0%&#39;), 5: (&#39;7th-8th&#39;, 823, &#39;1%&#39;), 6: (&#39;9th&#39;, 676, &#39;1%&#39;), 7: (&#39;Assoc-acdm&#39;, 1507, &#39;3%&#39;), 8: (&#39;Assoc-voc&#39;, 1959, &#39;4%&#39;), 9: (&#39;Bachelors&#39;, 7570, &#39;16%&#39;), 10: (&#39;Doctorate&#39;, 544, &#39;1%&#39;), 11: (&#39;HS-grad&#39;, 14783, &#39;32%&#39;), 12: (&#39;Masters&#39;, 2514, &#39;5%&#39;), 13: (&#39;Preschool&#39;, 72, &#39;0%&#39;), 14: (&#39;Prof-school&#39;, 785, &#39;1%&#39;), 15: (&#39;Some-college&#39;, 9899, &#39;21%&#39;)} 
-
-occupation :  {0: (&#39;Adm-clerical&#39;, 5540, &#39;12%&#39;), 1: (&#39;Armed-Forces&#39;, 14, &#39;0%&#39;), 2: (&#39;Craft-repair&#39;, 6020, &#39;13%&#39;), 3: (&#39;Exec-managerial&#39;, 5984, &#39;13%&#39;), 4: (&#39;Farming-fishing&#39;, 1480, &#39;3%&#39;), 5: (&#39;Handlers-cleaners&#39;, 2046, &#39;4%&#39;), 6: (&#39;Machine-op-inspct&#39;, 2970, &#39;6%&#39;), 7: (&#39;Other-service&#39;, 4808, &#39;10%&#39;), 8: (&#39;Priv-house-serv&#39;, 232, &#39;0%&#39;), 9: (&#39;Prof-specialty&#39;, 6008, &#39;13%&#39;), 10: (&#39;Protective-serv&#39;, 976, &#39;2%&#39;), 11: (&#39;Sales&#39;, 5408, &#39;11%&#39;), 12: (&#39;Tech-support&#39;, 1420, &#39;3%&#39;), 13: (&#39;Transport-moving&#39;, 2316, &#39;5%&#39;)} 
-
-marital-status :  {0: (&#39;Divorced&#39;, 6297, &#39;13%&#39;), 1: (&#39;Married-AF-spouse&#39;, 32, &#39;0%&#39;), 2: (&#39;Married-civ-spouse&#39;, 21055, &#39;46%&#39;), 3: (&#39;Married-spouse-absent&#39;, 552, &#39;1%&#39;), 4: (&#39;Never-married&#39;, 14598, &#39;32%&#39;), 5: (&#39;Separated&#39;, 1411, &#39;3%&#39;), 6: (&#39;Widowed&#39;, 1277, &#39;2%&#39;)} 
-
-relationship :  {0: (&#39;Husband&#39;, 18666, &#39;41%&#39;), 1: (&#39;Not-in-family&#39;, 11702, &#39;25%&#39;), 2: (&#39;Other-relative&#39;, 1349, &#39;2%&#39;), 3: (&#39;Own-child&#39;, 6626, &#39;14%&#39;), 4: (&#39;Unmarried&#39;, 4788, &#39;10%&#39;), 5: (&#39;Wife&#39;, 2091, &#39;4%&#39;)} 
-
-sex :  {0: (&#39;Female&#39;, 14695, &#39;32%&#39;), 1: (&#39;Male&#39;, 30527, &#39;67%&#39;)} 
-
-race :  {0: (&#39;Amer-Indian-Eskimo&#39;, 435, &#39;0%&#39;), 1: (&#39;Asian-Pac-Islander&#39;, 1303, &#39;2%&#39;), 2: (&#39;Black&#39;, 4228, &#39;9%&#39;), 3: (&#39;Other&#39;, 353, &#39;0%&#39;), 4: (&#39;White&#39;, 38903, &#39;86%&#39;)} 
-
-income :  {0: (&#39;&lt;=50K&#39;, 34014, &#39;75%&#39;), 1: (&#39;&gt;50K&#39;, 11208, &#39;24%&#39;)} 
-
-native-country :  {0: (&#39;Cambodia&#39;, 26, &#39;0%&#39;), 1: (&#39;Canada&#39;, 163, &#39;0%&#39;), 2: (&#39;China&#39;, 113, &#39;0%&#39;), 3: (&#39;Columbia&#39;, 82, &#39;0%&#39;), 4: (&#39;Cuba&#39;, 133, &#39;0%&#39;), 5: (&#39;Dominican-Republic&#39;, 97, &#39;0%&#39;), 6: (&#39;Ecuador&#39;, 43, &#39;0%&#39;), 7: (&#39;El-Salvador&#39;, 147, &#39;0%&#39;), 8: (&#39;England&#39;, 119, &#39;0%&#39;), 9: (&#39;France&#39;, 36, &#39;0%&#39;), 10: (&#39;Germany&#39;, 193, &#39;0%&#39;), 11: (&#39;Greece&#39;, 49, &#39;0%&#39;), 12: (&#39;Guatemala&#39;, 86, &#39;0%&#39;), 13: (&#39;Haiti&#39;, 69, &#39;0%&#39;), 14: (&#39;Holand-Netherlands&#39;, 1, &#39;0%&#39;), 15: (&#39;Honduras&#39;, 19, &#39;0%&#39;), 16: (&#39;Hong&#39;, 28, &#39;0%&#39;), 17: (&#39;Hungary&#39;, 18, &#39;0%&#39;), 18: (&#39;India&#39;, 147, &#39;0%&#39;), 19: (&#39;Iran&#39;, 56, &#39;0%&#39;), 20: (&#39;Ireland&#39;, 36, &#39;0%&#39;), 21: (&#39;Italy&#39;, 100, &#39;0%&#39;), 22: (&#39;Jamaica&#39;, 103, &#39;0%&#39;), 23: (&#39;Japan&#39;, 89, &#39;0%&#39;), 24: (&#39;Laos&#39;, 21, &#39;0%&#39;), 25: (&#39;Mexico&#39;, 903, &#39;1%&#39;), 26: (&#39;Nicaragua&#39;, 48, &#39;0%&#39;), 27: (&#39;Outlying-US(Guam-USVI-etc)&#39;, 22, &#39;0%&#39;), 28: (&#39;Peru&#39;, 45, &#39;0%&#39;), 29: (&#39;Philippines&#39;, 283, &#39;0%&#39;), 30: (&#39;Poland&#39;, 81, &#39;0%&#39;), 31: (&#39;Portugal&#39;, 62, &#39;0%&#39;), 32: (&#39;Puerto-Rico&#39;, 175, &#39;0%&#39;), 33: (&#39;Scotland&#39;, 20, &#39;0%&#39;), 34: (&#39;South&#39;, 101, &#39;0%&#39;), 35: (&#39;Taiwan&#39;, 55, &#39;0%&#39;), 36: (&#39;Thailand&#39;, 29, &#39;0%&#39;), 37: (&#39;Trinadad&amp;Tobago&#39;, 26, &#39;0%&#39;), 38: (&#39;United-States&#39;, 41292, &#39;91%&#39;), 39: (&#39;Vietnam&#39;, 83, &#39;0%&#39;), 40: (&#39;Yugoslavia&#39;, 23, &#39;0%&#39;)} 
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[125]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># fig, axes = plt.subplots(ncols=5, nrows=3, figsize=(10,5))</span>
-<span class="c1"># for col, ax in zip(df, axes):</span>
-<span class="c1"># #     df[col].value_counts().sort_index().plot.bar(ax=ax, title=col)</span>
-<span class="c1">#     df[col].plot.hist(ax=ax, title=col)</span>
-
-<span class="c1"># plt.tight_layout()    </span>
-<span class="c1"># plt.show()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[143]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot histogram and save image</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/df_subplots.png&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/df_subplots.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[150]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">corr</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
-<span class="c1"># corr.style.background_gradient(cmap=&#39;coolwarm&#39;)</span>
-<span class="c1"># corr.style.background_gradient(cmap=&#39;coolwarm&#39;).set_precision(2)</span>
-<span class="c1"># corr.style.background_gradient(cmap=&#39;coolwarm&#39;).set_properties(**{&#39;font-size&#39;: &#39;0pt&#39;})</span>
-<span class="c1"># corr.style.background_gradient(cmap=&#39;coolwarm&#39;, axis=None)</span>
-<span class="n">corr</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">set_precision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="c1"># corr.style.background_gradient(cmap=&#39;coolwarm&#39;, axis=None).set_properties(**{&#39;font-size&#39;: &#39;0pt&#39;})</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/var/folders/kz/g_s979xs7pdbzdsbg21qhs240000gn/T/ipykernel_98090/728405396.py:6: FutureWarning: this method is deprecated in favour of `Styler.format(precision=..)`
-  corr.style.background_gradient(cmap=&#39;coolwarm&#39;, axis=None).set_precision(2)
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[150]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<style type="text/css">
-#T_5a284_row0_col0, #T_5a284_row1_col1, #T_5a284_row2_col2, #T_5a284_row3_col3, #T_5a284_row4_col4, #T_5a284_row5_col5, #T_5a284_row6_col6, #T_5a284_row7_col7, #T_5a284_row8_col8, #T_5a284_row9_col9, #T_5a284_row10_col10, #T_5a284_row11_col11, #T_5a284_row12_col12, #T_5a284_row13_col13, #T_5a284_row14_col14 {
-  background-color: #b40426;
-  color: #f1f1f1;
-}
-#T_5a284_row0_col1, #T_5a284_row1_col0, #T_5a284_row4_col6, #T_5a284_row6_col4, #T_5a284_row8_col9, #T_5a284_row9_col8 {
-  background-color: #c7d7f0;
-  color: #000000;
-}
-#T_5a284_row0_col2, #T_5a284_row2_col0, #T_5a284_row5_col8, #T_5a284_row8_col5 {
-  background-color: #a6c4fe;
-  color: #000000;
-}
-#T_5a284_row0_col3, #T_5a284_row0_col6, #T_5a284_row0_col13, #T_5a284_row2_col6, #T_5a284_row2_col10, #T_5a284_row2_col11, #T_5a284_row2_col14, #T_5a284_row3_col0, #T_5a284_row6_col0, #T_5a284_row6_col2, #T_5a284_row6_col13, #T_5a284_row7_col13, #T_5a284_row9_col13, #T_5a284_row10_col2, #T_5a284_row11_col2, #T_5a284_row13_col0, #T_5a284_row13_col6, #T_5a284_row13_col7, #T_5a284_row13_col9, #T_5a284_row14_col2 {
-  background-color: #b5cdfa;
-  color: #000000;
-}
-#T_5a284_row0_col4, #T_5a284_row1_col4, #T_5a284_row4_col0, #T_5a284_row4_col1 {
-  background-color: #bed2f6;
-  color: #000000;
-}
-#T_5a284_row0_col5, #T_5a284_row5_col0 {
-  background-color: #7a9df8;
-  color: #f1f1f1;
-}
-#T_5a284_row0_col7, #T_5a284_row7_col0 {
-  background-color: #80a3fa;
-  color: #f1f1f1;
-}
-#T_5a284_row0_col8, #T_5a284_row2_col9, #T_5a284_row8_col0, #T_5a284_row9_col2 {
-  background-color: #bbd1f8;
-  color: #000000;
-}
-#T_5a284_row0_col9, #T_5a284_row0_col10, #T_5a284_row3_col14, #T_5a284_row4_col11, #T_5a284_row9_col0, #T_5a284_row10_col0, #T_5a284_row10_col12, #T_5a284_row11_col4, #T_5a284_row12_col10, #T_5a284_row14_col3 {
-  background-color: #c6d6f1;
-  color: #000000;
-}
-#T_5a284_row0_col11, #T_5a284_row6_col9, #T_5a284_row9_col6, #T_5a284_row11_col0, #T_5a284_row11_col12, #T_5a284_row12_col11 {
-  background-color: #c1d4f4;
-  color: #000000;
-}
-#T_5a284_row0_col12, #T_5a284_row12_col0 {
-  background-color: #cad8ef;
-  color: #000000;
-}
-#T_5a284_row0_col14, #T_5a284_row14_col0 {
-  background-color: #e1dad6;
-  color: #000000;
-}
-#T_5a284_row1_col2, #T_5a284_row1_col5, #T_5a284_row2_col1, #T_5a284_row3_col6, #T_5a284_row5_col1, #T_5a284_row5_col11, #T_5a284_row6_col3, #T_5a284_row11_col5 {
-  background-color: #aec9fc;
-  color: #000000;
-}
-#T_5a284_row1_col3, #T_5a284_row1_col6, #T_5a284_row3_col1, #T_5a284_row3_col11, #T_5a284_row6_col1, #T_5a284_row6_col10, #T_5a284_row8_col11, #T_5a284_row10_col6, #T_5a284_row11_col3, #T_5a284_row11_col8, #T_5a284_row13_col14, #T_5a284_row14_col13 {
-  background-color: #bad0f8;
-  color: #000000;
-}
-#T_5a284_row1_col7, #T_5a284_row4_col5, #T_5a284_row5_col4, #T_5a284_row7_col1 {
-  background-color: #a7c5fe;
-  color: #000000;
-}
-#T_5a284_row1_col8, #T_5a284_row1_col12, #T_5a284_row6_col14, #T_5a284_row8_col1, #T_5a284_row12_col1, #T_5a284_row14_col6 {
-  background-color: #c0d4f5;
-  color: #000000;
-}
-#T_5a284_row1_col9, #T_5a284_row8_col14, #T_5a284_row9_col1, #T_5a284_row14_col8 {
-  background-color: #c4d5f3;
-  color: #000000;
-}
-#T_5a284_row1_col10, #T_5a284_row2_col5, #T_5a284_row3_col10, #T_5a284_row4_col8, #T_5a284_row5_col2, #T_5a284_row8_col4, #T_5a284_row10_col1, #T_5a284_row10_col3 {
-  background-color: #bcd2f7;
-  color: #000000;
-}
-#T_5a284_row1_col11, #T_5a284_row2_col7, #T_5a284_row7_col2, #T_5a284_row10_col13, #T_5a284_row11_col1, #T_5a284_row11_col13, #T_5a284_row12_col13, #T_5a284_row13_col10, #T_5a284_row13_col11, #T_5a284_row13_col12 {
-  background-color: #b7cff9;
-  color: #000000;
-}
-#T_5a284_row1_col13, #T_5a284_row4_col9, #T_5a284_row6_col8, #T_5a284_row8_col6, #T_5a284_row9_col4, #T_5a284_row13_col1 {
-  background-color: #b6cefa;
-  color: #000000;
-}
-#T_5a284_row1_col14, #T_5a284_row3_col8, #T_5a284_row5_col6, #T_5a284_row6_col5, #T_5a284_row6_col11, #T_5a284_row6_col12, #T_5a284_row8_col3, #T_5a284_row8_col10, #T_5a284_row10_col8, #T_5a284_row11_col6, #T_5a284_row12_col6, #T_5a284_row14_col1 {
-  background-color: #b9d0f9;
-  color: #000000;
-}
-#T_5a284_row2_col3, #T_5a284_row3_col2, #T_5a284_row5_col13, #T_5a284_row13_col5 {
-  background-color: #b1cbfc;
-  color: #000000;
-}
-#T_5a284_row2_col4, #T_5a284_row3_col5, #T_5a284_row4_col2, #T_5a284_row5_col3, #T_5a284_row5_col10, #T_5a284_row10_col5 {
-  background-color: #adc9fd;
-  color: #000000;
-}
-#T_5a284_row2_col8, #T_5a284_row3_col9, #T_5a284_row8_col2, #T_5a284_row9_col3, #T_5a284_row10_col11, #T_5a284_row11_col10 {
-  background-color: #afcafc;
-  color: #000000;
-}
-#T_5a284_row2_col12, #T_5a284_row12_col2 {
-  background-color: #b2ccfb;
-  color: #000000;
-}
-#T_5a284_row2_col13, #T_5a284_row7_col11, #T_5a284_row11_col7, #T_5a284_row13_col2 {
-  background-color: #a9c6fd;
-  color: #000000;
-}
-#T_5a284_row3_col4, #T_5a284_row4_col3 {
-  background-color: #f0cdbb;
-  color: #000000;
-}
-#T_5a284_row3_col7, #T_5a284_row7_col3 {
-  background-color: #b3cdfb;
-  color: #000000;
-}
-#T_5a284_row3_col12, #T_5a284_row12_col3 {
-  background-color: #c3d5f4;
-  color: #000000;
-}
-#T_5a284_row3_col13, #T_5a284_row13_col3 {
-  background-color: #c5d6f2;
-  color: #000000;
-}
-#T_5a284_row4_col7, #T_5a284_row7_col4 {
-  background-color: #a2c1ff;
-  color: #000000;
-}
-#T_5a284_row4_col10, #T_5a284_row8_col13, #T_5a284_row10_col4, #T_5a284_row13_col8 {
-  background-color: #cedaeb;
-  color: #000000;
-}
-#T_5a284_row4_col12, #T_5a284_row12_col4 {
-  background-color: #d2dbe8;
-  color: #000000;
-}
-#T_5a284_row4_col13, #T_5a284_row13_col4 {
-  background-color: #c9d7f0;
-  color: #000000;
-}
-#T_5a284_row4_col14, #T_5a284_row14_col4 {
-  background-color: #efcfbf;
-  color: #000000;
-}
-#T_5a284_row5_col7, #T_5a284_row7_col5 {
-  background-color: #d8dce2;
-  color: #000000;
-}
-#T_5a284_row5_col9, #T_5a284_row9_col5 {
-  background-color: #9bbcff;
-  color: #000000;
-}
-#T_5a284_row5_col12, #T_5a284_row12_col5 {
-  background-color: #8db0fe;
-  color: #000000;
-}
-#T_5a284_row5_col14, #T_5a284_row14_col5 {
-  background-color: #8caffe;
-  color: #000000;
-}
-#T_5a284_row6_col7, #T_5a284_row7_col6, #T_5a284_row7_col10, #T_5a284_row10_col7 {
-  background-color: #aac7fd;
-  color: #000000;
-}
-#T_5a284_row7_col8, #T_5a284_row8_col7 {
-  background-color: #9dbdff;
-  color: #000000;
-}
-#T_5a284_row7_col9, #T_5a284_row9_col7 {
-  background-color: #3b4cc0;
-  color: #f1f1f1;
-}
-#T_5a284_row7_col12, #T_5a284_row12_col7 {
-  background-color: #7da0f9;
-  color: #f1f1f1;
-}
-#T_5a284_row7_col14, #T_5a284_row14_col7 {
-  background-color: #7ea1fa;
-  color: #f1f1f1;
-}
-#T_5a284_row8_col12, #T_5a284_row9_col10, #T_5a284_row9_col11, #T_5a284_row10_col9, #T_5a284_row11_col9, #T_5a284_row12_col8 {
-  background-color: #bfd3f6;
-  color: #000000;
-}
-#T_5a284_row9_col12, #T_5a284_row12_col9, #T_5a284_row12_col14, #T_5a284_row14_col12 {
-  background-color: #e0dbd8;
-  color: #000000;
-}
-#T_5a284_row9_col14, #T_5a284_row14_col9 {
-  background-color: #dedcdb;
-  color: #000000;
-}
-#T_5a284_row10_col14, #T_5a284_row14_col10 {
-  background-color: #dfdbd9;
-  color: #000000;
-}
-#T_5a284_row11_col14, #T_5a284_row14_col11 {
-  background-color: #d3dbe7;
-  color: #000000;
-}
-</style>
-<table id="T_5a284">
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_5a284_level0_col0" class="col_heading level0 col0" >age</th>
-      <th id="T_5a284_level0_col1" class="col_heading level0 col1" >workclass</th>
-      <th id="T_5a284_level0_col2" class="col_heading level0 col2" >fnlwgt</th>
-      <th id="T_5a284_level0_col3" class="col_heading level0 col3" >education</th>
-      <th id="T_5a284_level0_col4" class="col_heading level0 col4" >education-num</th>
-      <th id="T_5a284_level0_col5" class="col_heading level0 col5" >marital-status</th>
-      <th id="T_5a284_level0_col6" class="col_heading level0 col6" >occupation</th>
-      <th id="T_5a284_level0_col7" class="col_heading level0 col7" >relationship</th>
-      <th id="T_5a284_level0_col8" class="col_heading level0 col8" >race</th>
-      <th id="T_5a284_level0_col9" class="col_heading level0 col9" >sex</th>
-      <th id="T_5a284_level0_col10" class="col_heading level0 col10" >capital-gain</th>
-      <th id="T_5a284_level0_col11" class="col_heading level0 col11" >capital-loss</th>
-      <th id="T_5a284_level0_col12" class="col_heading level0 col12" >hours-per-week</th>
-      <th id="T_5a284_level0_col13" class="col_heading level0 col13" >native-country</th>
-      <th id="T_5a284_level0_col14" class="col_heading level0 col14" >income</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_5a284_level0_row0" class="row_heading level0 row0" >age</th>
-      <td id="T_5a284_row0_col0" class="data row0 col0" >1.00</td>
-      <td id="T_5a284_row0_col1" class="data row0 col1" >0.09</td>
-      <td id="T_5a284_row0_col2" class="data row0 col2" >-0.08</td>
-      <td id="T_5a284_row0_col3" class="data row0 col3" >-0.00</td>
-      <td id="T_5a284_row0_col4" class="data row0 col4" >0.04</td>
-      <td id="T_5a284_row0_col5" class="data row0 col5" >-0.27</td>
-      <td id="T_5a284_row0_col6" class="data row0 col6" >-0.00</td>
-      <td id="T_5a284_row0_col7" class="data row0 col7" >-0.25</td>
-      <td id="T_5a284_row0_col8" class="data row0 col8" >0.02</td>
-      <td id="T_5a284_row0_col9" class="data row0 col9" >0.08</td>
-      <td id="T_5a284_row0_col10" class="data row0 col10" >0.08</td>
-      <td id="T_5a284_row0_col11" class="data row0 col11" >0.06</td>
-      <td id="T_5a284_row0_col12" class="data row0 col12" >0.10</td>
-      <td id="T_5a284_row0_col13" class="data row0 col13" >-0.00</td>
-      <td id="T_5a284_row0_col14" class="data row0 col14" >0.24</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row1" class="row_heading level0 row1" >workclass</th>
-      <td id="T_5a284_row1_col0" class="data row1 col0" >0.09</td>
-      <td id="T_5a284_row1_col1" class="data row1 col1" >1.00</td>
-      <td id="T_5a284_row1_col2" class="data row1 col2" >-0.03</td>
-      <td id="T_5a284_row1_col3" class="data row1 col3" >0.02</td>
-      <td id="T_5a284_row1_col4" class="data row1 col4" >0.04</td>
-      <td id="T_5a284_row1_col5" class="data row1 col5" >-0.03</td>
-      <td id="T_5a284_row1_col6" class="data row1 col6" >0.02</td>
-      <td id="T_5a284_row1_col7" class="data row1 col7" >-0.07</td>
-      <td id="T_5a284_row1_col8" class="data row1 col8" >0.05</td>
-      <td id="T_5a284_row1_col9" class="data row1 col9" >0.07</td>
-      <td id="T_5a284_row1_col10" class="data row1 col10" >0.03</td>
-      <td id="T_5a284_row1_col11" class="data row1 col11" >0.01</td>
-      <td id="T_5a284_row1_col12" class="data row1 col12" >0.05</td>
-      <td id="T_5a284_row1_col13" class="data row1 col13" >0.00</td>
-      <td id="T_5a284_row1_col14" class="data row1 col14" >0.02</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row2" class="row_heading level0 row2" >fnlwgt</th>
-      <td id="T_5a284_row2_col0" class="data row2 col0" >-0.08</td>
-      <td id="T_5a284_row2_col1" class="data row2 col1" >-0.03</td>
-      <td id="T_5a284_row2_col2" class="data row2 col2" >1.00</td>
-      <td id="T_5a284_row2_col3" class="data row2 col3" >-0.03</td>
-      <td id="T_5a284_row2_col4" class="data row2 col4" >-0.04</td>
-      <td id="T_5a284_row2_col5" class="data row2 col5" >0.03</td>
-      <td id="T_5a284_row2_col6" class="data row2 col6" >-0.00</td>
-      <td id="T_5a284_row2_col7" class="data row2 col7" >0.01</td>
-      <td id="T_5a284_row2_col8" class="data row2 col8" >-0.03</td>
-      <td id="T_5a284_row2_col9" class="data row2 col9" >0.03</td>
-      <td id="T_5a284_row2_col10" class="data row2 col10" >-0.00</td>
-      <td id="T_5a284_row2_col11" class="data row2 col11" >-0.00</td>
-      <td id="T_5a284_row2_col12" class="data row2 col12" >-0.02</td>
-      <td id="T_5a284_row2_col13" class="data row2 col13" >-0.06</td>
-      <td id="T_5a284_row2_col14" class="data row2 col14" >-0.01</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row3" class="row_heading level0 row3" >education</th>
-      <td id="T_5a284_row3_col0" class="data row3 col0" >-0.00</td>
-      <td id="T_5a284_row3_col1" class="data row3 col1" >0.02</td>
-      <td id="T_5a284_row3_col2" class="data row3 col2" >-0.03</td>
-      <td id="T_5a284_row3_col3" class="data row3 col3" >1.00</td>
-      <td id="T_5a284_row3_col4" class="data row3 col4" >0.35</td>
-      <td id="T_5a284_row3_col5" class="data row3 col5" >-0.04</td>
-      <td id="T_5a284_row3_col6" class="data row3 col6" >-0.03</td>
-      <td id="T_5a284_row3_col7" class="data row3 col7" >-0.01</td>
-      <td id="T_5a284_row3_col8" class="data row3 col8" >0.01</td>
-      <td id="T_5a284_row3_col9" class="data row3 col9" >-0.03</td>
-      <td id="T_5a284_row3_col10" class="data row3 col10" >0.03</td>
-      <td id="T_5a284_row3_col11" class="data row3 col11" >0.02</td>
-      <td id="T_5a284_row3_col12" class="data row3 col12" >0.06</td>
-      <td id="T_5a284_row3_col13" class="data row3 col13" >0.08</td>
-      <td id="T_5a284_row3_col14" class="data row3 col14" >0.08</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row4" class="row_heading level0 row4" >education-num</th>
-      <td id="T_5a284_row4_col0" class="data row4 col0" >0.04</td>
-      <td id="T_5a284_row4_col1" class="data row4 col1" >0.04</td>
-      <td id="T_5a284_row4_col2" class="data row4 col2" >-0.04</td>
-      <td id="T_5a284_row4_col3" class="data row4 col3" >0.35</td>
-      <td id="T_5a284_row4_col4" class="data row4 col4" >1.00</td>
-      <td id="T_5a284_row4_col5" class="data row4 col5" >-0.06</td>
-      <td id="T_5a284_row4_col6" class="data row4 col6" >0.09</td>
-      <td id="T_5a284_row4_col7" class="data row4 col7" >-0.09</td>
-      <td id="T_5a284_row4_col8" class="data row4 col8" >0.03</td>
-      <td id="T_5a284_row4_col9" class="data row4 col9" >0.00</td>
-      <td id="T_5a284_row4_col10" class="data row4 col10" >0.13</td>
-      <td id="T_5a284_row4_col11" class="data row4 col11" >0.08</td>
-      <td id="T_5a284_row4_col12" class="data row4 col12" >0.15</td>
-      <td id="T_5a284_row4_col13" class="data row4 col13" >0.09</td>
-      <td id="T_5a284_row4_col14" class="data row4 col14" >0.33</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row5" class="row_heading level0 row5" >marital-status</th>
-      <td id="T_5a284_row5_col0" class="data row5 col0" >-0.27</td>
-      <td id="T_5a284_row5_col1" class="data row5 col1" >-0.03</td>
-      <td id="T_5a284_row5_col2" class="data row5 col2" >0.03</td>
-      <td id="T_5a284_row5_col3" class="data row5 col3" >-0.04</td>
-      <td id="T_5a284_row5_col4" class="data row5 col4" >-0.06</td>
-      <td id="T_5a284_row5_col5" class="data row5 col5" >1.00</td>
-      <td id="T_5a284_row5_col6" class="data row5 col6" >0.02</td>
-      <td id="T_5a284_row5_col7" class="data row5 col7" >0.18</td>
-      <td id="T_5a284_row5_col8" class="data row5 col8" >-0.07</td>
-      <td id="T_5a284_row5_col9" class="data row5 col9" >-0.12</td>
-      <td id="T_5a284_row5_col10" class="data row5 col10" >-0.04</td>
-      <td id="T_5a284_row5_col11" class="data row5 col11" >-0.03</td>
-      <td id="T_5a284_row5_col12" class="data row5 col12" >-0.18</td>
-      <td id="T_5a284_row5_col13" class="data row5 col13" >-0.02</td>
-      <td id="T_5a284_row5_col14" class="data row5 col14" >-0.19</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row6" class="row_heading level0 row6" >occupation</th>
-      <td id="T_5a284_row6_col0" class="data row6 col0" >-0.00</td>
-      <td id="T_5a284_row6_col1" class="data row6 col1" >0.02</td>
-      <td id="T_5a284_row6_col2" class="data row6 col2" >-0.00</td>
-      <td id="T_5a284_row6_col3" class="data row6 col3" >-0.03</td>
-      <td id="T_5a284_row6_col4" class="data row6 col4" >0.09</td>
-      <td id="T_5a284_row6_col5" class="data row6 col5" >0.02</td>
-      <td id="T_5a284_row6_col6" class="data row6 col6" >1.00</td>
-      <td id="T_5a284_row6_col7" class="data row6 col7" >-0.05</td>
-      <td id="T_5a284_row6_col8" class="data row6 col8" >-0.00</td>
-      <td id="T_5a284_row6_col9" class="data row6 col9" >0.06</td>
-      <td id="T_5a284_row6_col10" class="data row6 col10" >0.02</td>
-      <td id="T_5a284_row6_col11" class="data row6 col11" >0.02</td>
-      <td id="T_5a284_row6_col12" class="data row6 col12" >0.02</td>
-      <td id="T_5a284_row6_col13" class="data row6 col13" >-0.00</td>
-      <td id="T_5a284_row6_col14" class="data row6 col14" >0.05</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row7" class="row_heading level0 row7" >relationship</th>
-      <td id="T_5a284_row7_col0" class="data row7 col0" >-0.25</td>
-      <td id="T_5a284_row7_col1" class="data row7 col1" >-0.07</td>
-      <td id="T_5a284_row7_col2" class="data row7 col2" >0.01</td>
-      <td id="T_5a284_row7_col3" class="data row7 col3" >-0.01</td>
-      <td id="T_5a284_row7_col4" class="data row7 col4" >-0.09</td>
-      <td id="T_5a284_row7_col5" class="data row7 col5" >0.18</td>
-      <td id="T_5a284_row7_col6" class="data row7 col6" >-0.05</td>
-      <td id="T_5a284_row7_col7" class="data row7 col7" >1.00</td>
-      <td id="T_5a284_row7_col8" class="data row7 col8" >-0.12</td>
-      <td id="T_5a284_row7_col9" class="data row7 col9" >-0.58</td>
-      <td id="T_5a284_row7_col10" class="data row7 col10" >-0.06</td>
-      <td id="T_5a284_row7_col11" class="data row7 col11" >-0.06</td>
-      <td id="T_5a284_row7_col12" class="data row7 col12" >-0.26</td>
-      <td id="T_5a284_row7_col13" class="data row7 col13" >-0.01</td>
-      <td id="T_5a284_row7_col14" class="data row7 col14" >-0.25</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row8" class="row_heading level0 row8" >race</th>
-      <td id="T_5a284_row8_col0" class="data row8 col0" >0.02</td>
-      <td id="T_5a284_row8_col1" class="data row8 col1" >0.05</td>
-      <td id="T_5a284_row8_col2" class="data row8 col2" >-0.03</td>
-      <td id="T_5a284_row8_col3" class="data row8 col3" >0.01</td>
-      <td id="T_5a284_row8_col4" class="data row8 col4" >0.03</td>
-      <td id="T_5a284_row8_col5" class="data row8 col5" >-0.07</td>
-      <td id="T_5a284_row8_col6" class="data row8 col6" >-0.00</td>
-      <td id="T_5a284_row8_col7" class="data row8 col7" >-0.12</td>
-      <td id="T_5a284_row8_col8" class="data row8 col8" >1.00</td>
-      <td id="T_5a284_row8_col9" class="data row8 col9" >0.09</td>
-      <td id="T_5a284_row8_col10" class="data row8 col10" >0.01</td>
-      <td id="T_5a284_row8_col11" class="data row8 col11" >0.02</td>
-      <td id="T_5a284_row8_col12" class="data row8 col12" >0.04</td>
-      <td id="T_5a284_row8_col13" class="data row8 col13" >0.12</td>
-      <td id="T_5a284_row8_col14" class="data row8 col14" >0.07</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row9" class="row_heading level0 row9" >sex</th>
-      <td id="T_5a284_row9_col0" class="data row9 col0" >0.08</td>
-      <td id="T_5a284_row9_col1" class="data row9 col1" >0.07</td>
-      <td id="T_5a284_row9_col2" class="data row9 col2" >0.03</td>
-      <td id="T_5a284_row9_col3" class="data row9 col3" >-0.03</td>
-      <td id="T_5a284_row9_col4" class="data row9 col4" >0.00</td>
-      <td id="T_5a284_row9_col5" class="data row9 col5" >-0.12</td>
-      <td id="T_5a284_row9_col6" class="data row9 col6" >0.06</td>
-      <td id="T_5a284_row9_col7" class="data row9 col7" >-0.58</td>
-      <td id="T_5a284_row9_col8" class="data row9 col8" >0.09</td>
-      <td id="T_5a284_row9_col9" class="data row9 col9" >1.00</td>
-      <td id="T_5a284_row9_col10" class="data row9 col10" >0.05</td>
-      <td id="T_5a284_row9_col11" class="data row9 col11" >0.05</td>
-      <td id="T_5a284_row9_col12" class="data row9 col12" >0.23</td>
-      <td id="T_5a284_row9_col13" class="data row9 col13" >-0.00</td>
-      <td id="T_5a284_row9_col14" class="data row9 col14" >0.22</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row10" class="row_heading level0 row10" >capital-gain</th>
-      <td id="T_5a284_row10_col0" class="data row10 col0" >0.08</td>
-      <td id="T_5a284_row10_col1" class="data row10 col1" >0.03</td>
-      <td id="T_5a284_row10_col2" class="data row10 col2" >-0.00</td>
-      <td id="T_5a284_row10_col3" class="data row10 col3" >0.03</td>
-      <td id="T_5a284_row10_col4" class="data row10 col4" >0.13</td>
-      <td id="T_5a284_row10_col5" class="data row10 col5" >-0.04</td>
-      <td id="T_5a284_row10_col6" class="data row10 col6" >0.02</td>
-      <td id="T_5a284_row10_col7" class="data row10 col7" >-0.06</td>
-      <td id="T_5a284_row10_col8" class="data row10 col8" >0.01</td>
-      <td id="T_5a284_row10_col9" class="data row10 col9" >0.05</td>
-      <td id="T_5a284_row10_col10" class="data row10 col10" >1.00</td>
-      <td id="T_5a284_row10_col11" class="data row10 col11" >-0.03</td>
-      <td id="T_5a284_row10_col12" class="data row10 col12" >0.08</td>
-      <td id="T_5a284_row10_col13" class="data row10 col13" >0.01</td>
-      <td id="T_5a284_row10_col14" class="data row10 col14" >0.22</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row11" class="row_heading level0 row11" >capital-loss</th>
-      <td id="T_5a284_row11_col0" class="data row11 col0" >0.06</td>
-      <td id="T_5a284_row11_col1" class="data row11 col1" >0.01</td>
-      <td id="T_5a284_row11_col2" class="data row11 col2" >-0.00</td>
-      <td id="T_5a284_row11_col3" class="data row11 col3" >0.02</td>
-      <td id="T_5a284_row11_col4" class="data row11 col4" >0.08</td>
-      <td id="T_5a284_row11_col5" class="data row11 col5" >-0.03</td>
-      <td id="T_5a284_row11_col6" class="data row11 col6" >0.02</td>
-      <td id="T_5a284_row11_col7" class="data row11 col7" >-0.06</td>
-      <td id="T_5a284_row11_col8" class="data row11 col8" >0.02</td>
-      <td id="T_5a284_row11_col9" class="data row11 col9" >0.05</td>
-      <td id="T_5a284_row11_col10" class="data row11 col10" >-0.03</td>
-      <td id="T_5a284_row11_col11" class="data row11 col11" >1.00</td>
-      <td id="T_5a284_row11_col12" class="data row11 col12" >0.05</td>
-      <td id="T_5a284_row11_col13" class="data row11 col13" >0.01</td>
-      <td id="T_5a284_row11_col14" class="data row11 col14" >0.15</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row12" class="row_heading level0 row12" >hours-per-week</th>
-      <td id="T_5a284_row12_col0" class="data row12 col0" >0.10</td>
-      <td id="T_5a284_row12_col1" class="data row12 col1" >0.05</td>
-      <td id="T_5a284_row12_col2" class="data row12 col2" >-0.02</td>
-      <td id="T_5a284_row12_col3" class="data row12 col3" >0.06</td>
-      <td id="T_5a284_row12_col4" class="data row12 col4" >0.15</td>
-      <td id="T_5a284_row12_col5" class="data row12 col5" >-0.18</td>
-      <td id="T_5a284_row12_col6" class="data row12 col6" >0.02</td>
-      <td id="T_5a284_row12_col7" class="data row12 col7" >-0.26</td>
-      <td id="T_5a284_row12_col8" class="data row12 col8" >0.04</td>
-      <td id="T_5a284_row12_col9" class="data row12 col9" >0.23</td>
-      <td id="T_5a284_row12_col10" class="data row12 col10" >0.08</td>
-      <td id="T_5a284_row12_col11" class="data row12 col11" >0.05</td>
-      <td id="T_5a284_row12_col12" class="data row12 col12" >1.00</td>
-      <td id="T_5a284_row12_col13" class="data row12 col13" >0.01</td>
-      <td id="T_5a284_row12_col14" class="data row12 col14" >0.23</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row13" class="row_heading level0 row13" >native-country</th>
-      <td id="T_5a284_row13_col0" class="data row13 col0" >-0.00</td>
-      <td id="T_5a284_row13_col1" class="data row13 col1" >0.00</td>
-      <td id="T_5a284_row13_col2" class="data row13 col2" >-0.06</td>
-      <td id="T_5a284_row13_col3" class="data row13 col3" >0.08</td>
-      <td id="T_5a284_row13_col4" class="data row13 col4" >0.09</td>
-      <td id="T_5a284_row13_col5" class="data row13 col5" >-0.02</td>
-      <td id="T_5a284_row13_col6" class="data row13 col6" >-0.00</td>
-      <td id="T_5a284_row13_col7" class="data row13 col7" >-0.01</td>
-      <td id="T_5a284_row13_col8" class="data row13 col8" >0.12</td>
-      <td id="T_5a284_row13_col9" class="data row13 col9" >-0.00</td>
-      <td id="T_5a284_row13_col10" class="data row13 col10" >0.01</td>
-      <td id="T_5a284_row13_col11" class="data row13 col11" >0.01</td>
-      <td id="T_5a284_row13_col12" class="data row13 col12" >0.01</td>
-      <td id="T_5a284_row13_col13" class="data row13 col13" >1.00</td>
-      <td id="T_5a284_row13_col14" class="data row13 col14" >0.02</td>
-    </tr>
-    <tr>
-      <th id="T_5a284_level0_row14" class="row_heading level0 row14" >income</th>
-      <td id="T_5a284_row14_col0" class="data row14 col0" >0.24</td>
-      <td id="T_5a284_row14_col1" class="data row14 col1" >0.02</td>
-      <td id="T_5a284_row14_col2" class="data row14 col2" >-0.01</td>
-      <td id="T_5a284_row14_col3" class="data row14 col3" >0.08</td>
-      <td id="T_5a284_row14_col4" class="data row14 col4" >0.33</td>
-      <td id="T_5a284_row14_col5" class="data row14 col5" >-0.19</td>
-      <td id="T_5a284_row14_col6" class="data row14 col6" >0.05</td>
-      <td id="T_5a284_row14_col7" class="data row14 col7" >-0.25</td>
-      <td id="T_5a284_row14_col8" class="data row14 col8" >0.07</td>
-      <td id="T_5a284_row14_col9" class="data row14 col9" >0.22</td>
-      <td id="T_5a284_row14_col10" class="data row14 col10" >0.22</td>
-      <td id="T_5a284_row14_col11" class="data row14 col11" >0.15</td>
-      <td id="T_5a284_row14_col12" class="data row14 col12" >0.23</td>
-      <td id="T_5a284_row14_col13" class="data row14 col13" >0.02</td>
-      <td id="T_5a284_row14_col14" class="data row14 col14" >1.00</td>
-    </tr>
-  </tbody>
-</table>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[265]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">categoricalCols</span><span class="p">:</span>
-    <span class="n">le</span> <span class="o">=</span> <span class="n">labelEncoderDict</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
-    <span class="n">mapping</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">,</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="p">)))</span>
-    <span class="n">d1</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">d1</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">/</span><span class="n">l</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39;%&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>workclass :  {0: (&#39;Federal-gov&#39;, 1406, &#39;3%&#39;), 1: (&#39;Local-gov&#39;, 3100, &#39;6%&#39;), 2: (&#39;Private&#39;, 33307, &#39;73%&#39;), 3: (&#39;Self-emp-inc&#39;, 1646, &#39;3%&#39;), 4: (&#39;Self-emp-not-inc&#39;, 3796, &#39;8%&#39;), 5: (&#39;State-gov&#39;, 1946, &#39;4%&#39;), 6: (&#39;Without-pay&#39;, 21, &#39;0%&#39;)} 
-
-education :  {0: (&#39;10th&#39;, 1223, &#39;2%&#39;), 1: (&#39;11th&#39;, 1619, &#39;3%&#39;), 2: (&#39;12th&#39;, 577, &#39;1%&#39;), 3: (&#39;1st-4th&#39;, 222, &#39;0%&#39;), 4: (&#39;5th-6th&#39;, 449, &#39;0%&#39;), 5: (&#39;7th-8th&#39;, 823, &#39;1%&#39;), 6: (&#39;9th&#39;, 676, &#39;1%&#39;), 7: (&#39;Assoc-acdm&#39;, 1507, &#39;3%&#39;), 8: (&#39;Assoc-voc&#39;, 1959, &#39;4%&#39;), 9: (&#39;Bachelors&#39;, 7570, &#39;16%&#39;), 10: (&#39;Doctorate&#39;, 544, &#39;1%&#39;), 11: (&#39;HS-grad&#39;, 14783, &#39;32%&#39;), 12: (&#39;Masters&#39;, 2514, &#39;5%&#39;), 13: (&#39;Preschool&#39;, 72, &#39;0%&#39;), 14: (&#39;Prof-school&#39;, 785, &#39;1%&#39;), 15: (&#39;Some-college&#39;, 9899, &#39;21%&#39;)} 
-
-occupation :  {0: (&#39;Adm-clerical&#39;, 5540, &#39;12%&#39;), 1: (&#39;Armed-Forces&#39;, 14, &#39;0%&#39;), 2: (&#39;Craft-repair&#39;, 6020, &#39;13%&#39;), 3: (&#39;Exec-managerial&#39;, 5984, &#39;13%&#39;), 4: (&#39;Farming-fishing&#39;, 1480, &#39;3%&#39;), 5: (&#39;Handlers-cleaners&#39;, 2046, &#39;4%&#39;), 6: (&#39;Machine-op-inspct&#39;, 2970, &#39;6%&#39;), 7: (&#39;Other-service&#39;, 4808, &#39;10%&#39;), 8: (&#39;Priv-house-serv&#39;, 232, &#39;0%&#39;), 9: (&#39;Prof-specialty&#39;, 6008, &#39;13%&#39;), 10: (&#39;Protective-serv&#39;, 976, &#39;2%&#39;), 11: (&#39;Sales&#39;, 5408, &#39;11%&#39;), 12: (&#39;Tech-support&#39;, 1420, &#39;3%&#39;), 13: (&#39;Transport-moving&#39;, 2316, &#39;5%&#39;)} 
-
-marital-status :  {0: (&#39;Divorced&#39;, 6297, &#39;13%&#39;), 1: (&#39;Married-AF-spouse&#39;, 32, &#39;0%&#39;), 2: (&#39;Married-civ-spouse&#39;, 21055, &#39;46%&#39;), 3: (&#39;Married-spouse-absent&#39;, 552, &#39;1%&#39;), 4: (&#39;Never-married&#39;, 14598, &#39;32%&#39;), 5: (&#39;Separated&#39;, 1411, &#39;3%&#39;), 6: (&#39;Widowed&#39;, 1277, &#39;2%&#39;)} 
-
-relationship :  {0: (&#39;Husband&#39;, 18666, &#39;41%&#39;), 1: (&#39;Not-in-family&#39;, 11702, &#39;25%&#39;), 2: (&#39;Other-relative&#39;, 1349, &#39;2%&#39;), 3: (&#39;Own-child&#39;, 6626, &#39;14%&#39;), 4: (&#39;Unmarried&#39;, 4788, &#39;10%&#39;), 5: (&#39;Wife&#39;, 2091, &#39;4%&#39;)} 
-
-sex :  {0: (&#39;Female&#39;, 14695, &#39;32%&#39;), 1: (&#39;Male&#39;, 30527, &#39;67%&#39;)} 
-
-race :  {0: (&#39;Amer-Indian-Eskimo&#39;, 435, &#39;0%&#39;), 1: (&#39;Asian-Pac-Islander&#39;, 1303, &#39;2%&#39;), 2: (&#39;Black&#39;, 4228, &#39;9%&#39;), 3: (&#39;Other&#39;, 353, &#39;0%&#39;), 4: (&#39;White&#39;, 38903, &#39;86%&#39;)} 
-
-income :  {0: (&#39;&lt;=50K&#39;, 34014, &#39;75%&#39;), 1: (&#39;&gt;50K&#39;, 11208, &#39;24%&#39;)} 
-
-native-country :  {0: (&#39;Cambodia&#39;, 26, &#39;0%&#39;), 1: (&#39;Canada&#39;, 163, &#39;0%&#39;), 2: (&#39;China&#39;, 113, &#39;0%&#39;), 3: (&#39;Columbia&#39;, 82, &#39;0%&#39;), 4: (&#39;Cuba&#39;, 133, &#39;0%&#39;), 5: (&#39;Dominican-Republic&#39;, 97, &#39;0%&#39;), 6: (&#39;Ecuador&#39;, 43, &#39;0%&#39;), 7: (&#39;El-Salvador&#39;, 147, &#39;0%&#39;), 8: (&#39;England&#39;, 119, &#39;0%&#39;), 9: (&#39;France&#39;, 36, &#39;0%&#39;), 10: (&#39;Germany&#39;, 193, &#39;0%&#39;), 11: (&#39;Greece&#39;, 49, &#39;0%&#39;), 12: (&#39;Guatemala&#39;, 86, &#39;0%&#39;), 13: (&#39;Haiti&#39;, 69, &#39;0%&#39;), 14: (&#39;Holand-Netherlands&#39;, 1, &#39;0%&#39;), 15: (&#39;Honduras&#39;, 19, &#39;0%&#39;), 16: (&#39;Hong&#39;, 28, &#39;0%&#39;), 17: (&#39;Hungary&#39;, 18, &#39;0%&#39;), 18: (&#39;India&#39;, 147, &#39;0%&#39;), 19: (&#39;Iran&#39;, 56, &#39;0%&#39;), 20: (&#39;Ireland&#39;, 36, &#39;0%&#39;), 21: (&#39;Italy&#39;, 100, &#39;0%&#39;), 22: (&#39;Jamaica&#39;, 103, &#39;0%&#39;), 23: (&#39;Japan&#39;, 89, &#39;0%&#39;), 24: (&#39;Laos&#39;, 21, &#39;0%&#39;), 25: (&#39;Mexico&#39;, 903, &#39;1%&#39;), 26: (&#39;Nicaragua&#39;, 48, &#39;0%&#39;), 27: (&#39;Outlying-US(Guam-USVI-etc)&#39;, 22, &#39;0%&#39;), 28: (&#39;Peru&#39;, 45, &#39;0%&#39;), 29: (&#39;Philippines&#39;, 283, &#39;0%&#39;), 30: (&#39;Poland&#39;, 81, &#39;0%&#39;), 31: (&#39;Portugal&#39;, 62, &#39;0%&#39;), 32: (&#39;Puerto-Rico&#39;, 175, &#39;0%&#39;), 33: (&#39;Scotland&#39;, 20, &#39;0%&#39;), 34: (&#39;South&#39;, 101, &#39;0%&#39;), 35: (&#39;Taiwan&#39;, 55, &#39;0%&#39;), 36: (&#39;Thailand&#39;, 29, &#39;0%&#39;), 37: (&#39;Trinadad&amp;Tobago&#39;, 26, &#39;0%&#39;), 38: (&#39;United-States&#39;, 41292, &#39;91%&#39;), 39: (&#39;Vietnam&#39;, 83, &#39;0%&#39;), 40: (&#39;Yugoslavia&#39;, 23, &#39;0%&#39;)} 
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[241]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">categoricalCols</span><span class="p">)</span>
-<span class="n">s</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="s1">&#39;income&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Income average values&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
-
-<span class="c1"># loop through the categoricalCols and maintain index</span>
-<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">colName</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="c1"># add a new subplot iteratively</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-
-    <span class="c1"># filter df and plot each column on the new subplot axis</span>
-    <span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">categoricalCols</span><span class="p">)]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">colName</span><span class="p">)</span><span class="o">.</span><span class="n">income</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">df1</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/df_subplots_groupby_income.png&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src='./images/df_subplots_groupby_income.png'></p>
+<h3 id="Machine-Learning">Machine Learning<a class="anchor-link" href="#Machine-Learning">&#182;</a></h3><h4 id="Supervised-Learning">Supervised Learning<a class="anchor-link" href="#Supervised-Learning">&#182;</a></h4><p>Supervised Learning is a machine learning approach that uses labeled data to train algorithms into classifying or predicting outcomes accurately.</p>
+<blockquote><ul>
+<li>Types of Supervised Learning algorithms</li>
+</ul>
+</blockquote>
+<h4 id="Unsupervised-Learning">Unsupervised Learning<a class="anchor-link" href="#Unsupervised-Learning">&#182;</a></h4><p>Unsupervised Learning is a machine learning approach that uses unlabeled data to analyze and cluster datasets. It makes inference without knowing the label or outcomes.</p>
+<blockquote><ul>
+<li>Types of Unsupervised Learning algorithms<ul>
+<li>Clustering</li>
+<li>Association</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Reinforcement-Learning">Reinforcement Learning<a class="anchor-link" href="#Reinforcement-Learning">&#182;</a></h4><p>Reinforcement learning is a machine learning training method based on rewarding desired behaviors and punishing the undesirable ones, thereby learning about the environment by trial and error</p>
+<blockquote><ul>
+<li>Types of Reinforcement Learning algorithms</li>
+</ul>
+</blockquote>
 
 </div>
 </div>
@@ -15071,255 +13152,600 @@ native-country :  {0: (&#39;Cambodia&#39;, 26, &#39;0%&#39;), 1: (&#39;Canada&#3
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From the histogram, correlation and average income visualization of categorical variables, it seems like</p>
+<h3 id="Classification-algorithms">Classification algorithms<a class="anchor-link" href="#Classification-algorithms">&#182;</a></h3><p>Classification algorithms use input training data to predict the likelihood that subsequent data will fall into one of predetermined categories</p>
+<blockquote><ul>
+<li>Types of Classification algorithms </li>
+</ul>
+</blockquote>
+<h4 id="Probabilistic">Probabilistic<a class="anchor-link" href="#Probabilistic">&#182;</a></h4><p>Probabilistic classification models classify, given an observation of an input, a probability distribution over a set of classes</p>
+<blockquote><ul>
+<li>Types of Probabilistic Classification algorithms<ul>
+<li>Naive Bayes</li>
+<li>Logistic regression </li>
+<li>Multilayer perceptrons </li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><img src = "https://www.ismiletechnologies.com/wp-content/uploads/2021/10/image-15.png">
+$\tiny{\text{www.ismiletechnologies.com}}$</p>
+<h5 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h5><p>Bayesian classification helps us find the probability of a label given some observed features, using Bayes theorem, which describes the relationship of conditional probabilities of statistical quantities</p>
+<blockquote><ul>
+<li>READ: <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html">https://jakevdp.github.io/PythonDataScienceHandbook/05.05-naive-bayes.html</a></li>
+<li>Types of Bayesian Classification<ul>
+<li>Multinomial Naïve Bayes Classifier</li>
+<li>Bernoulli Naïve Bayes Classifier</li>
+<li>Gaussian Naïve Bayes Classifier</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://www.analyticsvidhya.com/wp-content/uploads/2015/09/Bayes_rule-300x172-300x172.png">
+$\tiny{\text{www.analyticsvidhya.com}}$</p>
+<h4 id="Rule-based">Rule based<a class="anchor-link" href="#Rule-based">&#182;</a></h4><p>Rule based classification helps in classifying datasets by using a collection of "if.. else.." rules. The classifier may contain mutually exclusive rules, exhaustive rules, not mutually exclusive rules, or not exhaustive rules</p>
+<blockquote><ul>
+<li>READ: <a href="http://jcsites.juniata.edu/faculty/rhodes/ml/rulebasedClass.htm">http://jcsites.juniata.edu/faculty/rhodes/ml/rulebasedClass.htm</a></li>
+</ul>
+</blockquote>
+<h5 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h5><p>A decision tree is a data mining/machine learning method of predicting/classifying the value of a target variable based on several input variables. In this classification tree, each internal node is labeled with an input feature and each leaf of the tree is labeled with a class or a probability distribution over the classes of either class or into a particular probability distribution</p>
+<blockquote><ul>
+<li>Decision Tree Types<ul>
+<li>CART - Classification and Regression Trees</li>
+<li>Ensemble methods, construct more than one decision tree<ul>
+<li>Boosted trees </li>
+<li>Bootstrap aggregated (or bagged/bagging) decision trees</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><img src="https://miro.medium.com/max/1200/1*ZkQXt7mqI7MXuXhHrfvgtQ.png" width=400 height=400> 
+$\tiny{\text{miro.medium.com}}$</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Cart_tree_kyphosis.png">
+$\tiny{\text{Wikipedia}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Most-common">Most common<a class="anchor-link" href="#Most-common">&#182;</a></h3><h4 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression">&#182;</a></h4><p>Linear regression helps us model the relationship between two variables by fitting a linear equation to observed data. The most common method for fitting a regression line is the method of least-squares. This method calculates the best-fitting line for the observed data by minimizing the sum of the squares of the vertical deviations from each data point to the line (if a point lies on the fitted line exactly, then its vertical deviation is 0). Because the deviations are first squared, then summed, there are no cancellations between positive and negative values.</p>
+<p>We assume here that $y|x; \theta \sim \mathbb N(\mu, \sigma^{2})$</p>
+<p>The closed form solution for the $\theta$ that minimizes the cost function is</p>
+<blockquote>$$\theta = (X^{T}X)^{-1}X^{T}y$$
+</blockquote>
+<h4 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h4><p>The logistic regression is used to model the relationship between a set of independent and dependent variables. The dependent variables are categorical in nature, which is predicted based on the probabilities given some characteristics of class variables. The logistic regression uses sigmoid function to assign class labels.</p>
+<p>The logit function is defined as the logarithm of the log odds
+$$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
+<p>A standard logistic sigmoid function is defined as the 
+$$ \sigma(x) = \frac{1}{1+e^{-x}} $$</p>
+<p>The linear part of the model predicts the log-odds of the dataset example in the form of probability using logistic sigmoid function.</p>
+<p>It tries to learn a function that approximates P(Y|X), by assuming that P(Y|X) can be approximated as a sigmoid
+function when applied to the linear combination of input features.<br>
+$$ P(Y = 1|X = x) = \sigma(z) = \sigma(\theta^{T}x) $$,
+where $z = \theta_{0} + \sum\limits_{i=1}^{m}\theta_{i}x_{i} $</p>
+<p>Similarly,
+$$ P(Y = 0|X = x) = 1 - \sigma(\theta^{T}x) $$</p>
+<p>The gradient descent is calculated as the partial derivative of logistic cost function wrt weight, which is used to maximize the logistic cost function.</p>
+<h4 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h4><p><a href="#Decision-Tree">Link (above)</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="SVM">SVM<a class="anchor-link" href="#SVM">&#182;</a></h4><h5 id="Links">Links<a class="anchor-link" href="#Links">&#182;</a></h5><ul>
+<li><a href="https://stats.stackexchange.com/questions/23391/how-does-a-support-vector-machine-svm-work">StackOverflow - How does SVM work</a>
+-<a href="https://static1.squarespace.com/static/58851af9ebbd1a30e98fb283/t/58902fbae4fcb5398aeb7505/1485844411772/SVM+Explained.pdf">SVM Explained - Tristan Fletcher</a></li>
+<li><a href="https://www.baeldung.com/cs/svm-hard-margin-vs-soft-margin">Hard vs Soft margin</a></li>
+<li><a href="https://datamites.com/blog/support-vector-machine-algorithm-svm-understanding-kernel-trick/#:~:text=A%20Kernel%20Trick%20is%20a,Lagrangian%20formula%20using%20Lagrangian%20multipliers.%20(">Kernel trick</a></li>
+</ul>
+<h5 id="Explanation">Explanation<a class="anchor-link" href="#Explanation">&#182;</a></h5><p>SVM should maximize the distance between the two decision boundaries. Mathematically, this means we want to <strong><em>maximize the distance between the hyperplane</em></strong> defined by $w^{T}x+b=−1$ and the hyperplane defined by $w^{T}x+b = 1$. This distance is equal to $\frac{2}{\|w\|}$. This means we want to solve $\max\limits_{w}\frac{2}{\|w\|}$. Equivalently we want $\min\limits_{w}\frac{\|w\|}{2}$</p>
+<p>SVM should also classify all $x^{(i)}$, which means $y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1)$, which gives us the <strong><em>quadratic optimization problem</em></strong></p>
+<blockquote>$$\min\limits_{w,b}\frac{\|w\|^{2}}{2}$$<p><br>
+s.t., $y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1)$ for all $i \in \{1,..N\}$</p>
+</blockquote>
+<p>the above is the <strong><em>hard margin SVM</em></strong>, which is possible iff data is <strong><em>linearly separable</em></strong></p>
+<p>This optimization is called the <strong><em>primal problem</em></strong> and is guaranteed to have a global minimum. We can solve this by introducing <strong><em>Lagrange multipliers</em></strong> and converting it to the <strong><em>dual problem</em></strong></p>
+<p>If we allow misclassifications to happen, we call it <strong><em>soft margin SVM</em></strong> optimization problem. The loss function that we minimize is the hinge loss</p>
+<blockquote><p>$\max\{0, 1-y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1)\}$</p>
+</blockquote>
+<p>The loss of a misclassified point is called a <em><strong>slack variable</strong></em> and is added to the primal problem of hard margin SVM. So the primal problem for soft margin becomes</p>
+<blockquote>$$\min\limits_{w,b}\frac{\|w\|^{2}}{2} + C\sum\limits_{i=0}^{n}\zeta^{(i)}$$<p><br>
+s.t., $y^{(i)}(𝐰^{T}x^{(i)}+b \ge 1 - \zeta^{(i)})$ for all $i \in \{1,..N\}$<br>
+and $\zeta^{(i)} \gt 0$ for all $i \in \{1,..N\}$</p>
+</blockquote>
+<h5 id="Questionnaires">Questionnaires<a class="anchor-link" href="#Questionnaires">&#182;</a></h5><ul>
+<li>What are the goals of SVM?<ul>
+<li>maximizes the margin around separating hyperplane</li>
+<li>classify the class labels as {-1,1}</li>
+</ul>
+</li>
+<li>What does linearly separable means?<ul>
+<li>Linearly separable data means if graphed in two dimensions, it can be separated by straight line.</li>
+</ul>
+</li>
+<li>What is the difference between hard margin SVM and soft margin SVM?<ul>
+<li>if the data is linearly separable, we use hard margin SVM</li>
+<li>if it is impossible to find linear classifier, we allow misclassification of data points, and use appropriate soft margin SVM</li>
+<li>other use case for using soft margin SVM will be <ul>
+<li>if data is linearly separable but the margin is small and the model either tends to overfit or is too sensitive to outliers, in that case, we opt for soft margin SVM and get larger margin, thereby generalizing the model better</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>What is functional margin? </li>
+<li>What is geometric margin?</li>
+<li>What is a kernel?<ul>
+<li>A kernel is a method of placing a two dimensional plane into a higher dimensional space, so that it is curved in the higher dimensional space. (In simple terms, a kernel is a function from the low dimensional space into a higher dimensional space.)</li>
+</ul>
+</li>
+<li>What is kernel trick?<ul>
+<li>SVM works better in two dimensional space which is linearly separable, as for non-linear data SVM finds it difficult to classify. So solve this kernel trick is used. A kernel trick is a method of projecting non-linear data onto higher dimensional space so as to easily classify linearly with a hyperplane. This is achieved using Lagrnagian formula/Lagrnagian multipliers.   </li>
+</ul>
+</li>
+<li>What are the different types of kernel?<ul>
+<li>Fisher Kernel: It is a kernel function that analyses and measures the similarity of two objects. This is done on the basis of sets of measurements for each object and a statistical model.</li>
+<li>Graph Kernel: It is a kernel function that computes an inner product on graphs.</li>
+<li>Polynomial Kernel: It is a kernel commonly used with support vector machines (SVMs). It is also used with other kernelised models that symbolizes the similarity of vectors in a feature space over polynomials of the original variables, allowing learning of non-linear models.</li>
+<li>Radial Basis Function Kernel (RBF): It is a real-valued kernel function whose value depends only on the distance from the origin, or distance from some other point called a centre.</li>
+</ul>
+</li>
+<li>What is support vector mean?<ul>
+<li>support vectors are the data points that lie farthest to the decision surface or hyperplane. They are the data points which are most difficult to classify</li>
+</ul>
+</li>
+<li>Is SVM applied for classification or regression?<ul>
+<li>basically it is a non-probabilistic binary linear classification method</li>
+<li>but different flavors of it SVM exist in a probabilistic classification setting</li>
+<li>applying the kernel trick, we can have non-linear classification</li>
+</ul>
+</li>
+<li>Is SVM a binary method only</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="k-Nearest-Neighbor-(kNN)">k-Nearest Neighbor (kNN)<a class="anchor-link" href="#k-Nearest-Neighbor-(kNN)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="K-Means">K-Means<a class="anchor-link" href="#K-Means">&#182;</a></h4><p>A cluster is a collection of data points aggregated based on its similarities. A centroid is the imaginary location representing the center of the cluster. In the k-means algorithm, k refers to the number of centroids which is defined initially. Each datapoint is allocated to a cluster iteratively based on optimizing the in-cluster variances (squared Euclidean distances).</p>
+<h5 id="Algorithm">Algorithm<a class="anchor-link" href="#Algorithm">&#182;</a></h5><ul>
+<li>Data has no labels : $(x^{(1)}, x^{(2)}, ..., x^{(m)})$</li>
+<li>Initialize cluster centroid $\mu_{1}, \mu_{2}, ..., \mu_{k} \in \mathbb R^{n}$ - by randomly pick k example out of your training set and set cluster centroids to k-randomly chosen examples</li>
+<li><p>Repeat until convergence</p>
 <ul>
-<li>workclass - Self-emp-inc(3) will have a better chance of earning income more than 50K</li>
-<li>education - Doctorate(10) and Prof-school(14) are more likely having higher income</li>
-<li>occupation - Exec-managerial(3) and Prof-specialty(9) will have a better income</li>
-<li>marital-status - Married-civ-spouse(2) have a better chance of earning income more than 50K</li>
-<li>relationship - Husband (0) and Wife (5) will have a higher income</li>
-<li>sex - Male(1) will have a better income</li>
-<li>race - Asian-Pac-Islander(1) and White (4) have more chances of earning more than 50K</li>
-<li>native-country - United-States(38) civilians will have a higher income</li>
+<li>a. Set $c^{(i)} := \text{arg }\min\limits_{j} \Vert (x^{(i)} - \mu_{j})\Vert_{2}$  ("color the points")<ul>
+<li>Set $c^{(i)}$ equal to either j = 1 or 2 depending on whether that example $x^{(i)}$ is closer to cluster centroid 1 or 2</li>
+<li>Notation:<ul>
+<li>L1 norm: $\Vert x \Vert_{1}$</li>
+<li>L2 norm: $\Vert x \Vert$ or $\|x\|^{2}$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>b. For j =1,2,..,k  ("move the cluster centroids")<blockquote><p>$\mu_{j} := \frac{\sum\limits_{i=1}^{m} \mathbb 1 \{c^{(i)} = j\}x^{(i)}} {\sum\limits_{i=1}^{m} \mathbb 1 \{c^{(i)} = j\}}$</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>This algorithm is not guaranteed to converge, as it is a non-convex function</p>
+</li>
+<li>Cost/Distortion function<blockquote><p>$J(c,\mu) = \min\sum\limits_{i=1}^{m}\|x^{(i)} - \mu_{c^{(i)}}\|^{2}$</p>
+</blockquote>
+</li>
+<li>how do you choose k?<ul>
+<li>choose manually, depending on what is the purpose of this algorithm</li>
+<li>if it is meant for market segmentation for 4 categories, it makes sense to have 4 cluster rather than more</li>
+<li>some formula available</li>
+</ul>
+</li>
 </ul>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[283]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-
-<span class="n">df_x</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">!=</span> <span class="s1">&#39;income&#39;</span><span class="p">]</span>
-<span class="n">df_y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;income&#39;</span><span class="p">]]</span>
-<span class="c1">#Initialize the linear regression model</span>
-<span class="n">reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
-<span class="c1">#Split the data into 77% training and 33% testing data</span>
-<span class="c1">#NOTE: We have to split the dependent variables (x) and the target or independent variable (y)</span>
-<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">df_x</span><span class="p">,</span> <span class="n">df_y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-
-<span class="c1">#Train our model with the training data</span>
-<span class="n">reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="c1">#print our price predictions on our test data</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/utils/validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-  y = column_or_1d(y, warn=True)
-/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:814: ConvergenceWarning: lbfgs failed to converge (status=1):
-STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
-
-Increase the number of iterations (max_iter) or scale the data as shown in:
-    https://scikit-learn.org/stable/modules/preprocessing.html
-Please also refer to the documentation for alternative solver options:
-    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-  n_iter_i = _check_optimize_result(
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[290]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy:&quot;</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Accuracy: 0.7871214151701956
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">25</span><span class="p">,</span> <span class="n">Private</span><span class="p">,</span> <span class="mi">226802</span><span class="p">,</span> <span class="mi">11</span><span class="n">th</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">Never</span><span class="o">-</span><span class="n">married</span><span class="p">,</span> <span class="n">Machine</span><span class="o">-</span><span class="n">op</span><span class="o">-</span><span class="n">inspct</span><span class="p">,</span> <span class="n">Own</span><span class="o">-</span><span class="n">child</span><span class="p">,</span> <span class="n">Black</span><span class="p">,</span> <span class="n">Male</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">United</span><span class="o">-</span><span class="n">States</span><span class="p">,</span> <span class="o">&lt;=</span><span class="mi">50</span><span class="n">K</span><span class="o">.</span>
-<span class="mi">38</span><span class="p">,</span> <span class="n">Private</span><span class="p">,</span> <span class="mi">89814</span><span class="p">,</span> <span class="n">HS</span><span class="o">-</span><span class="n">grad</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="n">Married</span><span class="o">-</span><span class="n">civ</span><span class="o">-</span><span class="n">spouse</span><span class="p">,</span> <span class="n">Farming</span><span class="o">-</span><span class="n">fishing</span><span class="p">,</span> <span class="n">Husband</span><span class="p">,</span> <span class="n">White</span><span class="p">,</span> <span class="n">Male</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">United</span><span class="o">-</span><span class="n">States</span><span class="p">,</span> <span class="o">&lt;=</span><span class="mi">50</span><span class="n">K</span><span class="o">.</span>
-<span class="mi">28</span><span class="p">,</span> <span class="n">Local</span><span class="o">-</span><span class="n">gov</span><span class="p">,</span> <span class="mi">336951</span><span class="p">,</span> <span class="n">Assoc</span><span class="o">-</span><span class="n">acdm</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">Married</span><span class="o">-</span><span class="n">civ</span><span class="o">-</span><span class="n">spouse</span><span class="p">,</span> <span class="n">Protective</span><span class="o">-</span><span class="n">serv</span><span class="p">,</span> <span class="n">Husband</span><span class="p">,</span> <span class="n">White</span><span class="p">,</span> <span class="n">Male</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="n">United</span><span class="o">-</span><span class="n">States</span><span class="p">,</span> <span class="o">&gt;</span><span class="mi">50</span><span class="n">K</span><span class="o">.</span>
-
-<span class="p">[[</span><span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;Private&#39;</span><span class="p">,</span> <span class="mi">161198</span><span class="p">,</span> <span class="s1">&#39;Bachelors&#39;</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;Never-married&#39;</span><span class="p">,</span> <span class="s1">&#39;Prof-specialty&#39;</span><span class="p">,</span> <span class="s1">&#39;Not-in-family&#39;</span><span class="p">,</span> <span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;United-States&#39;</span><span class="p">],</span>
-<span class="p">[</span><span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;Private&#39;</span><span class="p">,</span> <span class="mi">214542</span><span class="p">,</span> <span class="s1">&#39;Some-college&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;Never-married&#39;</span><span class="p">,</span> <span class="s1">&#39;Farming-fishing&#39;</span><span class="p">,</span> <span class="s1">&#39;Own-child&#39;</span><span class="p">,</span> <span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;United-States&#39;</span><span class="p">],</span>
-<span class="p">[</span><span class="mi">38</span><span class="p">,</span> <span class="s1">&#39;Private&#39;</span><span class="p">,</span> <span class="mi">309122</span><span class="p">,</span> <span class="s1">&#39;10th&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Divorced&#39;</span><span class="p">,</span> <span class="s1">&#39;Machine-op-inspct&#39;</span><span class="p">,</span> <span class="s1">&#39;Not-in-family&#39;</span><span class="p">,</span> <span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;United-States&#39;</span><span class="p">]]</span>
-
-
-    
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="References">References<a class="anchor-link" href="#References">&#182;</a></h3><ul>
-<li><a href="https://machinelearningmastery.com/imbalanced-classification-with-the-adult-income-dataset/">https://machinelearningmastery.com/imbalanced-classification-with-the-adult-income-dataset/</a></li>
-<li><a href="https://towardsdatascience.com/a-beginners-guide-to-data-analysis-machine-learning-with-python-adult-salary-dataset-e5fc028b6f0a">https://towardsdatascience.com/a-beginners-guide-to-data-analysis-machine-learning-with-python-adult-salary-dataset-e5fc028b6f0a</a></li>
+<h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Dimensionality-Reduction-Algorithms">Dimensionality Reduction Algorithms<a class="anchor-link" href="#Dimensionality-Reduction-Algorithms">&#182;</a></h4><h4 id="Gradient-Boosting-algorithms">Gradient Boosting algorithms<a class="anchor-link" href="#Gradient-Boosting-algorithms">&#182;</a></h4><h5 id="GBM">GBM<a class="anchor-link" href="#GBM">&#182;</a></h5><h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><h5 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h5><h5 id="CatBoost">CatBoost<a class="anchor-link" href="#CatBoost">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://docs.microsoft.com/en-us/azure/machine-learning/component-reference/component-reference">Microsoft - ML Reference</a>
+<img src="https://docs.microsoft.com/en-us/azure/machine-learning/media/algorithm-cheat-sheet/machine-learning-algorithm-cheat-sheet.png#lightbox"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Regression---Predict-a-value">Regression - Predict a value<a class="anchor-link" href="#Regression---Predict-a-value">&#182;</a></h3><h4 id="Boosted-Decision-Tree-Regression">Boosted Decision Tree Regression<a class="anchor-link" href="#Boosted-Decision-Tree-Regression">&#182;</a></h4><h4 id="Decision-Forest-Regression">Decision Forest Regression<a class="anchor-link" href="#Decision-Forest-Regression">&#182;</a></h4><h4 id="Fast-Forest-Quantile-Regression">Fast Forest Quantile Regression<a class="anchor-link" href="#Fast-Forest-Quantile-Regression">&#182;</a></h4><h4 id="Linear-Regression">Linear Regression<a class="anchor-link" href="#Linear-Regression">&#182;</a></h4><h4 id="Local-Linear-Regression">Local Linear Regression<a class="anchor-link" href="#Local-Linear-Regression">&#182;</a></h4><h4 id="Locally-Weighted-Linear-Regression-(LWR)">Locally Weighted Linear Regression (LWR)<a class="anchor-link" href="#Locally-Weighted-Linear-Regression-(LWR)">&#182;</a></h4><p>Any parametric model can be made local if the fitting method accommodates observation weights. This is a variant of linear regression where the weights of each training example in the cost function is defined as</p>
+<blockquote>$$ w^{(i)}(x) = \exp \left( -\frac{(x^{(i)} - x)^{2}}{2\tau^{2}} \right) $$
+</blockquote>
+<h4 id="Neural-Network-Regression">Neural Network Regression<a class="anchor-link" href="#Neural-Network-Regression">&#182;</a></h4><h4 id="Poisson-Regression">Poisson Regression<a class="anchor-link" href="#Poisson-Regression">&#182;</a></h4><h4 id="Quantile-Regression">Quantile Regression<a class="anchor-link" href="#Quantile-Regression">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">Classification - Predict a class. Choose from binary (two-class) or multiclass algorithms.<a class="anchor-link" href="#Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">&#182;</a></h3><h4 id="Multiclass-Boosted-Decision-Tree">Multiclass Boosted Decision Tree<a class="anchor-link" href="#Multiclass-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Multiclass-Decision-Forest">Multiclass Decision Forest<a class="anchor-link" href="#Multiclass-Decision-Forest">&#182;</a></h4><h4 id="Multiclass-Logistic-Regression-(Softmax-Regression)">Multiclass Logistic Regression (Softmax Regression)<a class="anchor-link" href="#Multiclass-Logistic-Regression-(Softmax-Regression)">&#182;</a></h4><p>Softmax Regression is a generalization of logistic regression where we want to handle multiple classes instead of two classes $(y^{(i)} \in \{0,1\})$</p>
+<h4 id="Multiclass-Neural-Network">Multiclass Neural Network<a class="anchor-link" href="#Multiclass-Neural-Network">&#182;</a></h4><h4 id="One-vs.-All-Multiclass">One vs. All Multiclass<a class="anchor-link" href="#One-vs.-All-Multiclass">&#182;</a></h4><h4 id="One-vs.-One-Multiclass">One vs. One Multiclass<a class="anchor-link" href="#One-vs.-One-Multiclass">&#182;</a></h4><h4 id="Two-Class-Averaged-Perceptron">Two-Class Averaged Perceptron<a class="anchor-link" href="#Two-Class-Averaged-Perceptron">&#182;</a></h4><h4 id="Two-Class-Boosted-Decision-Tree">Two-Class Boosted Decision Tree<a class="anchor-link" href="#Two-Class-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Two-Class-Decision-Forest">Two-Class Decision Forest<a class="anchor-link" href="#Two-Class-Decision-Forest">&#182;</a></h4><h4 id="Two-Class-Logistic-Regression">Two-Class Logistic Regression<a class="anchor-link" href="#Two-Class-Logistic-Regression">&#182;</a></h4><p><a href="#Logistic-Regression">Logistic Regression</a></p>
+<p>The hypothesis looks like</p>
+$$ h_{\theta}(x) = \frac{1}{1+e^{-\theta^{T}x}}$$<p>
+and the model parameters $\theta$ are trained to minimize the cost function
+$$ J(\theta) = - \left [ \sum\limits_{i=0}^{n}y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})] \right]  $$ 
+$$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)}) \log[1- h_{\theta}(x^{(i)})) ]\right] $$</p>
+<h4 id="Two-Class-Neural-Network">Two-Class Neural Network<a class="anchor-link" href="#Two-Class-Neural-Network">&#182;</a></h4><h4 id="Two-Class-Support-Vector-Machine">Two Class Support Vector Machine<a class="anchor-link" href="#Two-Class-Support-Vector-Machine">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Supervised-learning-(Classification,-Regression)">Supervised learning (Classification, Regression)<a class="anchor-link" href="#Supervised-learning-(Classification,-Regression)">&#182;</a></h3><h4 id="Decision-trees">Decision trees<a class="anchor-link" href="#Decision-trees">&#182;</a></h4><h4 id="Ensembles">Ensembles<a class="anchor-link" href="#Ensembles">&#182;</a></h4><h5 id="Bagging">Bagging<a class="anchor-link" href="#Bagging">&#182;</a></h5><h5 id="Boosting">Boosting<a class="anchor-link" href="#Boosting">&#182;</a></h5><h5 id="Random-forest">Random forest<a class="anchor-link" href="#Random-forest">&#182;</a></h5><h4 id="k-NN">k-NN<a class="anchor-link" href="#k-NN">&#182;</a></h4><h4 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="Artificial-neural-networks">Artificial neural networks<a class="anchor-link" href="#Artificial-neural-networks">&#182;</a></h4><h4 id="Logistic-regression">Logistic regression<a class="anchor-link" href="#Logistic-regression">&#182;</a></h4><h4 id="Perceptron">Perceptron<a class="anchor-link" href="#Perceptron">&#182;</a></h4><h4 id="Relevance-vector-machine-(RVM)">Relevance vector machine (RVM)<a class="anchor-link" href="#Relevance-vector-machine-(RVM)">&#182;</a></h4><h4 id="Support-vector-machine-(SVM)">Support vector machine (SVM)<a class="anchor-link" href="#Support-vector-machine-(SVM)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Unsupervised-learning">Unsupervised learning<a class="anchor-link" href="#Unsupervised-learning">&#182;</a></h3><h4 id="K-means-clustering">K-means clustering<a class="anchor-link" href="#K-means-clustering">&#182;</a></h4><h4 id="KNN-(k-nearest-neighbors)">KNN (k-nearest neighbors)<a class="anchor-link" href="#KNN-(k-nearest-neighbors)">&#182;</a></h4><h4 id="Hierarchal-clustering">Hierarchal clustering<a class="anchor-link" href="#Hierarchal-clustering">&#182;</a></h4><h4 id="Anomaly-detection">Anomaly detection<a class="anchor-link" href="#Anomaly-detection">&#182;</a></h4><h4 id="Neural-Networks">Neural Networks<a class="anchor-link" href="#Neural-Networks">&#182;</a></h4><h4 id="Principle-Component-Analysis">Principle Component Analysis<a class="anchor-link" href="#Principle-Component-Analysis">&#182;</a></h4><h4 id="Independent-Component-Analysis">Independent Component Analysis<a class="anchor-link" href="#Independent-Component-Analysis">&#182;</a></h4><h4 id="Apriori-algorithm">Apriori algorithm<a class="anchor-link" href="#Apriori-algorithm">&#182;</a></h4><h4 id="Singular-value-decomposition">Singular value decomposition<a class="anchor-link" href="#Singular-value-decomposition">&#182;</a></h4><h3 id="Clustering">Clustering<a class="anchor-link" href="#Clustering">&#182;</a></h3><h4 id="BIRCH">BIRCH<a class="anchor-link" href="#BIRCH">&#182;</a></h4><h4 id="CURE">CURE<a class="anchor-link" href="#CURE">&#182;</a></h4><h4 id="Hierarchical">Hierarchical<a class="anchor-link" href="#Hierarchical">&#182;</a></h4><h4 id="k-means">k-means<a class="anchor-link" href="#k-means">&#182;</a></h4><h4 id="Expectation&#8211;maximization-(EM)">Expectation&#8211;maximization (EM)<a class="anchor-link" href="#Expectation&#8211;maximization-(EM)">&#182;</a></h4><h4 id="DBSCAN">DBSCAN<a class="anchor-link" href="#DBSCAN">&#182;</a></h4><h4 id="OPTICS">OPTICS<a class="anchor-link" href="#OPTICS">&#182;</a></h4><h4 id="Mean-shift">Mean shift<a class="anchor-link" href="#Mean-shift">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dimensionality-Reduction">Dimensionality Reduction<a class="anchor-link" href="#Dimensionality-Reduction">&#182;</a></h3><h4 id="Factor-analysis">Factor analysis<a class="anchor-link" href="#Factor-analysis">&#182;</a></h4><h4 id="CCA">CCA<a class="anchor-link" href="#CCA">&#182;</a></h4><h4 id="ICA">ICA<a class="anchor-link" href="#ICA">&#182;</a></h4><h4 id="LDA">LDA<a class="anchor-link" href="#LDA">&#182;</a></h4><h4 id="NMF">NMF<a class="anchor-link" href="#NMF">&#182;</a></h4><h4 id="PCA">PCA<a class="anchor-link" href="#PCA">&#182;</a></h4><h4 id="PGD">PGD<a class="anchor-link" href="#PGD">&#182;</a></h4><h4 id="t-SNE">t-SNE<a class="anchor-link" href="#t-SNE">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Structured-Prediction---Graphical-models">Structured Prediction - Graphical models<a class="anchor-link" href="#Structured-Prediction---Graphical-models">&#182;</a></h3><h4 id="Bayes-net">Bayes net<a class="anchor-link" href="#Bayes-net">&#182;</a></h4><h4 id="Conditional-random-field">Conditional random field<a class="anchor-link" href="#Conditional-random-field">&#182;</a></h4><h4 id="Hidden-Markov">Hidden Markov<a class="anchor-link" href="#Hidden-Markov">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Anomaly-detection">Anomaly detection<a class="anchor-link" href="#Anomaly-detection">&#182;</a></h3><h4 id="k-NN">k-NN<a class="anchor-link" href="#k-NN">&#182;</a></h4><h4 id="Local-outlier-factor">Local outlier factor<a class="anchor-link" href="#Local-outlier-factor">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Artificial-neural-network">Artificial neural network<a class="anchor-link" href="#Artificial-neural-network">&#182;</a></h3><h4 id="Autoencoder">Autoencoder<a class="anchor-link" href="#Autoencoder">&#182;</a></h4><h4 id="Cognitive-computing">Cognitive computing<a class="anchor-link" href="#Cognitive-computing">&#182;</a></h4><h4 id="Deep-learning">Deep learning<a class="anchor-link" href="#Deep-learning">&#182;</a></h4><h4 id="DeepDream">DeepDream<a class="anchor-link" href="#DeepDream">&#182;</a></h4><h4 id="Multilayer-perceptron">Multilayer perceptron<a class="anchor-link" href="#Multilayer-perceptron">&#182;</a></h4><h4 id="RNN">RNN<a class="anchor-link" href="#RNN">&#182;</a></h4><h5 id="LSTM">LSTM<a class="anchor-link" href="#LSTM">&#182;</a></h5><h5 id="GRU">GRU<a class="anchor-link" href="#GRU">&#182;</a></h5><h5 id="ESN">ESN<a class="anchor-link" href="#ESN">&#182;</a></h5><h4 id="Restricted-Boltzmann-machine">Restricted Boltzmann machine<a class="anchor-link" href="#Restricted-Boltzmann-machine">&#182;</a></h4><h4 id="GAN">GAN<a class="anchor-link" href="#GAN">&#182;</a></h4><h4 id="SOM">SOM<a class="anchor-link" href="#SOM">&#182;</a></h4><h4 id="Convolutional-neural-network">Convolutional neural network<a class="anchor-link" href="#Convolutional-neural-network">&#182;</a></h4><h5 id="U-Net">U-Net<a class="anchor-link" href="#U-Net">&#182;</a></h5><h4 id="Transformer-Vision">Transformer Vision<a class="anchor-link" href="#Transformer-Vision">&#182;</a></h4><h4 id="Spiking-neural-network">Spiking neural network<a class="anchor-link" href="#Spiking-neural-network">&#182;</a></h4><h4 id="Memtransistor">Memtransistor<a class="anchor-link" href="#Memtransistor">&#182;</a></h4><h4 id="Electrochemical-RAM-(ECRAM)">Electrochemical RAM (ECRAM)<a class="anchor-link" href="#Electrochemical-RAM-(ECRAM)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reinforcement-Learning">Reinforcement Learning<a class="anchor-link" href="#Reinforcement-Learning">&#182;</a></h3><h4 id="Q-learning">Q-learning<a class="anchor-link" href="#Q-learning">&#182;</a></h4><h4 id="SARSA">SARSA<a class="anchor-link" href="#SARSA">&#182;</a></h4><h4 id="Temporal-difference-(TD)">Temporal difference (TD)<a class="anchor-link" href="#Temporal-difference-(TD)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Machine-Learning-Theory">Machine Learning Theory<a class="anchor-link" href="#Machine-Learning-Theory">&#182;</a></h3><h4 id="Kernel-machines">Kernel machines<a class="anchor-link" href="#Kernel-machines">&#182;</a></h4><h4 id="Bias&#8211;variance-tradeoff">Bias&#8211;variance tradeoff<a class="anchor-link" href="#Bias&#8211;variance-tradeoff">&#182;</a></h4><h4 id="Computational-learning-theory">Computational learning theory<a class="anchor-link" href="#Computational-learning-theory">&#182;</a></h4><h4 id="Empirical-risk-minimization">Empirical risk minimization<a class="anchor-link" href="#Empirical-risk-minimization">&#182;</a></h4><h4 id="Occam-learning">Occam learning<a class="anchor-link" href="#Occam-learning">&#182;</a></h4><h4 id="PAC-learning">PAC learning<a class="anchor-link" href="#PAC-learning">&#182;</a></h4><h4 id="Statistical-learning">Statistical learning<a class="anchor-link" href="#Statistical-learning">&#182;</a></h4><h4 id="VC-theory">VC theory<a class="anchor-link" href="#VC-theory">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Recommender-System---Methods-and-challenges">Recommender System - Methods and challenges<a class="anchor-link" href="#Recommender-System---Methods-and-challenges">&#182;</a></h3><h4 id="Cold-start">Cold start<a class="anchor-link" href="#Cold-start">&#182;</a></h4><h4 id="Collaborative-filtering">Collaborative filtering<a class="anchor-link" href="#Collaborative-filtering">&#182;</a></h4><h4 id="Dimensionality-reduction">Dimensionality reduction<a class="anchor-link" href="#Dimensionality-reduction">&#182;</a></h4><h4 id="Implicit-data-collection">Implicit data collection<a class="anchor-link" href="#Implicit-data-collection">&#182;</a></h4><h4 id="Item-item-collaborative-filtering">Item-item collaborative filtering<a class="anchor-link" href="#Item-item-collaborative-filtering">&#182;</a></h4><h4 id="Matrix-factorization">Matrix factorization<a class="anchor-link" href="#Matrix-factorization">&#182;</a></h4><h4 id="Preference-elicitation">Preference elicitation<a class="anchor-link" href="#Preference-elicitation">&#182;</a></h4><h4 id="Similarity-search">Similarity search<a class="anchor-link" href="#Similarity-search">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="10-most-popular-deep-learning-algorithms">10 most popular deep learning algorithms<a class="anchor-link" href="#10-most-popular-deep-learning-algorithms">&#182;</a></h3><p><a href="https://www.simplilearn.com/tutorials/deep-learning-tutorial/deep-learning-algorithm">Link</a></p>
+<h4 id="Convolutional-Neural-Networks-(CNNs)">Convolutional Neural Networks (CNNs)<a class="anchor-link" href="#Convolutional-Neural-Networks-(CNNs)">&#182;</a></h4><h4 id="Long-Short-Term-Memory-Networks-(LSTMs)">Long Short Term Memory Networks (LSTMs)<a class="anchor-link" href="#Long-Short-Term-Memory-Networks-(LSTMs)">&#182;</a></h4><h4 id="Recurrent-Neural-Networks-(RNNs)">Recurrent Neural Networks (RNNs)<a class="anchor-link" href="#Recurrent-Neural-Networks-(RNNs)">&#182;</a></h4><h4 id="Generative-Adversarial-Networks-(GANs)">Generative Adversarial Networks (GANs)<a class="anchor-link" href="#Generative-Adversarial-Networks-(GANs)">&#182;</a></h4><h4 id="Radial-Basis-Function-Networks-(RBFNs)">Radial Basis Function Networks (RBFNs)<a class="anchor-link" href="#Radial-Basis-Function-Networks-(RBFNs)">&#182;</a></h4><h4 id="Multilayer-Perceptrons-(MLPs)">Multilayer Perceptrons (MLPs)<a class="anchor-link" href="#Multilayer-Perceptrons-(MLPs)">&#182;</a></h4><h4 id="Self-Organizing-Maps-(SOMs)">Self Organizing Maps (SOMs)<a class="anchor-link" href="#Self-Organizing-Maps-(SOMs)">&#182;</a></h4><h4 id="Deep-Belief-Networks-(DBNs)">Deep Belief Networks (DBNs)<a class="anchor-link" href="#Deep-Belief-Networks-(DBNs)">&#182;</a></h4><h4 id="Restricted-Boltzmann-Machines(-RBMs)">Restricted Boltzmann Machines( RBMs)<a class="anchor-link" href="#Restricted-Boltzmann-Machines(-RBMs)">&#182;</a></h4><h4 id="Autoencoders">Autoencoders<a class="anchor-link" href="#Autoencoders">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Optimization-algorithms---Deep-Learning">Optimization algorithms - Deep Learning<a class="anchor-link" href="#Optimization-algorithms---Deep-Learning">&#182;</a></h3><ul>
+<li><a href="https://ruder.io/optimizing-gradient-descent/">Optimizing GD</a></li>
+<li><a href="https://github.com/Jaewan-Yun/optimizer-visualization">Optimizer Visualization</a></li>
 </ul>
+<h4 id="ASGD">ASGD<a class="anchor-link" href="#ASGD">&#182;</a></h4><h4 id="Adadelta">Adadelta<a class="anchor-link" href="#Adadelta">&#182;</a></h4><h4 id="Adagrad">Adagrad<a class="anchor-link" href="#Adagrad">&#182;</a></h4><h4 id="Adam">Adam<a class="anchor-link" href="#Adam">&#182;</a></h4><h4 id="AdamW">AdamW<a class="anchor-link" href="#AdamW">&#182;</a></h4><h4 id="Adamax">Adamax<a class="anchor-link" href="#Adamax">&#182;</a></h4><h4 id="LBFGS">LBFGS<a class="anchor-link" href="#LBFGS">&#182;</a></h4><h4 id="NAdam">NAdam<a class="anchor-link" href="#NAdam">&#182;</a></h4><h4 id="RAdam">RAdam<a class="anchor-link" href="#RAdam">&#182;</a></h4><h4 id="RMSprop">RMSprop<a class="anchor-link" href="#RMSprop">&#182;</a></h4><h4 id="Rprop">Rprop<a class="anchor-link" href="#Rprop">&#182;</a></h4><h4 id="SGD">SGD<a class="anchor-link" href="#SGD">&#182;</a></h4><h4 id="SparseAdam">SparseAdam<a class="anchor-link" href="#SparseAdam">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Evaluation-Metrics">Evaluation Metrics<a class="anchor-link" href="#Evaluation-Metrics">&#182;</a></h3><h4 id="Confusion-Matrix">Confusion Matrix<a class="anchor-link" href="#Confusion-Matrix">&#182;</a></h4><p><img src="https://miro.medium.com/max/1220/1*ZRU18eG-F5Sjtcph9ru8Og.png" width=500 height=500></p>
+<p><img src="https://miro.medium.com/max/658/1*GJLE_YxjlSA5o_TJ9B_h5A.png" width=500 height=500></p>
+<p><img src="https://miro.medium.com/max/700/1*KPXQ6VBc1foXXWgkn1q4BA.png" width=500 height=500></p>
+<h4 id="Sensitivity">Sensitivity<a class="anchor-link" href="#Sensitivity">&#182;</a></h4><ul>
+<li>This tells us what percentage of people <strong>with</strong> heart disease were actually correctly identified
+$$\text{Sensitivity} = \frac{\text{Number of true positive}}{\text{Number of true positive + Number of false negative}}$$</li>
+<li>Sensitivity is same as <strong>True Positive Rate(TPR)</strong>
+$$\text{True Positive Rate(TPR) = Sensitivity} = \frac{\text{Number of true positive}}{\text{Number of true positive + Number of false negative}}$$</li>
+</ul>
+<h4 id="Specificity">Specificity<a class="anchor-link" href="#Specificity">&#182;</a></h4><ul>
+<li>This tells us what percentage of people <strong>without</strong> heart disease were actually correctly identified
+$$\text{Specificity} = \frac{\text{Number of true negative}}{\text{Number of true negative + Number of false positive}}$$</li>
+<li>Specificity is same as <strong>(1 - False Positive Rate)</strong>
+$$\text{False Positive Rate(FPR) = (1 - Specificity)} = \frac{\text{Number of false positive}}{\text{Number of true negative + Number of false positive}}$$</li>
+</ul>
+<h4 id="How-to-identify-the-correct-threshold">How to identify the correct threshold<a class="anchor-link" href="#How-to-identify-the-correct-threshold">&#182;</a></h4><p><strong>Lower the threshold</strong></p>
+<ul>
+<li>increase in number of false positive</li>
+<li>decrease in number of false negative</li>
+</ul>
+<p><strong>Recalculate the confusion matrix</strong></p>
+<ul>
+<li>increase in False positive rate</li>
+<li>decrease in True positive rate</li>
+</ul>
+<p><img src="https://miro.medium.com/max/700/1*FdWxUcsx-sBvAvpn5sTtzg.png" width=500 height=500></p>
+<p><strong>Raise the threshold</strong></p>
+<ul>
+<li>decrease in number of false positive</li>
+<li>increase in number of false negative</li>
+</ul>
+<p><strong>Recalculate the confusion matrix</strong></p>
+<ul>
+<li>decrease in False positive rate</li>
+<li>increase in True positive rate</li>
+</ul>
+<p><img src="https://miro.medium.com/max/700/1*6EglCqnoHkVdux5hbElQ7w.png" width=500 height=500></p>
+<h4 id="ROC-curve">ROC curve<a class="anchor-link" href="#ROC-curve">&#182;</a></h4><ul>
+<li>Receiver Operator Characteristic Curve (ROC) <ul>
+<li>helps in deciding the best threshold value</li>
+<li>plot true positive rate(y-axis)(Sensitivity) against false positive rate(x-axis)(1-Specificity)</li>
+<li>summarizes the confusion matrix for each threshold without having to calculate</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/700/1*HTVotuY5L-cZjXGAW2A6_A.png" width=500 height=500>
+<img src="https://miro.medium.com/max/700/1*s4tdBI_DQ7xxMmUQUu5wqw.png" width=500 height=500>
+<img src="https://miro.medium.com/max/693/1*6CxyxXxn9KhX_u-ZqxjbAA.png" width=500 height=500>
+<img src="https://miro.medium.com/max/700/1*5-1RHdhFO4TniI-U7-nKeA.png" width=500 height=500></p>
+<p><img src="https://miro.medium.com/max/700/1*-78-LvCmqxPyAmBIGJaoLw.png" width=500 height=500></p>
+<h4 id="Best-case-ROC-curve">Best-case ROC curve<a class="anchor-link" href="#Best-case-ROC-curve">&#182;</a></h4><ul>
+<li>AUC = 1
+<img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_a3639962.png" width=300 height=300></li>
+</ul>
+<h4 id="ROC-curve-with-no-predictive-power:">ROC curve with no predictive power:<a class="anchor-link" href="#ROC-curve-with-no-predictive-power:">&#182;</a></h4><ul>
+<li>AUC = 0.5
+<img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_f3d108a2.png" width=300 height=300></li>
+</ul>
+<h4 id="Worst-case-ROC-curve">Worst-case ROC curve<a class="anchor-link" href="#Worst-case-ROC-curve">&#182;</a></h4><ul>
+<li>AUC = 0
+<img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_90cc150b.png" width=300 height=300></li>
+</ul>
+<h4 id="Area-under-the-curve-(AUC)">Area under the curve (AUC)<a class="anchor-link" href="#Area-under-the-curve-(AUC)">&#182;</a></h4><ul>
+<li>gives the rate of successful classification by logistic model</li>
+<li>higher the AUC, better the model is at predicting classes</li>
+<li>helps compare the ROC curve of different models</li>
+<li>AUC = 1, implies an excellent model, good measure of separability</li>
+<li>AUC = 0, implies a poor model, worst measure of separability</li>
+<li>AUC = 0.5, implies an no class separation capacity</li>
+</ul>
+<p><img src="https://www.ismiletechnologies.com/wp-content/uploads/2021/10/image-9.png" width=300 height=300></p>
+<p><img src="https://miro.medium.com/max/1056/1*Uu-t4pOotRQFoyrfqEvIEg.png" width=500 height=500>
+<img src="https://miro.medium.com/max/1014/1*yF8hvKR9eNfqqej2JnVKzg.png" width=500 height=500>
+<img src="https://miro.medium.com/max/860/1*iLW_BrJZRI0UZSflfMrmZQ.png" width=500 height=500>
+<img src="https://miro.medium.com/max/1112/1*aUZ7H-Lw74KSucoLlj1pgw.png" width=500 height=500></p>
+<h4 id="Log-Loss-or-Cross-Entropy-Loss">Log Loss or Cross Entropy Loss<a class="anchor-link" href="#Log-Loss-or-Cross-Entropy-Loss">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*s5AmzAfKxh06ymdw1zkNkA.png" width=300 height=300></p>
+<p><img src="" width=500 height=500></p>
+<p>$\tiny{\text{towardsdatascience.com - Parul Pandey}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Generative-Models">Generative Models<a class="anchor-link" href="#Generative-Models">&#182;</a></h3><h3 id="Discriminative-Models">Discriminative Models<a class="anchor-link" href="#Discriminative-Models">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Types-of-classifiers">Types of classifiers<a class="anchor-link" href="#Types-of-classifiers">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Estimation-methods">Estimation methods<a class="anchor-link" href="#Estimation-methods">&#182;</a></h3><p><a href="https://towardsdatascience.com/essential-parameter-estimation-techniques-in-machine-learning-and-signal-processing-d671c6607aa0">Estimation Techniques</a></p>
+<h4 id="Maximum-Likelihood-(ML)-Estimation">Maximum Likelihood (ML) Estimation<a class="anchor-link" href="#Maximum-Likelihood-(ML)-Estimation">&#182;</a></h4><p>A maximum likelihood estimator $\hat{\theta}$ is the solution of maximization problem. $\hat{\theta}$ is the parameter that maximizes the likelihood of the sample $\zeta$</p>
+$$\hat{\theta} = arg \max\limits_{\theta}L(\theta; \zeta)$$<h5 id="Iterative-Procedures">Iterative Procedures<a class="anchor-link" href="#Iterative-Procedures">&#182;</a></h5><p>To calculate the likelihood equations, which generally cannot be solved explicitly for an estimator $\hat{\theta} = \hat{\theta}(y)$, except for special cases. 
+$\frac{\partial L(\theta; y)}{\partial \theta} = 0$</p>
+<p>It is solved iteratively, starting iteratively from an initial guess of $\theta$, seeking a convergent sequence
+$\hat{\theta}_{r+1} = \hat{\theta}_{r} + \eta_{r}d_{r}(\hat{\theta})$, where $d_{r}(\hat{\theta})$ indicates the descent direection of $r^{th}$ step and $\eta_{r}$ is the learning rate</p>
+<p>Few of the iterative methods are:</p>
+<ul>
+<li>Gradient descent method</li>
+<li>Newton-Raphson method</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Maximum-a-Posteriori-(MAP)-Estimation">Maximum a Posteriori (MAP) Estimation<a class="anchor-link" href="#Maximum-a-Posteriori-(MAP)-Estimation">&#182;</a></h4><ul>
+<li>It is an estimate of posterior distribution</li>
+<li>It is seen as a regularization of MLE</li>
+<li>It tends to look like MLE asymptotically as $n \rightarrow \infty$<ul>
+<li><strong><em>Prior probability</em></strong> represents what is originally believed before new evidence is introduced </li>
+<li><strong><em>Posterior probability</em></strong> takes this new information into account.</li>
+</ul>
+</li>
+</ul>
+$$\theta_{MAP} = arg \max\limits_{\theta}L(\theta; D)$$$$\theta_{MLE} = arg \max\limits_{\theta}L(D; \theta)$$$$ \text{Posterior} \propto \text{Likelihood  x  Prior} $$<h4 id="Minimum-Mean-Square-Error-(MMSE)-Estimation">Minimum Mean Square Error (MMSE) Estimation<a class="anchor-link" href="#Minimum-Mean-Square-Error-(MMSE)-Estimation">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Expectation-Maximization(EM)-algorithm">Expectation-Maximization(EM) algorithm<a class="anchor-link" href="#Expectation-Maximization(EM)-algorithm">&#182;</a></h4><p>The EM algorithm helps us find the MLE for model parameters when the data has missing data points or unobserved (hidden) latent variables. It is an iterative method to approximate maximum likelihood function.</p>
+<h5 id="Gaussian-Density">Gaussian Density<a class="anchor-link" href="#Gaussian-Density">&#182;</a></h5><h5 id="MLE-vs-EM">MLE vs EM<a class="anchor-link" href="#MLE-vs-EM">&#182;</a></h5><h5 id="Applications-of-EM">Applications of EM<a class="anchor-link" href="#Applications-of-EM">&#182;</a></h5>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Least-Square-(LS)-Estimation">Least Square (LS) Estimation<a class="anchor-link" href="#Least-Square-(LS)-Estimation">&#182;</a></h4><p>The best fit estimation line in least-square minimizes the sum of squared residuals</p>
+<ul>
+<li>it has a closed form solution</li>
+</ul>
+<h4 id="Linear-Least-squares">Linear Least squares<a class="anchor-link" href="#Linear-Least-squares">&#182;</a></h4><blockquote><p>Types of Linear least squares formulation:</p>
+<ul>
+<li>Ordinary Least squares (OLS)<ul>
+<li>The OLS method minimizes the sum of squared residuals, and leads to a closed-form expression for the estimated value of the unknown parameter vector</li>
+<li>it has the assumption that the error terms have finite variance and are homoscedastic</li>
+</ul>
+</li>
+<li>Weighted Least squares (WLS)<ul>
+<li>it has the assumption that the error terms are heteroscedasticity</li>
+</ul>
+</li>
+<li>Generalized Least squares (GLS)<ul>
+<li>it has the assumption that the error terms are either heteroscedasticity or correlations or both are present among the error terms of the model</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="Non-linear">Non-linear<a class="anchor-link" href="#Non-linear">&#182;</a></h4><p>The nonlinear problem is usually solved by iterative refinement; at each iteration the system is approximated by a linear one, and thus the core calculation is similar in both cases.</p>
+<h4 id="Ordinary">Ordinary<a class="anchor-link" href="#Ordinary">&#182;</a></h4><h4 id="Weighted">Weighted<a class="anchor-link" href="#Weighted">&#182;</a></h4><h4 id="Generalized">Generalized<a class="anchor-link" href="#Generalized">&#182;</a></h4><h4 id="Partial">Partial<a class="anchor-link" href="#Partial">&#182;</a></h4><h4 id="Total">Total<a class="anchor-link" href="#Total">&#182;</a></h4><h4 id="Non-negative">Non-negative<a class="anchor-link" href="#Non-negative">&#182;</a></h4><h4 id="Ridge-regression">Ridge regression<a class="anchor-link" href="#Ridge-regression">&#182;</a></h4><h4 id="Regularized">Regularized<a class="anchor-link" href="#Regularized">&#182;</a></h4><h4 id="Least-absolute-deviations">Least absolute deviations<a class="anchor-link" href="#Least-absolute-deviations">&#182;</a></h4><h4 id="Iteratively-reweighted">Iteratively reweighted<a class="anchor-link" href="#Iteratively-reweighted">&#182;</a></h4><h4 id="Bayesian">Bayesian<a class="anchor-link" href="#Bayesian">&#182;</a></h4><h4 id="Bayesian-multivariate">Bayesian multivariate<a class="anchor-link" href="#Bayesian-multivariate">&#182;</a></h4><h4 id="Bayes-Estimator">Bayes Estimator<a class="anchor-link" href="#Bayes-Estimator">&#182;</a></h4><h4 id="Probit">Probit<a class="anchor-link" href="#Probit">&#182;</a></h4><h4 id="Logit">Logit<a class="anchor-link" href="#Logit">&#182;</a></h4><h4 id="Kernel-density-estimation-(KDE)">Kernel density estimation (KDE)<a class="anchor-link" href="#Kernel-density-estimation-(KDE)">&#182;</a></h4><p>KDE is a non-parametric way to estimate the probability density function of a random variable</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frequentists-vs-Bayesian-Approach">Frequentists vs Bayesian Approach<a class="anchor-link" href="#Frequentists-vs-Bayesian-Approach">&#182;</a></h3><ul>
+<li>Frequentists define probability as a relative frequency of an event in the long run</li>
+<li>Bayesians define probability as a measure of uncertainty and belief for any event.<blockquote><p>TODO: READ</p>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Parametric-vs-NonParametric-Method">Parametric vs NonParametric Method<a class="anchor-link" href="#Parametric-vs-NonParametric-Method">&#182;</a></h3><ul>
+<li>Parametric methods makes assumption in regards to the form of the function $f(X) = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + ... + \beta_{p}X_{p}$, where $f(X)$ is the unknown function to be estimated, $\beta$ are the coefficients to learn, $X$'s are the corresponding inputs and $p$ is the number of independent variables. <ul>
+<li>These assumptions may or may not be correct</li>
+<li>these methods are quite fast</li>
+<li>they require significantly less data</li>
+<li>they are more interpretable</li>
+<li>Examples <ul>
+<li>Linear Regression</li>
+<li>Naive Bayes</li>
+<li>Perceptron</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NonParametric methods donot make any underlying assumption wrt to the form of the function to be estimated.<ul>
+<li>they tend to be more accurate</li>
+<li>they require lots of data</li>
+<li>Examples:<ul>
+<li>Support Vector Machines</li>
+<li>K-Nearest Neighbors</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prediction-vs-Inference">Prediction vs Inference<a class="anchor-link" href="#Prediction-vs-Inference">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mathematical-functions">Mathematical functions<a class="anchor-link" href="#Mathematical-functions">&#182;</a></h3><h4 id="Logistic/Sigmoid-function">Logistic/Sigmoid function<a class="anchor-link" href="#Logistic/Sigmoid-function">&#182;</a></h4>$$ f(x) = \frac{L}{1+e^{-k(x-x_{0})}} $$<blockquote><p>L - the curve’s maximum value<br>
+$x_{0}$ - the sigmoid’s midpoint<br>
+k - the logistic growth rate or steepness of curve</p>
+</blockquote>
+<h4 id="Standard-logistic-sigmoid-function">Standard logistic sigmoid function<a class="anchor-link" href="#Standard-logistic-sigmoid-function">&#182;</a></h4>$$ \sigma(x) = \frac{1}{1+e^{-x}} $$<blockquote><p>L = 1 - the curve’s maximum value<br>
+$x_{0}$ = 0 - the sigmoid’s midpoint<br>
+k = 1 - the logistic growth rate or steepness of curve</p>
+</blockquote>
+<h4 id="Logit-function">Logit function<a class="anchor-link" href="#Logit-function">&#182;</a></h4><p>The logit function is the logarithm of the odds ratio (log-odds)
+$$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
+<h4 id="Probit-function">Probit function<a class="anchor-link" href="#Probit-function">&#182;</a></h4><h4 id="Softplus-function">Softplus function<a class="anchor-link" href="#Softplus-function">&#182;</a></h4><h4 id="Weighted-sum">Weighted sum<a class="anchor-link" href="#Weighted-sum">&#182;</a></h4>$$ \theta^{T}x = \sum\limits_{i=1}^{n}\theta_{i}x_{i} = \theta_{1}x_{1} + \theta_{2}x_{2} + ... + \theta_{n}x_{n} $$<h4 id="Likelihood-function">Likelihood function<a class="anchor-link" href="#Likelihood-function">&#182;</a></h4><ul>
+<li>The likelihood talks about the optimal value of mean or standard deviation or parameters for a distribution given a bunch of observed measurements. </li>
+<li>The likelihood function defines the joint probability of observed data as a function of parameters of the model. </li>
+<li>It gives us a probabilistic prediction to the observed data. </li>
+<li>In terms of hypothesis testing, the likelihood function gives us the probability of varying outcomes given a set of parameters defined in the null hypothesis as $f(\theta \mid x)$ is to inference (finding the likely parameters given a specific outcome).</li>
+</ul>
+$$L(\theta | D) = P(D | \theta) = \prod\limits_{m}P(x_{m}| \theta) $$<p><img src="./images/mle_vs_prob.png" width=400 height=300></p>
+<h4 id="Log-Likelihood-function">Log-Likelihood function<a class="anchor-link" href="#Log-Likelihood-function">&#182;</a></h4><p>The log likelihood for logistic regression is given by 
+$$ LL(\theta) = - \sum\limits_{i=0}^{n}\left[y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})]\right]  $$</p>
+<h4 id="Gradient-of-log-likelihood-function">Gradient of log likelihood function<a class="anchor-link" href="#Gradient-of-log-likelihood-function">&#182;</a></h4><p>It tries to choose values of $\theta$ that maximizes the function
+$$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[ y^{(i)} - \sigma(\theta^{T}x^{(i)}) \right]x_{j}^{(i)} $$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Additive-Models">Additive Models<a class="anchor-link" href="#Additive-Models">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 
 </div>
 </div>

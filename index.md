@@ -29,7 +29,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - data structures
 
 - #### data science and distributed computing
-  - [machine learning - conceptual brief](algos/ml_glossary.html)
+  - [machine learning - conceptual brief](ml_examples/ml_glossary.html)
   - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
   - [fastai intro](pytorch_fastai/01_fastai_intro.html)
   - [tensorflow intro](pytorch_fastai/01_tensorflow_intro.html)
