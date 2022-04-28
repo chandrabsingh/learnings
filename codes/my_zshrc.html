@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>general_use_cases</title>
+<title>my_zshrc</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13117,247 +13117,135 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Segment---Monolithic-to-Microservices-to-Monolithic-Architecture">Segment - Monolithic to Microservices to Monolithic Architecture<a class="anchor-link" href="#Segment---Monolithic-to-Microservices-to-Monolithic-Architecture">&#182;</a></h3><p><strong>Core services</strong></p>
-<ul>
-<li>it delivers messages to third-party endpoints</li>
-<li>retries messages upon failure</li>
-<li>archives any undelivered messages</li>
-</ul>
-<p><strong>why not just use a queue here? Building a fully distributed job scheduler seems a bit overdone</strong></p>
-<ul>
-<li>At segment, Kafka was already used extensively </li>
-<li>it passes nearly 1M messages per second through it</li>
-<li>it’s been the core building block of all of our streaming pipelines</li>
-</ul>
-<p><strong>When does a queue break down</strong></p>
-<ul>
-<li>The problem with using any sort of queue is that you are fundamentally limited in terms of how you access data. </li>
-<li>a queue only supports two operations (push and pop)</li>
-</ul>
-<p><img src="https://images.ctfassets.net/i8bfc4nr05rq/526JE4CsskIje2tIoBxmbr/c8108e96a2f99d5d8f1499e08a43e635/asset_sJlQSUXb.png" width=600 height=400></p>
-<p><strong>a single queue architecture</strong>
-<img src="https://images.ctfassets.net/i8bfc4nr05rq/1TMg75tMuAumjmYHu5UvDP/a59d8315041ceb7a48da16c6cdfb16d9/asset_VdRJbhUe.png" width=600 height=400></p>
-<p><strong>What happens when single endpoint gets slow</strong>
-<img src="https://images.ctfassets.net/i8bfc4nr05rq/3wQyQCVvbIwDOS3roQmaUv/ec97341d39dabd25098e627f47028cbc/asset_QVaGLpel.png" width=600 height=400></p>
-<p><strong>queues per destination architecture</strong></p>
-<ul>
-<li>updated queueing topology to route events into separate queues based upon the downstream endpoints they would hit</li>
-<li>router was added in front of each queue, which would only publish messages to a queue destined for a specific API endpoint</li>
-<li>segment is a large, multi-tenant system, so some sources of data will generate substantially more load than others</li>
-</ul>
-<p><img src="https://images.ctfassets.net/i8bfc4nr05rq/3mwwfjAAWWVLMmqZhKcEEH/97e2569dfc3ca1fedc9f5da233ce94f3/asset_DLWTCwfw.png" width=600 height=400></p>
-<ul>
-<li><a href="https://segment.com/docs/guides/">https://segment.com/docs/guides/</a></li>
-<li><a href="https://segment.com/blog/goodbye-microservices/">https://segment.com/blog/goodbye-microservices/</a></li>
-<li><a href="https://segment.com/blog/introducing-centrifuge/">https://segment.com/blog/introducing-centrifuge/</a></li>
-</ul>
+<h3 id="My-.zshrc-script">My .zshrc script<a class="anchor-link" href="#My-.zshrc-script">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>`# %load /Users/chandrasingh/.zshrc</p>
+<div class="highlight"><pre><span></span><span class="c1"># &gt;&gt;&gt; conda initialize &gt;&gt;&gt;</span>
+<span class="c1"># !! Contents within this block are managed by &#39;conda init&#39; !!</span>
+<span class="nv">__conda_setup</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="s1">&#39;/Users/chandrasingh/opt/anaconda3/bin/conda&#39;</span> <span class="s1">&#39;shell.zsh&#39;</span> <span class="s1">&#39;hook&#39;</span> <span class="m">2</span>&gt; /dev/null<span class="k">)</span><span class="s2">&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">eval</span> <span class="s2">&quot;</span><span class="nv">$__conda_setup</span><span class="s2">&quot;</span>
+<span class="k">else</span>
+    <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&quot;/Users/chandrasingh/opt/anaconda3/etc/profile.d/conda.sh&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        . <span class="s2">&quot;/Users/chandrasingh/opt/anaconda3/etc/profile.d/conda.sh&quot;</span>
+    <span class="k">else</span>
+        <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/Users/chandrasingh/opt/anaconda3/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+    <span class="k">fi</span>
+<span class="k">fi</span>
+<span class="nb">unset</span> __conda_setup
+<span class="sb">`</span><span class="c1"># &lt;&lt;&lt; conda initialize &lt;&lt;&lt;</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Twitter">Twitter<a class="anchor-link" href="#Twitter">&#182;</a></h3><p><strong>System design</strong>
-<img src="https://miro.medium.com/max/1400/0*_P92qYpw1_oyYymF.png">
-$\tiny{\text{medium.com - JIN}}$</p>
-<p><strong>Data Architecture</strong>
-<img src="https://miro.medium.com/max/1400/0*t4VeHS2SKhJqfoN-.png">
-$\tiny{\text{medium.com - JIN}}$</p>
-<p><strong>Write operation - requirements</strong></p>
-<ul>
-<li>User can post or share new tweets(max 140 char)</li>
-<li>User can delete his tweets but not update/edit his posted tweets</li>
-<li>User can mark favorite tweets</li>
-<li>User can follow/unfollow another user 
-— user can see other user’s tweets on his timeline</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1172/0*CDem8tmPJKpjMiRq.png" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$</p>
-<p><strong>Read operation - requirements</strong></p>
-<ul>
-<li>user timeline comprising of the last N number of his tweets</li>
-<li>popular tweets of the users he is following in the descending order of time</li>
-<li>user can search tweets based on keywords</li>
-</ul>
-<p><strong>Microservices</strong></p>
-<ul>
-<li>Tweet service</li>
-<li>User timeline service</li>
-<li>Fanout Service</li>
-<li>Home timeline service</li>
-<li>Social graph service</li>
-<li>Search service</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/0*mB-gbj2ltViojwLj.jpg" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$</p>
-<p>Search service</p>
-<ul>
-<li>aggregates the user search queries results of user and its followers</li>
-<li>the fanout service passes the tweet to the search service</li>
-</ul>
-<p>Fanout Service</p>
-<ul>
-<li>forwards new tweets to search and home timeline services. In case there are other components/ micro-services as well like trending or notification services</li>
-<li>multiple distributed queues</li>
-<li>when a user sends a tweet message, a social graph service gets generated. </li>
-<li>this gets processed in queue</li>
-<li><p>queue server processes these asynchronous tasks, which eventually persistence.</p>
-</li>
-<li><p>Ingester (or ingestion engine):</p>
-<ul>
-<li>tokenize the tweets into a number of tokens or terms or keywords</li>
-<li>filters out non-useful words</li>
-</ul>
-</li>
-<li>Stemming:<ul>
-<li>the non-useful words root words is found</li>
-</ul>
-</li>
-<li>pass it to search index</li>
-<li>create inverted index and store mapping index of terms</li>
-<li>Blender service: <ul>
-<li>search queries based on inverted index of terms</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/0*--igdsO_hL3bMpui.jpg" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$</p>
-<p><strong>User Timeline service</strong></p>
-<ul>
-<li>return user his timeline which contains all the user tweets in descending order of time</li>
-<li>this service is for the home timeline or other users’ timeline.</li>
-<li>this is designed using a data structure comprising a linked list of user tweets</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/0*yy9cMNIdR5QN5rAA.jpg" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$</p>
-<p><strong>Scaling tweets</strong></p>
-<ul>
-<li>partition both the distributed cache and the datastore into several partitions and replicas.</li>
-<li>shard by user ID</li>
-<li>shard by tweet ID</li>
-<li>Two-layer/ level shard by user ID and tweet ID
-<img src="https://miro.medium.com/max/1400/0*selazor6EHXU-6oS.jpg" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$ </li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*PYQiOxl8jTj1fIEoZ1TN-g.jpeg" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$</p>
-<p><strong>Tweet Id</strong>
-<img src="https://miro.medium.com/max/1400/0*JWp5ZESkot3OIreR.jpg" width=400 height=400>
-$\tiny{\text{medium.com - JIN}}$</p>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/.local/bin
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>jenv init -<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/.jenv/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>jenv init -<span class="k">)</span><span class="s2">&quot;</span>
+<span class="c1"># export JAVA_HOME=$(/usr/libexec/java_home -v11)</span>
+<span class="c1"># eval &quot;$(jenv init -)&quot;</span>
+<span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span><span class="k">$(</span>/usr/libexec/java_home -v1.8<span class="k">)</span>
+<span class="c1"># eval &quot;$(jenv init -)&quot;</span>
+<span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>jenv init -<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/opt/llvm/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-Coinbase-scaled-from-15k-requests-per-min-to-1.2-million-requests-per-minute-with-MongoDB">How Coinbase scaled from 15k requests per min to 1.2 million requests per minute with MongoDB<a class="anchor-link" href="#How-Coinbase-scaled-from-15k-requests-per-min-to-1.2-million-requests-per-minute-with-MongoDB">&#182;</a></h3><ul>
-<li><a href="https://blog.coinbase.com/scaling-connections-with-ruby-and-mongodb-99204dbf8857">https://blog.coinbase.com/scaling-connections-with-ruby-and-mongodb-99204dbf8857</a></li>
-</ul>
+<span class="c1"># Set working directory aliases here</span>
+<span class="nb">alias</span> <span class="nv">le</span><span class="o">=</span><span class="s2">&quot;cd ~/anaconda3/workingDir/learnings/&quot;</span>
+<span class="nb">alias</span> <span class="nv">cpp_templates</span><span class="o">=</span><span class="s2">&quot;cd ~/anaconda3/workingDir/learnings/codes/cpp_templates/&quot;</span>
+<span class="nb">alias</span> <span class="nv">cpp_algos</span><span class="o">=</span><span class="s2">&quot;cd ~/anaconda3/workingDir/learnings/algos/cpp/slidingWindow/&quot;</span>
+<span class="c1"># Set common directory aliases here</span>
+<span class="nb">alias</span> <span class="nv">dl</span><span class="o">=</span><span class="s2">&quot;cd ~/Downloads&quot;</span>
+<span class="nb">alias</span> <span class="nv">dt</span><span class="o">=</span><span class="s2">&quot;cd ~/Desktop&quot;</span>
+<span class="nb">alias</span> <span class="nv">dc</span><span class="o">=</span><span class="s2">&quot;cd ~/Documents&quot;</span>
+<span class="nb">alias</span> <span class="nv">home</span><span class="o">=</span><span class="s2">&quot;cd ~&quot;</span>
+<span class="c1"># Set navigation aliases</span>
+<span class="nb">alias</span> ..<span class="o">=</span><span class="s2">&quot;cd ..&quot;</span>
+<span class="nb">alias</span> ...<span class="o">=</span><span class="s2">&quot;cd ../..&quot;</span>
+<span class="nb">alias</span> ....<span class="o">=</span><span class="s2">&quot;cd ../../..&quot;</span>
+<span class="c1"># Set cloud aliases</span>
+<span class="nb">alias</span> <span class="nv">cnotes</span><span class="o">=</span><span class="s2">&quot;cd /Users/chandrasingh/Library/Mobile\ Documents/com~apple~CloudDocs/notes&quot;</span>
+<span class="nb">alias</span> <span class="nv">cbooks</span><span class="o">=</span><span class="s2">&quot;cd /Users/chandrasingh/Library/Mobile\ Documents/com~apple~CloudDocs/books&quot;</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="What-database-does-Facebook-use">What database does Facebook use<a class="anchor-link" href="#What-database-does-Facebook-use">&#182;</a></h3><ul>
-<li>MySQL is the primary database used for storing all social data</li>
-<li>Memcache is used in addition to MySQL as caching layer</li>
-<li>Cassandra for search</li>
-</ul>
-<p>To manage BigData Facebook leverages Apache Hadoop, HBase, Hive, Apache Thrift and PrestoDB. All these are used for data ingestion, warehousing and running analytics.</p>
-<p>Apache Cassandra is used for the inbox search</p>
-<p>Beringei &amp; Gorilla, high-performance time-series storage engines are used for infrastructure monitoring.</p>
-<p>LogDevice, a distributed data store is used for storing logs.</p>
-<blockquote><blockquote><p>Work further</p>
-</blockquote>
-</blockquote>
+<span class="c1"># Set bash prompt</span>
+<span class="c1"># GIT FUNCTIONS</span>
+git_branch<span class="o">()</span> <span class="o">{</span>
+    git branch <span class="m">2</span>&gt;/dev/null <span class="p">|</span> sed -e <span class="s1">&#39;/^[^*]/d&#39;</span> -e <span class="s1">&#39;s/* \(.*\)/ (\1)/&#39;</span>
+<span class="o">}</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-is-Git-different-from-any-other-source-systems">How is Git different from any other source systems<a class="anchor-link" href="#How-is-Git-different-from-any-other-source-systems">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-does-Google-Ad-business-model-works">How does Google Ad business model works<a class="anchor-link" href="#How-does-Google-Ad-business-model-works">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="LinkedIn">LinkedIn<a class="anchor-link" href="#LinkedIn">&#182;</a></h3><h4 id="Starting-days">Starting days<a class="anchor-link" href="#Starting-days">&#182;</a></h4><p><a href="https://engineering.linkedin.com/architecture/brief-history-scaling-linkedin">https://engineering.linkedin.com/architecture/brief-history-scaling-linkedin</a></p>
-<p>Leo - single monolithic application doing it all. That single app was called Leo. It hosted web servlets for all the various pages, handled business logic, and connected to a handful of LinkedIn databases</p>
-<p>Cloud - manage member to member connections. We needed a system that queried connection data using graph traversals and lived in-memory for top efficiency and performance. to scale independently of Leo, so a separate system for our member graph called Cloud was born - LinkedIn’s first service</p>
-<p>Lucene - member graph service started feeding data into a new search service running Lucene.</p>
-<p>Master Slave Model
-<img src="https://content.linkedin.com/content/dam/engineering/en-us/blog/migrated/arch_master_slave_0.png" width=600 height=400></p>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Istio">Istio<a class="anchor-link" href="#Istio">&#182;</a></h3><p><a href="https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/">https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/</a></p>
+<span class="c1"># TERMINAL PROMPT</span>
+<span class="nv">PS1</span><span class="o">=</span><span class="s2">&quot;%B%F{51}&quot;</span>
+<span class="c1"># Add conda environment to prompt</span>
+<span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$CONDA_DEFAULT_ENV</span><span class="s2">&quot;</span> <span class="o">]</span>
+<span class="k">then</span>
+    <span class="nv">PS1</span><span class="o">+=</span><span class="s2">&quot;(</span><span class="nv">$CONDA_DEFAULT_ENV</span><span class="s2">)&quot;</span>
+<span class="k">fi</span>
+<span class="nv">PS1</span><span class="o">+=</span><span class="s2">&quot; &quot;</span> <span class="c1"># space</span>
+<span class="nv">PS1</span><span class="o">+=</span><span class="s1">&#39;%1~&#39;</span>
+<span class="c1"># PS1+=&quot;$(git_branch)&quot;</span>
+<span class="nv">PS1</span><span class="o">+=</span><span class="s2">&quot; %f%b&quot;</span> <span class="c1"># space</span>
+<span class="nv">PS1</span><span class="o">+=</span><span class="s2">&quot;&gt;&gt; &quot;</span> <span class="c1"># end prompt</span>
+<span class="c1"># PS1+=&quot;$(tput blink)&quot;</span>
+<span class="c1"># PS1+=&quot;$(trap &#39;tput sgr0&#39; DEBUG)&quot;</span>
+<span class="nb">export</span> PS1<span class="p">;</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<span class="c1"># Define custom functions here</span>
+<span class="k">function</span> jh<span class="o">(){</span>
+    jupyter nbconvert --to html_toc <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="o">}</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<span class="k">function</span> oc<span class="o">(){</span>
+    open -a <span class="s2">&quot;Google Chrome&quot;</span> <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="o">}</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<span class="k">function</span> jhc<span class="o">(){</span>
+    <span class="k">$(</span>jh <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="k">)</span>
+    <span class="nv">oldstr</span><span class="o">=</span><span class="s2">&quot;.ipynb&quot;</span>
+    <span class="nv">newstr</span><span class="o">=</span><span class="s2">&quot;.html&quot;</span>
+    <span class="nv">secStr</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1</span> <span class="p">|</span> sed <span class="s2">&quot;s/</span><span class="nv">$oldstr</span><span class="s2">/</span><span class="nv">$newstr</span><span class="s2">/&quot;</span><span class="k">)</span>
+    <span class="k">$(</span>oc <span class="nv">$secStr</span><span class="k">)</span>
+<span class="o">}</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<span class="k">function</span> cppclang<span class="o">(){</span>
+    <span class="nb">set</span> -x
+    <span class="nv">oldstr</span><span class="o">=</span><span class="s2">&quot;.cpp&quot;</span>
+    <span class="nv">newstr</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+    <span class="nv">objName</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$1</span> <span class="p">|</span> sed <span class="s2">&quot;s/</span><span class="nv">$oldstr</span><span class="s2">/</span><span class="nv">$newstr</span><span class="s2">/&quot;</span><span class="k">)</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$#</span> -gt <span class="m">1</span> <span class="o">]]</span>  
+        <span class="c1"># then clang++ &quot;$1&quot; -o $objName -Wall &quot;${2:-1}&quot; &amp;&amp; ./$objName</span>
+        <span class="k">then</span> clang++ <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -o <span class="nv">$objName</span> -Wall <span class="s2">&quot;</span><span class="si">${</span><span class="p">@:</span><span class="nv">2</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> ./<span class="nv">$objName</span>
+        <span class="k">else</span> clang++ <span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span> -o <span class="nv">$objName</span> -Wall <span class="o">&amp;&amp;</span> ./<span class="nv">$objName</span>
+    <span class="k">fi</span>
+    <span class="c1"># clang++ &quot;$1&quot; -o $objName -Wall &quot;${2:-1}&quot; &amp;&amp; ./$objName</span>
+    <span class="nb">set</span> +x
+<span class="o">}</span>
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<span class="k">function</span> weather<span class="o">(){</span>
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]]</span>
+    <span class="k">then</span> curl wttr.in/<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+    <span class="k">else</span> curl wttr.in/OysterBay
+    <span class="k">fi</span>
+<span class="o">}</span>
+
+<span class="k">function</span> mvSnap<span class="o">(){</span>
+    <span class="nb">set</span> -x
+    <span class="nv">latestFileName</span><span class="o">=</span><span class="k">$(</span>ls -t ~/Desktop <span class="p">|</span> head -1<span class="k">)</span>
+    <span class="nv">oldFileLocation</span><span class="o">=</span>~/Desktop/<span class="nv">$latestFileName</span>
+    <span class="c1"># newFolderName=${PWD##*/}</span>
+    <span class="nv">newFolderName</span><span class="o">=</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>
+    <span class="c1"># newFolderLocation=~/anaconda3/workingDir/learnings/&quot;$1&quot;/images/</span>
+    <span class="nv">newFolderLocation</span><span class="o">=</span><span class="nv">$newFolderName</span>/images
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$#</span> -eq <span class="m">1</span> <span class="o">]]</span> 
+    <span class="k">then</span> mv <span class="nv">$oldFileLocation</span> <span class="nv">$newFolderLocation</span>/<span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+    <span class="k">else</span> mv <span class="nv">$oldFileLocation</span> <span class="nv">$newFolderLocation</span>/
+    <span class="k">fi</span>
+    <span class="nb">set</span> +x
+<span class="o">}</span>
+</pre></div>
 
 </div>
 </div>

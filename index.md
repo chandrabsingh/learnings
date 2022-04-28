@@ -2,15 +2,17 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 
 ### why-how-what
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
-- [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [netflix system architecture](system_designs/netflix.html)
+- [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [game of thrones - knowledge graph analysis using neo4j data science library](codes/neo4j_graph_datascience.html)
 - [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
 - [system design - aws - use cases](system_designs/aws_usecases.html)
 - [system design - use cases](system_designs/general_use_cases.html)
-- [a primer on causal inference](maths/causal_inference_learning.html)
+- [a primer on causal inference - randomized controlled tests](maths/causal_inference_learning.html)
+- [my .zshrc](codes/my_zshrc.html)
+- machine learning problems in python
+- azure/aws certification
 - weka visualization
-- root data analysis
 - mixture models using em algorithm
 
 ### references

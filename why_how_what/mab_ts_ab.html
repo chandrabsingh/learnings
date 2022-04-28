@@ -13117,6 +13117,17 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><blockquote><blockquote><p>Work in Progress</p>
+</blockquote>
+</blockquote>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Multi-armed-bandit-problem">Multi-armed bandit problem<a class="anchor-link" href="#Multi-armed-bandit-problem">&#182;</a></h2><h4 id="Topic">Topic<a class="anchor-link" href="#Topic">&#182;</a></h4><ul>
 <li>Reinforcement learning problem<ul>
 <li>Exploitation-Exploration tradeoff</li>
@@ -13168,13 +13179,19 @@ A_{t} = \text{arg}\max\limits_{a}Q_{t}(a) \
 \begin{aligned} \
 Q_{n} = \frac{R_{1}+R_{2}+...+R_{n-1}}{n-1} \
 \end{aligned} \
-\end{equation}$$$$\begin{equation} \
-\begin{aligned} \
+\end{equation}$$$$\begin{equation} \\
+\begin{aligned} \\
 Q_{n+1} &amp;= \frac{1}{n}\sum\limits_{i=1}^{n}R_{i}  \\
- &amp;= \frac{1}{n}\left(R_{n} + \sum\limits_{i=1}^{n-1}R_{i}\right )  \\
- &amp;= \frac{1}{n}\left(R_{n} + (n-1)\frac{1}{(n-1)}\sum\limits_{i=1}^{n-1}R_{i}\right )  \\
- &amp;= \frac{1}{n}\left(R_{n} + (n-1)Q_{n} \right )  \\
-\end{aligned} \
+ &amp;= \frac{1}{n}\Bigg(R_{n} + \sum\limits_{i=1}^{n-1}R_{i}\Bigg )  \\
+ &amp;= \frac{1}{n}\Bigg(R_{n} + (n-1)\frac{1}{(n-1)}\sum\limits_{i=1}^{n-1}R_{i}\Bigg )  \\
+ &amp;= \frac{1}{n}\Bigg(R_{n} + (n-1)Q_{n} \Bigg )  \\
+ &amp;= \frac{1}{n}\Bigg(R_{n} + nQ_{n} - Q_{n} \Bigg )  \\
+ &amp;= Q_{n} + \frac{1}{n}\Big[R_{n} - Q_{n} \Big ]  \\ 
+\end{aligned} \\
+\end{equation}$$$$\begin{equation} \\
+\begin{aligned} \\
+\text{NewEstimate} \leftarrow \text{OldEstimate} + \text{StepSize} \Big[ \text{Target} - \text{OldEstimate} \Big ]
+\end{aligned} \\
 \end{equation}$$<h3 id="Greedy-decisions">Greedy decisions<a class="anchor-link" href="#Greedy-decisions">&#182;</a></h3><h3 id="$\epsilon$-greedy-exploration">$\epsilon$-greedy exploration<a class="anchor-link" href="#$\epsilon$-greedy-exploration">&#182;</a></h3><h3 id="Beta-distribution">Beta distribution<a class="anchor-link" href="#Beta-distribution">&#182;</a></h3><h3 id="Thompson-Sampling">Thompson Sampling<a class="anchor-link" href="#Thompson-Sampling">&#182;</a></h3><p>Thompson sampling is an algorithm for online decision problems where actions are taken sequentially in a manner that must balance between exploiting what is known to maxi- mize immediate performance and investing to accumulate new information that may improve future performance.</p>
 <p>Because the distribution of payouts corresponding to each arm is not listed, the player can learn it only by experimenting. As the gambler learns about the arms’ payouts, she faces a dilemma: in the immediate future she expects to earn more by exploiting arms that yielded high payouts in the past, but by continuing to explore alternative arms she may learn how to earn higher payouts in the future. Can she develop a sequential strategy for pulling arms that balances this tradeoff and maximizes the cumulative payout earned?</p>
 <p>(Bernoulli Bandit) Suppose there are K actions, and when played, any action yields either a success or a failure. Action k ∈ {1, ..., K} produces a success with probability θk ∈ [0, 1]. The success probabilities (θ1,..,θK) are unknown to the agent, but are fixed over time, and therefore can be learned by experimentation. The objective, roughly speaking, is to maximize the cumulative number of successes over T periods, where T is relatively large compared to the number of arms K.</p>
@@ -13393,7 +13410,7 @@ Q_{n+1} &amp;= \frac{1}{n}\sum\limits_{i=1}^{n}R_{i}  \\
 
 
 <div class="output_png output_subarea ">
-<img src="mab_ts_ab_files/mab_ts_ab_9_1.png"
+<img src="mab_ts_ab_files/mab_ts_ab_10_1.png"
 >
 </div>
 
@@ -13444,7 +13461,7 @@ Q_{n+1} &amp;= \frac{1}{n}\sum\limits_{i=1}^{n}R_{i}  \\
 
 
 <div class="output_png output_subarea ">
-<img src="mab_ts_ab_files/mab_ts_ab_11_0.png"
+<img src="mab_ts_ab_files/mab_ts_ab_12_0.png"
 >
 </div>
 
