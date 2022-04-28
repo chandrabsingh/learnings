@@ -13399,7 +13399,28 @@ $$ h_{\theta}(x) = \frac{1}{1+e^{-\theta^{T}x}}$$<p>
 and the model parameters $\theta$ are trained to minimize the cost function
 $$ J(\theta) = - \left [ \sum\limits_{i=0}^{n}y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})] \right]  $$ 
 $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)}) \log[1- h_{\theta}(x^{(i)})) ]\right] $$</p>
-<h4 id="Two-Class-Neural-Network">Two-Class Neural Network<a class="anchor-link" href="#Two-Class-Neural-Network">&#182;</a></h4><h4 id="Two-Class-Support-Vector-Machine">Two Class Support Vector Machine<a class="anchor-link" href="#Two-Class-Support-Vector-Machine">&#182;</a></h4>
+<h4 id="Two-Class-Neural-Network">Two-Class Neural Network<a class="anchor-link" href="#Two-Class-Neural-Network">&#182;</a></h4><h4 id="Two-Class-Support-Vector-Machine">Two Class Support Vector Machine<a class="anchor-link" href="#Two-Class-Support-Vector-Machine">&#182;</a></h4><h4 id="Binary-vs-Multiclass-vs-MultiLabel-classification">Binary vs Multiclass vs MultiLabel classification<a class="anchor-link" href="#Binary-vs-Multiclass-vs-MultiLabel-classification">&#182;</a></h4><ul>
+<li>binary classification<ul>
+<li>classifies observation into one of two possible outcomes</li>
+<li>finds a way to separate data from two classes</li>
+<li>examples<ul>
+<li>ad will be clicked or not</li>
+<li>spam or not spam</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>multiclass classification<ul>
+<li>also referred as multinomial classification</li>
+<li>examples<ul>
+<li>handwritten zip codes</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>multilabel classification</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -13488,7 +13509,25 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Evaluation-Metrics">Evaluation Metrics<a class="anchor-link" href="#Evaluation-Metrics">&#182;</a></h3><h4 id="Confusion-Matrix">Confusion Matrix<a class="anchor-link" href="#Confusion-Matrix">&#182;</a></h4><p><img src="https://miro.medium.com/max/1220/1*ZRU18eG-F5Sjtcph9ru8Og.png" width=500 height=500></p>
+<h3 id="Evaluation-Metrics---Regression">Evaluation Metrics - Regression<a class="anchor-link" href="#Evaluation-Metrics---Regression">&#182;</a></h3><h4 id="Mean-Absolute-Error-(MAE)">Mean Absolute Error (MAE)<a class="anchor-link" href="#Mean-Absolute-Error-(MAE)">&#182;</a></h4><h4 id="Mean-Squared-Error-(MSE)">Mean Squared Error (MSE)<a class="anchor-link" href="#Mean-Squared-Error-(MSE)">&#182;</a></h4><h4 id="Root-Mean-Squared-Error-(RMSE)">Root Mean Squared Error (RMSE)<a class="anchor-link" href="#Root-Mean-Squared-Error-(RMSE)">&#182;</a></h4><h4 id="R-Squared-(Coefficient-of-determination)">R-Squared (Coefficient of determination)<a class="anchor-link" href="#R-Squared-(Coefficient-of-determination)">&#182;</a></h4><h4 id="Adjusted-R-squared">Adjusted R-squared<a class="anchor-link" href="#Adjusted-R-squared">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Evaluation-Metrics---Distribution-Fit">Evaluation Metrics - Distribution Fit<a class="anchor-link" href="#Evaluation-Metrics---Distribution-Fit">&#182;</a></h3><h4 id="Bayesian-information-criterion">Bayesian information criterion<a class="anchor-link" href="#Bayesian-information-criterion">&#182;</a></h4><h4 id="Kolmogorov&#8211;Smirnov-test">Kolmogorov&#8211;Smirnov test<a class="anchor-link" href="#Kolmogorov&#8211;Smirnov-test">&#182;</a></h4><h4 id="Cram&#233;r&#8211;von-Mises-criterion">Cram&#233;r&#8211;von Mises criterion<a class="anchor-link" href="#Cram&#233;r&#8211;von-Mises-criterion">&#182;</a></h4><h4 id="Anderson&#8211;Darling-test">Anderson&#8211;Darling test<a class="anchor-link" href="#Anderson&#8211;Darling-test">&#182;</a></h4><h4 id="Shapiro&#8211;Wilk-test">Shapiro&#8211;Wilk test<a class="anchor-link" href="#Shapiro&#8211;Wilk-test">&#182;</a></h4><h4 id="Chi-square-test">Chi-square test<a class="anchor-link" href="#Chi-square-test">&#182;</a></h4><ul>
+<li><a href="http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/fit.pdf">http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/fit.pdf</a></li>
+<li><a href="https://stats.stackexchange.com/questions/173748/what-does-goodness-of-fit-mean-in-context-of-linear-regression">https://stats.stackexchange.com/questions/173748/what-does-goodness-of-fit-mean-in-context-of-linear-regression</a></li>
+</ul>
+<h4 id="Akaike-information-criterion">Akaike information criterion<a class="anchor-link" href="#Akaike-information-criterion">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Evaluation-Metrics---Classification">Evaluation Metrics - Classification<a class="anchor-link" href="#Evaluation-Metrics---Classification">&#182;</a></h3><h4 id="Confusion-Matrix">Confusion Matrix<a class="anchor-link" href="#Confusion-Matrix">&#182;</a></h4><p><img src="https://miro.medium.com/max/1220/1*ZRU18eG-F5Sjtcph9ru8Og.png" width=500 height=500></p>
 <p><img src="https://miro.medium.com/max/658/1*GJLE_YxjlSA5o_TJ9B_h5A.png" width=500 height=500></p>
 <p><img src="https://miro.medium.com/max/700/1*KPXQ6VBc1foXXWgkn1q4BA.png" width=500 height=500></p>
 <h4 id="Sensitivity">Sensitivity<a class="anchor-link" href="#Sensitivity">&#182;</a></h4><ul>
@@ -13554,18 +13593,23 @@ $$\text{False Positive Rate(FPR) = (1 - Specificity)} = \frac{\text{Number of fa
 <li>gives the rate of successful classification by logistic model</li>
 <li>higher the AUC, better the model is at predicting classes</li>
 <li>helps compare the ROC curve of different models</li>
+<li>is the probability that the classifier will be able to tell which one is which</li>
 <li>AUC = 1, implies an excellent model, good measure of separability</li>
 <li>AUC = 0, implies a poor model, worst measure of separability</li>
-<li>AUC = 0.5, implies an no class separation capacity</li>
+<li>AUC = 0.5, implies an no class separation capacity, a random classifier</li>
 </ul>
-<p><img src="https://www.ismiletechnologies.com/wp-content/uploads/2021/10/image-9.png" width=300 height=300></p>
+<p><img src="https://www.ismiletechnologies.com/wp-content/uploads/2021/10/image-9.png" width=300 height=300>
+<img src="https://miro.medium.com/max/700/1*U3KzhfUE4FLy4CL_U-ygpg.png" width=500 height=500></p>
 <p><img src="https://miro.medium.com/max/1056/1*Uu-t4pOotRQFoyrfqEvIEg.png" width=500 height=500>
 <img src="https://miro.medium.com/max/1014/1*yF8hvKR9eNfqqej2JnVKzg.png" width=500 height=500>
 <img src="https://miro.medium.com/max/860/1*iLW_BrJZRI0UZSflfMrmZQ.png" width=500 height=500>
 <img src="https://miro.medium.com/max/1112/1*aUZ7H-Lw74KSucoLlj1pgw.png" width=500 height=500></p>
-<h4 id="Log-Loss-or-Cross-Entropy-Loss">Log Loss or Cross Entropy Loss<a class="anchor-link" href="#Log-Loss-or-Cross-Entropy-Loss">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*s5AmzAfKxh06ymdw1zkNkA.png" width=300 height=300></p>
-<p><img src="" width=500 height=500></p>
-<p>$\tiny{\text{towardsdatascience.com - Parul Pandey}}$</p>
+<h4 id="Diagnostic-Testing-Diagram">Diagnostic Testing Diagram<a class="anchor-link" href="#Diagnostic-Testing-Diagram">&#182;</a></h4><p><img src="./images/confusionMatrixTests3.png"></p>
+<h4 id="Gini-Coefficient">Gini Coefficient<a class="anchor-link" href="#Gini-Coefficient">&#182;</a></h4><h4 id="Log-Loss-or-Cross-Entropy-Loss">Log Loss or Cross Entropy Loss<a class="anchor-link" href="#Log-Loss-or-Cross-Entropy-Loss">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*s5AmzAfKxh06ymdw1zkNkA.png" width=300 height=300></p>
+<ul>
+<li>$\tiny{\text{towardsdatascience.com - Parul Pandey}}$</li>
+<li>$\tiny{\text{towardsdatascience.com - Sarang Narkhede}}$</li>
+</ul>
 
 </div>
 </div>
@@ -13740,6 +13784,88 @@ $$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Additive-Models">Additive Models<a class="anchor-link" href="#Additive-Models">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Machine-Learning-vs-Rule-based-Systems">Machine Learning vs Rule-based Systems<a class="anchor-link" href="#Machine-Learning-vs-Rule-based-Systems">&#182;</a></h3><ul>
+<li>rule-based systems  <ul>
+<li>humans manually program rule-based systems </li>
+<li>rule based system explicitly need to be told what to do by humans</li>
+</ul>
+</li>
+<li>self-learning systems <ul>
+<li>machines automatically train self-learning systems</li>
+<li>self-learning systems learn from experience </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
 </div>
 </div>
 </div>
