@@ -1,4 +1,5 @@
 here are the notes and understanding of the tools i learnt during sabbatical work break
+### [certification/online course](certifications/certifications_courses_list.html)
 
 ### why-how-what
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
@@ -10,8 +11,9 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - [system design - use cases](system_designs/general_use_cases.html)
 - [a primer on causal inference - randomized controlled tests](maths/causal_inference_learning.html)
 - [my .zshrc](codes/my_zshrc.html)
-- machine learning problems in python
-- azure/aws certification
+- evaluate performance of classification algorithms on adult income dataset
+- build movie recommender with naive bayes on movielens dataset
+- build face recognizer with svm on scikit lfw people dataset
 - weka visualization
 - mixture models using em algorithm
 
@@ -19,7 +21,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 
 - #### computer science  
   - [python - conceptual snippets](codes/python_faqs.html)  
-  - [python - algorithms](algos/run_algos.html)
+  - [python - array algos](algos/array_algos.html)
   - [python - graph algos](algos/graph_algos.html)
   - [python - dynamic programming algos](algos/dp_algos.html)
   - [c++ - algos](algos/cpp_algos.html)

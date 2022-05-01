@@ -13117,10 +13117,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-do-Pokemon-Go-scale-to-millions-of-request">How do Pokemon Go scale to millions of request<a class="anchor-link" href="#How-do-Pokemon-Go-scale-to-millions-of-request">&#182;</a></h3><ul>
-<li><a href="https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/">https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/</a></li>
-<li><a href="https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests">https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests</a></li>
-</ul>
+<h3 id="How-do-Pokemon-Go-scale-to-millions-of-request">How do Pokemon Go scale to millions of request<a class="anchor-link" href="#How-do-Pokemon-Go-scale-to-millions-of-request">&#182;</a></h3><p><img src="images/pokemonGo.png"></p>
 <p><strong>How does Pokemon scale?</strong></p>
 <ul>
 <li>uses Google cloud - Google Kubernetes Engine and Spanner</li>
@@ -13158,7 +13155,6 @@ $( document ).ready(function(){
 <li>the front end retrieves the information from the squibby to send back to the user</li>
 <li>the spatial query is a custom database that presents the map and the Pokemons</li>
 </ul>
-<p><img src="images/pokemonGo.png"></p>
 <p><strong>What happens when a Pokemon is hunted and caught?</strong></p>
 <ul>
 <li>a request is sent from the front end to the Spanner database where player entity is stored in the store </li>
@@ -13205,6 +13201,11 @@ $( document ).ready(function(){
 <ul>
 <li>exploring Agones and Google Game Servers</li>
 </ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/">https://www.scaleyourapp.com/distributed-systems-scalability-part1-heroku-client-rate-throttling/</a></li>
+<li><a href="https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests">https://cloud.google.com/blog/topics/developers-practitioners/how-pok%C3%A9mon-go-scales-millions-requests</a></li>
+</ul>
 
 </div>
 </div>
@@ -13212,8 +13213,10 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-does-Uber-scale-to-millions-of-concurrent-requests">How does Uber scale to millions of concurrent requests<a class="anchor-link" href="#How-does-Uber-scale-to-millions-of-concurrent-requests">&#182;</a></h3><ul>
-<li>Fulfillment platform<ul>
+<h3 id="How-does-Uber-scale-to-millions-of-concurrent-requests">How does Uber scale to millions of concurrent requests<a class="anchor-link" href="#How-does-Uber-scale-to-millions-of-concurrent-requests">&#182;</a></h3><p><img src="./images/uberRequestFlow.png"></p>
+<ul>
+<li><p>Fulfillment platform</p>
+<ul>
 <li>goes through series of checks and balances and then triggers fulfillment to create new order for consumer</li>
 <li>order is the intent of consumer</li>
 <li>intent is then translated into jobs that needs to be processed</li>
@@ -13223,10 +13226,8 @@ $( document ).ready(function(){
 <li>earlier all of this data was saved in <strong>on-prem database</strong> and recently moved to <strong>Spanner</strong></li>
 </ul>
 </li>
-</ul>
-<p><img src="./images/uberRequestFlow.png"></p>
+<li><p>Challenges with on-prem database</p>
 <ul>
-<li>Challenges with on-prem database<ul>
 <li>No-SQL storage engine <strong>Cassandra</strong> was used to save all real time fulfillment entities</li>
 <li>to maintain serializability on top of Cassandra, <strong>Ringpop</strong> was used to provide individual <strong>entity-level serialization</strong></li>
 <li>Challenges with NoSQL<ul>
@@ -13347,7 +13348,8 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">How to create a microservice architecture with Google Cloud - Nylas<a class="anchor-link" href="#How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">&#182;</a></h3><ul>
+<h3 id="How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">How to create a microservice architecture with Google Cloud - Nylas<a class="anchor-link" href="#How-to-create-a-microservice-architecture-with-Google-Cloud---Nylas">&#182;</a></h3><p><img src="./images/nylasOldArchitecture.png"></p>
+<ul>
 <li><p>Workflow Automation</p>
 <ul>
 <li>by collecting data from multiple applications </li>
@@ -13380,9 +13382,6 @@ $( document ).ready(function(){
 <li>GCP services are very robust</li>
 </ul>
 </li>
-</ul>
-<p><img src="./images/nylasOldArchitecture.png"></p>
-<ul>
 <li><p>Transition</p>
 <ul>
 <li>from Python based application to Go - code rewrite<ul>
@@ -13455,7 +13454,8 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">How to architect an AI/ML powered healthcare platform on Google Cloud - Vida Health<a class="anchor-link" href="#How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">&#182;</a></h3><ul>
+<h3 id="How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">How to architect an AI/ML powered healthcare platform on Google Cloud - Vida Health<a class="anchor-link" href="#How-to-architect-an-AI/ML-powered-healthcare-platform-on-Google-Cloud---Vida-Health">&#182;</a></h3><p><img src="./images/vidaDataAnalyticsArchitecture.png"></p>
+<ul>
 <li>provides comprehensive virtual care solution tailored to personalized health goals and preferences</li>
 <li><p>what are the challenges in building such application</p>
 <ul>
@@ -13519,9 +13519,6 @@ $( document ).ready(function(){
 <li>exploration in terms of VertexAI for quickly building these models and deploying them</li>
 </ul>
 </li>
-</ul>
-<p><img src="./images/vidaDataAnalyticsArchitecture.png"></p>
-<ul>
 <li><p>Transformations</p>
 <ul>
 <li>in past custom ETL pipelines were designed, which is a challenge</li>
@@ -13575,7 +13572,8 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-are-the-video-monitoring-system-architectured---Arcules?">How are the video monitoring system architectured - Arcules?<a class="anchor-link" href="#How-are-the-video-monitoring-system-architectured---Arcules?">&#182;</a></h3><p><strong>How does Arcules work?</strong></p>
+<h3 id="How-are-the-video-monitoring-system-architectured---Arcules?">How are the video monitoring system architectured - Arcules?<a class="anchor-link" href="#How-are-the-video-monitoring-system-architectured---Arcules?">&#182;</a></h3><p><img src="images/arculesArch.png"></p>
+<p><strong>How does Arcules work?</strong></p>
 <ul>
 <li>Arcules takes information from multitude of IoT devices, captures it, processes it and then pushes it into the Google cloud</li>
 </ul>
@@ -13616,7 +13614,6 @@ $( document ).ready(function(){
 <li>deployment is typically through Seneca, with build process through the cloud build platform</li>
 <li>heavy users of container services for container management</li>
 </ul>
-<p><img src="images/arculesArch.png"></p>
 
 </div>
 </div>

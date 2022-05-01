@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>als_deep_dive</title>
+<title>array_algos</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.390625px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,1266 +13117,51 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><i>Copyright (c) Microsoft Corporation. All rights reserved.</i></p>
-<p><i>Licensed under the MIT License.</i></p>
-
+<h3 id="Array-Algorithms">Array Algorithms<a class="anchor-link" href="#Array-Algorithms">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-info">This is a modified version of Microsoft Recommender notebook used for learning purposes. </div>
+<h4 id="Two-sum-(Easy)">Two sum (Easy)<a class="anchor-link" href="#Two-sum-(Easy)">&#182;</a></h4>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Spark-Collaborative-Filtering-(ALS)-Deep-Dive">Spark Collaborative Filtering (ALS) Deep Dive<a class="anchor-link" href="#Spark-Collaborative-Filtering-(ALS)-Deep-Dive">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Spark MLlib provides a collaborative filtering algorithm that can be used for training a matrix factorization model, which predicts explicit or implicit ratings of users on items for recommendations.</p>
-<p>This notebook presents a deep dive into the Spark collaborative filtering algorithm.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Matrix-factorization-algorithm">Matrix factorization algorithm<a class="anchor-link" href="#Matrix-factorization-algorithm">&#182;</a></h2><h3 id="Matrix-factorization-for-collaborative-filtering-problem">Matrix factorization for collaborative filtering problem<a class="anchor-link" href="#Matrix-factorization-for-collaborative-filtering-problem">&#182;</a></h3><p>Matrix factorization is a common technique used in recommendation tasks. Basically, a matrix factorization algorithm tries to find latent factors that represent intrinsic user and item attributes in a lower dimension. That is,</p>
-$$\hat r_{u,i} = q_{i}^{T}p_{u}$$<p>where $\hat r_{u,i}$ is the predicted ratings for user $u$ and item $i$, and $q_{i}^{T}$ and $p_{u}$ are latent factors for item and user, respectively. The challenge to the matrix factorization problem is to find $q_{i}^{T}$ and $p_{u}$. This is achieved by methods such as matrix decomposition. A learning approach is therefore developed to converge the decomposition results close to the observed ratings as much as possible. Furthermore, to avoid overfitting issue, the learning process is regularized. For example, a basic form of such matrix factorization algorithm is represented as below.</p>
-$$\min\sum(r_{u,i} - q_{i}^{T}p_{u})^2 + \lambda(||q_{i}||^2 + ||p_{u}||^2)$$<p>where $\lambda$ is a the regularization parameter.</p>
-<p>In case explict ratings are not available, implicit ratings which are usually derived from users' historical interactions with the items (e.g., clicks, views, purchases, etc.). To account for such implicit ratings, the original matrix factorization algorithm can be formulated as</p>
-$$\min\sum c_{u,i}(p_{u,i} - q_{i}^{T}p_{u})^2 + \lambda(||q_{i}||^2 + ||p_{u}||^2)$$<p>where $c_{u,i}=1+\alpha r_{u,i}$ and $p_{u,i}=1$ if $r_{u,i}&gt;0$ and $p_{u,i}=0$ if $r_{u,i}=0$. $r_{u,i}$ is a numerical representation of users' preferences (e.g., number of clicks, etc.).</p>
-<h3 id="Alternating-Least-Square-(ALS)">Alternating Least Square (ALS)<a class="anchor-link" href="#Alternating-Least-Square-(ALS)">&#182;</a></h3><p>Owing to the term of $q_{i}^{T}p_{u}$ the loss function is non-convex. Gradient descent method can be applied but this will incur expensive computations. An Alternating Least Square (ALS) algorithm was therefore developed to overcome this issue.</p>
-<p>The basic idea of ALS is to learn one of $q$ and $p$ at a time for optimization while keeping the other as constant. This makes the objective at each iteration convex and solvable. The alternating between $q$ and $p$ stops when there is convergence to the optimal. It is worth noting that this iterative computation can be parallelised and/or distributed, which makes the algorithm desirable for use cases where the dataset is large and thus the user-item rating matrix is super sparse (as is typical in recommendation scenarios). A comprehensive discussion of ALS and its distributed computation can be found <a href="http://stanford.edu/~rezab/classes/cme323/S15/notes/lec14.pdf">here</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Spark-Mllib-implementation">Spark Mllib implementation<a class="anchor-link" href="#Spark-Mllib-implementation">&#182;</a></h2><p>The matrix factorization algorithm is available as <code>ALS</code> module in <a href="https://spark.apache.org/docs/latest/ml-collaborative-filtering.html">Spark <code>ml</code></a> for DataFrame or <a href="https://spark.apache.org/docs/latest/mllib-collaborative-filtering.html">Spark <code>mllib</code></a> for RDD.</p>
-<ul>
-<li>The uniqueness of ALS implementation is that it distributes the matrix factorization model training by using "Alternating Least Square" method. </li>
-<li>In the training method, there are parameters that can be selected to control the model performance.</li>
-<li>Both explicit and implicit ratings are supported by Spark ALS model.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Spark-ALS-based-MovieLens-recommender">Spark ALS based MovieLens recommender<a class="anchor-link" href="#Spark-ALS-based-MovieLens-recommender">&#182;</a></h2><p>In the following code, the MovieLens-100K dataset is used to illustrate the ALS algorithm in Spark.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Note</strong>: This notebook requires a PySpark environment to run properly. Please follow the steps in <a href="https://github.com/Microsoft/Recommenders/blob/master/SETUP.md#dependencies-setup">SETUP.md</a> to install the PySpark environment.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set the environment path to find Recommenders</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="kn">import</span> <span class="nn">pyspark</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
-<span class="kn">from</span> <span class="nn">pyspark.ml.recommendation</span> <span class="kn">import</span> <span class="n">ALS</span>
-<span class="kn">import</span> <span class="nn">pyspark.sql.functions</span> <span class="k">as</span> <span class="nn">F</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.functions</span> <span class="kn">import</span> <span class="n">col</span>
-<span class="kn">from</span> <span class="nn">pyspark.ml.tuning</span> <span class="kn">import</span> <span class="n">CrossValidator</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">StructType</span><span class="p">,</span> <span class="n">StructField</span>
-<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">FloatType</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">,</span> <span class="n">LongType</span>
-
-<span class="kn">from</span> <span class="nn">recommenders.datasets</span> <span class="kn">import</span> <span class="n">movielens</span>
-<span class="kn">from</span> <span class="nn">recommenders.utils.spark_utils</span> <span class="kn">import</span> <span class="n">start_or_get_spark</span>
-<span class="kn">from</span> <span class="nn">recommenders.evaluation.spark_evaluation</span> <span class="kn">import</span> <span class="n">SparkRankingEvaluation</span><span class="p">,</span> <span class="n">SparkRatingEvaluation</span>
-<span class="kn">from</span> <span class="nn">recommenders.tuning.parameter_sweep</span> <span class="kn">import</span> <span class="n">generate_param_grid</span>
-<span class="kn">from</span> <span class="nn">recommenders.datasets.spark_splitters</span> <span class="kn">import</span> <span class="n">spark_random_split</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;System version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PySpark version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pyspark</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>System version: 3.8.8 (default, Apr 13 2021, 12:59:45) 
-[Clang 10.0.0 ]
-Pandas version: 1.4.1
-PySpark version: 3.2.1
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Data column names</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_parameters">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[74]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MOVIELENS_DATA_SIZE</span> <span class="o">=</span> <span class="s2">&quot;100k&quot;</span>
-
-<span class="n">COL_USER</span> <span class="o">=</span> <span class="s2">&quot;UserId&quot;</span>
-<span class="n">COL_ITEM</span> <span class="o">=</span> <span class="s2">&quot;MovieId&quot;</span>
-<span class="n">COL_RATING</span> <span class="o">=</span> <span class="s2">&quot;Rating&quot;</span>
-<span class="n">COL_PREDICTION</span> <span class="o">=</span> <span class="s2">&quot;prediction&quot;</span>
-<span class="n">COL_TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;Timestamp&quot;</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[75]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">(</span>
-    <span class="p">(</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_USER</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">()),</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_ITEM</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">()),</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">,</span> <span class="n">FloatType</span><span class="p">()),</span>
-        <span class="n">StructField</span><span class="p">(</span><span class="n">COL_TIMESTAMP</span><span class="p">,</span> <span class="n">LongType</span><span class="p">()),</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Model hyper parameters - these parameters are selected with reference to the benchmarking results <a href="http://mymedialite.net/examples/datasets.html">here</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">RANK</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">MAX_ITER</span> <span class="o">=</span> <span class="mi">15</span>
-<span class="n">REG_PARAM</span> <span class="o">=</span> <span class="mf">0.05</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Number of recommended items</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="mi">10</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Initialize a Spark session.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spark</span> <span class="o">=</span> <span class="n">start_or_get_spark</span><span class="p">(</span><span class="s2">&quot;ALS Deep Dive&quot;</span><span class="p">,</span> <span class="n">memory</span><span class="o">=</span><span class="s2">&quot;16g&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Load-and-prepare-data">Load and prepare data<a class="anchor-link" href="#Load-and-prepare-data">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Data is read from csv into a Spark DataFrame.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[79]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs</span> <span class="o">=</span> <span class="n">movielens</span><span class="o">.</span><span class="n">load_spark_df</span><span class="p">(</span><span class="n">spark</span><span class="o">=</span><span class="n">spark</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">MOVIELENS_DATA_SIZE</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|███████████████████████████████████| 4.81k/4.81k [00:01&lt;00:00, 4.40kKB/s]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>+------+-------+------+---------+
-|UserId|MovieId|Rating|Timestamp|
-+------+-------+------+---------+
-|   196|    242|   3.0|881250949|
-|   186|    302|   3.0|891717742|
-|    22|    377|   1.0|878887116|
-|   244|     51|   2.0|880606923|
-|   166|    346|   1.0|886397596|
-+------+-------+------+---------+
-only showing top 5 rows
-
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Data is then randomly split by 80-20 ratio for training and testing.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs_train</span><span class="p">,</span> <span class="n">dfs_test</span> <span class="o">=</span> <span class="n">spark_random_split</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ratio</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[86]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">dfs_train</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[86]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>pyspark.sql.dataframe.DataFrame</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[94]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs_train</span><span class="p">[</span><span class="n">COL_RATING</span><span class="p">]</span>
-<span class="n">dfs_train</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
-<span class="n">dfs_train</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">dfs_train</span><span class="o">.</span><span class="n">toPandas</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>root
- |-- UserId: integer (nullable = true)
- |-- MovieId: integer (nullable = true)
- |-- Rating: float (nullable = true)
- |-- Timestamp: long (nullable = true)
-
-+------+
-|Rating|
-+------+
-|   5.0|
-|   3.0|
-|   3.0|
-|   3.0|
-|   5.0|
-+------+
-only showing top 5 rows
-
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[94]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>UserId</th>
-      <th>MovieId</th>
-      <th>Rating</th>
-      <th>Timestamp</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-      <td>1</td>
-      <td>5.0</td>
-      <td>874965758</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1</td>
-      <td>2</td>
-      <td>3.0</td>
-      <td>876893171</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1</td>
-      <td>4</td>
-      <td>3.0</td>
-      <td>876893119</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>5</td>
-      <td>3.0</td>
-      <td>889751712</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>6</td>
-      <td>5.0</td>
-      <td>887431973</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Train-a-movielens-model">Train a movielens model<a class="anchor-link" href="#Train-a-movielens-model">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It is worth noting that Spark ALS model allows dropping cold users to favor a robust evaluation with the testing data. In case there are cold users, Spark ALS implementation allows users to drop cold users in order to make sure evaluations on the prediction results are sound.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">als</span> <span class="o">=</span> <span class="n">ALS</span><span class="p">(</span>
-    <span class="n">maxIter</span><span class="o">=</span><span class="n">MAX_ITER</span><span class="p">,</span> 
-    <span class="n">rank</span><span class="o">=</span><span class="n">RANK</span><span class="p">,</span>
-    <span class="n">regParam</span><span class="o">=</span><span class="n">REG_PARAM</span><span class="p">,</span> 
-    <span class="n">userCol</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span> 
-    <span class="n">itemCol</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span> 
-    <span class="n">ratingCol</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span> 
-    <span class="n">coldStartStrategy</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span>
-<span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">als</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfs_train</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>22/03/14 22:53:17 WARN InstanceBuilder$NativeBLAS: Failed to load implementation from:dev.ludovic.netlib.blas.JNIBLAS
-22/03/14 22:53:17 WARN InstanceBuilder$NativeBLAS: Failed to load implementation from:dev.ludovic.netlib.blas.ForeignLinkerBLAS
-22/03/14 22:53:18 WARN InstanceBuilder$NativeLAPACK: Failed to load implementation from:dev.ludovic.netlib.lapack.JNILAPACK
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Prediction-with-the-model">Prediction with the model<a class="anchor-link" href="#Prediction-with-the-model">&#182;</a></h3><p>The trained model can be used to predict ratings with a given test data.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dfs_test</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>With the prediction results, the model performance can be evaluated.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRatingEvaluation</span><span class="p">(</span>
-    <span class="n">dfs_test</span><span class="p">,</span> 
-    <span class="n">dfs_pred</span><span class="p">,</span>
-    <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
-    <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
-    <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
-    <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;RMSE score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rmse</span><span class="p">()),</span>
-    <span class="s2">&quot;MAE score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">mae</span><span class="p">()),</span>
-    <span class="s2">&quot;R2 score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rsquared</span><span class="p">()),</span>
-    <span class="s2">&quot;Explained variance score = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">exp_var</span><span class="p">()),</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/chandrasingh/opt/anaconda3/envs/reco/lib/python3.8/site-packages/pyspark/sql/context.py:125: FutureWarning: Deprecated in 3.0.0. Use SparkSession.builder.getOrCreate() instead.
-  warnings.warn(
-                                                                                </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>RMSE score = 0.9672850377390322
-MAE score = 0.7520024463135003
-R2 score = 0.2606446451514729
-Explained variance score = 0.265904981685646
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Oftentimes ranking metrics are also of interest to data scientists. Note usually ranking metrics apply to the scenario of recommending a list of items. In our case, the recommended items should be different from those that have been rated by the users.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the cross join of all user-item pairs and score them.</span>
-<span class="n">users</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">COL_USER</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
-<span class="n">items</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">COL_ITEM</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
-<span class="n">user_item</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">crossJoin</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
-<span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">user_item</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Fix the ambiguous col exception</span>
-<span class="n">dfs1</span> <span class="o">=</span> <span class="n">dfs_pred</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;pred&quot;</span><span class="p">)</span>
-<span class="n">dfs2</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">alias</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove seen items.</span>
-<span class="c1"># dfs_pred_exclude_train = dfs_pred.alias(&quot;pred&quot;).join(</span>
-<span class="c1">#     dfs_train.alias(&quot;train&quot;),</span>
-<span class="c1">#     (dfs_pred[COL_USER] == dfs_train[COL_USER]) &amp; (dfs_pred[COL_ITEM] == dfs_train[COL_ITEM]),</span>
-<span class="c1">#     how=&#39;outer&#39;</span>
-<span class="c1"># )</span>
-<span class="n">dfs_pred_exclude_train</span> <span class="o">=</span> <span class="n">dfs1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dfs2</span><span class="p">,</span>
-    <span class="p">(</span><span class="n">dfs1</span><span class="p">[</span><span class="n">COL_USER</span><span class="p">]</span> <span class="o">==</span> <span class="n">dfs2</span><span class="p">[</span><span class="n">COL_USER</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">dfs1</span><span class="p">[</span><span class="n">COL_ITEM</span><span class="p">]</span> <span class="o">==</span> <span class="n">dfs2</span><span class="p">[</span><span class="n">COL_ITEM</span><span class="p">]),</span>
-    <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span>
-<span class="p">)</span>
-
-<span class="n">dfs_pred_final</span> <span class="o">=</span> <span class="n">dfs_pred_exclude_train</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">dfs_pred_exclude_train</span><span class="p">[</span><span class="s2">&quot;train.Rating&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isNull</span><span class="p">())</span> \
-    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;pred.&#39;</span> <span class="o">+</span> <span class="n">COL_USER</span><span class="p">,</span> <span class="s1">&#39;pred.&#39;</span> <span class="o">+</span> <span class="n">COL_ITEM</span><span class="p">,</span> <span class="s1">&#39;pred.&#39;</span> <span class="o">+</span> <span class="s2">&quot;prediction&quot;</span><span class="p">)</span>
-
-<span class="n">dfs_pred_final</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>[Stage 473:&gt;                                                        (0 + 1) / 1]</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>+------+-------+----------+
-|UserId|MovieId|prediction|
-+------+-------+----------+
-|     1|     46|  3.718766|
-|     1|    255| 2.1994865|
-|     1|    284| 2.9902596|
-|     1|    285|  4.315481|
-|     1|    318| 4.2022877|
-|     1|    329|  3.364408|
-|     1|    335|  2.745156|
-|     1|    353| 3.8310368|
-|     1|    371|  2.312728|
-|     1|    372| 4.1308403|
-|     1|    381| 3.6213713|
-|     1|    391| 2.5517013|
-|     1|    409|  2.576128|
-|     1|    413| 2.8441556|
-|     1|    417| 2.5588927|
-|     1|    440| 0.5752399|
-|     1|    449| 3.1248236|
-|     1|    463|  4.198607|
-|     1|    480|  4.484024|
-|     1|    488| 4.0404654|
-+------+-------+----------+
-only showing top 20 rows
-
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>                                                                                </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRankingEvaluation</span><span class="p">(</span>
-    <span class="n">dfs_test</span><span class="p">,</span> 
-    <span class="n">dfs_pred_final</span><span class="p">,</span>
-    <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
-    <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
-    <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
-    <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span><span class="p">,</span>
-    <span class="n">k</span><span class="o">=</span><span class="n">K</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span>
-    <span class="s2">&quot;Precision@k = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">precision_at_k</span><span class="p">()),</span>
-    <span class="s2">&quot;Recall@k = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">recall_at_k</span><span class="p">()),</span>
-    <span class="s2">&quot;NDCG@k = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">ndcg_at_k</span><span class="p">()),</span>
-    <span class="s2">&quot;Mean average precision = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">map_at_k</span><span class="p">()),</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/chandrasingh/opt/anaconda3/envs/reco/lib/python3.8/site-packages/pyspark/sql/context.py:125: FutureWarning: Deprecated in 3.0.0. Use SparkSession.builder.getOrCreate() instead.
-  warnings.warn(
-                                                                                </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Precision@k = 0.043266171792152724
-Recall@k = 0.01443145319982623
-NDCG@k = 0.03709733077247258
-Mean average precision = 0.0033258968835808275
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fine-tune-the-model">Fine tune the model<a class="anchor-link" href="#Fine-tune-the-model">&#182;</a></h3><p>Prediction performance of a Spark ALS model is often affected by the parameters</p>
-<table>
-<thead><tr>
-<th>Parameter</th>
-<th>Description</th>
-<th>Default value</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>rank</code></td>
-<td>Number of latent factors</td>
-<td>10</td>
-<td>The larger the more intrinsic factors considered in the factorization modeling.</td>
-</tr>
-<tr>
-<td><code>regParam</code></td>
-<td>Regularization parameter</td>
-<td>1.0</td>
-<td>The value needs to be selected empirically to avoid overfitting.</td>
-</tr>
-<tr>
-<td><code>maxIters</code></td>
-<td>Maximum number of iterations</td>
-<td>10</td>
-<td>The more iterations the better the model converges to the optimal point.</td>
-</tr>
-</tbody>
-</table>
-<p>It is always a good practice to start model building with default parameter values and then sweep the parameter in a range to find the optimal combination of parameters. The following parameter set is used for training ALS models for comparison study purposes.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
-    <span class="s2">&quot;regParam&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Generate a dictionary for each parameter combination which can then be fed into model training.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_grid</span> <span class="o">=</span> <span class="n">generate_param_grid</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Train models with parameters specified in the parameter grid. Evaluate the model with, for example, the RMSE metric, and then record the metrics for visualization.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">:</span>
-    <span class="n">als</span> <span class="o">=</span> <span class="n">ALS</span><span class="p">(</span>        
-        <span class="n">userCol</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span> 
-        <span class="n">itemCol</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span> 
-        <span class="n">ratingCol</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span> 
-        <span class="n">coldStartStrategy</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">g</span>
-    <span class="p">)</span>
-    
-    <span class="n">model</span> <span class="o">=</span> <span class="n">als</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfs_train</span><span class="p">)</span>
-    
-    <span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dfs_test</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">)</span>
-    
-    <span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRatingEvaluation</span><span class="p">(</span>
-        <span class="n">dfs_test</span><span class="p">,</span> 
-        <span class="n">dfs_pred</span><span class="p">,</span>
-        <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
-        <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
-        <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
-        <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span>
-    <span class="p">)</span>
-
-    <span class="n">rmse_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rmse</span><span class="p">())</span>
-    
-<span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rmse_score</span><span class="p">]</span>
-<span class="n">rmse_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rmse_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/chandrasingh/opt/anaconda3/envs/reco/lib/python3.8/site-packages/pyspark/sql/context.py:125: FutureWarning: Deprecated in 3.0.0. Use SparkSession.builder.getOrCreate() instead.
-  warnings.warn(
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rmse_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rmse_score_array</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">),</span> 
-                       <span class="n">columns</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;reg. parameter&quot;</span><span class="p">))</span>
-<span class="n">rmse_df</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[44]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>reg. parameter</th>
-      <th>0.001</th>
-      <th>0.100</th>
-      <th>1.000</th>
-    </tr>
-    <tr>
-      <th>rank</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>10</th>
-      <td>1.3490</td>
-      <td>0.9277</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>1.4847</td>
-      <td>0.9299</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>1.5350</td>
-      <td>0.9294</td>
-      <td>1.3693</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">rmse_df</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.4g&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[62]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;AxesSubplot:xlabel=&#39;reg. parameter&#39;, ylabel=&#39;rank&#39;&gt;</pre>
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="als_deep_dive_files/als_deep_dive_45_1.png"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The calculated RMSE scores can be visualized to comparatively study how model performance is affected by different parameters.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It can be seen from this visualization that RMSE first decreases and then increases as rank increases, due to overfitting. When the rank equals 20 and the regularization parameter equals 0.1, the model achieves the lowest RMSE score.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Top-K-recommendation">Top K recommendation<a class="anchor-link" href="#Top-K-recommendation">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Top-k-for-all-users-(items)">Top k for all users (items)<a class="anchor-link" href="#Top-k-for-all-users-(items)">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs_rec</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">recommendForAllUsers</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs_rec</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>[Stage 2169:==============================================&gt;     (90 + 10) / 100]</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>+------+--------------------+
-|UserId|     recommendations|
-+------+--------------------+
-|     1|[{1536, 3.891199}...|
-|     3|[{1536, 3.1063848...|
-|     6|[{1536, 3.7354305...|
-|    12|[{1536, 4.4471893...|
-|    13|[{1536, 3.3997421...|
-|    16|[{1536, 4.5658073...|
-|    20|[{1536, 3.3140035...|
-|    22|[{1536, 3.7392457...|
-|    26|[{1536, 3.1729913...|
-|    27|[{1536, 3.4825768...|
-+------+--------------------+
-only showing top 10 rows
-
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>                                                                                </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Top-k-for-a-selected-set-of-users-(items)">Top k for a selected set of users (items)<a class="anchor-link" href="#Top-k-for-a-selected-set-of-users-(items)">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">users</span> <span class="o">=</span> <span class="n">dfs_train</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">als</span><span class="o">.</span><span class="n">getUserCol</span><span class="p">())</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="n">dfs_rec_subset</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">recommendForUserSubset</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dfs_rec_subset</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/two_sum.py</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given an array of integers, return indices of the two numbers</span>
+<span class="sd">such that they add up to a specific target.</span>
+
+<span class="sd">You may assume that each input would have exactly one solution,</span>
+<span class="sd">and you may not use the same element twice.</span>
+
+<span class="sd">Example:</span>
+<span class="sd">    Given nums = [2, 7, 11, 15], target = 9,</span>
+
+<span class="sd">    Because nums[0] + nums[1] = 2 + 7 = 9,</span>
+<span class="sd">    return (0, 1)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">sumMethod</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="n">dic</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dic</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">dic</span><span class="p">[</span><span class="n">value</span><span class="p">],</span> <span class="n">index</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dic</span><span class="p">[</span><span class="n">target</span> <span class="o">-</span> <span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="n">target</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sumMethod</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -14393,14 +13178,7 @@ only showing top 10 rows
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>+------+--------------------+
-|UserId|     recommendations|
-+------+--------------------+
-|   471|[{1536, 3.3287532...|
-|   463|[{1536, 3.1125836...|
-|   148|[{1536, 3.9075735...|
-+------+--------------------+
-
+<pre>(0, 3)
 </pre>
 </div>
 </div>
@@ -14412,456 +13190,7 @@ only showing top 10 rows
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Run-time-considerations-for-top-k-recommendations">Run-time considerations for top-k recommendations<a class="anchor-link" href="#Run-time-considerations-for-top-k-recommendations">&#182;</a></h4><p>It is worth noting that usually computing the top-k recommendations for all users is the bottleneck of the whole pipeline (model training and scoring) of an ALS based recommendation system. This is because</p>
-<ul>
-<li>Getting the top k from all user-item pairs requires a cross join which is usually very computationally expensive. </li>
-<li>Inner products of user-item pairs are calculated individually instead of leveraging matrix block multiplication features which are available in certain contemporary computing acceleration libraries (e.g., BLAS).</li>
-</ul>
-<p>More details about possible optimizations of the top k recommendations in Spark can be found <a href="https://engineeringblog.yelp.com/2018/05/scaling-collaborative-filtering-with-pyspark.html">here</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># cleanup spark instance</span>
-<span class="n">spark</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ol>
-<li>Yehuda Koren, Robert Bell, and Chris Volinsky, "Matrix Factorization Techniques for Recommender Systems
-", ACM Computer, Vol. 42, Issue 8, pp 30-37, Aug., 2009.</li>
-<li>Yifan Hu, Yehuda Koren, and Chris Volinsky, "Collaborative Filtering for Implicit Feedback Datasets
-", Proc. IEEE ICDM, 2008, Dec, Pisa, Italy.</li>
-<li>Apache Spark. url: <a href="https://spark.apache.org/docs/latest/ml-collaborative-filtering.html">https://spark.apache.org/docs/latest/ml-collaborative-filtering.html</a></li>
-<li>Seaborn. url: <a href="https://seaborn.pydata.org/">https://seaborn.pydata.org/</a></li>
-<li>Scaling collaborative filtering with PySpark. url: <a href="https://engineeringblog.yelp.com/2018/05/scaling-collaborative-filtering-with-pyspark.html">https://engineeringblog.yelp.com/2018/05/scaling-collaborative-filtering-with-pyspark.html</a></li>
-<li>Matrix Completion via Alternating Least Square (ALS). url: <a href="http://stanford.edu/~rezab/classes/cme323/S15/notes/lec14.pdf">http://stanford.edu/~rezab/classes/cme323/S15/notes/lec14.pdf</a></li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="My-Learnings">My Learnings<a class="anchor-link" href="#My-Learnings">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Setup-Environment">Setup Environment<a class="anchor-link" href="#Setup-Environment">&#182;</a></h2><ul>
-<li>Before starting to learn, working environment needs to be setup on local mac laptop <ol>
-<li>Create virtual environment for setting up kernel for interactive computing using Anaconda Jupyter and not pollute existing environment</li>
-<li>Setup ability to choose from multiple Java version</li>
-<li>Setup PySpark  </li>
-<li>Register environment variables with virtual environment and its associated ipykernel</li>
-<li>Setup git recommenders locally and build using the local git copy</li>
-</ol>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li><div class="alert alert-warning"> Check the active sh - bash or zsh, accordingly update ~/.bash_profile or ~/.zshrc</div></li>
-</ul>
-<blockquote><p><code>$SHELL --version</code></p>
-</blockquote>
-<p>zsh 5.8 (x86_64-apple-darwin21.0)</p>
-<ul>
-<li>Renamed config.json to be able to switch to different venv without authentication hassle<blockquote><p><code>cd ~/.jupyter/</code><br>
-<code>mv jupyter_notebook_config.json jupyter_notebook_config.json.bkp</code></p>
-</blockquote>
-</li>
-<li>Create new venv<blockquote><p><code>python --version</code>
-3.8.8<br>
-<code>conda create --name reco python=3.8.8</code><br>
-<code>conda activate reco</code></p>
-</blockquote>
-</li>
-<li>As a pre-requisite to installing the dependencies, if using Conda, make sure that Anaconda and the package manager Conda are both up to date<blockquote><p><code>conda update conda -n root</code><br>
-<code>conda install anaconda</code> since it is a new venv, otherwise <code>conda update anaconda</code><br>
-<code>pip install pyspark</code></p>
-</blockquote>
-</li>
-</ul>
-<p>Successfully installed py4j-0.10.9.3 pyspark-3.2.1</p>
-<ul>
-<li><a href="https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac">How to install java on mac</a>  <blockquote><p><code>brew tap adoptopenjdk/openjdk</code><br>
-<code>brew install --cask adoptopenjdk8</code></p>
-</blockquote>
-</li>
-<li>NOTE Spark requires Java version 8 or 11. We support Spark versions 3.0 and 3.1, but versions 2.4+ with Java version 8 may also work.<blockquote><p><code>brew install --cask adoptopenjdk11</code></p>
-</blockquote>
-</li>
-<li><p>If you want to install/manage multiple version then you can use 'jenv':</p>
-<blockquote><p><code>echo 'export PATH="$HOME/.jenv/bin:$PATH"' &gt;&gt; ~/.bash_profile</code><br>
-<code>echo 'eval "$(jenv init -)"' &gt;&gt; ~/.bash_profile</code><br>
-<code>source ~/.bash_profile</code></p>
-</blockquote>
-</li>
-<li><p>This will change the venv to base. Switch/Activate the environment</p>
-<blockquote><p><code>jenv doctor</code><br>
-No JAVA_HOME set</p>
-</blockquote>
-</li>
-<li>Add the installed java to jenv  <blockquote><p><code>jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home</code><br>
-<code>jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home</code><br>
-<code>jenv versions</code></p>
-</blockquote>
-</li>
-<li>Configure the java version which you want to use:  <blockquote><p><code>jenv global 11</code><br>
-<code>jenv versions</code></p>
-</blockquote>
-</li>
-<li>For v11<blockquote><p><code>echo 'export JAVA_HOME=$(/usr/libexec/java_home -v11)' &gt;&gt; ~/.bash_profile</code></p>
-</blockquote>
-</li>
-<li>or for v1.8<blockquote><p><code>echo 'export JAVA_HOME=$(/usr/libexec/java_home -v1.8)' &gt;&gt; ~/.bash_profile</code></p>
-</blockquote>
-</li>
-<li>If <code>jenv doctor</code> not set, use  <blockquote><p><code>echo 'eval "$(jenv init -)"' &gt;&gt; ~/.zshrc</code></p>
-</blockquote>
-</li>
-<li>Test <code>java --version</code> or <code>which java</code></li>
-<li>Setup PySpark<blockquote><p><code>RECO_ENV=$(conda env list | grep reco | awk '{print $NF}')</code><br>
-<code>mkdir -p $RECO_ENV/etc/conda/activate.d</code><br>
-<code>mkdir -p $RECO_ENV/etc/conda/deactivate.d</code></p>
-</blockquote>
-</li>
-<li>Then, create the file <code>\$RECO_ENV/etc/conda/activate.d/env_vars.sh</code> and add:<blockquote><p><code>#!/bin/sh</code><br>
-<code>RECO_ENV=$(conda env list | grep reco | awk '{print $NF}')</code><br>
-<code>export PYSPARK_PYTHON=$RECO_ENV/bin/python</code><br>
-<code>export PYSPARK_DRIVER_PYTHON=$RECO_ENV/bin/python</code><br>
-<code>unset SPARK_HOME</code></p>
-</blockquote>
-</li>
-<li>This will export the variables every time we do <code>conda activate reco</code>. To unset these variables when we deactivate the environment, create the file <code>$RECO_ENV/etc/conda/deactivate.d/env_vars.sh</code> and add:<blockquote><p><code>#!/bin/sh</code><br>
-<code>unset PYSPARK_PYTHON</code><br>
-<code>unset PYSPARK_DRIVER_PYTHON</code></p>
-</blockquote>
-</li>
-<li>Register environment as kernel in Jupyter<blockquote><p><code>python -m ipykernel install --name reco --display-name "Python (reco)"</code></p>
-</blockquote>
-</li>
-<li>Clone recommenders repo<blockquote><p><code>git clone https://github.com/microsoft/recommenders</code></p>
-</blockquote>
-</li>
-<li>Change root directory of recommenders git folder where <code>setup.py</code> sits</li>
-<li>Install recommenders and additional package setups<blockquote><p><code>pip install -e .</code></p>
-</blockquote>
-</li>
-<li>To roll back to older java version<blockquote><p><code>jenv local 1.8</code></p>
-</blockquote>
-</li>
-<li>Reinstate JAVA_HOME environment and relaunch kernel</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Collaborative-Filtering">Collaborative Filtering<a class="anchor-link" href="#Collaborative-Filtering">&#182;</a></h2><ul>
-<li>CF looks for similar users to recommend items </li>
-<li><p>CBF looks for similar contents to recommend items</p>
-</li>
-<li><p>CF aggregates past behaviour of all users and recommends items to user as per other users likes or dislikes</p>
-</li>
-</ul>
-<h4 id="Goals-of-Recommender-Systems">Goals of Recommender Systems<a class="anchor-link" href="#Goals-of-Recommender-Systems">&#182;</a></h4><ul>
-<li>Two primary type of models<ul>
-<li>Prediction type of problem<ul>
-<li>missing (or unobserved) values are predicted using this trained model</li>
-<li>this is also referred as matrix completion problem</li>
-</ul>
-</li>
-<li>Ranking type of problem<ul>
-<li>recommend the top-k items for a particular user</li>
-<li>determine the top-k users to target for a particular item</li>
-<li>this is also referred as top-k recommendation problem</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Types-of-collaborative-filtering">Types of collaborative filtering<a class="anchor-link" href="#Types-of-collaborative-filtering">&#182;</a></h4><ul>
-<li>There are two types of methods that are commonly used<ul>
-<li>memory-based methods (neighborhood-based CF algorithms)<ul>
-<li>ratings of user-item combinations are predicted on the basis of their neighborhoods<ul>
-<li>User-based CF or User-User CF<ul>
-<li>determine users who are similar to target user</li>
-<li>recommend ratings for the unobserved ratings of target user</li>
-<li>compute weighted averages of the ratings of this peer group</li>
-</ul>
-</li>
-<li>Item-based CF or Item-Item CF</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>model-based methods (latent factor model)<ul>
-<li>assumption is significant portions of the rows and columns of data matrices are highly correlated</li>
-<li>can be well approximated using a low-rank matrix</li>
-<li>other alternative is using expectation-maximization (EM) technique with dimensionality reduction</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://miro.medium.com/max/1400/1*EIBIiW2YiakP1ftxwPF8LA.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ALS-algorithm">ALS algorithm<a class="anchor-link" href="#ALS-algorithm">&#182;</a></h2><h3 id="Low-rank-approximation">Low-rank approximation<a class="anchor-link" href="#Low-rank-approximation">&#182;</a></h3><ul>
-<li>low rank approximation is used for data compression in images </li>
-<li>As image is an array of pixels, we can write it as a matrix</li>
-<li>find $B \approx AX$</li>
-</ul>
-<p><img src="../maths/images/low_rank_appr11.png" width=400 height=200><br>
-$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$</p>
-<ul>
-<li>column $b_{j}$ can be represented as a linear combination of columns that we picked for A</li>
-<li>column $b_{j}$ is approximately sum of some constant $\chi_{0}a_{0}$, $\chi_{1}a_{1}$, ..., </li>
-<li>we want to pick the best set of $\chi_{j}$ for this</li>
-<li>minimize that over all possible choices of x, which is known as linear least squares problem
-<img src="../maths/images/low_rank_appr2.png" width=400 height=400><br>
-$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$   </li>
-</ul>
-<ul>
-<li>if A has linearly independent columns, then the best such solution is given by $x_{j} = A^{-1}b_{j}$</li>
-<li>but because A has more rows than columns, we can't do that</li>
-<li>instead we can use <strong>pseudo-inverse</strong>, which is $x_{j} = (A^{T}A)^{-1}A^{T}b_{j}$</li>
-<li>this gives us $b_{j} \approx Ax_{j} = A(A^{T}A)^{-1}A^{T}b_{j} $
-<img src="../maths/images/low_rank_appr3.png" width=200 height=200><br>
-$\tiny{\text{YouTube - Advanced LAFF - ulaff.net}}$   </li>
-</ul>
-<ul>
-<li>To apply low-rank approximation in recommender system, assuming all entries in ratings matrix M are observed</li>
-<li>the matrix R is $(m x n)$ of rank $k \ll \min{\{m,n\}} $  <blockquote><p>$M = LR^{T}$</p>
-<ul>
-<li>where L is $m x k$ matrix and R is $n x k$ matrix, i.e., both L and R are rank-k factors</li>
-</ul>
-</blockquote>
-</li>
-<li>using one of below factorization methods we can approximately express the product of rank-k factors as <blockquote><p>$\hat{M} \approx L_{k}R_{k}^{T}$</p>
-</blockquote>
-</li>
-<li>The error of this approximation represents the noise in the underlying ratings matrix that cannot be modeled<blockquote><p>$\| (M-LR^{T})\|^{2}$</p>
-</blockquote>
-</li>
-</ul>
-<p><img src="https://dustinstansbury.github.io/theclevermachine/assets/images/svd-data-compression/low-rank-approximation.png" width=300 height=300><br>
-$\tiny{\text{Low rank matrix decomposition - https://dustinstansbury.github.io/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Unconstrained-Matrix-Factorization">Unconstrained Matrix Factorization<a class="anchor-link" href="#Unconstrained-Matrix-Factorization">&#182;</a></h4><ul>
-<li>How can one determine factors U and V, so that the specified matrix R matches closely with $UV^{T}$  <blockquote><p>$R = UV^{T}$</p>
-</blockquote>
-</li>
-<li>This can be formulated as an optimization problem wrt matrices U and V  <blockquote><p>Minimize $J = \frac{1}{2}\| R - UV^{T}\|^{2}$</p>
-<ul>
-<li>subject to no constraints on U and V. </li>
-</ul>
-</blockquote>
-</li>
-<li>The smaller the objective function is, better will be the quality of factorization</li>
-<li>This is a quadratic loss function</li>
-<li>This can be achieved by any of gradient descent methods</li>
-<li>However, in this matrix there are missing entries, so the objective function is not well defined </li>
-<li>Let the set of user-item pair (i,j) which are observed in R, be denoted by S<blockquote><p>$S = \{(i,j) : r_{ij}\text{ is observed}\}$</p>
-</blockquote>
-</li>
-<li>The predicted matrix R is <blockquote><p>$\hat{r}_{ij} = \sum\limits_{s=1}^{k}u_{is}v_{js}$</p>
-</blockquote>
-</li>
-<li>The difference between observed and predicted entries will be<blockquote><p>$e_{ij} = (r_{ij} - \hat{r}_{ij}) = (r_{ij} - \sum_{s=1}^{k}u_{is}v_{js})$</p>
-</blockquote>
-</li>
-<li>The modified objective function that works over observed entries in S only is<blockquote><p>Minimize $J = \frac{1}{2}\sum\limits_{(i,j \in S)}e_{ij}^{2} = \frac{1}{2}\sum\limits_{(i,j \in S)}(r_{ij} - \sum\limits_{s=1}^{k}u_{is}v_{js})^{2} $</p>
-</blockquote>
-</li>
-<li>This can be achieved simply with gradient descent methods</li>
-</ul>
-<h4 id="Regularization">Regularization<a class="anchor-link" href="#Regularization">&#182;</a></h4><ul>
-<li>Regularization reduces the tendency of model to overfit at the expense of introducing a bias in the model</li>
-<li>It discourages large values of the coefficients in U and V in order to encourage stability. </li>
-<li>So, a regularization term $\frac{\lambda}{2}(\|U\|^{2} + \|U\|^{2})$ is added to the objective function, where λ &gt; 0 is the regularization parameter<blockquote><p>Minimize $\begin{equation}\\
-\begin{aligned}\\
-J &amp;= \frac{1}{2}\sum\limits_{(i,j \in S )}e_{ij}^{2} + \frac{\lambda}{2}\sum\limits_{i=1}^{m} \sum\limits_{s=1}^{k} u_{is}^{2} + \frac{\lambda}{2}\sum\limits_{j=1}^{n} \sum\limits_{s=1}^{k} v_{js}^{2} \\  
-&amp;= \frac{1}{2}\sum\limits_{(i,j \in S)} \left(r_{ij} - \sum\limits_{s=1}^{k}u_{is}v_{js} \right)^{2} + \frac{\lambda}{2}\sum\limits_{i=1}^{m} \sum\limits_{s=1}^{k} u_{is}^{2} + \frac{\lambda}{2}\sum\limits_{j=1}^{n} \sum\limits_{s=1}^{k} v_{js}^{2} \\
-\end{aligned}\\
-\end{equation} $</p>
-</blockquote>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Implicit-Feedback">Implicit Feedback<a class="anchor-link" href="#Implicit-Feedback">&#182;</a></h4><ul>
-<li>Implicit feedback data sets such as web click-streams can help in recommendations about future activity</li>
-<li>In explicit feedback matrices, ratings correspond to (highly discriminated) preferences, whereas in implicit feedback matrices, ratings correspond to (less discriminated) confidences</li>
-<li>Implicit feedbacks are one that are inferred rather than direct as in explicit feedback matrices</li>
-<li>Such feedbacks are easier to obtain</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Other-factorization-algorithms">Other factorization algorithms<a class="anchor-link" href="#Other-factorization-algorithms">&#182;</a></h3><p>The surprise library provides good collection of recommender system matrix factorization algorithms like SVD, SVD++, Non-negative Matrix Factorization(NMF), Probabilistic Matrix Factorization(PMF)</p>
-<h4 id="SVD">SVD<a class="anchor-link" href="#SVD">&#182;</a></h4><p>The method usually referred to as "SVD" used in the context of recommendations is not strictly the mathematical Singular Value Decomposition of a matrix but rather an approximate way to compute the <a href="#Low-rank-approximation">low-rank approximation</a> of the matrix by minimizing the squared error loss. A more accurate, albeit more generic, way to call this would be Matrix Factorization.  The initial version of this approach in the context of the Netflix Prize was presented by Simon Funk in his famous <a href="https://sifter.org/~simon/journal/20061211.html">Try This at Home</a> blogpost</p>
-<h4 id="SVD++">SVD++<a class="anchor-link" href="#SVD++">&#182;</a></h4><h4 id="NMF">NMF<a class="anchor-link" href="#NMF">&#182;</a></h4><h4 id="PMF">PMF<a class="anchor-link" href="#PMF">&#182;</a></h4><h3 id="Sparsity">Sparsity<a class="anchor-link" href="#Sparsity">&#182;</a></h3><h3 id="Distributed-ALS">Distributed ALS<a class="anchor-link" href="#Distributed-ALS">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Spark">Spark<a class="anchor-link" href="#Spark">&#182;</a></h2><h3 id="Spark-internals">Spark internals<a class="anchor-link" href="#Spark-internals">&#182;</a></h3><h4 id="Spark-Application">Spark Application<a class="anchor-link" href="#Spark-Application">&#182;</a></h4><ul>
-<li>At the core of every Spark application is the SparkDriver program<ul>
-<li>this creates SparkSession object<ul>
-<li>this provides functionality to interact with Spark API</li>
-</ul>
-</li>
-<li>the SparkDriver converts your Spark application into one or more Spark jobs. <ul>
-<li>It transforms each job into a DAG. This is Spark’s execution plan where each node within a DAG could be a single or multiple Spark stages</li>
-</ul>
-</li>
-<li>A Spark user program consists of driver program and executors on cluster</li>
-</ul>
-</li>
-<li>Job<ul>
-<li>A parallel computation gets spawned for Spark action (save(), collect())</li>
-</ul>
-</li>
-<li>Stage<ul>
-<li>Each job gets divided into smaller sets of tasks called stages that depend on each other</li>
-</ul>
-</li>
-<li>Task<ul>
-<li>it is a single unit of work or execution sent to Spark executor</li>
-</ul>
-</li>
-</ul>
-<h4 id="Transformation,-Actions-and-Lazy-Evaluation">Transformation, Actions and Lazy Evaluation<a class="anchor-link" href="#Transformation,-Actions-and-Lazy-Evaluation">&#182;</a></h4><ul>
-<li>Transformations transform a Spark DataFrame into a new DataFrame without altering the original data(immutable datastores)</li>
-<li>Operation such as select() or filter() will not change the original DataFrame; instead, will return the transformed results of the operation as a new DataFrame</li>
-<li>All transformations are evaluated lazily, they are recorded and remembered as a lineage </li>
-<li>A recorded lineage allows Spark, at a later time in its execution plan, to rearrange certain transformations, coalesce them, or optimize transformations into stages for more efficient execution. Lazy evaluation is Spark’s strategy for delaying execution until an action is invoked or data is touched</li>
-<li>Nothing in a query plan is executed until an action is invoked </li>
-</ul>
-<h4 id="Narrow-transformation">Narrow transformation<a class="anchor-link" href="#Narrow-transformation">&#182;</a></h4><ul>
-<li>filter() and contains() represent narrow transformations because they can operate on a single partition and produce the resulting output partition without any exchange of data.</li>
-</ul>
-<h4 id="Wide-transformation">Wide transformation<a class="anchor-link" href="#Wide-transformation">&#182;</a></h4><ul>
-<li>data from other partitions are read in, combined, and written to disk. groupBy() will shuffle data across executor's partitions across cluster and then orderBy() will require output from other partitions to compute the final aggregation</li>
-</ul>
-<h4 id="Spark-UI">Spark UI<a class="anchor-link" href="#Spark-UI">&#182;</a></h4><ul>
-<li>GUI for monitoring the various jobs, stages and tasks, information on its execution detail</li>
-</ul>
-<h4 id="Resilient-Distributed-Dataset(RDD)">Resilient Distributed Dataset(RDD)<a class="anchor-link" href="#Resilient-Distributed-Dataset(RDD)">&#182;</a></h4><ul>
-<li>The main abstraction Spark provides is RDD, it is a collection of elements partitioned across the nodes of the cluster that can be operated on in parallel</li>
-<li>Spark can persist an RDD in memory allowing it to be reused efficiently across parallel operations</li>
-<li>RDDs automatically recover from node failures</li>
-<li>two ways to create RDDs: <ul>
-<li>parallelizing an existing collection in the driver program </li>
-<li>referencing a dataset in an external storage system, such as a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat</li>
-</ul>
-</li>
-<li>Another abstraction Spark provides is it has shared variables that can be used in parallel operations<ul>
-<li>two types of shared variables: <ul>
-<li>broadcast variables, which can be used to cache a value in memory on all nodes</li>
-<li>accumulators, which are variables that are only “added” to, such as counters and sums</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Project-Tungsten">Project Tungsten<a class="anchor-link" href="#Project-Tungsten">&#182;</a></h4><ul>
-<li>focuses on substantially improving the efficiency of memory and CPU for Spark applications, to push performance closer to the limits of modern hardware</li>
-<li>eliminates overhead of JVM object model and garbage collection</li>
-</ul>
-<h4 id="How-to-launch-Spark">How to launch Spark<a class="anchor-link" href="#How-to-launch-Spark">&#182;</a></h4><ul>
-<li>four way of using Spark interpreters: <ul>
-<li>pyspark api</li>
-<li>spark-shell</li>
-<li>spark-sql</li>
-<li>sparkR</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="PySpark">PySpark<a class="anchor-link" href="#PySpark">&#182;</a></h3><ul>
-<li>Apache Spark is written in Scala and is integrated with Python using PySpark. It provides interface with RDD using Py4j library</li>
-</ul>
-<h4 id="PySparkSQL">PySparkSQL<a class="anchor-link" href="#PySparkSQL">&#182;</a></h4><ul>
-<li>PySparkSQL is a PySpark library to apply SQL-like analysis on a huge amount of structured or semi-structured data<ul>
-<li>this can also connect to Apache Hive </li>
-</ul>
-</li>
-</ul>
-<h4 id="MLLib">MLLib<a class="anchor-link" href="#MLLib">&#182;</a></h4><ul>
-<li>MLlib is a wrapper over the PySpark and it is Spark’s machine learning (ML) library. This library uses the data parallelism technique to store and work with data. MLlib supports many machine-learning algorithms for classification, regression, clustering, collaborative filtering, dimensionality reduction, and underlying optimization primitives.</li>
-</ul>
-<h3 id="Spark-Joins">Spark Joins<a class="anchor-link" href="#Spark-Joins">&#182;</a></h3><p>ToRead: <a href="https://towardsdatascience.com/strategies-of-spark-join-c0e7b4572bcf">https://towardsdatascience.com/strategies-of-spark-join-c0e7b4572bcf</a></p>
-<h4 id="Broadcast-Hash-Join">Broadcast Hash Join<a class="anchor-link" href="#Broadcast-Hash-Join">&#182;</a></h4><p><img src="https://miro.medium.com/max/282/1*pd-YlCGD9v3W4Lk1tfN72Q.jpeg">
-$\tiny{\text{towardsdatascience.com - Jyoti Dhiman - Hash Join}}$<br>
-<img src="https://miro.medium.com/max/1400/1*pO_40cT0UhaiSP0fdT-sWw.jpeg">
-$\tiny{\text{towardsdatascience.com - Jyoti Dhiman - Broadcast Hash Join}}$</p>
-<h4 id="Shuffle-hash-join">Shuffle hash join<a class="anchor-link" href="#Shuffle-hash-join">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*Yjw7V8mh7FipB09ngnBn6A.jpeg"></p>
-<h4 id="Shuffle-sort-merge-join">Shuffle sort-merge join<a class="anchor-link" href="#Shuffle-sort-merge-join">&#182;</a></h4><p><img src="https://miro.medium.com/max/1282/1*03nmwDCmVaSDWVHMZTcFjA.jpeg">
-$\tiny{\text{towardsdatascience.com - Jyoti Dhiman - Sort Merge Join}}$<br>
-<img src="https://miro.medium.com/max/1400/1*6RA2wnol2zhH4Ps2UNJoxQ.jpeg">
-$\tiny{\text{towardsdatascience.com - Jyoti Dhiman - Shuffle sort-merge join}}$</p>
-
+<h4 id="Three-sum-(Medium)">Three sum (Medium)<a class="anchor-link" href="#Three-sum-(Medium)">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -14870,9 +13199,33 @@ $\tiny{\text{towardsdatascience.com - Jyoti Dhiman - Shuffle sort-merge join}}$<
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;System version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pandas version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PySpark version: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pyspark</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/three_sum.py</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given an array S of n integers, are there three distinct elements</span>
+<span class="sd">a, b, c in S such that a + b + c = 0?</span>
+<span class="sd">Find all unique triplets in the array which gives the sum of zero.</span>
+
+<span class="sd">Note: The solution set must not contain duplicate triplets.</span>
+
+<span class="sd">For example, given array S = [-1, 0, 1, 2, -1, -4],</span>
+
+<span class="sd">A solution set is:</span>
+<span class="sd">{</span>
+<span class="sd">  (-1, 0, 1),</span>
+<span class="sd">  (-1, -1, 2)</span>
+<span class="sd">}</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">three_sum</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
+    <span class="c1"># combs = set([tuple(sorted(t)) for t in combinations(array, 3)])</span>
+    <span class="c1"># result = {item for item in combs if sum(item) == 0}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">t</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">combinations</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">three_sum</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -14889,10 +13242,7 @@ $\tiny{\text{towardsdatascience.com - Jyoti Dhiman - Shuffle sort-merge join}}$<
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>System version: 3.8.8 (default, Apr 13 2021, 12:59:45) 
-[Clang 10.0.0 ]
-Pandas version: 1.4.1
-PySpark version: 3.2.1
+<pre>{(-1, 0, 1), (-1, -1, 2)}
 </pre>
 </div>
 </div>
@@ -14901,12 +13251,66 @@ PySpark version: 3.2.1
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Longest-substring-without-repeating-characters-(Medium)">Longest substring without repeating characters (Medium)<a class="anchor-link" href="#Longest-substring-without-repeating-characters-(Medium)">&#182;</a></h4>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># help(pyspark)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/longest_substring_wo_repeat.py</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given a string, find the length of the longest substring</span>
+<span class="sd">without repeating characters.</span>
+
+<span class="sd">Examples:</span>
+<span class="sd">Given &quot;abcabcbb&quot;, the answer is &quot;abc&quot;, which the length is 3.</span>
+<span class="sd">Given &quot;bbbbb&quot;, the answer is &quot;b&quot;, with the length of 1.</span>
+<span class="sd">Given &quot;pwwkew&quot;, the answer is &quot;wke&quot;, with the length of 3.</span>
+<span class="sd">Note that the answer must be a substring,</span>
+<span class="sd">&quot;pwke&quot; is a subsequence and not a substring.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">mainFun</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="n">str_arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">str_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_arr</span><span class="p">)</span>
+    <span class="n">outer_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">inner_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">str_len</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">str_len</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">sub_str</span> <span class="o">=</span> <span class="n">str_arr</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">tup</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sub_str</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">tup</span> <span class="ow">in</span> <span class="n">inner_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="c1"># print(f&quot;Duplicate={&#39;&#39;.join(sub_str)}: {tup}&quot;)</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">str2</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sub_str</span><span class="p">)</span>
+                <span class="n">inner_dict</span><span class="p">[</span><span class="n">str2</span><span class="p">]</span> <span class="o">=</span> <span class="n">tup</span>
+    <span class="c1"># print(inner_dict)</span>
+
+    <span class="n">max_length</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">inner_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">max_length</span><span class="p">:</span>
+            <span class="n">max_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+
+
+<span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;abcabcbb&quot;</span>
+<span class="n">mainFun</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;bbbbb&quot;</span>
+<span class="n">mainFun</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;pwwkew&quot;</span>
+<span class="n">mainFun</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="c1"># Not working right</span>
+<span class="n">string</span> <span class="o">=</span> <span class="s2">&quot;abcdefg&quot;</span>
+<span class="n">mainFun</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14916,22 +13320,6 @@ PySpark version: 3.2.1
 <div class="output_wrapper">
 <div class="output">
 
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>22/03/15 13:15:10 WARN Utils: Your hostname, Chandras-MacBook-Pro.local resolves to a loopback address: 127.0.0.1; using 192.168.0.244 instead (on interface en0)
-22/03/15 13:15:10 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
-Using Spark&#39;s default log4j profile: org/apache/spark/log4j-defaults.properties
-Setting default log level to &#34;WARN&#34;.
-To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-22/03/15 13:15:11 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
@@ -14939,7 +13327,10 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3.2.1
+<pre>abcabcbb : abc
+bbbbb : b
+pwwkew : pwwke
+abcdefg : abcdefg
 </pre>
 </div>
 </div>
@@ -14951,68 +13342,79 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Spark-MLlib">Spark MLlib<a class="anchor-link" href="#Spark-MLlib">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hyperparameters">Hyperparameters<a class="anchor-link" href="#Hyperparameters">&#182;</a></h2>
+<h4 id="Median-of-Two-Sorted-Arrays-(Hard)">Median of Two Sorted Arrays (Hard)<a class="anchor-link" href="#Median-of-Two-Sorted-Arrays-(Hard)">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">param_dict</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;rank&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-    <span class="s2">&quot;regParam&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-<span class="p">}</span>
-<span class="k">def</span> <span class="nf">testModelPerformance</span><span class="p">(</span><span class="n">param_dict</span><span class="p">):</span>
-    <span class="n">param_grid</span> <span class="o">=</span> <span class="n">generate_param_grid</span><span class="p">(</span><span class="n">param_dict</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/median_sorted_array.py</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.</span>
 
-    <span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="sd">    The overall run time complexity should be O(log (m+n)).</span>
 
-    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">param_grid</span><span class="p">:</span>
-        <span class="n">als</span> <span class="o">=</span> <span class="n">ALS</span><span class="p">(</span>        
-            <span class="n">userCol</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span> 
-            <span class="n">itemCol</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span> 
-            <span class="n">ratingCol</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span> 
-            <span class="n">coldStartStrategy</span><span class="o">=</span><span class="s2">&quot;drop&quot;</span><span class="p">,</span>
-            <span class="o">**</span><span class="n">g</span>
-        <span class="p">)</span>
+<span class="sd">    Example 1:</span>
 
-        <span class="n">model</span> <span class="o">=</span> <span class="n">als</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfs_train</span><span class="p">)</span>
+<span class="sd">    Input: nums1 = [1,3], nums2 = [2]</span>
+<span class="sd">    Output: 2.00000</span>
+<span class="sd">    Explanation: merged array = [1,2,3] and median is 2.</span>
+<span class="sd">    Example 2:</span>
 
-        <span class="n">dfs_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">dfs_test</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">COL_RATING</span><span class="p">)</span>
+<span class="sd">    Input: nums1 = [1,2], nums2 = [3,4]</span>
+<span class="sd">    Output: 2.50000</span>
+<span class="sd">    Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.</span>
 
-        <span class="n">evaluations</span> <span class="o">=</span> <span class="n">SparkRatingEvaluation</span><span class="p">(</span>
-            <span class="n">dfs_test</span><span class="p">,</span> 
-            <span class="n">dfs_pred</span><span class="p">,</span>
-            <span class="n">col_user</span><span class="o">=</span><span class="n">COL_USER</span><span class="p">,</span>
-            <span class="n">col_item</span><span class="o">=</span><span class="n">COL_ITEM</span><span class="p">,</span>
-            <span class="n">col_rating</span><span class="o">=</span><span class="n">COL_RATING</span><span class="p">,</span>
-            <span class="n">col_prediction</span><span class="o">=</span><span class="n">COL_PREDICTION</span>
-        <span class="p">)</span>
 
-        <span class="n">rmse_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rmse</span><span class="p">())</span>
+<span class="sd">    Constraints:</span>
 
-    <span class="n">rmse_score</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.4f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">rmse_score</span><span class="p">]</span>
-    <span class="n">mae_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">mae</span><span class="p">())</span>
-    <span class="n">rsquared_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">rsquared</span><span class="p">())</span>
-    <span class="n">exp_var_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">evaluations</span><span class="o">.</span><span class="n">exp_var</span><span class="p">())</span>
-    
-    <span class="n">rmse_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rmse_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
-    <span class="n">mae_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mae_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
-    <span class="n">rsquared_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rsquared_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
-    <span class="n">exp_var_score_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">exp_var_score</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">])))</span> 
+<span class="sd">    nums1.length == m</span>
+<span class="sd">    nums2.length == n</span>
+<span class="sd">    0 &lt;= m &lt;= 1000</span>
+<span class="sd">    0 &lt;= n &lt;= 1000</span>
+<span class="sd">    1 &lt;= m + n &lt;= 2000</span>
+<span class="sd">    -106 &lt;= nums1[i], nums2[i] &lt;= 106</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">findMedianSortedArrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type nums1: List[int]</span>
+<span class="sd">        :type nums2: List[int]</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">l1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span>
+        <span class="n">l2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span>
+        <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="n">snums</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="n">l1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">i2</span> <span class="o">&lt;</span> <span class="n">l2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums1</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums2</span><span class="p">[</span><span class="n">i2</span><span class="p">]:</span>
+                <span class="n">snums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i1</span><span class="p">])</span>
+                <span class="n">i1</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">snums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nums2</span><span class="p">[</span><span class="n">i2</span><span class="p">])</span>
+                <span class="n">i2</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">i1</span> <span class="o">&lt;</span> <span class="n">l1</span><span class="p">:</span>
+            <span class="n">snums</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i1</span><span class="p">:])</span>
+        <span class="k">if</span> <span class="n">i2</span> <span class="o">&lt;</span> <span class="n">l2</span><span class="p">:</span>
+            <span class="n">snums</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">nums2</span><span class="p">[</span><span class="n">i2</span><span class="p">:])</span>
 
-    <span class="n">rmse_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rmse_score_array</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;rank&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;rank&quot;</span><span class="p">),</span> 
-                           <span class="n">columns</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">param_dict</span><span class="p">[</span><span class="s2">&quot;regParam&quot;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;reg. parameter&quot;</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">rmse_df</span>
+        <span class="n">median</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">snums</span><span class="p">:</span>
+            <span class="n">mid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">snums</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">snums</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">median</span> <span class="o">=</span> <span class="n">snums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="c1"># Odd</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">median</span> <span class="o">=</span> <span class="p">(</span><span class="n">snums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">+</span> <span class="n">snums</span><span class="p">[</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span> <span class="c1"># Even</span>
+
+        <span class="k">return</span> <span class="n">snums</span><span class="p">,</span> <span class="n">median</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="n">nums1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">nums2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">findMedianSortedArrays</span><span class="p">(</span><span class="n">nums1</span><span class="p">,</span> <span class="n">nums2</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -15028,236 +13430,70 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/chandrasingh/opt/anaconda3/envs/reco/lib/python3.8/site-packages/pyspark/sql/context.py:125: FutureWarning: Deprecated in 3.0.0. Use SparkSession.builder.getOrCreate() instead.
-  warnings.warn(
-                                                                                </pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>([1, 2, 3, 4], 2.5)
+</pre>
 </div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[66]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>reg. parameter</th>
-      <th>0.001</th>
-      <th>0.050</th>
-      <th>0.100</th>
-      <th>0.200</th>
-      <th>0.300</th>
-      <th>0.400</th>
-      <th>0.500</th>
-      <th>0.600</th>
-      <th>0.700</th>
-      <th>0.800</th>
-      <th>0.900</th>
-      <th>1.000</th>
-    </tr>
-    <tr>
-      <th>rank</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>5</th>
-      <td>1.0960</td>
-      <td>0.9384</td>
-      <td>0.9231</td>
-      <td>0.9390</td>
-      <td>0.9775</td>
-      <td>1.0206</td>
-      <td>1.0637</td>
-      <td>1.1138</td>
-      <td>1.1703</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>1.3490</td>
-      <td>0.9702</td>
-      <td>0.9277</td>
-      <td>0.9392</td>
-      <td>0.9787</td>
-      <td>1.0211</td>
-      <td>1.0639</td>
-      <td>1.1138</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>1.4847</td>
-      <td>0.9819</td>
-      <td>0.9299</td>
-      <td>0.9385</td>
-      <td>0.9784</td>
-      <td>1.0209</td>
-      <td>1.0638</td>
-      <td>1.1138</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>1.5350</td>
-      <td>0.9824</td>
-      <td>0.9294</td>
-      <td>0.9395</td>
-      <td>0.9792</td>
-      <td>1.0214</td>
-      <td>1.0639</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>1.5790</td>
-      <td>0.9874</td>
-      <td>0.9298</td>
-      <td>0.9400</td>
-      <td>0.9797</td>
-      <td>1.0217</td>
-      <td>1.0641</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>1.5733</td>
-      <td>0.9782</td>
-      <td>0.9278</td>
-      <td>0.9399</td>
-      <td>0.9794</td>
-      <td>1.0214</td>
-      <td>1.0640</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>1.5805</td>
-      <td>0.9791</td>
-      <td>0.9263</td>
-      <td>0.9400</td>
-      <td>0.9798</td>
-      <td>1.0219</td>
-      <td>1.0642</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>1.5718</td>
-      <td>0.9717</td>
-      <td>0.9275</td>
-      <td>0.9401</td>
-      <td>0.9794</td>
-      <td>1.0214</td>
-      <td>1.0640</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>45</th>
-      <td>1.5657</td>
-      <td>0.9646</td>
-      <td>0.9257</td>
-      <td>0.9405</td>
-      <td>0.9796</td>
-      <td>1.0215</td>
-      <td>1.0640</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>1.5647</td>
-      <td>0.9659</td>
-      <td>0.9244</td>
-      <td>0.9401</td>
-      <td>0.9800</td>
-      <td>1.0220</td>
-      <td>1.0642</td>
-      <td>1.1139</td>
-      <td>1.1702</td>
-      <td>1.2321</td>
-      <td>1.2987</td>
-      <td>1.3693</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
 </div>
 
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Container-with-most-water-(Medium)">Container with most water (Medium)<a class="anchor-link" href="#Container-with-most-water-(Medium)">&#182;</a></h4>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">rmse_df</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.4g&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/container_with_most_water.py</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints</span>
+<span class="sd">    of the ith line are (i, 0) and (i, height[i]).</span>
+
+<span class="sd">    Find two lines that together with the x-axis form a container, such that the container contains the most water.</span>
+
+<span class="sd">    Return the maximum amount of water a container can store.</span>
+
+<span class="sd">    Notice that you may not slant the container.</span>
+
+<span class="sd">    Example 1:</span>
+
+<span class="sd">    Input: height = [1,8,6,2,5,4,8,3,7]</span>
+<span class="sd">    Output: 49</span>
+<span class="sd">    Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of</span>
+<span class="sd">    water (blue section) the container can contain is 49.</span>
+<span class="sd">    Example 2:</span>
+
+<span class="sd">    Input: height = [1,1]</span>
+<span class="sd">    Output: 1</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">maxArea</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type height: List[int]</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">xArea</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">:</span>
+            <span class="n">xArea</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">xArea</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">height</span><span class="p">[</span><span class="n">l</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">r</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">))</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">height</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">height</span><span class="p">[</span><span class="n">r</span><span class="p">]):</span>
+                <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">xArea</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="n">height</span> <span class="o">=</span>  <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">maxArea</span><span class="p">(</span><span class="n">height</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -15270,53 +13506,205 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[68]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;AxesSubplot:xlabel=&#39;reg. parameter&#39;, ylabel=&#39;rank&#39;&gt;</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>49
+</pre>
+</div>
 </div>
 
 </div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Three-sum-closet-(Medium)">Three sum closet (Medium)<a class="anchor-link" href="#Three-sum-closet-(Medium)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/three_sum_closet.py</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Given an integer array nums of length n and an integer target, find three integers in nums such that the</span>
+<span class="sd">    sum is closest to target.</span>
+
+<span class="sd">    Return the sum of the three integers.</span>
+
+<span class="sd">    You may assume that each input would have exactly one solution.</span>
+
+<span class="sd">    Example 1:</span>
+<span class="sd">        Input: nums = [-1,2,1,-4], target = 1</span>
+<span class="sd">        Output: 2</span>
+<span class="sd">        Explanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).</span>
+
+<span class="sd">    Example 2:</span>
+<span class="sd">        Input: nums = [0,0,0], target = 1</span>
+<span class="sd">        Output: 0</span>
+
+<span class="sd">    Constraints:</span>
+<span class="sd">         3 &lt;= nums.length &lt;= 1000</span>
+<span class="sd">        -1000 &lt;= nums[i] &lt;= 1000</span>
+<span class="sd">        -10^4 &lt;= target &lt;= 10^4</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">threeSumClosest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type nums: List[int]</span>
+<span class="sd">        :type target: int</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># combs = [elements for elements in combinations(nums, 3)]</span>
+        <span class="c1"># difference = [abs(target - sum(elements)) for elements in combs]</span>
+        <span class="c1"># print(combs, difference)</span>
+        <span class="c1"># return sum(combs[difference.index(min(difference))])</span>
+
+        <span class="n">overall_sum</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+        <span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)):</span>
+            <span class="n">l</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">l</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">):</span>
+                <span class="n">local_sum</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">h</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">local_sum</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">overall_sum</span><span class="p">):</span>
+                    <span class="n">overall_sum</span> <span class="o">=</span> <span class="n">target</span> <span class="o">-</span> <span class="n">local_sum</span>
+                <span class="k">if</span> <span class="n">local_sum</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+                    <span class="n">l</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">h</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">overall_sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="n">target</span> <span class="o">-</span> <span class="n">overall_sum</span>
+
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="c1"># nums = [-86,8,0,-79,-23,88,-26,-17,41,70,1,29,3,-52,-30,-31,14,42,4,-52,-77,-39,91,-13,98,41,-16,-8,91,54,50,1,-22,45,30,20,-36,-41,-48,-25,-3,76,69,-38,78,-45,-75,-57,55,-23,65,-23,69,60,85,-95,84,-73,-21,43,35,58,66,6,-49,38,-5,46,-24,23,-23,63,55,-91,80,-73,-53,24,-77,-5,-93,4,2,-71,23,2,-44,-19,33,73,9,-94,41,81,-14,43,27,3,-65,-89,0,-100,-89,-76,95,0,-60,65,-77,85,-29,98,-8,18,41,-93,-64,51,-77,-39,-75,-6,-65,0,-15,66,80,67,-96,26,-57,-43,-76,72,20,-55,-83,95,-65,22,-47,-90,-83,13,6,81,-23,-50,-17,17,100,99,66,-62,-21,76,37,60,-88,64,78,-90,67,-65,-62,55,-87,-75,-79,14,87,-100,-87,9,-98,0,-83,7,29,33,-87,-50,6,-57,28,17,26,4]</span>
+<span class="c1"># target = 136</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>
+<span class="c1"># nums = [-1,2,1,-4]</span>
+<span class="c1"># target = 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">threeSumClosest</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">target</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area">
 
     <div class="prompt"></div>
 
 
-
-
-<div class="output_png output_subarea ">
-<img src="als_deep_dive_files/als_deep_dive_74_1.png"
->
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2
+</pre>
 </div>
-
 </div>
 
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Next-Permutation-(Medium)">Next Permutation (Medium)<a class="anchor-link" href="#Next-Permutation-(Medium)">&#182;</a></h4><p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Orderings%3B_6_choose_3.svg/680px-Orderings%3B_6_choose_3.svg.png" width=300 height=400></p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(dir(pyspark))</span>
-<span class="c1"># help(SparkSession)</span>
-<span class="c1"># help(CrossValidator)</span>
-<span class="c1"># help(StructType)</span>
-<span class="c1"># help(IntegerType)</span>
-<span class="c1"># help(movielens)</span>
-<span class="c1"># help(start_or_get_spark)</span>
-<span class="c1"># help(SparkRankingEvaluation)</span>
-<span class="c1"># help(SparkRatingEvaluation)</span>
-<span class="c1"># help(ALS)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/arrays/next_permutation.py</span>
+<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A permutation of an array of integers is an arrangement of its members into a sequence or linear order.</span>
 
-<span class="c1"># help(model.transform)</span>
-<span class="c1"># dir(pyspark.ml.recommendation)</span>
+<span class="sd">    For example, for arr = [1,2,3], the following are considered permutations of arr: [1,2,3], [1,3,2], [3,1,2],</span>
+<span class="sd">    [2,3,1].</span>
+<span class="sd">    The next permutation of an array of integers is the next lexicographically greater permutation of its integer.</span>
+<span class="sd">    More formally, if all the permutations of the array are sorted in one container according to their</span>
+<span class="sd">    lexicographical order, then the next permutation of that array is the permutation that follows it in the</span>
+<span class="sd">    sorted container. If such arrangement is not possible, the array must be rearranged as the lowest possible</span>
+<span class="sd">    order (i.e., sorted in ascending order).</span>
+
+<span class="sd">    For example, the next permutation of arr = [1,2,3] is [1,3,2].</span>
+<span class="sd">    Similarly, the next permutation of arr = [2,3,1] is [3,1,2].</span>
+<span class="sd">    While the next permutation of arr = [3,2,1] is [1,2,3] because [3,2,1] does not have a lexicographical larger</span>
+<span class="sd">    rearrangement.</span>
+<span class="sd">    Given an array of integers nums, find the next permutation of nums.</span>
+
+<span class="sd">    The replacement must be in place and use only constant extra memory.</span>
+
+<span class="sd">    Example 1:</span>
+<span class="sd">        Input: nums = [1,2,3]</span>
+<span class="sd">        Output: [1,3,2]</span>
+<span class="sd">    Example 2:</span>
+<span class="sd">        Input: nums = [3,2,1]</span>
+<span class="sd">        Output: [1,2,3]</span>
+<span class="sd">    Example 3:</span>
+<span class="sd">        Input: nums = [1,1,5]</span>
+<span class="sd">        Output: [1,5,1]</span>
+
+<span class="sd">    Constraints:</span>
+<span class="sd">        1 &lt;= nums.length &lt;= 100</span>
+<span class="sd">        0 &lt;= nums[i] &lt;= 100</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">nextPermutation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type nums: List[int]</span>
+<span class="sd">        :rtype: None Do not return anything, modify nums in-place instead.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># 1 2 3 -&gt; 1 3 2</span>
+        <span class="c1"># 3 2 1 -&gt; 1 2 3</span>
+        <span class="c1"># 1 1 5 -&gt; 1 5 1</span>
+        <span class="c1"># 1 3 5 4 3 2 1 -&gt; 1 4 1 2 3 3 5</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># find pivot &quot;position&quot;- loop from back to front, to check if previous element is smaller than next</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="n">pivot</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>
+
+        <span class="c1"># if array is in descending order, sort them, and return</span>
+        <span class="k">if</span> <span class="n">pivot</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">nums</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="c1"># find pivot &quot;element&quot; among element from pivot to the end(next lexicographical element)</span>
+        <span class="n">swap</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">nums</span><span class="p">[</span><span class="n">swap</span><span class="p">]):</span>
+            <span class="n">swap</span> <span class="o">-=</span> <span class="mi">1</span>
+
+        <span class="c1"># swap &quot;pivot element&quot; with next &quot;lexicographical element&quot;, and then sort all elements post pivot</span>
+        <span class="n">nums</span><span class="p">[</span><span class="n">swap</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">swap</span><span class="p">]</span>
+        <span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="p">:]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">pivot</span><span class="p">:])</span>
+        <span class="k">return</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># nums = [1,1,5]</span>
+<span class="n">s</span><span class="o">.</span><span class="n">nextPermutation</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -15327,25 +13715,22 @@ To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLeve
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="References">References<a class="anchor-link" href="#References">&#182;</a></h2><ol>
-<li>Recommender Systems by Charu C. Aggarwal</li>
-<li>Learning Spark 2.0 by Jules S. Damji, Brooke Wenig, Tathagata Das &amp; Denny Lee</li>
-<li>Collaborative Filtering for Implicit Feedback Datasets, by Yifan Hu, Yehuda Koren, Chris Volinsky</li>
-<li><a href="https://github.com/gpfvic/IRR/blob/master/Factorization%20meets%20the%20neighborhood-%20a%20multifaceted%20collaborative%20filtering%20model.pdf">Factorization Meets the Neighborhood: a Multifaceted Collaborative Filtering Model by Yehuda Koren</a></li>
-<li><a href="https://spark.apache.org/docs/latest/rdd-programming-guide.html">Spark Programming Guide @ spark.apache.org</a></li>
-<li><a href="https://towardsdatascience.com/strategies-of-spark-join-c0e7b4572bcf">Spark Join Strategies @ towardsdatascience.com</a></li>
-<li><a href="https://towardsdatascience.com/build-recommendation-system-with-pyspark-using-alternating-least-squares-als-matrix-factorisation-ebe1ad2e7679">Collaborative Filtering @ towardsdatascience.com</a></li>
-</ol>
+<h4 id="Maximum-sum-obtained-of-any-permutation-(Medium)">Maximum sum obtained of any permutation (Medium)<a class="anchor-link" href="#Maximum-sum-obtained-of-any-permutation-(Medium)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
+    </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 
-</div>
-</div>
 </div>
     </div>
   </div>
