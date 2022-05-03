@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.390625px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.385px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13516,6 +13516,30 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Estimating-Errors">Estimating Errors<a class="anchor-link" href="#Estimating-Errors">&#182;</a></h3><ul>
+<li>Error Metrics<ul>
+<li>MAE (Mean Absolute Error)</li>
+<li>MSE (Mean Squared Error)</li>
+</ul>
+</li>
+<li>Accuracy Metrics<ul>
+<li>Precision</li>
+<li>Recall</li>
+</ul>
+</li>
+<li>Ranking Metrics<ul>
+<li>MAP (Mean Average Precision)</li>
+<li>AUC (Area Under the Curve)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Evaluation-Metrics---Distribution-Fit">Evaluation Metrics - Distribution Fit<a class="anchor-link" href="#Evaluation-Metrics---Distribution-Fit">&#182;</a></h3><h4 id="Bayesian-information-criterion">Bayesian information criterion<a class="anchor-link" href="#Bayesian-information-criterion">&#182;</a></h4><h4 id="Kolmogorov&#8211;Smirnov-test">Kolmogorov&#8211;Smirnov test<a class="anchor-link" href="#Kolmogorov&#8211;Smirnov-test">&#182;</a></h4><h4 id="Cram&#233;r&#8211;von-Mises-criterion">Cram&#233;r&#8211;von Mises criterion<a class="anchor-link" href="#Cram&#233;r&#8211;von-Mises-criterion">&#182;</a></h4><h4 id="Anderson&#8211;Darling-test">Anderson&#8211;Darling test<a class="anchor-link" href="#Anderson&#8211;Darling-test">&#182;</a></h4><h4 id="Shapiro&#8211;Wilk-test">Shapiro&#8211;Wilk test<a class="anchor-link" href="#Shapiro&#8211;Wilk-test">&#182;</a></h4><h4 id="Chi-square-test">Chi-square test<a class="anchor-link" href="#Chi-square-test">&#182;</a></h4><ul>
 <li><a href="http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/fit.pdf">http://www.medicine.mcgill.ca/epidemiology/joseph/courses/EPIB-621/fit.pdf</a></li>
 <li><a href="https://stats.stackexchange.com/questions/173748/what-does-goodness-of-fit-mean-in-context-of-linear-regression">https://stats.stackexchange.com/questions/173748/what-does-goodness-of-fit-mean-in-context-of-linear-regression</a></li>
@@ -13530,19 +13554,23 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <h3 id="Evaluation-Metrics---Classification">Evaluation Metrics - Classification<a class="anchor-link" href="#Evaluation-Metrics---Classification">&#182;</a></h3><h4 id="Confusion-Matrix">Confusion Matrix<a class="anchor-link" href="#Confusion-Matrix">&#182;</a></h4><p><img src="https://miro.medium.com/max/1220/1*ZRU18eG-F5Sjtcph9ru8Og.png" width=500 height=500></p>
 <p><img src="https://miro.medium.com/max/658/1*GJLE_YxjlSA5o_TJ9B_h5A.png" width=500 height=500></p>
 <p><img src="https://miro.medium.com/max/700/1*KPXQ6VBc1foXXWgkn1q4BA.png" width=500 height=500></p>
-<h4 id="Sensitivity">Sensitivity<a class="anchor-link" href="#Sensitivity">&#182;</a></h4><ul>
-<li>This tells us what percentage of people <strong>with</strong> heart disease were actually correctly identified
-$$\text{Sensitivity} = \frac{\text{Number of true positive}}{\text{Number of true positive + Number of false negative}}$$</li>
-<li>Sensitivity is same as <strong>True Positive Rate(TPR)</strong>
-$$\text{True Positive Rate(TPR) = Sensitivity} = \frac{\text{Number of true positive}}{\text{Number of true positive + Number of false negative}}$$</li>
+<h4 id="Precision/Positive-Predictive-Value(PPV)">Precision/Positive Predictive Value(PPV)<a class="anchor-link" href="#Precision/Positive-Predictive-Value(PPV)">&#182;</a></h4>$$\text{Precision} = \frac{t_{p}}{t_{p} + f_{p}}$$<h4 id="Sensitivity/Recall/Hit-Rate/TPR">Sensitivity/Recall/Hit Rate/TPR<a class="anchor-link" href="#Sensitivity/Recall/Hit-Rate/TPR">&#182;</a></h4><ul>
+<li>This tells us what percentage of people <strong>with</strong> heart disease were actually correctly identified</li>
+<li><strong>Sensitivity/Recall</strong> is same as <strong>True Positive Rate(TPR)</strong>
+$$\text{True Positive Rate(TPR) = Sensitivity = Recall} = \frac{t_{p}}{t_{p} + f_{n}}$$</li>
 </ul>
-<h4 id="Specificity">Specificity<a class="anchor-link" href="#Specificity">&#182;</a></h4><ul>
-<li>This tells us what percentage of people <strong>without</strong> heart disease were actually correctly identified
-$$\text{Specificity} = \frac{\text{Number of true negative}}{\text{Number of true negative + Number of false positive}}$$</li>
+<h4 id="Specificity/Selectivity/TNR">Specificity/Selectivity/TNR<a class="anchor-link" href="#Specificity/Selectivity/TNR">&#182;</a></h4><ul>
+<li>This tells us what percentage of people <strong>without</strong> heart disease were actually correctly identified</li>
 <li>Specificity is same as <strong>(1 - False Positive Rate)</strong>
-$$\text{False Positive Rate(FPR) = (1 - Specificity)} = \frac{\text{Number of false positive}}{\text{Number of true negative + Number of false positive}}$$</li>
+$$\text{Specificity} = \frac{t_{n}}{t_{n} + f_{p}}$$</li>
 </ul>
-<h4 id="How-to-identify-the-correct-threshold">How to identify the correct threshold<a class="anchor-link" href="#How-to-identify-the-correct-threshold">&#182;</a></h4><p><strong>Lower the threshold</strong></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/350px-Precisionrecall.svg.png" width=500 height=500></p>
+<h4 id="F1">F1<a class="anchor-link" href="#F1">&#182;</a></h4><ul>
+<li>F1 is an overall measure of a model’s accuracy that combines precision and recall</li>
+<li>A good F1 score means that you have low false positives and low false negatives, so you’re correctly identifying real threats and you are not disturbed by false alarms. </li>
+<li>An F1 score is considered perfect when it’s 1, while the model is a total failure when it’s 0.</li>
+</ul>
+$$\text{F1} = \frac{2 * \text{Precision} * \text{Recall}}{\text{Precision} + \text{Recall}}$$<h4 id="How-to-identify-the-correct-threshold">How to identify the correct threshold<a class="anchor-link" href="#How-to-identify-the-correct-threshold">&#182;</a></h4><p><strong>Lower the threshold</strong></p>
 <ul>
 <li>increase in number of false positive</li>
 <li>decrease in number of false negative</li>
@@ -13809,6 +13837,90 @@ $$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-Selection/Validation">Model Selection/Validation<a class="anchor-link" href="#Model-Selection/Validation">&#182;</a></h3><ul>
+<li>typical split - train(50%), validate(25%), test(25%)</li>
+</ul>
+<p><strong>How to choose one among a set of candidate models</strong></p>
+<ul>
+<li>analytical - probabilistic statistical measure<ul>
+<li>benefit<ul>
+<li>test dataset is not required</li>
+<li>entire dataset is used to fit the model</li>
+<li>final model based on score prediction</li>
+</ul>
+</li>
+<li>limitation<ul>
+<li>cannot apply to compare different models</li>
+<li>metric derived for each model is different</li>
+<li>do not take inaccount uncertainty of the model, favour simple models</li>
+</ul>
+</li>
+<li>types<ul>
+<li>AIC - Akaike Information Criterion<ul>
+<li>scoring based on its log-likelihood and complexity</li>
+<li>derived from frequentist probability</li>
+<li>AIC deals with trade-off between goodness of fit of model and  simplicity of the model </li>
+<li>AIC deals with both the risk of overfitting and the risk of underfitting</li>
+<li>AIC estimates the relative amount of information lost by a given model: the <strong>less information a model loses, the higher the quality of that model</strong></li>
+</ul>
+</li>
+<li>BIC - Bayesian Information Criterion<ul>
+<li>scoring based on its log-likelihood and complexity</li>
+<li>derived from Bayesian probability</li>
+<li>the penalty is different from AIC</li>
+</ul>
+</li>
+<li>MDL - Minimum Description Length<ul>
+<li>comes from information theory</li>
+</ul>
+</li>
+<li>SRM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>sampling method<ul>
+<li>types<ul>
+<li>cross validation<ul>
+<li>LOOCV - Leave-One-Out CV</li>
+<li>Stratified</li>
+<li>Repeated</li>
+<li>Nested</li>
+</ul>
+</li>
+<li>bootstrap</li>
+<li>jackknife</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+$$AIC = - 2\frac{LL}{N} + 2\frac{d}{N} $$<ul>
+<li>where <ul>
+<li>N - number of examples in training dataset</li>
+<li>LL - log-likelihood of the model on the training dataset</li>
+<li>d - number of parameters in the model</li>
+</ul>
+</li>
+</ul>
+$$BIC = -2 LL + d\ln{N} $$<ul>
+<li>hold out<ul>
+<li>split data into train and test set</li>
+<li>dependent on how the data is split</li>
+</ul>
+</li>
+<li>cross validation or k-fold<ul>
+<li>dataset is randomly split into k-groups</li>
+<li>one is used as test set, rest as training set</li>
+<li>gives model opportunity to train on multiple train-test split</li>
+<li>requirees more computational power and time</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://robjhyndman.com/hyndsight/crossvalidation/">https://robjhyndman.com/hyndsight/crossvalidation/</a></li>
+<li><a href="https://robjhyndman.com/hyndsight/aic/">https://robjhyndman.com/hyndsight/aic/</a></li>
+</ul>
 
 </div>
 </div>
