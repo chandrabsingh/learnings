@@ -14,6 +14,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
 - evaluate performance of classification algorithms on adult income dataset
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset
+- store sales forecasting using tensorflow on kaggle walmart dataset
 - weka visualization
 - mixture models using em algorithm
 
