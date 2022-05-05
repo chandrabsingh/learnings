@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>software_engineering_concepts</title>
+<title>design_general_use_cases</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "371.562px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,1067 +13117,162 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Database-design">Database design<a class="anchor-link" href="#Database-design">&#182;</a></h3><h4 id="DB-stack">DB stack<a class="anchor-link" href="#DB-stack">&#182;</a></h4><ul>
-<li>SQL vs NoSQL</li>
-<li>RDBMS</li>
-<li>Oracle</li>
-<li>MSSQL</li>
-<li>Sybase</li>
-<li>Hadoop</li>
-<li>MapReduce</li>
-<li>Cassandra</li>
-<li>MongoDB</li>
-<li>Reddis</li>
-<li>Kafka</li>
-<li>BigData</li>
-<li>Data warehousing</li>
-<li>OLAP</li>
-<li>OLTP</li>
-</ul>
-<h4 id="Types-of-database">Types of database<a class="anchor-link" href="#Types-of-database">&#182;</a></h4><ul>
-<li>Structured <ul>
-<li>Relational/Normalized</li>
-</ul>
-</li>
-<li>Unstructured <ul>
-<li>Heterogenous type </li>
-<li>text, image, video, blobs, etc</li>
-<li>cannot be consumed directly</li>
-</ul>
-</li>
-<li>Semi-structured <ul>
-<li>mix of structured and unstructured data</li>
-<li>XML, JSON or as per business needs</li>
-</ul>
-</li>
-<li>User state data <ul>
-<li>information of activity that user performs on website</li>
-</ul>
-</li>
-</ul>
-<h4 id="Relational">Relational<a class="anchor-link" href="#Relational">&#182;</a></h4><ul>
-<li>Forms<ul>
-<li>one-to-one</li>
-<li>one-to-many</li>
-<li>many-to-one</li>
-<li>many-to-many</li>
-</ul>
-</li>
-<li>data consistency<ul>
-<li>normalized</li>
-</ul>
-</li>
-<li>ACID compliant<ul>
-<li>Atomicity<ul>
-<li>Transactions are made up of multiple statements</li>
-<li>Atomicity guarantees that either it succeeds completely, or fails completely</li>
-<li>if any statement in a transaction fails to complete, the entire transaction fails and the database is left unchanged</li>
-</ul>
-</li>
-<li>Consistency<ul>
-<li>any data written to database must be valid as per the rules, including constraints, cascades, triggers, and any combination thereof. </li>
-<li>no illegal/incorrect transaction must be allowed</li>
-</ul>
-</li>
-<li>Isolation<ul>
-<li>concurrent execution of transactions leaves database in same state if the transactions were executed sequentially</li>
-<li>incomplete transaction must not be visible to other transactions</li>
-</ul>
-</li>
-<li>Durability<ul>
-<li>if a transaction has been committed it will remain committed during reboot or a system failure or crash</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<h3 id="Segment---Monolithic-to-Microservices-to-Monolithic-Architecture">Segment - Monolithic to Microservices to Monolithic Architecture<a class="anchor-link" href="#Segment---Monolithic-to-Microservices-to-Monolithic-Architecture">&#182;</a></h3><p><strong>Core services</strong></p>
 <ul>
-<li>Scaling<ul>
-<li>scaling relational databases is not trivial </li>
-<li>they have to be sharded, replicated to make them run smoothly on a cluster</li>
-<li>require high skill set resources</li>
+<li>it delivers messages to third-party endpoints</li>
+<li>retries messages upon failure</li>
+<li>archives any undelivered messages</li>
+</ul>
+<p><strong>why not just use a queue here? Building a fully distributed job scheduler seems a bit overdone</strong></p>
+<ul>
+<li>At segment, Kafka was already used extensively </li>
+<li>it passes nearly 1M messages per second through it</li>
+<li>it’s been the core building block of all of our streaming pipelines</li>
+</ul>
+<p><strong>When does a queue break down</strong></p>
+<ul>
+<li>The problem with using any sort of queue is that you are fundamentally limited in terms of how you access data. </li>
+<li>a queue only supports two operations (push and pop)</li>
+</ul>
+<p><img src="https://images.ctfassets.net/i8bfc4nr05rq/526JE4CsskIje2tIoBxmbr/c8108e96a2f99d5d8f1499e08a43e635/asset_sJlQSUXb.png" width=600 height=400></p>
+<p><strong>a single queue architecture</strong>
+<img src="https://images.ctfassets.net/i8bfc4nr05rq/1TMg75tMuAumjmYHu5UvDP/a59d8315041ceb7a48da16c6cdfb16d9/asset_VdRJbhUe.png" width=600 height=400></p>
+<p><strong>What happens when single endpoint gets slow</strong>
+<img src="https://images.ctfassets.net/i8bfc4nr05rq/3wQyQCVvbIwDOS3roQmaUv/ec97341d39dabd25098e627f47028cbc/asset_QVaGLpel.png" width=600 height=400></p>
+<p><strong>queues per destination architecture</strong></p>
+<ul>
+<li>updated queueing topology to route events into separate queues based upon the downstream endpoints they would hit</li>
+<li>router was added in front of each queue, which would only publish messages to a queue destined for a specific API endpoint</li>
+<li>segment is a large, multi-tenant system, so some sources of data will generate substantially more load than others</li>
+</ul>
+<p><img src="https://images.ctfassets.net/i8bfc4nr05rq/3mwwfjAAWWVLMmqZhKcEEH/97e2569dfc3ca1fedc9f5da233ce94f3/asset_DLWTCwfw.png" width=600 height=400></p>
+<ul>
+<li><a href="https://segment.com/docs/guides/">https://segment.com/docs/guides/</a></li>
+<li><a href="https://segment.com/blog/goodbye-microservices/">https://segment.com/blog/goodbye-microservices/</a></li>
+<li><a href="https://segment.com/blog/introducing-centrifuge/">https://segment.com/blog/introducing-centrifuge/</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Twitter">Twitter<a class="anchor-link" href="#Twitter">&#182;</a></h3><p><strong>System design</strong>
+<img src="https://miro.medium.com/max/1400/0*_P92qYpw1_oyYymF.png">
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Data Architecture</strong>
+<img src="https://miro.medium.com/max/1400/0*t4VeHS2SKhJqfoN-.png">
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Write operation - requirements</strong></p>
+<ul>
+<li>User can post or share new tweets(max 140 char)</li>
+<li>User can delete his tweets but not update/edit his posted tweets</li>
+<li>User can mark favorite tweets</li>
+<li>User can follow/unfollow another user 
+— user can see other user’s tweets on his timeline</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1172/0*CDem8tmPJKpjMiRq.png" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Read operation - requirements</strong></p>
+<ul>
+<li>user timeline comprising of the last N number of his tweets</li>
+<li>popular tweets of the users he is following in the descending order of time</li>
+<li>user can search tweets based on keywords</li>
+</ul>
+<p><strong>Microservices</strong></p>
+<ul>
+<li>Tweet service</li>
+<li>User timeline service</li>
+<li>Fanout Service</li>
+<li>Home timeline service</li>
+<li>Social graph service</li>
+<li>Search service</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/0*mB-gbj2ltViojwLj.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p>Search service</p>
+<ul>
+<li>aggregates the user search queries results of user and its followers</li>
+<li>the fanout service passes the tweet to the search service</li>
+</ul>
+<p>Fanout Service</p>
+<ul>
+<li>forwards new tweets to search and home timeline services. In case there are other components/ micro-services as well like trending or notification services</li>
+<li>multiple distributed queues</li>
+<li>when a user sends a tweet message, a social graph service gets generated. </li>
+<li>this gets processed in queue</li>
+<li><p>queue server processes these asynchronous tasks, which eventually persistence.</p>
+</li>
+<li><p>Ingester (or ingestion engine):</p>
+<ul>
+<li>tokenize the tweets into a number of tokens or terms or keywords</li>
+<li>filters out non-useful words</li>
+</ul>
+</li>
+<li>Stemming:<ul>
+<li>the non-useful words root words is found</li>
+</ul>
+</li>
+<li>pass it to search index</li>
+<li>create inverted index and store mapping index of terms</li>
+<li>Blender service: <ul>
+<li>search queries based on inverted index of terms</li>
 </ul>
 </li>
 </ul>
-<h4 id="NoSQL">NoSQL<a class="anchor-link" href="#NoSQL">&#182;</a></h4><ul>
-<li>they are more like JSON-based databases</li>
-<li>built for high-frequency read writes</li>
-<li>Scaling<ul>
-<li>can add new server nodes easily</li>
-<li>designed to manage exponential growth of Web</li>
-<li>as nodes can be added easily, it allows handling more concurrent traffic quickly</li>
+<p><img src="https://miro.medium.com/max/1400/0*--igdsO_hL3bMpui.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>User Timeline service</strong></p>
+<ul>
+<li>return user his timeline which contains all the user tweets in descending order of time</li>
+<li>this service is for the home timeline or other users’ timeline.</li>
+<li>this is designed using a data structure comprising a linked list of user tweets</li>
 </ul>
-</li>
-<li>Cluster<ul>
-<li>they are designed to run on clusters</li>
+<p><img src="https://miro.medium.com/max/1400/0*yy9cMNIdR5QN5rAA.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Scaling tweets</strong></p>
+<ul>
+<li>partition both the distributed cache and the datastore into several partitions and replicas.</li>
+<li>shard by user ID</li>
+<li>shard by tweet ID</li>
+<li>Two-layer/ level shard by user ID and tweet ID
+<img src="https://miro.medium.com/max/1400/0*selazor6EHXU-6oS.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$ </li>
 </ul>
-</li>
-<li>ACID<ul>
-<li>support for ACID transactions, limited to an extent</li>
-<li>when a large application is deployed on hundreds of servers across the globe, the distributed nodes may take some time to reach a global consensus and actual figures as in Twitter like/follower count</li>
-<li>it works on the principle of <strong>eventual consistency</strong></li>
-<li>best fit for analytics use case</li>
+<p><img src="https://miro.medium.com/max/1400/1*PYQiOxl8jTj1fIEoZ1TN-g.jpeg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+<p><strong>Tweet Id</strong>
+<img src="https://miro.medium.com/max/1400/0*JWp5ZESkot3OIreR.jpg" width=400 height=400>
+$\tiny{\text{medium.com - JIN}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-Coinbase-scaled-from-15k-requests-per-min-to-1.2-million-requests-per-minute-with-MongoDB">How Coinbase scaled from 15k requests per min to 1.2 million requests per minute with MongoDB<a class="anchor-link" href="#How-Coinbase-scaled-from-15k-requests-per-min-to-1.2-million-requests-per-minute-with-MongoDB">&#182;</a></h3><ul>
+<li><a href="https://blog.coinbase.com/scaling-connections-with-ruby-and-mongodb-99204dbf8857">https://blog.coinbase.com/scaling-connections-with-ruby-and-mongodb-99204dbf8857</a></li>
 </ul>
-</li>
-<li>Examples<ul>
-<li>MongoDB, Redis, Neo4J, Cassandra, Memcache, Elasticsearch, Google Cloud Datastore</li>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="What-database-does-Facebook-use">What database does Facebook use<a class="anchor-link" href="#What-database-does-Facebook-use">&#182;</a></h3><ul>
+<li>MySQL is the primary database used for storing all social data</li>
+<li>Memcache is used in addition to MySQL as caching layer</li>
+<li>Cassandra for search</li>
 </ul>
-</li>
-</ul>
-<h4 id="DataLake">DataLake<a class="anchor-link" href="#DataLake">&#182;</a></h4><h4 id="BigQuery---data-warehouse">BigQuery - data warehouse<a class="anchor-link" href="#BigQuery---data-warehouse">&#182;</a></h4><h4 id="Why-Postgres">Why Postgres<a class="anchor-link" href="#Why-Postgres">&#182;</a></h4><h4 id="Why-MySQL">Why MySQL<a class="anchor-link" href="#Why-MySQL">&#182;</a></h4><h4 id="Graph-database">Graph database<a class="anchor-link" href="#Graph-database">&#182;</a></h4><h4 id="Document-oriented-database">Document-oriented database<a class="anchor-link" href="#Document-oriented-database">&#182;</a></h4><ul>
-<li>data is generally semi-structured and stored in a JSON-like format</li>
-<li>optimal for use cases that require flexibility and fast, continual development</li>
-<li>MongoDB, CouchDB, Elasticsearch, Google Cloud Datastore, and Amazon DocumentDB</li>
-</ul>
-<h5 id="MongoDB---Document">MongoDB - Document<a class="anchor-link" href="#MongoDB---Document">&#182;</a></h5><ul>
-<li>A <strong>document is a record in a document database</strong>. </li>
-<li>A document typically stores information about one object and any of its related metadata.</li>
-<li>Documents <strong>store data in field-value pairs</strong>. </li>
-<li>The values can be a <strong>variety of types and structures</strong>, including strings, numbers, dates, arrays, or objects. Documents can be stored in formats like JSON, BSON, and XML.</li>
-<li>A <strong>collection is a group of documents</strong>. Collections typically store documents that have similar contents.</li>
-<li>Not all documents in a collection are required to have the same fields, because <strong>document databases have a flexible schema</strong>. Note that <strong>some document databases provide schema validation</strong>, so the schema can optionally be locked down when needed.</li>
-</ul>
-<div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;first_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tom&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tom@example.com&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;cell&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;765-555-5555&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;likes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;fashion&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;spas&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;shopping&quot;</span><span class="w"></span>
-<span class="w">     </span><span class="p">],</span><span class="w"></span>
-<span class="w">     </span><span class="nt">&quot;businesses&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">           </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Entertainment 1080&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">           </span><span class="nt">&quot;partner&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jean&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">           </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bankrupt&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">           </span><span class="nt">&quot;date_founded&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-05-19T04:00:00Z&quot;</span><span class="w"></span>
-<span class="w">           </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">{</span><span class="w"></span>
-<span class="w">           </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Swag for Tweens&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">           </span><span class="nt">&quot;date_founded&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">              </span><span class="nt">&quot;$date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-11-01T04:00:00Z&quot;</span><span class="w"></span>
-<span class="w">           </span><span class="p">}</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">     </span><span class="p">]</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-</pre></div>
-<h4 id="Key-Value-database">Key-Value database<a class="anchor-link" href="#Key-Value-database">&#182;</a></h4><ul>
-<li>dictionary data structure </li>
-<li>key has to be unique</li>
-<li>commonly used for caching, storing, and managing user sessions, ad servicing, and recommendations</li>
-<li>examples - Redis</li>
-</ul>
-<h4 id="Time-Series-database">Time Series database<a class="anchor-link" href="#Time-Series-database">&#182;</a></h4><h4 id="Wide-Column-database">Wide-Column database<a class="anchor-link" href="#Wide-Column-database">&#182;</a></h4><h4 id="Eventual-vs-Strong-Consistency">Eventual vs Strong Consistency<a class="anchor-link" href="#Eventual-vs-Strong-Consistency">&#182;</a></h4><ul>
-<li>Eventual consistency<ul>
-<li>enables datastores to be highly available</li>
-<li>is also known as <strong>optimistic replication</strong> and is key to distributed systems.</li>
-<li>each data centers have multiple clusters with numerous server nodes running</li>
-<li>data is initially inconsistent but eventually becomes consistent across all the server nodes deployed around the world</li>
-</ul>
-</li>
-<li>Strong consistency<ul>
-<li>data has to be consistent at all times</li>
-<li>to achieve this all nodes need to be locked down while getting updated</li>
-<li>this behavior enables implementation of ACID transactions</li>
-</ul>
-</li>
-</ul>
-<h4 id="Polyglot-persistence">Polyglot persistence<a class="anchor-link" href="#Polyglot-persistence">&#182;</a></h4><ul>
-<li><p><img src="https://www.abhishek-tiwari.com/assets/images/Polyglot-persistence-pattern-for-an-ecommerce-application.png"></p>
-</li>
-</ul>
-<h4 id="CAP-theorem">CAP theorem<a class="anchor-link" href="#CAP-theorem">&#182;</a></h4><ul>
-<li>consistency, availability, partition tolerance(fault tolerance)<ul>
-<li>Consistency<ul>
-<li>Every read receives the most recent write or an error.</li>
-</ul>
-</li>
-<li>Availability<ul>
-<li>Every request receives a (non-error) response, without the guarantee that it contains the most recent write.</li>
-</ul>
-</li>
-<li>Partition tolerance<ul>
-<li>The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.<blockquote><ul>
-<li>No distributed system is safe from network failures, thus network partitioning generally has to be tolerated. In the presence of a partition, one is then left with two options: consistency or availability.  <blockquote><ul>
-<li>When choosing consistency over availability, the system will return an error or a time out if particular information cannot be guaranteed to be up to date due to network partitioning. </li>
-<li>When choosing availability over consistency, the system will always process the query and try to return the most recent available version of the information, even if it cannot guarantee it is up to date due to network partitioning. </li>
-</ul>
+<p>To manage BigData Facebook leverages Apache Hadoop, HBase, Hive, Apache Thrift and PrestoDB. All these are used for data ingestion, warehousing and running analytics.</p>
+<p>Apache Cassandra is used for the inbox search</p>
+<p>Beringei &amp; Gorilla, high-performance time-series storage engines are used for infrastructure monitoring.</p>
+<p>LogDevice, a distributed data store is used for storing logs.</p>
+<blockquote><blockquote><p>Work further</p>
 </blockquote>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="BASE-semantics">BASE semantics<a class="anchor-link" href="#BASE-semantics">&#182;</a></h4><ul>
-<li>basically-available, soft-state, eventual consistency</li>
-<li>Eventually consistent services has only liveness guarantee - updates will be observed eventually<ul>
-<li><strong>Basically available:</strong> reading and writing operations are available as much as possible (using all nodes of a database cluster), but might not be consistent (the write might not persist after conflicts are reconciled, the read might not get the latest write)</li>
-<li><strong>Soft-state:</strong> without consistency guarantees, after some amount of time, we only have some probability of knowing the state, since it might not yet have converged</li>
-<li><strong>Eventually consistent:</strong> If we execute some writes and then the system functions long enough, we can know the state of the data; any further reads of that data item will return the same value</li>
-</ul>
-</li>
-</ul>
-<h4 id="Multi-model-database">Multi-model database<a class="anchor-link" href="#Multi-model-database">&#182;</a></h4><ul>
-<li>ArangoDB, CosmosDB, OrientDB, Couchbase, etc</li>
-<li>support multiple data models like the graph, document-oriented, relational, etc. </li>
-<li>They also avert the need for managing multiple persistence technologies in a single service. </li>
-<li>They reduce the operational complexity by notches</li>
-</ul>
-<h4 id="Cassandra">Cassandra<a class="anchor-link" href="#Cassandra">&#182;</a></h4><h4 id="Memcached">Memcached<a class="anchor-link" href="#Memcached">&#182;</a></h4><h4 id="HBase">HBase<a class="anchor-link" href="#HBase">&#182;</a></h4><h4 id="Neo4j">Neo4j<a class="anchor-link" href="#Neo4j">&#182;</a></h4><h4 id="MongoDB">MongoDB<a class="anchor-link" href="#MongoDB">&#182;</a></h4><h4 id="MapReduce">MapReduce<a class="anchor-link" href="#MapReduce">&#182;</a></h4><h4 id="Elasticsearch">Elasticsearch<a class="anchor-link" href="#Elasticsearch">&#182;</a></h4><h4 id="Redis">Redis<a class="anchor-link" href="#Redis">&#182;</a></h4><h4 id="Google-Cloud-Datastore">Google Cloud Datastore<a class="anchor-link" href="#Google-Cloud-Datastore">&#182;</a></h4><h4 id="Redis-vs-Memcached">Redis vs Memcached<a class="anchor-link" href="#Redis-vs-Memcached">&#182;</a></h4><h4 id="Oracle-vs-MySQL">Oracle vs MySQL<a class="anchor-link" href="#Oracle-vs-MySQL">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cloud-design">Cloud design<a class="anchor-link" href="#Cloud-design">&#182;</a></h3><ul>
-<li><a href="system_designs/design_patterns.html">Cloud design considerations</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="AWS-vs-Azure-vs-Google-Cloud">AWS vs Azure vs Google Cloud<a class="anchor-link" href="#AWS-vs-Azure-vs-Google-Cloud">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Amazon-Web-Services-(AWS)">Amazon Web Services (AWS)<a class="anchor-link" href="#Amazon-Web-Services-(AWS)">&#182;</a></h3><ul>
-<li>Infrastructure as a service<ul>
-<li>ec2 - virtual machine<ul>
-<li>launch any application</li>
-<li>based on memory requirement</li>
-<li>configure with different data centers</li>
-<li>install software and get started</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Platform as a service<ul>
-<li>not interested in virtual machine</li>
-<li>but use platform</li>
-<li>use elastic beanstalk<ul>
-<li>deploy application</li>
-<li>which gets deployed on AWS cloud</li>
-<li>no control on middleware such as Java</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Software as a service</li>
-<li>Database as a service<ul>
-<li>RDBMS</li>
-<li>Load balancing services</li>
-</ul>
-</li>
-<li>flexible billings</li>
-</ul>
-<hr>
-<ul>
-<li>Services<ul>
-<li>Batch<ul>
-<li>can run batch/overnight applications</li>
-</ul>
-</li>
-<li>Lambda<ul>
-<li>based on event triggered, a program will run and will give response back</li>
-<li>no server is running in background</li>
-<li>server gets initialized when the request comes in</li>
-<li>server will be initialized, it will be served and then will be destroyed once complete</li>
-</ul>
-</li>
-<li>Elastic container service<ul>
-<li>equivalent to docker container</li>
-<li>deploy containers into AWS</li>
-</ul>
-</li>
-<li>Developer tools<ul>
-<li>CodeStar/CodeCommit/CodeBuild/CodeDeploy</li>
-<li>code, build, deploy and pipe it into the queue</li>
-</ul>
-</li>
-<li>Services for Machine Learning<ul>
-<li>to check</li>
-</ul>
-</li>
-<li>Storage <ul>
-<li>S3<ul>
-<li>simple storage</li>
-<li>can use in any of the computing design pattern</li>
-</ul>
-</li>
-<li>EFS</li>
-<li>Glacier</li>
-<li>Storage Gateway</li>
-</ul>
-</li>
-<li>Management Tools<ul>
-<li>CloudWatch</li>
-<li>AWS Auto scaling<ul>
-<li>automatically deploy and spawn new instance of say Tomcat server</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Analytics<ul>
-<li>Athena</li>
-<li>EMR</li>
-<li>CloudSearch</li>
-</ul>
-</li>
-<li>Security</li>
-<li>Migration services</li>
-<li>Networking</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Chaos-Engineering">Chaos Engineering<a class="anchor-link" href="#Chaos-Engineering">&#182;</a></h3><ul>
-<li>discipline of experimenting distributed system in production to build system capability</li>
-<li>designed by Netflix</li>
-<li>nothing breaks in production</li>
-<li>but if it breaks how do we address system availability</li>
-<li>helps in identifying loopholes in system</li>
-<li>what are the principles<ul>
-<li>build a hypothesis around steady state behaviour</li>
-<li>real world events<ul>
-<li>plugging out the real world scenario and experimenting on it</li>
-<li>increasing the traffic</li>
-<li>adding failure events</li>
-<li>adding non-expected events</li>
-</ul>
-</li>
-<li>run experiments in production</li>
-<li>automate experiments in a continuous manner</li>
-<li>minimize the blast radius<ul>
-<li>identify the problem and localize the problem to an extent</li>
-<li>live traffic does not get impacted heavily or is minimalized</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>how does it work in AWS <ul>
-<li>different services are launched for NA-East, NA-West, EU-East, EU-West and APAC</li>
-<li>if one service goes down the traffic is rerouted to another service and server request is handled by another service</li>
-</ul>
-</li>
-<li>Open Source Tools <ul>
-<li>Netflix <ul>
-<li>Chaos Monkey<ul>
-<li>randomly kills a service not a server in production</li>
-<li>identify resilence</li>
-<li>checks system behaviour</li>
-</ul>
-</li>
-<li>Chaos Gorilla<ul>
-<li>kill entire availability zone</li>
-<li>NA West will be killed</li>
-</ul>
-</li>
-<li>Chaos Kong<ul>
-<li>kill the whole region</li>
-</ul>
-</li>
-<li>Latency Monkey<ul>
-<li>delay the response</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Facebook<ul>
-<li>Facebook Storm<ul>
-<li>datacenter goes down</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>AWS<ul>
-<li>AWS gamedays</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scalability">Scalability<a class="anchor-link" href="#Scalability">&#182;</a></h3><ul>
-<li>Applications's ability to handle increased workload without impacting performance</li>
-<li>If application was able to respond to a user request in x seconds, it should take same x seconds to respond, when concurrent user base increases</li>
-</ul>
-<p>Types of scaling</p>
-<ul>
-<li>Horizonal scaling/ Scale out<ul>
-<li>add servers</li>
-</ul>
-</li>
-<li>Vertical scaling/ Scale up<ul>
-<li>add more power to server, increase RAM</li>
-<li>this is simple, as we don't need code or complex system configuration changes</li>
-</ul>
-</li>
-<li>Cloud elasticity<ul>
-<li>scale up/down your servers, as per demand</li>
-</ul>
-</li>
-</ul>
-<p>The scalability of application should be tested using load and stress tests by simulating concurrent traffic</p>
-<h3 id="Scale-trade-offs">Scale trade-offs<a class="anchor-link" href="#Scale-trade-offs">&#182;</a></h3><h3 id="AutoScaling">AutoScaling<a class="anchor-link" href="#AutoScaling">&#182;</a></h3><ul>
-<li>Autoscaling is a cloud computing feature that enables organizations to scale cloud services such as server capacities or virtual machines up or down automatically, based on defined situations such as traffic utilization levels. Cloud computing providers, such as Amazon Web Services (AWS), Microsoft Azure, and Google Cloud Platform (GCP), offer autoscaling tools.</li>
-<li>Overall benefit of autoscaling is that it eliminates the need to respond manually in real-time to traffic spikes that merit new resources and instances by automatically changing the active number of servers</li>
-<li>An application load balancer and auto scaling package works in tandem as follows. You can deploy an auto scaling group load balancer to improve availability and performance, and decrease application latency. This works because you can define your autoscaling policies based on your application requirements to scale-in and scale-out instances and thus instruct how the load balancer distributes the traffic load between the running instances.</li>
-<li>Autoscaling allows a user to set a policy based on predefined criteria that manage the number of available instances in both peak and off-peak hours. This enables multiple instances with the same functionality—parallel capabilities increasing or decreasing depending on demand.</li>
-</ul>
-<h3 id="Latency">Latency<a class="anchor-link" href="#Latency">&#182;</a></h3><ul>
-<li>Network latency</li>
-<li>Application latency<ul>
-<li>use stress and load tests for bottlenecks</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cost-considerations">Cost considerations<a class="anchor-link" href="#Cost-considerations">&#182;</a></h3><h3 id="High-availability">High availability<a class="anchor-link" href="#High-availability">&#182;</a></h3><p>The ability of system to stay online despite failures at infrastructural level in real-time. The hosting time SLA of cloud platforms should be 99.99999% available. The distributed system must be designed to fault-tolerant and redundant.</p>
-<p>To achieve high availability at application level, the entire service is architecturally broken down into granular loosely coupled services called <strong><em>microservices</em></strong>.</p>
-<h4 id="Redundancy">Redundancy<a class="anchor-link" href="#Redundancy">&#182;</a></h4><p>Redundancy is the process of duplicating the server instances and keeping them on standby incase any of the active server instances goes down. It is the fail-safe backup mechanism.</p>
-<p>This helps:</p>
-<ul>
-<li>eliminate single point failures with monolithic architecture</li>
-<li>facilitate fault-tolerant microservices architecture</li>
-</ul>
-<p>Tools like <strong><em>Kubernetes</em></strong> are intelligent enough to add or remove instances on the fly as per requirement, thereby reducing human error.</p>
-<h4 id="Replication">Replication<a class="anchor-link" href="#Replication">&#182;</a></h4><ul>
-<li>running a <strong><em>similar/duplicate node</em></strong>, so that when a few nodes go down, other nodes bear the load. Its a <strong><em>fail-safe backup mechanism</em></strong>.</li>
-</ul>
-<h4 id="High-available-cluster">High available cluster<a class="anchor-link" href="#High-available-cluster">&#182;</a></h4><ul>
-<li>Fail-over cluster, contains a set of nodes running in conjunction with each other that ensures high availability of service</li>
-</ul>
-<p>Tools like <strong><em>Zookeeper</em></strong>, monitor the state of cluster network with <strong><em>heartbeat network</em></strong> and maintain shared distributed memory (to maintain a common state across several nodes in a cluster). It uses node coordinator service to maintain nodes in its cluster.</p>
-<p>Multiple HA clusters run together in one geographical zone to ensure minimum downtime and uninterrupted service.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Load-balancing">Load balancing<a class="anchor-link" href="#Load-balancing">&#182;</a></h3><p>Load balancing enables services to scale well when the traffic load increases. The component that facilitates this are called <em><strong>load balancers</strong></em>. It distributes load across servers in cluster using different algorithms, thereby safe-guarding overloads and spikes in latency.</p>
-<p>Load balancers are <em><strong>single point of contact for client requests</strong></em>. They can be setup to <strong><em>manage traffic</em></strong> at application component level, database component level, message queue level or at backend server level. They regularly perform <strong><em>health checks</em></strong> on the machines in the cluster. They keep track of <em><strong>in service</strong></em> and <strong><em>out of service</em></strong> instances.</p>
-<h4 id="Load-balancers-methods">Load balancers methods<a class="anchor-link" href="#Load-balancers-methods">&#182;</a></h4><ul>
-<li>DNS load balancing</li>
-<li>Hardware based load balancing<ul>
-<li>expensive</li>
-<li>high performance</li>
-</ul>
-</li>
-<li>Software based load balancing<ul>
-<li>cost effective</li>
-<li>flexible</li>
-<li>advanced compared to DNS load balancers</li>
-<li>continually perform health checks</li>
-<li><strong><em>HAProxy</em></strong> one of leading software load balancers</li>
-</ul>
-</li>
-</ul>
-<h4 id="Load-balancing-algorithms">Load balancing algorithms<a class="anchor-link" href="#Load-balancing-algorithms">&#182;</a></h4><ul>
-<li>Round Robin</li>
-<li>Weighted Round Robin</li>
-<li>Least Connection (dynamic)</li>
-<li>Weighted Least Connection</li>
-<li>Resource Based (Adaptive)</li>
-<li>Weighted Response Time</li>
-<li>Source IP Hash</li>
-<li>URL Hash</li>
-<li>Random</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fault-isolation">Fault isolation<a class="anchor-link" href="#Fault-isolation">&#182;</a></h3><ul>
-<li>Microservice architecture enables isolate faults, debug and fix issues</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fault-tolerance">Fault tolerance<a class="anchor-link" href="#Fault-tolerance">&#182;</a></h3><p>Fault tolerance is the system's ability to stay up and running despite taking hits and faults. The instances/nodes may go offline/down but they come back up, which is called <strong><em>fail soft</em></strong>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-system">Distributed system<a class="anchor-link" href="#Distributed-system">&#182;</a></h3><ul>
-<li>There are four capabilities that are involved in a resilient, scalable, distributed system:<ul>
-<li><strong>Load balancing (aka spraying)</strong> - The ability to spread a load source in an arbitrary manner to certain servers in a distributed system;</li>
-<li><strong>Partition targeting (aka routing)</strong> - The ability to direct a request to a particular sever based on attributes of the request and/or the service that handles the request;</li>
-<li><strong>Partitioning (aka sharding)</strong> - The ability to divide a domain into discrete, identifiable sub-divisions that together form the whole; and</li>
-<li><strong>Replication</strong> - The use of events, transaction logs, state copy, or other means to provide (i) resiliency to server failure, (ii) dynamic repartitioning, (iii) immediate access to non-mutating state, and (iv) local cache copies of mutating state.<br>
-$\tiny{\text{Source - Quora}}$  </li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Caching">Caching<a class="anchor-link" href="#Caching">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-Caching">Distributed Caching<a class="anchor-link" href="#Distributed-Caching">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-Transactions">Distributed Transactions<a class="anchor-link" href="#Distributed-Transactions">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-File-System">Distributed File System<a class="anchor-link" href="#Distributed-File-System">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-Datastore">Distributed Datastore<a class="anchor-link" href="#Distributed-Datastore">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Locks">Locks<a class="anchor-link" href="#Locks">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-Locks">Distributed Locks<a class="anchor-link" href="#Distributed-Locks">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Development-practices">Development practices<a class="anchor-link" href="#Development-practices">&#182;</a></h3><ul>
-<li>Continuous integration<ul>
-<li>Available tools<ul>
-<li>Jenkins, Azure DevOps</li>
-</ul>
-</li>
-<li>Practices<ul>
-<li>merge as often as possible</li>
-<li>automated build and tests run(integration/acceptance)</li>
-<li>emphasis on testing automation to check new commits dont break the main branch</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Continuous delivery<ul>
-<li>Available tools<ul>
-<li>Jenkins, TeamCity, AWS CodeBuild, Spinnaker</li>
-</ul>
-</li>
-<li>Practices<ul>
-<li>extension of continuous integration</li>
-<li>automated deployment and release to test and prod environment</li>
-<li>best practice is to deploy and release in small batches</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Continuous deployment<ul>
-<li>Available tools<ul>
-<li>Jenkins, TeamCity</li>
-</ul>
-</li>
-<li>Practices<ul>
-<li>extension of continuous delivery</li>
-<li>the changes that passes production pipeline is released to customers</li>
-<li>no human intervention and accelerates the feedback loop from customers to developers</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment">Link</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Intelligent-Automation">Intelligent Automation<a class="anchor-link" href="#Intelligent-Automation">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Project-Management">Project Management<a class="anchor-link" href="#Project-Management">&#182;</a></h3><ul>
-<li>Agile <ul>
-<li>structured iterative approach</li>
-<li>self organizing teams</li>
-</ul>
-</li>
-<li>Kanban  <ul>
-<li>continuous improving flow of work </li>
-<li>uses boards or visuals</li>
-</ul>
-</li>
-<li>Scrum <ul>
-<li>short structured work sprints</li>
-</ul>
-</li>
-<li>Jira</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Tools">Tools<a class="anchor-link" href="#Tools">&#182;</a></h3><ul>
-<li>Kubernetes <ul>
-<li>orchestrates clusters of virtual machines and schedules containers to run on those machines based on their available computing resources</li>
-</ul>
-</li>
-<li>Docker<ul>
-<li>packages containerized application on a single node</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Containers-vs-Virtual-Machines">Containers vs Virtual Machines<a class="anchor-link" href="#Containers-vs-Virtual-Machines">&#182;</a></h3><ul>
-<li><a href="https://www.docker.com/resources/what-container">Containers vs VM</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Clusters">Clusters<a class="anchor-link" href="#Clusters">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Pipelines">Pipelines<a class="anchor-link" href="#Pipelines">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Google-Compute-Engine">Google Compute Engine<a class="anchor-link" href="#Google-Compute-Engine">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Microsoft-Azure">Microsoft Azure<a class="anchor-link" href="#Microsoft-Azure">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Microservice">Microservice<a class="anchor-link" href="#Microservice">&#182;</a></h3><ul>
-<li><a href="https://martinfowler.com/articles/microservices.html">Architecture</a></li>
-</ul>
-<p><em>"In short, the microservice architectural style is an approach to developing a single application as a suite of small services, each running in its own process and communicating with lightweight mechanisms, often an HTTP resource API. These services are built around business capabilities and independently deployable by fully automated deployment machinery. There is a bare minimum of centralized management of these services, which may be written in different programming languages and use different data storage technologies."</em><br>
-$\tiny{\text{martinfowler.com - Microservices Guide}}$</p>
-<h4 id="Monolithic-Architecture">Monolithic Architecture<a class="anchor-link" href="#Monolithic-Architecture">&#182;</a></h4><ul>
-<li>self-contained as a single codebase </li>
-<li>tightly coupled application</li>
-<li>LinkedIn started as monolithic architecture in 2003 and then scaled out as cloud computing and microservices architecture</li>
-<li>Simple to develop, test, deploy and manage as everything resides in one repo</li>
-<li>reduced complexity of deployment</li>
-<li>a monolithic architecture holds a lot of application state in the static variables, and an application to scale inherently on the cloud needs to be stateless.</li>
-</ul>
-<h4 id="Microservice-Architecture">Microservice Architecture<a class="anchor-link" href="#Microservice-Architecture">&#182;</a></h4><ul>
-<li>Loosely coupled services deployed and working in conjunction to form large distributed service as a whole</li>
-<li>This architecture is designed to scale, which is relatively easy than in monolithic</li>
-<li>Continuous deployment is a pre-requisite, dedicated teams can have their independent release and deployments</li>
-<li>Regression testing becomes easier</li>
-<li>No single point of failure</li>
-<li>Can leverage heterogenous technologies</li>
-<li>one of the ways of interaction can be REST API gateway interface</li>
-</ul>
-<h4 id="Micro-frontends">Micro frontends<a class="anchor-link" href="#Micro-frontends">&#182;</a></h4><p><img src="https://devblogs.microsoft.com/dotnet/wp-content/uploads/sites/10/2017/08/eShopOnContainers_Architecture_Diagram.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sharded-services">Sharded services<a class="anchor-link" href="#Sharded-services">&#182;</a></h3><ul>
-<li>Do we have sharding of services, or is it applicable only in database management?</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sharding-database">Sharding database<a class="anchor-link" href="#Sharding-database">&#182;</a></h3><h4 id="Types-of-partitioning">Types of partitioning<a class="anchor-link" href="#Types-of-partitioning">&#182;</a></h4><ul>
-<li>Horizontal partitioning(sharding) <ul>
-<li>separating table rows into multiple tables with same schema </li>
-</ul>
-</li>
-<li>Vertical partitioning<ul>
-<li>separating columns into distinct tables</li>
-</ul>
-</li>
-</ul>
-<h4 id="What-is-Sharding">What is Sharding<a class="anchor-link" href="#What-is-Sharding">&#182;</a></h4><ul>
-<li>breaking data into logical shards</li>
-<li>distribute these logical shards into separate database nodes or into physical shards</li>
-<li>physical shards can hold multiple logical shards</li>
-<li>helps in mitigating impact of outages</li>
-</ul>
-<h4 id="Benefits-of-sharding">Benefits of sharding<a class="anchor-link" href="#Benefits-of-sharding">&#182;</a></h4><ul>
-<li>horizontal scaling or scaling out<ul>
-<li>adding more machines to exsiting stack to spread out load and allow for more traffic</li>
-</ul>
-</li>
-<li>vertical scaling or scaling up<ul>
-<li>upgrading hardware by adding more RAM or CPU</li>
-</ul>
-</li>
-</ul>
-<h4 id="Sharding-architectures">Sharding architectures<a class="anchor-link" href="#Sharding-architectures">&#182;</a></h4><ul>
-<li>Key based sharding<ul>
-<li>hash based sharding based on partition key</li>
-</ul>
-</li>
-<li>Range based sharding<ul>
-<li>for example, price range</li>
-</ul>
-</li>
-<li>Directory based sharding<ul>
-<li>maintain lookup table</li>
-<li>Multiple tenants might share the same shard, but the data for a single tenant won't be spread across multiple shards</li>
-</ul>
-</li>
-</ul>
-<p><img src="images/shardTable.png" width=600 height=600><br>
-$\tiny{\text{Types of Partitioning - digitalocean.com}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Hashing">Hashing<a class="anchor-link" href="#Hashing">&#182;</a></h3><ul>
-<li>bucket</li>
-<li>hash collison</li>
-<li>consistent hashing</li>
-</ul>
-<h4 id="Consistent-Hashing">Consistent Hashing<a class="anchor-link" href="#Consistent-Hashing">&#182;</a></h4><ul>
-<li>is a special kind of hashing technique such that when a hash table is resized, only n/m keys need to be remapped on average where n is the number of keys and m is the number of slots. In contrast, in most traditional hash tables, a change in the number of array slots causes nearly all keys to be remapped because the mapping between the keys and the slots is defined by a modular operation.</li>
-<li>it allows requests to be mapped into hash buckets while allowing the system to add and remove nodes flexibly so as to maintain a good load factor on each machine</li>
-<li>the standard way to hash objects is to map them to a search space, and then transfer the load to the mapped computer<ul>
-<li>systems using this policy is likely to suffer when new nodes are added or removed from it</li>
-</ul>
-</li>
-<li>Consistent Hashing maps servers to the key space and assigns requests(mapped to relevant buckets, called load) to the next clockwise server. Servers can then store relevant request data in them while allowing the system flexibility and scalability</li>
-<li>system design scenarios <ul>
-<li>such as fault tolerance - in which a machine crashes</li>
-<li>or scalability - in which a machine needs to be added to process more requests<ul>
-<li>in both these principles consistent hashing is used</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>this principle is used extensively in load balancing, caching, databases</li>
-<li>request allocation</li>
-</ul>
-<p><img src="./images/consistentHashing.png" width=400 height=400>
-$\tiny{\text{YouTube - Gaurav Sen}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="HTTP-Messaging">HTTP Messaging<a class="anchor-link" href="#HTTP-Messaging">&#182;</a></h3><h4 id="HTTP-GET-vs-POST-Message">HTTP GET vs POST Message<a class="anchor-link" href="#HTTP-GET-vs-POST-Message">&#182;</a></h4><ul>
-<li>GET is used for viewing something, without changing it<ul>
-<li>fetch data</li>
-<li>GET carries request parameter appended in URL string </li>
-</ul>
-</li>
-<li>POST is used for changing something<ul>
-<li>change pwd</li>
-<li>writing data into resources</li>
-<li>POST carries request parameter in message body which makes it more secure way of transferring data</li>
-</ul>
-</li>
-</ul>
-<h4 id="HTTP-codes">HTTP codes<a class="anchor-link" href="#HTTP-codes">&#182;</a></h4><p><img src="images/http_codes.png" width=600 height=600><br>
-$\tiny{\text{https://datatracker.ietf.org/}}$</p>
-<h3 id="HTTP-1.0-vs-2.0-vs-3.0">HTTP 1.0 vs 2.0 vs 3.0<a class="anchor-link" href="#HTTP-1.0-vs-2.0-vs-3.0">&#182;</a></h3><ul>
-<li><a href="https://cheapsslsecurity.com/p/http2-vs-http1/">https://cheapsslsecurity.com/p/http2-vs-http1/</a></li>
-<li><a href="https://ably.com/topic/http-2-vs-http-3">https://ably.com/topic/http-2-vs-http-3</a></li>
-</ul>
-<p><img src="images/httpProtocol.webp" width=600 height=600><br>
-$\tiny{\text{https://ably.com/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Messaging">Messaging<a class="anchor-link" href="#Messaging">&#182;</a></h3><h4 id="Messaging-patterns">Messaging patterns<a class="anchor-link" href="#Messaging-patterns">&#182;</a></h4><ul>
-<li>Client-Server</li>
-<li>Publish-Subscribe<ul>
-<li><a href="https://ably.com/topic/pub-sub">https://ably.com/topic/pub-sub</a></li>
-<li>Topic </li>
-<li><a href="https://cloud.google.com/pubsub/docs/subscriber">https://cloud.google.com/pubsub/docs/subscriber</a></li>
-<li><a href="https://www.bmc.com/blogs/pub-sub-publish-subscribe/">https://www.bmc.com/blogs/pub-sub-publish-subscribe/</a></li>
-</ul>
-</li>
-<li>Push-Pull</li>
-<li>Polling</li>
-<li>Conventional sockets<ul>
-<li>One-to-one</li>
-<li>Many-to-one</li>
-<li>One-to-many(multicast)</li>
-</ul>
-</li>
-<li>Event streaming<ul>
-<li><a href="https://ably.com/topic/event-streaming">https://ably.com/topic/event-streaming</a></li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Components-vs-Services">Components vs Services<a class="anchor-link" href="#Components-vs-Services">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Stateless-architecture">Stateless architecture<a class="anchor-link" href="#Stateless-architecture">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Transport-Protocols">Transport Protocols<a class="anchor-link" href="#Transport-Protocols">&#182;</a></h3><ul>
-<li>TCP</li>
-<li>UDP</li>
-<li>Gossip Protocol</li>
-<li>Broadcast</li>
-<li>Multicast</li>
-<li>Web sockets</li>
-<li>FTP</li>
-<li>Telnet</li>
-<li></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="gRPC">gRPC<a class="anchor-link" href="#gRPC">&#182;</a></h3><ul>
-<li>gRPC</li>
-<li>Protocol buffers</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Payload">Payload<a class="anchor-link" href="#Payload">&#182;</a></h3><ul>
-<li>Request payload</li>
-<li>API payload</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sockets">Sockets<a class="anchor-link" href="#Sockets">&#182;</a></h3><ul>
-<li>TCP sockets</li>
-<li>SSL sockets</li>
-<li>IPv4/IPv6 connections</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Connection-Pools">Connection Pools<a class="anchor-link" href="#Connection-Pools">&#182;</a></h3><h3 id="Connection-Proxy">Connection Proxy<a class="anchor-link" href="#Connection-Proxy">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="POSIX-message-queue">POSIX message queue<a class="anchor-link" href="#POSIX-message-queue">&#182;</a></h3><h3 id="Windows-message-queues">Windows message queues<a class="anchor-link" href="#Windows-message-queues">&#182;</a></h3><p><a href="https://web.archive.org/web/20120317065349/http://msdn.microsoft.com/en-us/library/ms644927(VS.85">Windows Message Queue</a>.aspx)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distributed-system-or-N-tier-application">Distributed system or N-tier application<a class="anchor-link" href="#Distributed-system-or-N-tier-application">&#182;</a></h3><p>An n-tier application has more than 3 components</p>
-<ul>
-<li>user interface</li>
-<li>backend server</li>
-<li>database</li>
-</ul>
-<p>The components that are part of such system architecture are:</p>
-<ul>
-<li>Load balancers</li>
-<li>Caching system</li>
-<li>Message queue for asynchronous activity</li>
-<li>Microservices </li>
-<li>Web services</li>
-<li>etc</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Layers-vs-Tiers">Layers vs Tiers<a class="anchor-link" href="#Layers-vs-Tiers">&#182;</a></h3><ul>
-<li>Layers are at code level, it represent conceptual organization of code. In application, it means the logical separation at code level, for example business layer, service layer and data access layer</li>
-<li>Tiers is at physical layer of components, where layers are deployed and where layers are run</li>
-</ul>
-<blockquote><ul>
-<li><i> Logical layers are merely a way of organizing your code. Typical layers include Presentation, Business and Data – the same as the traditional 3-tier model. But when we’re talking about layers, we’re only talking about logical organization of code. In no way is it implied that these layers might run on different computers or in different processes on a single computer or even in a single process on a single computer. All we are doing is discussing a way of organizing a code into a set of layers defined by specific function. </i>  </li>
-<li><i> Physical tiers however, are only about where the code runs. Specifically, tiers are places where layers are deployed and where layers run. In other words, tiers are the physical deployment of layers.</i>  </li>
-</ul>
-</blockquote>
-<p>$\tiny{\text{Rockford Lhotka, Should all apps be n-tier?}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="POSIX-thread-model">POSIX thread model<a class="anchor-link" href="#POSIX-thread-model">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Static-and-Dynamic-Dispatch">Static and Dynamic Dispatch<a class="anchor-link" href="#Static-and-Dynamic-Dispatch">&#182;</a></h3><p><a href="https://medium.com/ingeniouslysimple/static-and-dynamic-dispatch-324d3dc890a3">https://medium.com/ingeniouslysimple/static-and-dynamic-dispatch-324d3dc890a3</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Static-vs-Dynamic-typing">Static vs Dynamic typing<a class="anchor-link" href="#Static-vs-Dynamic-typing">&#182;</a></h3><p><a href="http://en.wikipedia.org/wiki/Type_system">http://en.wikipedia.org/wiki/Type_system</a></p>
-<blockquote><p><strong>Static typing</strong></p>
-<p>A programming language is said to use static typing when type checking is performed during compile-time as opposed to run-time. In static typing, types are associated with variables not values. Statically typed languages include Ada, C, C++, C#, JADE, Java, Fortran, Haskell, ML, Pascal, Perl (with respect to distinguishing scalars, arrays, hashes and subroutines) and Scala. Static typing is a limited form of program verification (see type safety): accordingly, it allows many type errors to be caught early in the development cycle. Static type checkers evaluate only the type information that can be determined at compile time, but are able to verify that the checked conditions hold for all possible executions of the program, which eliminates the need to repeat type checks every time the program is executed. Program execution may also be made more efficient (i.e. faster or taking reduced memory) by omitting runtime type checks and enabling other optimizations.</p>
-<p>Because they evaluate type information during compilation, and therefore lack type information that is only available at run-time, static type checkers are conservative. They will reject some programs that may be well-behaved at run-time, but that cannot be statically determined to be well-typed. For example, even if an expression always evaluates to true at run-time, a program containing the code</p>
-<p>if \&lt;complex test&gt; then 42 else \&lt;type error&gt;
-will be rejected as ill-typed, because a static analysis cannot determine that the else branch won't be taken. The conservative behaviour of static type checkers is advantageous when evaluates to false infrequently: A static type checker can detect type errors in rarely used code paths. Without static type checking, even code coverage tests with 100% code coverage may be unable to find such type errors. Code coverage tests may fail to detect such type errors because the combination of all places where values are created and all places where a certain value is used must be taken into account.</p>
-<p>The most widely used statically typed languages are not formally type safe. They have "loopholes" in the programming language specification enabling programmers to write code that circumvents the verification performed by a static type checker and so address a wider range of problems. For example, Java and most C-style languages have type punning, and Haskell has such features as unsafePerformIO: such operations may be unsafe at runtime, in that they can cause unwanted behaviour due to incorrect typing of values when the program runs.</p>
-<p><strong>Dynamic typing</strong></p>
-<p>A programming language is said to be dynamically typed, or just 'dynamic', when the majority of its type checking is performed at run-time as opposed to at compile-time. In dynamic typing, types are associated with values not variables. Dynamically typed languages include Groovy, JavaScript, Lisp, Lua, Objective-C, Perl (with respect to user-defined types but not built-in types), PHP, Prolog, Python, Ruby, Smalltalk and Tcl. Compared to static typing, dynamic typing can be more flexible (e.g. by allowing programs to generate types and functionality based on run-time data), though at the expense of fewer a priori guarantees. This is because a dynamically typed language accepts and attempts to execute some programs which may be ruled as invalid by a static type checker.</p>
-<p>Dynamic typing may result in runtime type errors—that is, at runtime, a value may have an unexpected type, and an operation nonsensical for that type is applied. This operation may occur long after the place where the programming mistake was made—that is, the place where the wrong type of data passed into a place it should not have. This makes the bug difficult to locate.</p>
-<p>Dynamically typed language systems, compared to their statically typed cousins, make fewer "compile-time" checks on the source code (but will check, for example, that the program is syntactically correct). Run-time checks can potentially be more sophisticated, since they can use dynamic information as well as any information that was present during compilation. On the other hand, runtime checks only assert that conditions hold in a particular execution of the program, and these checks are repeated for every execution of the program.</p>
-<p>Development in dynamically typed languages is often supported by programming practices such as unit testing. Testing is a key practice in professional software development, and is particularly important in dynamically typed languages. In practice, the testing done to ensure correct program operation can detect a much wider range of errors than static type-checking, but conversely cannot search as comprehensively for the errors that both testing and static type checking are able to detect. Testing can be incorporated into the software build cycle, in which case it can be thought of as a "compile-time" check, in that the program user will not have to manually run such tests.</p>
 </blockquote>
 
 </div>
@@ -14186,139 +13281,26 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Name-binding">Name binding<a class="anchor-link" href="#Name-binding">&#182;</a></h3><h4 id="Static-binding-vs-Dynamic-binding">Static binding vs Dynamic binding<a class="anchor-link" href="#Static-binding-vs-Dynamic-binding">&#182;</a></h4><ul>
-<li>Static binding<ul>
-<li>checks performed without running the program<ul>
-<li>in most statically typed languages it is done when the program is compiled</li>
-</ul>
-</li>
-<li>such variables dont change during the course of its lifetime<ul>
-<li>although we may cast it to some other data type </li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Dynamic binding or Late binding or Virtual binding<ul>
-<li>as</li>
-</ul>
-</li>
-</ul>
-<h3 id="Typing">Typing<a class="anchor-link" href="#Typing">&#182;</a></h3><ul>
-<li>Typing refers to changes in program structure that are due to the differences between data values: integers, characters, floating point numbers, strings, objects and so on. These differences can have many effects, for example:<ul>
-<li>memory layout (e.g. 4 bytes for an int, 8 bytes for a double, more for an object)</li>
-<li>instructions executed (e.g. primitive operations to add small integers, library calls to add large ones)</li>
-<li>program flow (simple subroutine calling conventions versus hash-dispatch for multi-methods)</li>
-</ul>
-</li>
-</ul>
-<h4 id="Static-typing-vs-Dynamic-typing">Static typing vs Dynamic typing<a class="anchor-link" href="#Static-typing-vs-Dynamic-typing">&#182;</a></h4><ul>
-<li>Static typing means that the executable form of a program generated at build time will vary depending upon the types of data values found in the program. </li>
-<li>Dynamic typing means that the generated code will always be the same, irrespective of type -- any differences in execution will be determined at run-time.</li>
-</ul>
-<h4 id="Dynamic-typing-vs-Dynamic-binding">Dynamic typing vs Dynamic binding<a class="anchor-link" href="#Dynamic-typing-vs-Dynamic-binding">&#182;</a></h4><ul>
-<li>Dynamic typing defers the determination of the class that an object belongs to until the program is executing</li>
-<li>Dynamic binding defers the determination of the actual method to invoke on an object until program execution time</li>
-</ul>
-<h3 id="Weak-vs-Strong-typing">Weak vs Strong typing<a class="anchor-link" href="#Weak-vs-Strong-typing">&#182;</a></h3><p>Check out this JavaScript code:</p>
-<div class="highlight"><pre><span></span><span class="mf">4</span> <span class="o">+</span> <span class="s1">&#39;7&#39;</span><span class="p">;</span>      <span class="c1">// &#39;47&#39;</span>
-<span class="mf">4</span> <span class="o">*</span> <span class="s1">&#39;7&#39;</span><span class="p">;</span>      <span class="c1">// 28</span>
-<span class="mf">2</span> <span class="o">+</span> <span class="kc">true</span><span class="p">;</span>     <span class="c1">// 3</span>
-<span class="kc">false</span> <span class="o">-</span> <span class="mf">3</span><span class="p">;</span>    <span class="c1">// -3</span>
-</pre></div>
-<ul>
-<li><p>Adding number 4 to a string '7' gives us a string '47'. JavaScript converted number 4 into a string '4' and concatenated two strings — glued them together. JavaScript just took the liberty of assuming this is what we wanted. It's hard to blame it — what did we want? Adding a number to a string — that doesn't make sense. Some other language, like Ruby or Python would've just complained and not do anything.</p>
-</li>
-<li><p>Multiplying number 4 by a string '7' is, well, 28, according to JavaScript. In this case, it converted string '7' into number 7 and did the normal multiplication.</p>
-</li>
-<li><p>it tries to assume and convert from type to type without telling. Sometimes it's useful, sometimes it's mindboggling. This happens because <strong>JavaScript is a weakly typed language</strong>.</p>
-</li>
-<li><p>This has nothing to do with dynamic versus static typing, <strong>which is about WHEN to check for types. Strong versus weak is about HOW SERIOUS DO YOU GET while checking the types.</strong></p>
-</li>
-<li><p><strong>You can say that weak typing is relaxed typing, and strong typing is strict typing.</strong></p>
-</li>
-<li><p>All three are dynamically typed languages</p>
-<ul>
-<li>JavaScript has very weak typing </li>
-<li>PHP has somewhat stronger typing </li>
-<li>Python — even stronger </li>
-</ul>
-</li>
-</ul>
-<h3 id="Single-vs-Multiple-Dispatch">Single vs Multiple Dispatch<a class="anchor-link" href="#Single-vs-Multiple-Dispatch">&#182;</a></h3><p><a href="https://en.wikipedia.org/wiki/Dynamic_dispatch#Single_and_multiple_dispatch">https://en.wikipedia.org/wiki/Dynamic_dispatch#Single_and_multiple_dispatch</a></p>
-<blockquote><p>The choice of <strong>which version of a method to call</strong> may be based either on <strong>a single object</strong>, or <strong>on a combination of objects</strong>. The former is called <strong>single dispatch</strong> and is directly supported by common object-oriented languages such as Smalltalk, C++, Java, C#, Objective-C, Swift, JavaScript, and Python. In these and similar languages, one may call a method for division with syntax that resembles</p>
-<blockquote><p>dividend.divide(divisor)  # dividend / divisor</p>
-</blockquote>
-<p>where the <strong>parameters are optional</strong>. This is thought of as sending a message named divide with parameter divisor to dividend. An <strong>implementation will be chosen based only on dividend's type</strong> (perhaps rational, floating point, matrix), <strong>disregarding the type or value of divisor</strong>.</p>
-<p>By contrast, some languages dispatch methods or functions based on the <strong>combination of operands</strong>; in the division case, the <strong>types of the dividend and divisor together</strong> determine which divide operation will be performed. This is known as <strong>multiple dispatch</strong>. Examples of languages that support multiple dispatch are Common Lisp, Dylan, and <strong>Julia</strong>.</p>
-</blockquote>
-<h3 id="Dynamic-Dispatch-mechanisms">Dynamic Dispatch mechanisms<a class="anchor-link" href="#Dynamic-Dispatch-mechanisms">&#182;</a></h3><p>A language may be implemented with different dynamic dispatch mechanisms. The choices of the dynamic dispatch mechanism offered by a language to a large extent alter the programming paradigms that are available or are most natural to use within a given language.</p>
-<p>Normally, in a typed language, the dispatch mechanism will be performed based on the type of the arguments (most commonly based on the type of the receiver of a message). <strong>Languages with weak or no typing systems often carry a dispatch table as part of the object data for each object. This allows instance behaviour as each instance may map a given message to a separate method.</strong></p>
-<p>Some languages offer a hybrid approach.</p>
-<p><strong>Dynamic dispatch will always incur an overhead so some languages offer static dispatch for particular methods.</strong></p>
-<ul>
-<li>C++ uses early binding and offers both dynamic and static dispatch. The <strong>default form of dispatch is static</strong>. To get dynamic dispatch the programmer must declare a method as <strong>virtual</strong>.</li>
-</ul>
-<p>C++ example:</p>
-<div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span><span class="w"></span>
-
-<span class="c1">//make Pet an abstract virtual base class</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Pet</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">speak</span><span class="p">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Pet</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">speak</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Woof!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">Pet</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">speak</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Meow!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="p">};</span><span class="w"></span>
-
-<span class="c1">//Speak will be able to accept anything deriving from Pet</span>
-<span class="kt">void</span><span class="w"> </span><span class="nf">speak</span><span class="p">(</span><span class="n">Pet</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pet</span><span class="p">)</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">pet</span><span class="p">.</span><span class="n">speak</span><span class="p">();</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">Dog</span><span class="w"> </span><span class="n">fido</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">Cat</span><span class="w"> </span><span class="n">simba</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">speak</span><span class="p">(</span><span class="n">fido</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">speak</span><span class="p">(</span><span class="n">simba</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
-</pre></div>
-<p>Python example:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Cat</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Meow&quot;</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">Dog</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Woof&quot;</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="n">pet</span><span class="p">):</span>
-    <span class="c1"># Dynamically dispatches the speak method</span>
-    <span class="c1"># pet can either be an instance of Cat or Dog</span>
-    <span class="n">pet</span><span class="o">.</span><span class="n">speak</span><span class="p">()</span>
-
-<span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
-<span class="n">speak</span><span class="p">(</span><span class="n">cat</span><span class="p">)</span>
-<span class="n">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
-<span class="n">speak</span><span class="p">(</span><span class="n">dog</span><span class="p">)</span>
-</pre></div>
+<h3 id="How-is-Git-different-from-any-other-source-systems">How is Git different from any other source systems<a class="anchor-link" href="#How-is-Git-different-from-any-other-source-systems">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="How-does-Google-Ad-business-model-works">How does Google Ad business model works<a class="anchor-link" href="#How-does-Google-Ad-business-model-works">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="LinkedIn">LinkedIn<a class="anchor-link" href="#LinkedIn">&#182;</a></h3><h4 id="Starting-days">Starting days<a class="anchor-link" href="#Starting-days">&#182;</a></h4><p><a href="https://engineering.linkedin.com/architecture/brief-history-scaling-linkedin">https://engineering.linkedin.com/architecture/brief-history-scaling-linkedin</a></p>
+<p>Leo - single monolithic application doing it all. That single app was called Leo. It hosted web servlets for all the various pages, handled business logic, and connected to a handful of LinkedIn databases</p>
+<p>Cloud - manage member to member connections. We needed a system that queried connection data using graph traversals and lived in-memory for top efficiency and performance. to scale independently of Leo, so a separate system for our member graph called Cloud was born - LinkedIn’s first service</p>
+<p>Lucene - member graph service started feeding data into a new search service running Lucene.</p>
+<p>Master Slave Model
+<img src="https://content.linkedin.com/content/dam/engineering/en-us/blog/migrated/arch_master_slave_0.png" width=600 height=400></p>
 
 </div>
 </div>
@@ -14326,27 +13308,7 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Virtual-Method-Table">Virtual Method Table<a class="anchor-link" href="#Virtual-Method-Table">&#182;</a></h3><ul>
-<li><a href="https://legacy.python.org/workshops/1998-11/proceedings/papers/lowis/lowis.html">https://legacy.python.org/workshops/1998-11/proceedings/papers/lowis/lowis.html</a></li>
-<li><a href="https://programs.wiki/wiki/detailed-parsing-of-c-virtual-functions-with-examples.html">https://programs.wiki/wiki/detailed-parsing-of-c-virtual-functions-with-examples.html</a></li>
-</ul>
-<blockquote><ul>
-<li>Anyone who knows C++ should know that virtual functions are implemented through a Virtual Table.V-Table for short. In this table, <strong>the address table of the Virtual Function of a class is the main address table</strong>. This table solves the problem of <strong>inheritance and override</strong>, and ensures that it can faithfully reflect the actual function. In this way, the <strong>table is shared by classes in instances of classes with virtual functions</strong>, so when we manipulate a subclass with the pointer of the parent class, the <strong>Virtual Function table becomes important, just like a map</strong>, indicating what functions should actually be called.</li>
-<li><p>The C++ compiler should ensure that the <strong>pointer to the virtual function table exists at the top of the object instance</strong> (this is to ensure the highest performance when fetching the virtual function table - if there is multiple or multiple inheritance).This means that <strong>we get this virtual function table from the address of the object instance, then we can iterate through the function pointer and call the corresponding function.</strong></p>
-</li>
-<li><p>The <strong>inherited class derives a table of virtual functions</strong>, if any, and copies the virtual function address of the parent class.</p>
-</li>
-<li>Virtual functions are <strong>placed in tables in the order in which they are declared</strong>.</li>
-<li><p>The virtual function of the parent class precedes the virtual function of the child class</p>
-</li>
-<li><p>The <strong>override function is placed in the new virtual table where the parent virtual function address</strong> is, that is, the parent virtual function address is overridden, thus <strong>achieving polymorphism.</strong></p>
-</li>
-<li>Functions that are not overwritten are still listed after the virtual table in the declarative order.</li>
-</ul>
-</blockquote>
-<ul>
-<li>codes/cpp_templates/virtual_test.cpp</li>
-</ul>
+<h3 id="Istio">Istio<a class="anchor-link" href="#Istio">&#182;</a></h3><p><a href="https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/">https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/</a></p>
 
 </div>
 </div>
@@ -14354,508 +13316,14 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Bottlenecks">Bottlenecks<a class="anchor-link" href="#Bottlenecks">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="CDN---Content-delivery-network">CDN - Content delivery network<a class="anchor-link" href="#CDN---Content-delivery-network">&#182;</a></h3><blockquote><p>A content delivery network (CDN) refers to a geographically distributed group of servers which work together to provide fast delivery of Internet content.</p>
-<p>A CDN allows for the quick transfer of assets needed for loading Internet content including HTML pages, javascript files, stylesheets, images, and videos. The popularity of CDN services continues to grow, and today the majority of web traffic is served through CDNs, including traffic from major sites like Facebook, Netflix, and Amazon.</p>
-<p>It helps cache content at the network edge, which improves website performance. Many websites struggle to have their performance needs met by traditional hosting services, which is why they opt for CDNs.</p>
-<p>Benfits of using a CDN:</p>
-<ul>
-<li>Improving website load times</li>
-<li>Reducing bandwidth costs</li>
-<li>Increasing content availability and redundancy</li>
-<li>Improving website security</li>
+<h3 id="Unix-architecture">Unix architecture<a class="anchor-link" href="#Unix-architecture">&#182;</a></h3><ul>
+<li><a href="https://linux.die.net/lkmpg/">Linux Kernel</a></li>
+<li><a href="https://linux.die.net/Intro-Linux/">Introduction to Linux</a></li>
 </ul>
-</blockquote>
-<p><img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/540CpDkqSDg6QAPi5nO1AP/b44a3edb5abc4e115ddab9b4d9bf7a32/Learning-How-does-a-CDN-work.svg" alt="How does CDN work"></p>
-<p>$\tiny{\text{cloudflare.com}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Point-of-Presence(PoP)">Point of Presence(PoP)<a class="anchor-link" href="#Point-of-Presence(PoP)">&#182;</a></h3><p>A point of presence (PoP) is a demarcation point, access point, or physical location at which two or more networks or communication devices share a connection.</p>
-<p>The routers, switches, servers, and other devices necessary for traffic to cross over networks are all present at PoPs. Internet service providers and edge networks like StackPath typically have multiple points of presence located near large Internet exchange points (IXPs) at which they have peering agreements. The proximity of points of presence and Internet exchange points is one very important factor in how quickly traffic is able to traverse the Internet.</p>
-<p>$\tiny{\text{https://blog.stackpath.com/}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Domain-Name-Service-(DNS)">Domain Name Service (DNS)<a class="anchor-link" href="#Domain-Name-Service-(DNS)">&#182;</a></h3><p>This query service maps long IP addresses to domain names such as google.com. There are four key components:</p>
-<ul>
-<li>DNS Resolver </li>
-<li>Root nameserver  </li>
-<li>Top level domain nameserver</li>
-<li>Authorative nameserver</li>
+<h3 id="Windows-architecture">Windows architecture<a class="anchor-link" href="#Windows-architecture">&#182;</a></h3><h3 id="Amazon">Amazon<a class="anchor-link" href="#Amazon">&#182;</a></h3><ul>
+<li>how does amazon product services work</li>
 </ul>
-<p>The authorative server sends list of IP addresses in a round-robin fashion, enabling to use other IP addresses if the client doesn't respond within a time limit.</p>
-<p><img src="https://foxutech.com/wp-content/uploads/2017/09/How-DNS-works.png" alt="How DNS works"></p>
-<p>$\tiny{\text{https://foxutech.com}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="System-Design-Problems">System Design Problems<a class="anchor-link" href="#System-Design-Problems">&#182;</a></h3><ul>
-<li>1) Requirements clarifications<ul>
-<li>they are open-ended questions</li>
-<li>they dont have one correct answer</li>
-<li>define end goals of system</li>
-<li>clarify which part of system to focus on</li>
-</ul>
-</li>
-<li>2) Back-of-the-envelope estimation<ul>
-<li>estimate scale of system to design</li>
-<li>how much storage is needed</li>
-<li>what type of storage is required, photos, videos, tweets</li>
-<li>what network bandwidth is expected</li>
-</ul>
-</li>
-<li>3) System interface definition<ul>
-<li>define the main APIs</li>
-<li>define the main contracts expected within the system</li>
-</ul>
-</li>
-<li>4) Defining data model<ul>
-<li>how data flows between components</li>
-<li>define different aspects of data management for example storage</li>
-<li>what type of database to choose - relational or no-sql</li>
-<li>how will storage of photos and videos be done</li>
-</ul>
-</li>
-<li>5) High-level design<ul>
-<li>draw block diagrams, <ul>
-<li>as how many application server, </li>
-<li>how will load balancers be designed, </li>
-<li>what sort of database is required, </li>
-<li>how many read-writes are needed, </li>
-<li>what sort of distributed file storage system is required</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>6) Detailed design<ul>
-<li>dig deeper into couple of major components</li>
-<li>which layer would we need caching</li>
-<li>how will we partition the data</li>
-<li>what time will have major tweets and how to optimize </li>
-<li>which components need load balancing</li>
-</ul>
-</li>
-<li>7) Identifying and resolving bottlenecks<ul>
-<li>which components may cause bottlenecks</li>
-<li>how to create redundant serives/applications to serve well</li>
-<li>how to monitor performance of services</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Design-URL-shortening-system-like-bit.ly-or-tinyurl">Design URL shortening system like bit.ly or tinyurl<a class="anchor-link" href="#Design-URL-shortening-system-like-bit.ly-or-tinyurl">&#182;</a></h4><ul>
-<li>What is the need?<ul>
-<li>shorter links</li>
-<li>saves space</li>
-<li>less likely to mistype</li>
-</ul>
-</li>
-<li>What are the requirements of designing such system?<ul>
-<li>Functional requirements<ul>
-<li>shorter link or aliases</li>
-<li>service must redirects them to original link</li>
-<li>users should have a choice of picking up shorter name link</li>
-<li>should expire after standard time span</li>
-</ul>
-</li>
-<li>Non-Functional requirements<ul>
-<li>minimal or no downtime</li>
-<li>url redirection must happen realtime</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="How-hotstar-scaled-10.3-million-concurrent-users">How hotstar scaled 10.3 million concurrent users<a class="anchor-link" href="#How-hotstar-scaled-10.3-million-concurrent-users">&#182;</a></h4><p><a href="https://www.scaleyourapp.com/how-hotstar-scaled-with-10-3-million-concurrent-users-an-architectural-insight/">https://www.scaleyourapp.com/how-hotstar-scaled-with-10-3-million-concurrent-users-an-architectural-insight/</a></p>
-<h4 id="How-facebook-support-global-events">How facebook support global events<a class="anchor-link" href="#How-facebook-support-global-events">&#182;</a></h4><p><a href="https://engineering.fb.com/2018/02/12/production-engineering/how-production-engineers-support-global-events-on-facebook/">https://engineering.fb.com/2018/02/12/production-engineering/how-production-engineers-support-global-events-on-facebook/</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Application-server-features">Application server features<a class="anchor-link" href="#Application-server-features">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-server-features">Web server features<a class="anchor-link" href="#Web-server-features">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="API">API<a class="anchor-link" href="#API">&#182;</a></h3><p>Application Protocol Interface</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Proxy-Server">Proxy Server<a class="anchor-link" href="#Proxy-Server">&#182;</a></h3><ul>
-<li>Proxy acts as a firewall</li>
-<li>Multiple clients can talk to the same proxy and can interact on our behalf with the outside world </li>
-<li>Acts as a security layer and protects against phishing and other malwares</li>
-<li>Helps in caching by saving static content</li>
-<li>helps in encrypting/decrypting sensitive client data</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Reverse-Proxy-Server">Reverse Proxy Server<a class="anchor-link" href="#Reverse-Proxy-Server">&#182;</a></h3><ul>
-<li>instead of protecting the client, it protects the server</li>
-<li>outside world can interact with reverse proxy server instead of interacting with server directly</li>
-<li>works as load balancing</li>
-<li>helps in caching</li>
-<li>helps in compressing the data, thereby improving the bandwidth and performance of network</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="OAuth-2.0">OAuth 2.0<a class="anchor-link" href="#OAuth-2.0">&#182;</a></h3><p>When we launch Spotify to listen to some music, we may choose into login using Facebook. Spotify logins using Facebook API.</p>
-<ul>
-<li>We may think, Spotify uses Facebook username and password to login. Wrong. <strong><em>It does not</em></strong> </li>
-<li>Passwords are never passed from server to server in an OAuth 2.0 framework</li>
-</ul>
-<p>In the example below, Sarah wants to check her balance in Memorial bank account. She logs into MyBucks application to check her checkings bank account in MyBucks dashboard.</p>
-<ul>
-<li>MyBucks makes an <em><strong>authorization request</strong></em> to memorial bank authorization server</li>
-<li>Memorial bank asks Sarah to <em><strong>authorize</strong></em> MyBucks to access her account balances </li>
-<li>Sarah's authorization is sent back to Memorial Bank <strong><em>authorization server</em></strong> with <em><strong>authorization grant and authorization code</strong></em></li>
-<li>Authorization Server does not hold any of Sarah's account details. It is with <em><strong>Resource Server</strong></em>, so authorization code is used for interactions</li>
-<li>Authorization Server then sends MyBucks application with <em><strong>access token</strong></em> to get Sarah's checking details</li>
-<li>The access token has details of what <strong><em>authorization Sarah provided</em></strong>. In this case its her account balances only</li>
-<li>MyBucks sends <em><strong>access token</strong></em> to Resource Server, which validates the token</li>
-<li>Resource server sends the <strong><em>protected resource</em></strong></li>
-</ul>
-<p><img src="./images/OAuth2.png" alt="OAuth2"></p>
-<p>$\tiny{\text{YouTube - InterSystems Learning Services}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Master-Slave-Model">Master Slave Model<a class="anchor-link" href="#Master-Slave-Model">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="API-Gateway">API Gateway<a class="anchor-link" href="#API-Gateway">&#182;</a></h3><ul>
-<li>APIs are the interfaces which applications use to communicate and the gateway is the control point for routing, shaping, and securing that traffic</li>
-<li>Incoming traffic is filtered and routed to the appropriate services.</li>
-</ul>
-<p>Example</p>
-<ul>
-<li>Reverse proxy server. Nginx and HAProxy</li>
-</ul>
-<p><img src="https://docs.microsoft.com/en-us/azure/architecture/microservices/images/gateway.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Worker-Pool">Worker Pool<a class="anchor-link" href="#Worker-Pool">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Data-Lake">Data Lake<a class="anchor-link" href="#Data-Lake">&#182;</a></h3><ul>
-<li><a href="https://www.snaplogic.com/glossary/data-lake">https://www.snaplogic.com/glossary/data-lake</a></li>
-<li><a href="https://www.snaplogic.com/glossary/hadoop-data-lake">https://www.snaplogic.com/glossary/hadoop-data-lake</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Message-Queue">Message Queue<a class="anchor-link" href="#Message-Queue">&#182;</a></h3><p>A message queue is a data structure, or a container - a way to hold messages for eventual consumption</p>
-<h4 id="Message-Broker">Message Broker<a class="anchor-link" href="#Message-Broker">&#182;</a></h4><ul>
-<li>A message broker is a <strong>separate component that manages queues</strong></li>
-<li>It is also known as a <strong>service bus</strong> which is a piece of middleware responsible with persisting and routing of message while allowing you to decouple your system into smaller parts. <ul>
-<li>A message queue is a part of a message broker and is just a persistence mechanism.</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-components">Web components<a class="anchor-link" href="#Web-components">&#182;</a></h3><ul>
-<li>low level browser APIs</li>
-<li>gives a standard component interface</li>
-<li>web components are not specific framework</li>
-<li>web components simply tell broser <strong>"When and Where to create components, but not how"</strong></li>
-</ul>
-<h4 id="AMP-component">AMP component<a class="anchor-link" href="#AMP-component">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Web-2.0">Web 2.0<a class="anchor-link" href="#Web-2.0">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Costs-of-operation">Costs of operation<a class="anchor-link" href="#Costs-of-operation">&#182;</a></h3><ul>
-<li>Read from disk</li>
-<li>Read from memory</li>
-<li>Local Area Network (LAN) round-trip</li>
-<li>Cross Continental Network</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Solution-Patterns">Solution Patterns<a class="anchor-link" href="#Solution-Patterns">&#182;</a></h3><ul>
-<li>Sharding Data</li>
-<li>Replication Types</li>
-<li>Write-Ahead Logging</li>
-<li>Separating Data and Metadata Storage</li>
-<li>Load Distribution</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Trade-Offs-and-Compromise">Trade-Offs and Compromise<a class="anchor-link" href="#Trade-Offs-and-Compromise">&#182;</a></h3><ul>
-<li>Rotating disk and pay for latency</li>
-<li>Flash drive and pay more money</li>
-<li>Seek multiple solutions, pick one and commit to it</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Better-Practices">Better Practices<a class="anchor-link" href="#Better-Practices">&#182;</a></h3><ul>
-<li>how you think - how you solve problems</li>
-<li>most questions will be open ended<ul>
-<li>ask for clarifications</li>
-</ul>
-</li>
-<li>first solution may not be the best solution<ul>
-<li>ways to improve upon it</li>
-</ul>
-</li>
-<li>practice on paper or white-board</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Hardware">Hardware<a class="anchor-link" href="#Hardware">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Stack-vs-Heap">Stack vs Heap<a class="anchor-link" href="#Stack-vs-Heap">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Functional-programming-vs-OOP">Functional programming vs OOP<a class="anchor-link" href="#Functional-programming-vs-OOP">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Advantages-of-Physical-layer-vs-Logical-layer-separation">Advantages of Physical layer vs Logical layer separation<a class="anchor-link" href="#Advantages-of-Physical-layer-vs-Logical-layer-separation">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Service-Providers">Service Providers<a class="anchor-link" href="#Service-Providers">&#182;</a></h3><ul>
-<li>What are the type of features that service providers offer like Gmail, Microsoft or IMAP</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Calculate-capacity-of-shard-services">Calculate capacity of shard services<a class="anchor-link" href="#Calculate-capacity-of-shard-services">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Calculate-acceptable-latency">Calculate acceptable latency<a class="anchor-link" href="#Calculate-acceptable-latency">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Calculate-hardware-capability">Calculate hardware capability<a class="anchor-link" href="#Calculate-hardware-capability">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Calculate-scalability-requirements">Calculate scalability requirements<a class="anchor-link" href="#Calculate-scalability-requirements">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Elasticity-of-cloud">Elasticity of cloud<a class="anchor-link" href="#Elasticity-of-cloud">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Features-that-cloud-provides">Features that cloud provides<a class="anchor-link" href="#Features-that-cloud-provides">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="User-Session">User Session<a class="anchor-link" href="#User-Session">&#182;</a></h3><ul>
-<li>When a website stores user state, the next time the user logs in they can continue from where they left off</li>
-<li>It would not feel like that one is starting fresh &amp; all the previous activity is lost</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Algorithms">Algorithms<a class="anchor-link" href="#Algorithms">&#182;</a></h3><h4 id="Completeness">Completeness<a class="anchor-link" href="#Completeness">&#182;</a></h4><h4 id="Time-complexity">Time complexity<a class="anchor-link" href="#Time-complexity">&#182;</a></h4><h4 id="Space-complexity">Space complexity<a class="anchor-link" href="#Space-complexity">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Hypervisor">Hypervisor<a class="anchor-link" href="#Hypervisor">&#182;</a></h3><ul>
-<li>Hypervisor makes virtualization possible. </li>
-<li>It is also called virtual machine monitor. </li>
-<li>It divides host system and allocates the resources to each of the divided virtual environment. </li>
-<li>there can be multiple operating system in a single host system</li>
-</ul>
-<ul>
-<li>Type 1 hypervisor <ul>
-<li>native hypervisor</li>
-<li>runs directly on the underlying host system</li>
-<li>it has direct access to host system hardware, so does not require base server operating system</li>
-</ul>
-</li>
-<li>Type 2 hypervisor<ul>
-<li>they make use of underlying host operating system</li>
-<li>hosted hypervisor</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Virtualization">Virtualization<a class="anchor-link" href="#Virtualization">&#182;</a></h3><h3 id="Containerization">Containerization<a class="anchor-link" href="#Containerization">&#182;</a></h3><ul>
-<li>An application that is developed and deployed is bundled and wrapped together with all its configuration files and dependencies. This is <strong>containerization</strong> and the bundle is called <strong>container</strong>. Examples of containerization environments are Docker and Kubernetes.</li>
-</ul>
-<h3 id="Virtualization-vs-Containerization">Virtualization vs Containerization<a class="anchor-link" href="#Virtualization-vs-Containerization">&#182;</a></h3><ul>
-<li>Container provide an isolated environment for running the application</li>
-<li>the entire user space is explicitly dedicated to application</li>
-<li>any changes made inside container is not reflected to the host or other containers running on the same host</li>
-<li>container is the abstraction of application layer</li>
-<li>each ocntainer is a different application</li>
-</ul>
-<ul>
-<li>hypervisor gives the entire virtual machine to the guest which includes the kernel as well</li>
-<li>virtual machine is the abstraction of hardware layer and each virtual machine is a physical machine</li>
-</ul>
-
+<h3 id="Google-Search/Crawl/PageRank">Google Search/Crawl/PageRank<a class="anchor-link" href="#Google-Search/Crawl/PageRank">&#182;</a></h3><h3 id="BitTorrent-design">BitTorrent design<a class="anchor-link" href="#BitTorrent-design">&#182;</a></h3><h3 id="Whatsapp-system-design">Whatsapp system design<a class="anchor-link" href="#Whatsapp-system-design">&#182;</a></h3><h3 id="DropBox/Google-Drive">DropBox/Google Drive<a class="anchor-link" href="#DropBox/Google-Drive">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -14863,47 +13331,6 @@ will be rejected as ill-typed, because a static analysis cannot determine that t
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Bare-metal-deployment">Bare metal deployment<a class="anchor-link" href="#Bare-metal-deployment">&#182;</a></h3><h4 id="Bare-Metal-vs.-Virtual-Machine-Deployments">Bare Metal vs. Virtual Machine Deployments<a class="anchor-link" href="#Bare-Metal-vs.-Virtual-Machine-Deployments">&#182;</a></h4><ul>
-<li><a href="https://www.containiq.com/post/deploying-kubernetes-on-bare-metal">https://www.containiq.com/post/deploying-kubernetes-on-bare-metal</a></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="TTL">TTL<a class="anchor-link" href="#TTL">&#182;</a></h3><ul>
-<li>Time to live</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="TLS/SSL">TLS/SSL<a class="anchor-link" href="#TLS/SSL">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="CA-certificate">CA certificate<a class="anchor-link" href="#CA-certificate">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Public-Private-Key">Public-Private Key<a class="anchor-link" href="#Public-Private-Key">&#182;</a></h3>
 </div>
 </div>
 </div>
