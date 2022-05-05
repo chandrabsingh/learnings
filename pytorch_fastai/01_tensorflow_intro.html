@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13124,7 +13124,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -13157,7 +13157,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[118]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This will be an int32 tensor by default; see &quot;dtypes&quot; below.</span>
@@ -13184,25 +13184,13 @@ $( document ).ready(function(){
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>2022-04-06 08:41:00.128565: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[119]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rank_1_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">])</span>
@@ -13234,7 +13222,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[120]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># If you want to be specific, you can set the dtype (see below) at creation time</span>
@@ -13272,7 +13260,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[121]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># There can be an arbitrary number of</span>
@@ -13321,7 +13309,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[122]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rank_2_tensor</span><span class="p">)</span>
@@ -13337,7 +13325,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[11]:</div>
+    <div class="prompt output_prompt">Out[122]:</div>
 
 
 
@@ -13356,7 +13344,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[123]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rank_2_tensor</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
@@ -13372,7 +13360,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[12]:</div>
+    <div class="prompt output_prompt">Out[123]:</div>
 
 
 
@@ -13391,7 +13379,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
@@ -13434,7 +13422,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
@@ -13450,7 +13438,7 @@ tf.Tensor(
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[16]:</div>
+    <div class="prompt output_prompt">Out[125]:</div>
 
 
 
@@ -13469,7 +13457,7 @@ array([[1., 1.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="c1"># element-wise addition</span>
@@ -13510,7 +13498,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
@@ -13550,9 +13538,60 @@ tf.Tensor(
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Softmax</strong> turns arbitrary real values into probabilities</p>
+$$s(x_{i}) = \frac{e^{x_{i}}}{\sum_{j=1}^{n}e^{x_{j}}}$$
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[134]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># How to calculate softmax</span>
+<span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">softmax</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">softmax</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">softmax</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[0.0021657  0.00588697 0.11824302 0.87370431]
+[[0.73105858 0.26894142]
+ [0.26894142 0.73105858]]
+[0.25 0.25 0.25 0.25]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[135]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rank_4_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
@@ -13594,7 +13633,7 @@ Total number of elements (3*2*4*5):  120
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[136]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">rank_4_tensor</span><span class="p">)</span>
@@ -13610,7 +13649,7 @@ Total number of elements (3*2*4*5):  120
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[25]:</div>
+    <div class="prompt output_prompt">Out[136]:</div>
 
 
 
@@ -13642,7 +13681,7 @@ Total number of elements (3*2*4*5):  120
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rank_1_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">])</span>
@@ -13674,7 +13713,7 @@ Total number of elements (3*2*4*5):  120
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First:&quot;</span><span class="p">,</span> <span class="n">rank_1_tensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
@@ -13709,7 +13748,7 @@ Last: 34
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[70]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Everything:&quot;</span><span class="p">,</span> <span class="n">rank_1_tensor</span><span class="p">[:]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
@@ -13750,7 +13789,7 @@ Reversed: [34 21 13  8  5  3  2  1  1  0]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[71]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rank_2_tensor</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
@@ -13783,7 +13822,7 @@ Reversed: [34 21 13  8  5  3  2  1  1  0]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Pull out a single value from a 2-rank tensor</span>
@@ -13815,7 +13854,7 @@ Reversed: [34 21 13  8  5  3  2  1  1  0]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get row and column tensors</span>
@@ -13859,7 +13898,7 @@ Skip the first row:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">)</span>
@@ -13898,7 +13937,7 @@ Skip the first row:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">4</span><span class="p">])</span>
@@ -13932,7 +13971,7 @@ Skip the first row:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Shape returns a `TensorShape` object that shows the size along each axis</span>
@@ -13965,7 +14004,7 @@ Skip the first row:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># You can convert this object into a Python list, too</span>
@@ -13997,7 +14036,7 @@ Skip the first row:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[78]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A `-1` passed in the `shape` argument says &quot;Whatever fits&quot;.</span>
@@ -14031,7 +14070,7 @@ Skip the first row:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[79]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rank_3_tensor</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]),</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -14074,7 +14113,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Bad examples: don&#39;t do this</span>
@@ -14141,7 +14180,7 @@ InvalidArgumentError: Input to reshape is a tensor with 30 values, but the reque
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[81]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">the_f32_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mf">2.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">])</span>
@@ -14191,7 +14230,7 @@ tf.Tensor([2 3 4], shape=(3,), dtype=uint8)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[82]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -14231,7 +14270,7 @@ tf.Tensor([2 4 6], shape=(3,), dtype=int32)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[83]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># These are the same computations</span>
@@ -14277,7 +14316,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="prompt input_prompt">In&nbsp;[84]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x_stretch</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
@@ -14319,7 +14358,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="prompt input_prompt">In&nbsp;[85]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
@@ -14360,7 +14399,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[86]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ragged_list</span> <span class="o">=</span> <span class="p">[</span>
@@ -14404,7 +14443,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[87]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tensors can be strings, too here is a scalar string.</span>
@@ -14437,7 +14476,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[88]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># If you have three string tensors of different lengths, this is OK.</span>
@@ -14473,7 +14512,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[89]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ...but it turns into a `RaggedTensor` if you split up a tensor of strings,</span>
@@ -14506,7 +14545,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sparse tensors store values by index in a memory-efficient manner</span>
@@ -14561,13 +14600,13 @@ tf.Tensor(
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Tensorflow-basics">Tensorflow basics<a class="anchor-link" href="#Tensorflow-basics">&#182;</a></h2><p><a href="https://www.tensorflow.org/guide/basics">https://www.tensorflow.org/guide/basics</a></p>
-<h3 id="Tensors">Tensors<a class="anchor-link" href="#Tensors">&#182;</a></h3>
+<h3 id="Tensors">Tensors<a class="anchor-link" href="#Tensors">&#182;</a></h3><h4 id="Basics">Basics<a class="anchor-link" href="#Basics">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[91]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">],</span>
@@ -14607,7 +14646,7 @@ tf.Tensor(
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[92]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">+</span> <span class="n">x</span>
@@ -14623,7 +14662,7 @@ tf.Tensor(
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[50]:</div>
+    <div class="prompt output_prompt">Out[92]:</div>
 
 
 
@@ -14642,7 +14681,7 @@ array([[ 2.,  4.,  6.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[93]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="mi">5</span><span class="o">+</span><span class="n">x</span>
@@ -14658,7 +14697,7 @@ array([[ 2.,  4.,  6.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[51]:</div>
+    <div class="prompt output_prompt">Out[93]:</div>
 
 
 
@@ -14677,7 +14716,7 @@ array([[ 6.,  7.,  8.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[94]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -14693,7 +14732,7 @@ array([[ 6.,  7.,  8.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[53]:</div>
+    <div class="prompt output_prompt">Out[94]:</div>
 
 
 
@@ -14713,7 +14752,7 @@ array([[1., 4.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[54]:</div>
+<div class="prompt input_prompt">In&nbsp;[95]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">@</span> <span class="n">tf</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -14729,7 +14768,7 @@ array([[1., 4.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[54]:</div>
+    <div class="prompt output_prompt">Out[95]:</div>
 
 
 
@@ -14748,7 +14787,7 @@ array([[14., 32.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[55]:</div>
+<div class="prompt input_prompt">In&nbsp;[96]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -14764,7 +14803,7 @@ array([[14., 32.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[55]:</div>
+    <div class="prompt output_prompt">Out[96]:</div>
 
 
 
@@ -14787,7 +14826,7 @@ array([[1., 2., 3.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[56]:</div>
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -14803,7 +14842,7 @@ array([[1., 2., 3.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[56]:</div>
+    <div class="prompt output_prompt">Out[97]:</div>
 
 
 
@@ -14820,7 +14859,7 @@ array([[1., 2., 3.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">tf</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s1">&#39;GPU&#39;</span><span class="p">):</span>
@@ -14859,13 +14898,13 @@ array([[1., 2., 3.],
 <li>Normal tf.Tensor objects are immutable. </li>
 <li>To store model weights (or other mutable state) in TensorFlow use a tf.Variable.</li>
 </ul>
-
+<h4 id="Create-a-variable">Create a variable<a class="anchor-link" href="#Create-a-variable">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
@@ -14878,7 +14917,7 @@ array([[1., 2., 3.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="prompt input_prompt">In&nbsp;[100]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">var</span><span class="o">.</span><span class="n">assign</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -14894,7 +14933,7 @@ array([[1., 2., 3.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[59]:</div>
+    <div class="prompt output_prompt">Out[100]:</div>
 
 
 
@@ -14911,7 +14950,7 @@ array([[1., 2., 3.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="prompt input_prompt">In&nbsp;[101]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">var</span><span class="o">.</span><span class="n">assign_add</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
@@ -14927,7 +14966,7 @@ array([[1., 2., 3.],
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[60]:</div>
+    <div class="prompt output_prompt">Out[101]:</div>
 
 
 
@@ -14944,7 +14983,7 @@ array([[1., 2., 3.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_tensor</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
@@ -14992,7 +15031,7 @@ array([[1., 2.],
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape: &quot;</span><span class="p">,</span> <span class="n">my_variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -15028,7 +15067,7 @@ As NumPy:  [[1. 2.]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
@@ -15064,9 +15103,16 @@ As NumPy:  [[1. 2.]
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Lifecycles,-naming,-and-watching">Lifecycles, naming, and watching<a class="anchor-link" href="#Lifecycles,-naming,-and-watching">&#182;</a></h4>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[105]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a and b; they will have the same name but will be backed by</span>
@@ -15105,9 +15151,16 @@ As NumPy:  [[1. 2.]
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Placing-variables-and-tensors">Placing variables and tensors<a class="anchor-link" href="#Placing-variables-and-tensors">&#182;</a></h4>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;CPU:0&#39;</span><span class="p">):</span>
@@ -15147,7 +15200,7 @@ As NumPy:  [[1. 2.]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[109]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -15201,15 +15254,464 @@ tf.Tensor(
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Computing-gradients">Computing gradients<a class="anchor-link" href="#Computing-gradients">&#182;</a></h4><p>To differentiate automatically, TensorFlow needs to remember what operations happen in what order during the forward pass. Then, during the backward pass, TensorFlow traverses this list of operations in reverse order to compute gradients.</p>
+<h4 id="Gradient-tapes">Gradient tapes<a class="anchor-link" href="#Gradient-tapes">&#182;</a></h4><p>TensorFlow provides the tf.GradientTape API for automatic differentiation; that is, computing the gradient of a computation with respect to some inputs, usually tf.Variables. TensorFlow "records" relevant operations executed inside the context of a tf.GradientTape onto a "tape". TensorFlow then uses that tape to compute the gradients of a "recorded" computation using reverse mode differentiation.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[111]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># dy = 2x * dx</span>
+<span class="n">dy_dx</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">dy_dx</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[111]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[142]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]]</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">(</span><span class="n">persistent</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">@</span> <span class="n">w</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+<span class="p">[</span><span class="n">dl_dw</span><span class="p">,</span> <span class="n">dl_db</span><span class="p">]</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="p">[</span><span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;w = </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;b = </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;x = </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;y = </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;loss = </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dl_dw = </span><span class="si">{</span><span class="n">dl_dw</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dl_db = </span><span class="si">{</span><span class="n">dl_db</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>w = &lt;tf.Variable &#39;w:0&#39; shape=(3, 2) dtype=float32, numpy=
+array([[-0.7729324 , -0.4005456 ],
+       [ 0.9172016 ,  2.035143  ],
+       [ 0.02391892, -0.24654771]], dtype=float32)&gt;
+b = &lt;tf.Variable &#39;b:0&#39; shape=(2,) dtype=float32, numpy=array([0., 0.], dtype=float32)&gt;
+x = [[1.0, 2.0, 3.0]]
+
+
+y = [[1.1332275 2.930097 ]]
+loss = 4.9348368644714355
+
+
+dl_dw = [[1.1332275 2.930097 ]
+ [2.266455  5.860194 ]
+ [3.3996825 8.790291 ]]
+dl_db = [1.1332275 2.930097 ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[145]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">my_vars</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;w&#39;</span><span class="p">:</span> <span class="n">w</span><span class="p">,</span>
+    <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">b</span>
+<span class="p">}</span>
+
+<span class="n">grad</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">my_vars</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grad</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tf.Tensor([1.1332275 2.930097 ], shape=(2,), dtype=float32)
+dict_keys([&#39;w&#39;, &#39;b&#39;])
+{&#39;w&#39;: &lt;tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[1.1332275, 2.930097 ],
+       [2.266455 , 5.860194 ],
+       [3.3996825, 8.790291 ]], dtype=float32)&gt;, &#39;b&#39;: &lt;tf.Tensor: shape=(2,), dtype=float32, numpy=array([1.1332275, 2.930097 ], dtype=float32)&gt;}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[140]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># help(tf.reduce_mean)</span>
+<span class="c1"># help(tf.GradientTape)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Gradients-with-respect-to-a-model">Gradients with respect to a model<a class="anchor-link" href="#Gradients-with-respect-to-a-model">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[147]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tf.Variables can be collected into a tf.Module or one of its subclasses (layers.Layer, keras.Model)</span>
+<span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]])</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+  <span class="c1"># Forward pass</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Calculate gradients with respect to every trainable variable</span>
+<span class="n">grad</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">layer</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">grad</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">trainable_variables</span><span class="p">,</span> <span class="n">grad</span><span class="p">):</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">, shape: </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&lt;tf.Tensor: shape=(3, 2), dtype=float32, numpy=
+array([[0.        , 0.68494356],
+       [0.        , 1.3698871 ],
+       [0.        , 2.0548306 ]], dtype=float32)&gt;, &lt;tf.Tensor: shape=(2,), dtype=float32, numpy=array([0.        , 0.68494356], dtype=float32)&gt;]
+dense_1/kernel:0, shape: (3, 2)
+dense_1/bias:0, shape: (2,)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Controlling-what-the-tape-watches">Controlling what the tape watches<a class="anchor-link" href="#Controlling-what-the-tape-watches">&#182;</a></h4><p>The default behavior is to record all operations after accessing a trainable tf.Variable. The reasons for this are:</p>
+<ul>
+<li>The tape needs to know which operations to record in the forward pass to calculate the gradients in the backwards pass.</li>
+<li>The tape holds references to intermediate outputs, so you don't want to record unnecessary operations.</li>
+<li>The most common use case involves calculating the gradient of a loss with respect to all a model's trainable variables.</li>
+</ul>
+<p>For example, the following fails to calculate a gradient because the <strong>tf.Tensor is not "watched" by default, and the tf.Variable is not trainable</strong>:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[152]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A trainable variable</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x0&#39;</span><span class="p">)</span>
+<span class="c1"># Not trainable</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Trainable</span>
+<span class="n">x12</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="n">trainable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Not a Variable: A variable + tensor returns a tensor.</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x2&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span>
+<span class="c1"># Not a variable</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x3&#39;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="p">(</span><span class="n">x0</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x12</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x2</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">grad</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="p">[</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x12</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">x3</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">grad</span><span class="p">:</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tf.Tensor(6.0, shape=(), dtype=float32)
+None
+tf.Tensor(6.0, shape=(), dtype=float32)
+None
+None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[151]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">tape</span><span class="o">.</span><span class="n">watched_variables</span><span class="p">()]</span> <span class="c1"># variables being watched by the tape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[151]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;x0:0&#39;, &#39;x1:0&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[154]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tf.GradientTape provides hooks that give the user control over what is or is not watched.</span>
+<span class="c1"># To record gradients with respect to a tf.Tensor, you need to call GradientTape.watch(x):</span>
+    
+<span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+  <span class="n">tape</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># dy = 2x * dx</span>
+<span class="n">dy_dx</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dy_dx</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>6.0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[158]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x0</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">(</span><span class="n">watch_accessed_variables</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span> <span class="c1">#  disable the default behavior of watching all tf.Variables</span>
+  <span class="n">tape</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+  <span class="n">y0</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+  <span class="n">y1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span> <span class="o">+</span> <span class="n">y1</span>
+  <span class="n">ys</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># dys/dx1 = exp(x1) / (1 + exp(x1)) = sigmoid(x1)</span>
+<span class="n">grad</span> <span class="o">=</span> <span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;x0&#39;</span><span class="p">:</span> <span class="n">x0</span><span class="p">,</span> <span class="s1">&#39;x1&#39;</span><span class="p">:</span> <span class="n">x1</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dy/dx0:&#39;</span><span class="p">,</span> <span class="n">grad</span><span class="p">[</span><span class="s1">&#39;x0&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dy/dx1:&#39;</span><span class="p">,</span> <span class="n">grad</span><span class="p">[</span><span class="s1">&#39;x1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>dy/dx0: None
+dy/dx1: 0.9999546
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Intermediate-results">Intermediate results<a class="anchor-link" href="#Intermediate-results">&#182;</a></h4><p>You can also request gradients of the output with respect to intermediate values computed inside the tf.GradientTape context.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[159]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">GradientTape</span><span class="p">()</span> <span class="k">as</span> <span class="n">tape</span><span class="p">:</span>
+  <span class="n">tape</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+  <span class="n">z</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span>
+
+<span class="c1"># Use the tape to compute the gradient of z with respect to the intermediate value y.</span>
+<span class="c1"># dz_dy = 2 * y and y = x ** 2 = 9</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tape</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>18.0
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

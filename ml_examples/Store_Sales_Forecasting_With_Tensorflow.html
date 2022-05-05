@@ -14531,16 +14531,20 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">len_dataset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">)</span>
-<span class="n">len_train_dataset</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mf">0.9</span><span class="o">*</span><span class="n">len_dataset</span><span class="p">)</span>
-<span class="n">len_evaluate_dataset</span> <span class="o">=</span> <span class="n">len_dataset</span> <span class="o">-</span> <span class="n">len_train_dataset</span>
-<span class="n">rnd_train_samples</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">len_dataset</span><span class="p">),</span> <span class="n">len_train_dataset</span><span class="p">)</span>
-<span class="n">rnd_evaluate_samples</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">len_dataset</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">rnd_train_samples</span><span class="p">))</span>
-<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">final_dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">rnd_train_samples</span><span class="p">]</span>
-<span class="n">evaluate_dataset</span> <span class="o">=</span> <span class="n">final_dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">rnd_evaluate_samples</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_train_eval</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">):</span>
+    <span class="n">len_dataset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">)</span>
+    <span class="n">len_train_dataset</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mf">0.9</span><span class="o">*</span><span class="n">len_dataset</span><span class="p">)</span>
+    <span class="n">len_evaluate_dataset</span> <span class="o">=</span> <span class="n">len_dataset</span> <span class="o">-</span> <span class="n">len_train_dataset</span>
+    <span class="n">rnd_train_samples</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">len_dataset</span><span class="p">),</span> <span class="n">len_train_dataset</span><span class="p">)</span>
+    <span class="n">rnd_evaluate_samples</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">len_dataset</span><span class="p">))</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">rnd_train_samples</span><span class="p">))</span>
+    <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">final_dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">rnd_train_samples</span><span class="p">]</span>
+    <span class="n">evaluate_dataset</span> <span class="o">=</span> <span class="n">final_dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">rnd_evaluate_samples</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">evaluate_dataset</span><span class="p">)</span>
+
+<span class="n">train_set</span><span class="p">,</span> <span class="n">eval_set</span> <span class="o">=</span> <span class="n">split_train_eval</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14550,10 +14554,10 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[90]:</div>
+<div class="prompt input_prompt">In&nbsp;[103]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_dataset</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_set</span>
 </pre></div>
 
     </div>
@@ -14566,7 +14570,7 @@ C      9519.532538
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[90]:</div>
+    <div class="prompt output_prompt">Out[103]:</div>
 
 
 
@@ -14603,69 +14607,69 @@ C      9519.532538
   </thead>
   <tbody>
     <tr>
-      <th>237843</th>
-      <td>25</td>
-      <td>92</td>
-      <td>34263.74</td>
-      <td>0</td>
-      <td>52.16</td>
-      <td>2.899</td>
-      <td>203.730749</td>
-      <td>7.856</td>
-      <td>B</td>
-      <td>128107</td>
-    </tr>
-    <tr>
-      <th>362866</th>
-      <td>39</td>
-      <td>90</td>
-      <td>69555.77</td>
-      <td>0</td>
-      <td>80.99</td>
-      <td>2.640</td>
-      <td>210.128679</td>
-      <td>8.360</td>
-      <td>A</td>
-      <td>184109</td>
-    </tr>
-    <tr>
-      <th>76846</th>
-      <td>8</td>
-      <td>60</td>
-      <td>216.00</td>
-      <td>0</td>
-      <td>70.34</td>
-      <td>3.814</td>
-      <td>225.173411</td>
-      <td>5.679</td>
-      <td>A</td>
-      <td>155078</td>
-    </tr>
-    <tr>
-      <th>69839</th>
-      <td>8</td>
-      <td>36</td>
-      <td>869.50</td>
-      <td>0</td>
-      <td>66.03</td>
-      <td>2.826</td>
-      <td>213.957784</td>
-      <td>6.290</td>
-      <td>A</td>
-      <td>155078</td>
-    </tr>
-    <tr>
-      <th>274778</th>
+      <th>421529</th>
+      <td>45</td>
       <td>28</td>
-      <td>16</td>
-      <td>8968.07</td>
+      <td>1206.00</td>
       <td>0</td>
-      <td>64.44</td>
-      <td>4.273</td>
-      <td>130.826193</td>
-      <td>12.187</td>
+      <td>58.85</td>
+      <td>3.882</td>
+      <td>192.308899</td>
+      <td>8.667</td>
+      <td>B</td>
+      <td>118221</td>
+    </tr>
+    <tr>
+      <th>310707</th>
+      <td>32</td>
+      <td>4</td>
+      <td>29615.02</td>
+      <td>0</td>
+      <td>17.94</td>
+      <td>3.331</td>
+      <td>195.874257</td>
+      <td>8.513</td>
       <td>A</td>
-      <td>206302</td>
+      <td>203007</td>
+    </tr>
+    <tr>
+      <th>352163</th>
+      <td>37</td>
+      <td>27</td>
+      <td>11.54</td>
+      <td>0</td>
+      <td>73.95</td>
+      <td>3.891</td>
+      <td>220.120412</td>
+      <td>6.989</td>
+      <td>C</td>
+      <td>39910</td>
+    </tr>
+    <tr>
+      <th>284335</th>
+      <td>29</td>
+      <td>23</td>
+      <td>16529.50</td>
+      <td>0</td>
+      <td>41.72</td>
+      <td>3.876</td>
+      <td>137.506690</td>
+      <td>8.988</td>
+      <td>B</td>
+      <td>93638</td>
+    </tr>
+    <tr>
+      <th>53016</th>
+      <td>6</td>
+      <td>34</td>
+      <td>17118.32</td>
+      <td>0</td>
+      <td>70.83</td>
+      <td>3.473</td>
+      <td>216.143816</td>
+      <td>6.858</td>
+      <td>A</td>
+      <td>202505</td>
     </tr>
     <tr>
       <th>...</th>
@@ -14681,69 +14685,69 @@ C      9519.532538
       <td>...</td>
     </tr>
     <tr>
-      <th>271566</th>
-      <td>28</td>
-      <td>87</td>
-      <td>9316.60</td>
+      <th>261827</th>
+      <td>27</td>
+      <td>8</td>
+      <td>43191.71</td>
       <td>0</td>
-      <td>68.27</td>
-      <td>4.151</td>
-      <td>128.999867</td>
-      <td>13.736</td>
+      <td>67.03</td>
+      <td>3.989</td>
+      <td>139.002833</td>
+      <td>7.725</td>
       <td>A</td>
-      <td>206302</td>
+      <td>204184</td>
     </tr>
     <tr>
-      <th>217096</th>
-      <td>23</td>
-      <td>92</td>
-      <td>45953.18</td>
-      <td>0</td>
-      <td>32.68</td>
-      <td>2.753</td>
-      <td>131.686000</td>
-      <td>5.892</td>
-      <td>B</td>
-      <td>114533</td>
-    </tr>
-    <tr>
-      <th>119577</th>
-      <td>13</td>
-      <td>59</td>
-      <td>1026.51</td>
-      <td>0</td>
-      <td>81.24</td>
-      <td>2.802</td>
-      <td>126.085452</td>
-      <td>7.951</td>
-      <td>A</td>
-      <td>219622</td>
-    </tr>
-    <tr>
-      <th>168664</th>
+      <th>172902</th>
       <td>18</td>
-      <td>41</td>
-      <td>1341.00</td>
+      <td>20</td>
+      <td>7898.39</td>
       <td>0</td>
-      <td>65.96</td>
-      <td>2.805</td>
-      <td>132.473333</td>
-      <td>9.269</td>
+      <td>70.32</td>
+      <td>3.796</td>
+      <td>136.213613</td>
+      <td>8.890</td>
       <td>B</td>
       <td>120653</td>
     </tr>
     <tr>
-      <th>16063</th>
-      <td>2</td>
-      <td>33</td>
-      <td>12831.82</td>
+      <th>420855</th>
+      <td>45</td>
+      <td>26</td>
+      <td>5476.29</td>
       <td>0</td>
-      <td>90.45</td>
-      <td>3.523</td>
-      <td>215.386897</td>
-      <td>7.852</td>
+      <td>75.71</td>
+      <td>3.807</td>
+      <td>191.228492</td>
+      <td>8.684</td>
+      <td>B</td>
+      <td>118221</td>
+    </tr>
+    <tr>
+      <th>190587</th>
+      <td>20</td>
+      <td>72</td>
+      <td>187563.48</td>
+      <td>0</td>
+      <td>24.07</td>
+      <td>3.140</td>
+      <td>204.632119</td>
+      <td>7.484</td>
       <td>A</td>
-      <td>202307</td>
+      <td>203742</td>
+    </tr>
+    <tr>
+      <th>387607</th>
+      <td>41</td>
+      <td>77</td>
+      <td>795.00</td>
+      <td>1</td>
+      <td>36.37</td>
+      <td>3.424</td>
+      <td>195.770400</td>
+      <td>6.759</td>
+      <td>A</td>
+      <td>196321</td>
     </tr>
   </tbody>
 </table>
@@ -14759,10 +14763,10 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[92]:</div>
+<div class="prompt input_prompt">In&nbsp;[104]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">evaluate_dataset</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eval_set</span>
 </pre></div>
 
     </div>
@@ -14775,7 +14779,7 @@ C      9519.532538
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[92]:</div>
+    <div class="prompt output_prompt">Out[104]:</div>
 
 
 
@@ -14812,36 +14816,10 @@ C      9519.532538
   </thead>
   <tbody>
     <tr>
-      <th>393217</th>
-      <td>42</td>
-      <td>16</td>
-      <td>781.02</td>
-      <td>0</td>
-      <td>57.06</td>
-      <td>3.236</td>
-      <td>126.983581</td>
-      <td>9.003</td>
-      <td>C</td>
-      <td>39690</td>
-    </tr>
-    <tr>
-      <th>393222</th>
-      <td>42</td>
-      <td>28</td>
-      <td>64.00</td>
-      <td>0</td>
-      <td>57.06</td>
-      <td>3.236</td>
-      <td>126.983581</td>
-      <td>9.003</td>
-      <td>C</td>
-      <td>39690</td>
-    </tr>
-    <tr>
-      <th>9</th>
+      <th>2</th>
       <td>1</td>
-      <td>10</td>
-      <td>30721.50</td>
+      <td>3</td>
+      <td>13740.12</td>
       <td>0</td>
       <td>42.31</td>
       <td>2.572</td>
@@ -14851,23 +14829,10 @@ C      9519.532538
       <td>151315</td>
     </tr>
     <tr>
-      <th>131081</th>
-      <td>14</td>
-      <td>55</td>
-      <td>61259.99</td>
-      <td>1</td>
-      <td>46.15</td>
-      <td>3.039</td>
-      <td>182.783277</td>
-      <td>8.724</td>
-      <td>A</td>
-      <td>200898</td>
-    </tr>
-    <tr>
-      <th>262155</th>
+      <th>262147</th>
       <td>27</td>
-      <td>58</td>
-      <td>1395.00</td>
+      <td>46</td>
+      <td>42983.69</td>
       <td>0</td>
       <td>77.83</td>
       <td>3.915</td>
@@ -14875,6 +14840,45 @@ C      9519.532538
       <td>7.850</td>
       <td>A</td>
       <td>204184</td>
+    </tr>
+    <tr>
+      <th>393228</th>
+      <td>42</td>
+      <td>46</td>
+      <td>5448.73</td>
+      <td>0</td>
+      <td>57.06</td>
+      <td>3.236</td>
+      <td>126.983581</td>
+      <td>9.003</td>
+      <td>C</td>
+      <td>39690</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>1</td>
+      <td>18</td>
+      <td>4729.50</td>
+      <td>0</td>
+      <td>42.31</td>
+      <td>2.572</td>
+      <td>211.096358</td>
+      <td>8.106</td>
+      <td>A</td>
+      <td>151315</td>
+    </tr>
+    <tr>
+      <th>393232</th>
+      <td>42</td>
+      <td>67</td>
+      <td>2321.96</td>
+      <td>0</td>
+      <td>57.06</td>
+      <td>3.236</td>
+      <td>126.983581</td>
+      <td>9.003</td>
+      <td>C</td>
+      <td>39690</td>
     </tr>
     <tr>
       <th>...</th>
@@ -14890,10 +14894,23 @@ C      9519.532538
       <td>...</td>
     </tr>
     <tr>
-      <th>262132</th>
+      <th>131061</th>
+      <td>14</td>
       <td>27</td>
-      <td>28</td>
-      <td>438.09</td>
+      <td>3199.38</td>
+      <td>1</td>
+      <td>46.15</td>
+      <td>3.039</td>
+      <td>182.783277</td>
+      <td>8.724</td>
+      <td>A</td>
+      <td>200898</td>
+    </tr>
+    <tr>
+      <th>262137</th>
+      <td>27</td>
+      <td>33</td>
+      <td>7806.51</td>
       <td>0</td>
       <td>77.83</td>
       <td>3.915</td>
@@ -14903,10 +14920,10 @@ C      9519.532538
       <td>204184</td>
     </tr>
     <tr>
-      <th>393208</th>
+      <th>393210</th>
       <td>42</td>
-      <td>5</td>
-      <td>2888.85</td>
+      <td>8</td>
+      <td>18944.96</td>
       <td>0</td>
       <td>57.06</td>
       <td>3.236</td>
@@ -14916,43 +14933,30 @@ C      9519.532538
       <td>39690</td>
     </tr>
     <tr>
-      <th>393212</th>
-      <td>42</td>
-      <td>10</td>
-      <td>354.32</td>
-      <td>0</td>
-      <td>57.06</td>
-      <td>3.236</td>
-      <td>126.983581</td>
-      <td>9.003</td>
-      <td>C</td>
-      <td>39690</td>
+      <th>131067</th>
+      <td>14</td>
+      <td>33</td>
+      <td>17396.52</td>
+      <td>1</td>
+      <td>46.15</td>
+      <td>3.039</td>
+      <td>182.783277</td>
+      <td>8.724</td>
+      <td>A</td>
+      <td>200898</td>
     </tr>
     <tr>
-      <th>262141</th>
-      <td>27</td>
-      <td>37</td>
-      <td>2146.65</td>
-      <td>0</td>
-      <td>77.83</td>
-      <td>3.915</td>
-      <td>139.700633</td>
-      <td>7.850</td>
+      <th>131069</th>
+      <td>14</td>
+      <td>35</td>
+      <td>4610.00</td>
+      <td>1</td>
+      <td>46.15</td>
+      <td>3.039</td>
+      <td>182.783277</td>
+      <td>8.724</td>
       <td>A</td>
-      <td>204184</td>
-    </tr>
-    <tr>
-      <th>262142</th>
-      <td>27</td>
-      <td>38</td>
-      <td>37511.18</td>
-      <td>0</td>
-      <td>77.83</td>
-      <td>3.915</td>
-      <td>139.700633</td>
-      <td>7.850</td>
-      <td>A</td>
-      <td>204184</td>
+      <td>200898</td>
     </tr>
   </tbody>
 </table>
@@ -14972,6 +14976,580 @@ C      9519.532538
 <h4 id="Integer-Features">Integer Features<a class="anchor-link" href="#Integer-Features">&#182;</a></h4>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add the integer features of a DataFrame’s row to a feature dictionary</span>
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="k">def</span> <span class="nf">add_int_features</span><span class="p">(</span><span class="n">dataset_row</span><span class="p">,</span> <span class="n">feature_dict</span><span class="p">):</span>
+    <span class="n">int_vals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Store&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept&#39;</span><span class="p">,</span> <span class="s1">&#39;IsHoliday&#39;</span><span class="p">,</span> <span class="s1">&#39;Size&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">int_vals</span><span class="p">:</span>
+        <span class="n">list_val</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Int64List</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="n">dataset_row</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]])</span>
+        <span class="n">feature_dict</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">int64_list</span> <span class="o">=</span> <span class="n">list_val</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Float-Features">Float Features<a class="anchor-link" href="#Float-Features">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add the float Feature objects to the feature dictionary</span>
+<span class="k">def</span> <span class="nf">add_float_features</span><span class="p">(</span><span class="n">dataset_row</span><span class="p">,</span> <span class="n">feature_dict</span><span class="p">,</span> <span class="n">has_labels</span><span class="p">):</span>
+    <span class="c1"># We only use the &#39;Weekly_Sales&#39; feature if has_labels is True. </span>
+    <span class="c1"># This is because the &#39;Weekly_Sales&#39; feature represents the label used </span>
+    <span class="c1"># in training/evaluating the machine learning model, which is not present when making predictions.</span>
+
+    <span class="n">float_vals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;Fuel_Price&#39;</span><span class="p">,</span> <span class="s1">&#39;CPI&#39;</span><span class="p">,</span> <span class="s1">&#39;Unemployment&#39;</span><span class="p">,</span> <span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_labels</span><span class="p">:</span>
+        <span class="n">float_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Weekly_Sales&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">float_vals</span><span class="p">:</span>
+        <span class="n">list_val</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">FloatList</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset_row</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]])</span>
+        <span class="n">feature_dict</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">float_list</span> <span class="o">=</span> <span class="n">list_val</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="String-Features">String Features<a class="anchor-link" href="#String-Features">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello world&#39;</span>
+<span class="n">byte_s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>  <span class="c1"># byte string</span>
+<span class="n">bytes_list</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">BytesList</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="p">[</span><span class="n">byte_s</span><span class="p">])</span>
+<span class="n">feature</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">bytes_list</span><span class="o">=</span><span class="n">bytes_list</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">feature</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>bytes_list {
+  value: &#34;hello world&#34;
+}
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create an Example object from a pandas DataFrame row</span>
+<span class="k">def</span> <span class="nf">create_example</span><span class="p">(</span><span class="n">dataset_row</span><span class="p">,</span> <span class="n">has_labels</span><span class="p">):</span>
+    <span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">add_int_features</span><span class="p">(</span><span class="n">dataset_row</span><span class="p">,</span> <span class="n">feature_dict</span><span class="p">)</span>
+    <span class="n">add_float_features</span><span class="p">(</span><span class="n">dataset_row</span><span class="p">,</span> <span class="n">feature_dict</span><span class="p">,</span> <span class="n">has_labels</span><span class="p">)</span>
+    <span class="c1"># CODE HERE</span>
+    <span class="n">byte_type</span> <span class="o">=</span> <span class="n">dataset_row</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span>
+    <span class="n">list_val</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">BytesList</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">byte_type</span><span class="o">.</span><span class="n">encode</span><span class="p">()])</span>
+    <span class="n">feature_dict</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Feature</span><span class="p">(</span><span class="n">bytes_list</span> <span class="o">=</span> <span class="n">list_val</span><span class="p">)</span>
+    <span class="n">features_obj</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Features</span><span class="p">(</span><span class="n">feature</span> <span class="o">=</span> <span class="n">feature_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">Example</span><span class="p">(</span><span class="n">features</span> <span class="o">=</span> <span class="n">features_obj</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Writing-TFRecords">Writing TFRecords<a class="anchor-link" href="#Writing-TFRecords">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Write serialized Example objects(the training and evaluation set data) to a TFRecords file</span>
+
+<span class="k">def</span> <span class="nf">write_tfrecords</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">tfrecords_file</span><span class="p">,</span> <span class="n">has_labels</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">TFRecordWriter</span><span class="p">(</span><span class="n">tfrecords_file</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)):</span>
+        <span class="n">example</span> <span class="o">=</span> <span class="n">create_example</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">has_labels</span><span class="p">)</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[111]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># train_set is the training DataFrame</span>
+<span class="n">write_tfrecords</span><span class="p">(</span><span class="n">train_set</span><span class="p">,</span> <span class="s1">&#39;train.tfrecords&#39;</span><span class="p">)</span>
+
+<span class="c1"># eval_set is the evaluation DataFrame</span>
+<span class="n">write_tfrecords</span><span class="p">(</span><span class="n">eval_set</span><span class="p">,</span> <span class="s1">&#39;eval.tfrecords&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-Spec">Example Spec<a class="anchor-link" href="#Example-Spec">&#182;</a></h4><ul>
+<li>the data is stored as serialized Example objects in TFRecords file</li>
+<li>create an Example spec which parses the serialized examples in the input pipeline </li>
+<li>the example spec gives specifications on each of the dataset’s features, specifically the shape and type of the feature’s values.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">example_spec</span><span class="p">[</span><span class="s1">&#39;Store&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">example_spec</span><span class="p">[</span><span class="s1">&#39;CPI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">example_spec</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the spec used when parsing the Example object</span>
+<span class="k">def</span> <span class="nf">create_example_spec</span><span class="p">(</span><span class="n">has_labels</span><span class="p">):</span>
+    <span class="n">example_spec</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">int_vals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Store&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept&#39;</span><span class="p">,</span> <span class="s1">&#39;IsHoliday&#39;</span><span class="p">,</span> <span class="s1">&#39;Size&#39;</span><span class="p">]</span>
+    <span class="n">float_vals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;Fuel_Price&#39;</span><span class="p">,</span> <span class="s1">&#39;CPI&#39;</span><span class="p">,</span> <span class="s1">&#39;Unemployment&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">has_labels</span><span class="p">:</span>
+        <span class="n">float_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Weekly_Sales&#39;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">int_vals</span><span class="p">:</span>
+        <span class="n">example_spec</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">float_vals</span><span class="p">:</span>
+        <span class="n">example_spec</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">example_spec</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">FixedLenFeature</span><span class="p">((),</span> <span class="n">tf</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">example_spec</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Parsing-Example">Parsing Example<a class="anchor-link" href="#Parsing-Example">&#182;</a></h4><ul>
+<li>parse feature data from serialized Example objects</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span> <span class="o">=</span> <span class="n">create_example_spec</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Parsing feature data from a serialized Example (ser_ex) using its corresponding Example spec (example_spec).</span>
+<span class="n">parsed_example</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">parse_single_example</span><span class="p">(</span><span class="n">ser_ex</span><span class="p">,</span> <span class="n">example_spec</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parsed_example</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+Input <span class="ansi-green-fg">In [114]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 4&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> example_spec <span style="color: rgb(98,98,98)">=</span> create_example_spec(<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
+<span class="ansi-green-intense-fg ansi-bold">      3</span> <span style="color: rgb(95,135,135)"># Parsing feature data from a serialized Example (ser_ex) using its corresponding Example spec (example_spec).</span>
+<span class="ansi-green-fg">----&gt; 4</span> parsed_example <span style="color: rgb(98,98,98)">=</span> tf<span style="color: rgb(98,98,98)">.</span>io<span style="color: rgb(98,98,98)">.</span>parse_single_example(<span class="ansi-yellow-bg">ser_ex</span>, example_spec)
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span style="color: rgb(0,135,0)">print</span>(parsed_example)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;ser_ex&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Helper function to convert serialized Example objects into features</span>
+<span class="k">def</span> <span class="nf">parse_features</span><span class="p">(</span><span class="n">ser_ex</span><span class="p">,</span> <span class="n">example_spec</span><span class="p">,</span> <span class="n">has_labels</span><span class="p">):</span>
+    <span class="c1"># CODE HERE</span>
+    <span class="n">parsed_features</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">parse_single_example</span><span class="p">(</span><span class="n">ser_ex</span><span class="p">,</span> <span class="n">example_spec</span><span class="p">)</span>
+    <span class="c1"># The &#39;Weekly_Sales&#39; feature is not actually used as an input for the machine learning model. </span>
+    <span class="c1"># Instead, it is used as a label during training and evaluation.</span>
+    <span class="n">features</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">parsed_features</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">parsed_features</span> <span class="k">if</span> <span class="n">k</span><span class="o">!=</span><span class="s1">&#39;Weekly_Sales&#39;</span><span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_labels</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">features</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">parsed_features</span><span class="p">[</span><span class="s1">&#39;Weekly_Sales&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="TFRecords-Dataset">TFRecords Dataset<a class="anchor-link" href="#TFRecords-Dataset">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[129]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a TFRecords dataset for the input pipeline</span>
+<span class="c1"># Parsing feature data from a serialized Example (ser_ex) using its corresponding Example spec (example_spec)</span>
+
+<span class="n">train_file</span> <span class="o">=</span> <span class="s1">&#39;train.tfrecords&#39;</span>
+<span class="n">eval_file</span> <span class="o">=</span> <span class="s1">&#39;eval.tfrecords&#39;</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="n">train_file</span><span class="p">)</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TFRecordDataset</span><span class="p">(</span><span class="n">eval_file</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>2022-05-04 23:26:21.557653: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[130]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Using the functions from above to modify the TFRecords datasets.</span>
+
+<span class="n">example_spec</span> <span class="o">=</span> <span class="n">create_example_spec</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">parse_fn</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ser_ex</span><span class="p">:</span> <span class="n">parse_features</span><span class="p">(</span><span class="n">ser_ex</span><span class="p">,</span> <span class="n">example_spec</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">parse_fn</span><span class="p">)</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">eval_dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">parse_fn</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">eval_dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;MapDataset element_spec=({&#39;CPI&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None), &#39;Dept&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Fuel_Price&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None), &#39;IsHoliday&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Size&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Store&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Temperature&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None), &#39;Type&#39;: TensorSpec(shape=(), dtype=tf.string, name=None), &#39;Unemployment&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None)}, TensorSpec(shape=(), dtype=tf.float32, name=None))&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[133]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[133]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{&#39;Store&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
+ &#39;Dept&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
+ &#39;IsHoliday&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
+ &#39;Size&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
+ &#39;Temperature&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
+ &#39;Fuel_Price&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
+ &#39;CPI&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
+ &#39;Unemployment&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
+ &#39;Weekly_Sales&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
+ &#39;Type&#39;: FixedLenFeature(shape=(), dtype=tf.string, default_value=None)}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Configure the dataset</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
