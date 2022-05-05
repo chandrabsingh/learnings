@@ -1,20 +1,20 @@
-here are the notes and understanding of the tools i learnt during sabbatical work break
+here are the notes and understanding of the tools i learnt during my sabbatical work break
 ### [certification/online course](certifications/certifications_courses_list.html)
 
 ### why-how-what
 - [spark collaborative filtering using alternative least square(matrix factorization)](recommenders/als_deep_dive.html)
 - [netflix system architecture](system_designs/netflix.html)
-- [multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
+- [>> multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
 - [game of thrones - knowledge graph analysis using neo4j data science library](codes/neo4j_graph_datascience.html)
 - [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
 - [system design - aws - use cases](system_designs/aws_usecases.html)
 - [system design - use cases](system_designs/general_use_cases.html)
 - [a primer on causal inference - randomized controlled tests](maths/causal_inference_learning.html)
 - [my .zshrc](codes/my_zshrc.html)
-- evaluate performance of classification algorithms on adult income dataset
+- [>> evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset
-- store sales forecasting using tensorflow on kaggle walmart dataset
+- [>> store sales forecasting using tensorflow on kaggle walmart dataset](ml_examples/Store_Sales_Forecasting_With_Tensorflow.html)
 - weka visualization
 - mixture models using em algorithm
 
@@ -41,6 +41,7 @@ here are the notes and understanding of the tools i learnt during sabbatical wor
   - [aws components intro](system_designs/aws_cloud_components.html)
   - [neo4j native graph database intro](codes/neo4j_basics.html)
   - cassandra
+  - mongodb
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)

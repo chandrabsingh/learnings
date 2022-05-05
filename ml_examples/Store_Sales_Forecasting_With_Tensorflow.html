@@ -13140,7 +13140,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[159]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -13186,7 +13186,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[160]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_dataframes</span><span class="p">():</span>
@@ -13205,7 +13205,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[161]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">general_features</span> <span class="o">=</span> <span class="n">features_df</span><span class="o">.</span><span class="n">columns</span>
@@ -13248,7 +13248,7 @@ Store Features: [&#39;Store&#39;, &#39;Type&#39;, &#39;Size&#39;]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[162]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged_features</span> <span class="o">=</span> <span class="n">features_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">stores_df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Store&#39;</span><span class="p">)</span>
@@ -13327,7 +13327,7 @@ Store Features: [&#39;Store&#39;, &#39;Type&#39;, &#39;Size&#39;]
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[163]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">na_values</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">merged_features</span><span class="p">)</span> <span class="c1"># Boolean DataFrame</span>
@@ -13381,7 +13381,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[164]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">na_values</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -13426,7 +13426,7 @@ Unemployment = 585
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[165]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop MarkDown columns, while drop missing CPI and Unemployment missing values</span>
@@ -13445,7 +13445,7 @@ Unemployment = 585
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[8]:</div>
+    <div class="prompt output_prompt">Out[165]:</div>
 
 
 
@@ -13481,7 +13481,7 @@ Unemployment = 585
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[166]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged_features</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -13527,7 +13527,7 @@ memory usage: 583.9+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[167]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># merged_features[[&#39;CPI&#39;, &#39;Unemployment&#39;]]</span>
@@ -13566,7 +13566,7 @@ memory usage: 583.9+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[168]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">na_indexes</span> <span class="o">=</span> <span class="n">na_indexes_cpi</span>
@@ -13607,7 +13607,7 @@ memory usage: 583.9+ KB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="prompt input_prompt">In&nbsp;[169]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># na_rows</span>
@@ -13681,7 +13681,7 @@ Name: 169, dtype: object
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="prompt input_prompt">In&nbsp;[170]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">impute_data</span><span class="p">(</span><span class="n">merged_features</span><span class="p">,</span> <span class="n">na_indexes_cpi</span><span class="p">,</span> <span class="n">na_indexes_une</span><span class="p">):</span>
@@ -13737,7 +13737,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="prompt input_prompt">In&nbsp;[171]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">train_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
@@ -13770,7 +13770,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[57]:</div>
+<div class="prompt input_prompt">In&nbsp;[172]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Common columns - [&#39;Store&#39;, &#39;Date&#39;, &#39;IsHoliday&#39;]</span>
@@ -13796,7 +13796,7 @@ dtype: bool
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[57]:</div>
+    <div class="prompt output_prompt">Out[172]:</div>
 
 
 
@@ -14001,7 +14001,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[58]:</div>
+<div class="prompt input_prompt">In&nbsp;[173]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># &#39;Date&#39; is not used in ML model, so drop it</span>
@@ -14022,7 +14022,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="prompt input_prompt">In&nbsp;[174]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">final_dataset</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
@@ -14038,7 +14038,7 @@ dtype: bool
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[65]:</div>
+    <div class="prompt output_prompt">Out[174]:</div>
 
 
 
@@ -14230,7 +14230,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[175]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">[</span><span class="s1">&#39;Type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
@@ -14266,7 +14266,7 @@ dtype: bool
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[176]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Cast IsHoliday to type int - features must be integer, float, or string</span>
@@ -14322,7 +14322,7 @@ memory usage: 35.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[177]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -14365,7 +14365,7 @@ memory usage: 35.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[85]:</div>
+<div class="prompt input_prompt">In&nbsp;[178]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_df</span> <span class="o">=</span> <span class="n">final_dataset</span><span class="p">[[</span><span class="s1">&#39;Weekly_Sales&#39;</span><span class="p">,</span> <span class="s1">&#39;Fuel_Price&#39;</span><span class="p">]]</span>
@@ -14407,7 +14407,7 @@ memory usage: 35.4+ MB
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="prompt input_prompt">In&nbsp;[179]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_df</span> <span class="o">=</span> <span class="n">final_dataset</span><span class="p">[[</span><span class="s1">&#39;Weekly_Sales&#39;</span><span class="p">,</span> <span class="s1">&#39;Type&#39;</span><span class="p">]]</span>
@@ -14478,7 +14478,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[180]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randrange</span>
@@ -14506,21 +14506,21 @@ C      9519.532538
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>3
-[0 5 0 3 0 5 9 8 3 9 3 1 2 8 7]
+<pre>4
+[3 6 9 9 7 7 5 6 5 4 0 7 9 2 3]
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[88]:</div>
+    <div class="prompt output_prompt">Out[180]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[38, 55, 56, 36, 20, 59, 34, 42, 53, 75]</pre>
+<pre>[80, 41, 68, 75, 84, 93, 70, 9, 39, 99]</pre>
 </div>
 
 </div>
@@ -14531,7 +14531,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[102]:</div>
+<div class="prompt input_prompt">In&nbsp;[181]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">split_train_eval</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">):</span>
@@ -14554,7 +14554,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[103]:</div>
+<div class="prompt input_prompt">In&nbsp;[182]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_set</span>
@@ -14570,7 +14570,7 @@ C      9519.532538
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[103]:</div>
+    <div class="prompt output_prompt">Out[182]:</div>
 
 
 
@@ -14607,69 +14607,69 @@ C      9519.532538
   </thead>
   <tbody>
     <tr>
-      <th>421529</th>
-      <td>45</td>
-      <td>28</td>
-      <td>1206.00</td>
+      <th>171872</th>
+      <td>18</td>
+      <td>22</td>
+      <td>13427.48</td>
       <td>0</td>
-      <td>58.85</td>
-      <td>3.882</td>
-      <td>192.308899</td>
-      <td>8.667</td>
+      <td>58.48</td>
+      <td>4.095</td>
+      <td>134.593000</td>
+      <td>8.975</td>
       <td>B</td>
-      <td>118221</td>
+      <td>120653</td>
     </tr>
     <tr>
-      <th>310707</th>
-      <td>32</td>
-      <td>4</td>
-      <td>29615.02</td>
+      <th>361811</th>
+      <td>39</td>
+      <td>52</td>
+      <td>1741.65</td>
       <td>0</td>
-      <td>17.94</td>
-      <td>3.331</td>
-      <td>195.874257</td>
-      <td>8.513</td>
+      <td>66.33</td>
+      <td>2.808</td>
+      <td>209.269143</td>
+      <td>8.464</td>
       <td>A</td>
-      <td>203007</td>
+      <td>184109</td>
     </tr>
     <tr>
-      <th>352163</th>
-      <td>37</td>
-      <td>27</td>
-      <td>11.54</td>
+      <th>173425</th>
+      <td>18</td>
+      <td>11</td>
+      <td>16296.95</td>
       <td>0</td>
-      <td>73.95</td>
-      <td>3.891</td>
-      <td>220.120412</td>
-      <td>6.989</td>
-      <td>C</td>
-      <td>39910</td>
-    </tr>
-    <tr>
-      <th>284335</th>
-      <td>29</td>
-      <td>23</td>
-      <td>16529.50</td>
-      <td>0</td>
-      <td>41.72</td>
-      <td>3.876</td>
-      <td>137.506690</td>
-      <td>8.988</td>
+      <td>55.83</td>
+      <td>3.618</td>
+      <td>136.501774</td>
+      <td>8.471</td>
       <td>B</td>
-      <td>93638</td>
+      <td>120653</td>
     </tr>
     <tr>
-      <th>53016</th>
-      <td>6</td>
-      <td>34</td>
-      <td>17118.32</td>
+      <th>365418</th>
+      <td>39</td>
+      <td>80</td>
+      <td>11246.97</td>
       <td>0</td>
-      <td>70.83</td>
-      <td>3.473</td>
-      <td>216.143816</td>
-      <td>6.858</td>
+      <td>73.19</td>
+      <td>3.743</td>
+      <td>214.026217</td>
+      <td>8.300</td>
       <td>A</td>
-      <td>202505</td>
+      <td>184109</td>
+    </tr>
+    <tr>
+      <th>101057</th>
+      <td>11</td>
+      <td>12</td>
+      <td>3443.66</td>
+      <td>0</td>
+      <td>59.33</td>
+      <td>2.886</td>
+      <td>214.701783</td>
+      <td>7.564</td>
+      <td>A</td>
+      <td>207499</td>
     </tr>
     <tr>
       <th>...</th>
@@ -14685,69 +14685,69 @@ C      9519.532538
       <td>...</td>
     </tr>
     <tr>
-      <th>261827</th>
-      <td>27</td>
-      <td>8</td>
-      <td>43191.71</td>
-      <td>0</td>
-      <td>67.03</td>
-      <td>3.989</td>
-      <td>139.002833</td>
-      <td>7.725</td>
-      <td>A</td>
-      <td>204184</td>
-    </tr>
-    <tr>
-      <th>172902</th>
-      <td>18</td>
-      <td>20</td>
-      <td>7898.39</td>
-      <td>0</td>
-      <td>70.32</td>
-      <td>3.796</td>
-      <td>136.213613</td>
-      <td>8.890</td>
-      <td>B</td>
-      <td>120653</td>
-    </tr>
-    <tr>
-      <th>420855</th>
-      <td>45</td>
-      <td>26</td>
-      <td>5476.29</td>
-      <td>0</td>
-      <td>75.71</td>
-      <td>3.807</td>
-      <td>191.228492</td>
-      <td>8.684</td>
-      <td>B</td>
-      <td>118221</td>
-    </tr>
-    <tr>
-      <th>190587</th>
-      <td>20</td>
-      <td>72</td>
-      <td>187563.48</td>
-      <td>0</td>
-      <td>24.07</td>
-      <td>3.140</td>
-      <td>204.632119</td>
-      <td>7.484</td>
-      <td>A</td>
-      <td>203742</td>
-    </tr>
-    <tr>
-      <th>387607</th>
-      <td>41</td>
-      <td>77</td>
-      <td>795.00</td>
+      <th>51776</th>
+      <td>6</td>
+      <td>3</td>
+      <td>13918.23</td>
       <td>1</td>
-      <td>36.37</td>
-      <td>3.424</td>
-      <td>195.770400</td>
-      <td>6.759</td>
+      <td>65.79</td>
+      <td>2.735</td>
+      <td>213.267296</td>
+      <td>7.007</td>
       <td>A</td>
-      <td>196321</td>
+      <td>202505</td>
+    </tr>
+    <tr>
+      <th>4814</th>
+      <td>1</td>
+      <td>10</td>
+      <td>28586.42</td>
+      <td>0</td>
+      <td>67.63</td>
+      <td>3.907</td>
+      <td>215.733920</td>
+      <td>7.682</td>
+      <td>A</td>
+      <td>151315</td>
+    </tr>
+    <tr>
+      <th>124318</th>
+      <td>13</td>
+      <td>44</td>
+      <td>10001.71</td>
+      <td>0</td>
+      <td>43.51</td>
+      <td>3.538</td>
+      <td>129.805194</td>
+      <td>6.392</td>
+      <td>A</td>
+      <td>219622</td>
+    </tr>
+    <tr>
+      <th>52245</th>
+      <td>6</td>
+      <td>54</td>
+      <td>-8.00</td>
+      <td>0</td>
+      <td>47.78</td>
+      <td>2.976</td>
+      <td>212.913427</td>
+      <td>6.858</td>
+      <td>A</td>
+      <td>202505</td>
+    </tr>
+    <tr>
+      <th>322323</th>
+      <td>34</td>
+      <td>90</td>
+      <td>39328.28</td>
+      <td>0</td>
+      <td>79.58</td>
+      <td>2.612</td>
+      <td>126.128355</td>
+      <td>9.816</td>
+      <td>A</td>
+      <td>158114</td>
     </tr>
   </tbody>
 </table>
@@ -14763,7 +14763,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[104]:</div>
+<div class="prompt input_prompt">In&nbsp;[183]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">eval_set</span>
@@ -14779,7 +14779,7 @@ C      9519.532538
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[104]:</div>
+    <div class="prompt output_prompt">Out[183]:</div>
 
 
 
@@ -14816,10 +14816,49 @@ C      9519.532538
   </thead>
   <tbody>
     <tr>
-      <th>2</th>
+      <th>131076</th>
+      <td>14</td>
+      <td>46</td>
+      <td>30851.07</td>
       <td>1</td>
-      <td>3</td>
-      <td>13740.12</td>
+      <td>46.15</td>
+      <td>3.039</td>
+      <td>182.783277</td>
+      <td>8.724</td>
+      <td>A</td>
+      <td>200898</td>
+    </tr>
+    <tr>
+      <th>393222</th>
+      <td>42</td>
+      <td>28</td>
+      <td>64.00</td>
+      <td>0</td>
+      <td>57.06</td>
+      <td>3.236</td>
+      <td>126.983581</td>
+      <td>9.003</td>
+      <td>C</td>
+      <td>39690</td>
+    </tr>
+    <tr>
+      <th>393224</th>
+      <td>42</td>
+      <td>32</td>
+      <td>20.00</td>
+      <td>0</td>
+      <td>57.06</td>
+      <td>3.236</td>
+      <td>126.983581</td>
+      <td>9.003</td>
+      <td>C</td>
+      <td>39690</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>10</td>
+      <td>30721.50</td>
       <td>0</td>
       <td>42.31</td>
       <td>2.572</td>
@@ -14829,10 +14868,10 @@ C      9519.532538
       <td>151315</td>
     </tr>
     <tr>
-      <th>262147</th>
+      <th>262154</th>
       <td>27</td>
-      <td>46</td>
-      <td>42983.69</td>
+      <td>56</td>
+      <td>2625.63</td>
       <td>0</td>
       <td>77.83</td>
       <td>3.915</td>
@@ -14840,45 +14879,6 @@ C      9519.532538
       <td>7.850</td>
       <td>A</td>
       <td>204184</td>
-    </tr>
-    <tr>
-      <th>393228</th>
-      <td>42</td>
-      <td>46</td>
-      <td>5448.73</td>
-      <td>0</td>
-      <td>57.06</td>
-      <td>3.236</td>
-      <td>126.983581</td>
-      <td>9.003</td>
-      <td>C</td>
-      <td>39690</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>1</td>
-      <td>18</td>
-      <td>4729.50</td>
-      <td>0</td>
-      <td>42.31</td>
-      <td>2.572</td>
-      <td>211.096358</td>
-      <td>8.106</td>
-      <td>A</td>
-      <td>151315</td>
-    </tr>
-    <tr>
-      <th>393232</th>
-      <td>42</td>
-      <td>67</td>
-      <td>2321.96</td>
-      <td>0</td>
-      <td>57.06</td>
-      <td>3.236</td>
-      <td>126.983581</td>
-      <td>9.003</td>
-      <td>C</td>
-      <td>39690</td>
     </tr>
     <tr>
       <th>...</th>
@@ -14894,10 +14894,10 @@ C      9519.532538
       <td>...</td>
     </tr>
     <tr>
-      <th>131061</th>
+      <th>131064</th>
       <td>14</td>
-      <td>27</td>
-      <td>3199.38</td>
+      <td>30</td>
+      <td>5507.56</td>
       <td>1</td>
       <td>46.15</td>
       <td>3.039</td>
@@ -14907,17 +14907,17 @@ C      9519.532538
       <td>200898</td>
     </tr>
     <tr>
-      <th>262137</th>
-      <td>27</td>
-      <td>33</td>
-      <td>7806.51</td>
-      <td>0</td>
-      <td>77.83</td>
-      <td>3.915</td>
-      <td>139.700633</td>
-      <td>7.850</td>
+      <th>131065</th>
+      <td>14</td>
+      <td>31</td>
+      <td>4112.25</td>
+      <td>1</td>
+      <td>46.15</td>
+      <td>3.039</td>
+      <td>182.783277</td>
+      <td>8.724</td>
       <td>A</td>
-      <td>204184</td>
+      <td>200898</td>
     </tr>
     <tr>
       <th>393210</th>
@@ -14933,23 +14933,23 @@ C      9519.532538
       <td>39690</td>
     </tr>
     <tr>
-      <th>131067</th>
-      <td>14</td>
-      <td>33</td>
-      <td>17396.52</td>
-      <td>1</td>
-      <td>46.15</td>
-      <td>3.039</td>
-      <td>182.783277</td>
-      <td>8.724</td>
+      <th>262140</th>
+      <td>27</td>
+      <td>36</td>
+      <td>1276.00</td>
+      <td>0</td>
+      <td>77.83</td>
+      <td>3.915</td>
+      <td>139.700633</td>
+      <td>7.850</td>
       <td>A</td>
-      <td>200898</td>
+      <td>204184</td>
     </tr>
     <tr>
-      <th>131069</th>
+      <th>131070</th>
       <td>14</td>
-      <td>35</td>
-      <td>4610.00</td>
+      <td>36</td>
+      <td>3764.00</td>
       <td>1</td>
       <td>46.15</td>
       <td>3.039</td>
@@ -14979,7 +14979,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
+<div class="prompt input_prompt">In&nbsp;[184]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add the integer features of a DataFrame’s row to a feature dictionary</span>
@@ -15007,7 +15007,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[185]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add the float Feature objects to the feature dictionary</span>
@@ -15038,7 +15038,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[186]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;hello world&#39;</span>
@@ -15076,7 +15076,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[110]:</div>
+<div class="prompt input_prompt">In&nbsp;[187]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create an Example object from a pandas DataFrame row</span>
@@ -15106,7 +15106,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[108]:</div>
+<div class="prompt input_prompt">In&nbsp;[188]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Write serialized Example objects(the training and evaluation set data) to a TFRecords file</span>
@@ -15126,7 +15126,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[111]:</div>
+<div class="prompt input_prompt">In&nbsp;[189]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># train_set is the training DataFrame</span>
@@ -15155,7 +15155,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[112]:</div>
+<div class="prompt input_prompt">In&nbsp;[190]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span> <span class="o">=</span> <span class="p">{}</span>
@@ -15171,7 +15171,7 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[113]:</div>
+<div class="prompt input_prompt">In&nbsp;[191]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create the spec used when parsing the Example object</span>
@@ -15207,14 +15207,14 @@ C      9519.532538
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[114]:</div>
+<div class="prompt input_prompt">In&nbsp;[192]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span> <span class="o">=</span> <span class="n">create_example_spec</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Parsing feature data from a serialized Example (ser_ex) using its corresponding Example spec (example_spec).</span>
-<span class="n">parsed_example</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">parse_single_example</span><span class="p">(</span><span class="n">ser_ex</span><span class="p">,</span> <span class="n">example_spec</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">parsed_example</span><span class="p">)</span>
+<span class="c1"># parsed_example = tf.io.parse_single_example(ser_ex, example_spec)</span>
+<span class="c1"># print(parsed_example)</span>
 </pre></div>
 
     </div>
@@ -15234,7 +15234,7 @@ C      9519.532538
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-Input <span class="ansi-green-fg">In [114]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 4&gt;</span><span class="ansi-blue-fg">()</span>
+Input <span class="ansi-green-fg">In [192]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 4&gt;</span><span class="ansi-blue-fg">()</span>
 <span class="ansi-green-intense-fg ansi-bold">      1</span> example_spec <span style="color: rgb(98,98,98)">=</span> create_example_spec(<span class="ansi-bold" style="color: rgb(0,135,0)">True</span>)
 <span class="ansi-green-intense-fg ansi-bold">      3</span> <span style="color: rgb(95,135,135)"># Parsing feature data from a serialized Example (ser_ex) using its corresponding Example spec (example_spec).</span>
 <span class="ansi-green-fg">----&gt; 4</span> parsed_example <span style="color: rgb(98,98,98)">=</span> tf<span style="color: rgb(98,98,98)">.</span>io<span style="color: rgb(98,98,98)">.</span>parse_single_example(<span class="ansi-yellow-bg">ser_ex</span>, example_spec)
@@ -15250,7 +15250,7 @@ Input <span class="ansi-green-fg">In [114]</span>, in <span class="ansi-cyan-fg"
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Helper function to convert serialized Example objects into features</span>
@@ -15281,7 +15281,7 @@ Input <span class="ansi-green-fg">In [114]</span>, in <span class="ansi-cyan-fg"
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[129]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create a TFRecords dataset for the input pipeline</span>
@@ -15297,29 +15297,10 @@ Input <span class="ansi-green-fg">In [114]</span>, in <span class="ansi-cyan-fg"
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>2022-05-04 23:26:21.557653: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[130]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Using the functions from above to modify the TFRecords datasets.</span>
@@ -15337,10 +15318,300 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[131]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">eval_dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Configure the dataset - Shuffling datasets is always a good idea for training and evaluation, </span>
+<span class="c1"># since it randomizes the order in which the data is passed into the machine learning model. </span>
+
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">421570</span><span class="p">)</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">eval_dataset</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="mi">421570</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Repeating the datasets indefinitely. The training will run until we manually kill the process.</span>
+
+<span class="c1"># We also want to run training indefinitely, until we decide to kill the model </span>
+<span class="c1"># running process manually (i.e. with CTRL+C or CMD+C). Evaluation is done with a </span>
+<span class="c1"># single run-through of the dataset.</span>
+
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">repeat</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># set the dataset batch sizes, so that each training/evaluation step contains multiple data observations</span>
+
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">train_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">eval_dataset</span> <span class="o">=</span> <span class="n">eval_dataset</span><span class="o">.</span><span class="n">batch</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Numeric-columns">Numeric columns<a class="anchor-link" href="#Numeric-columns">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">add_numeric_columns</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">):</span>
+    <span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;Fuel_Price&#39;</span><span class="p">,</span> <span class="s1">&#39;CPI&#39;</span><span class="p">,</span> <span class="s1">&#39;Unemployment&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">numeric_features</span><span class="p">:</span>
+        <span class="n">feature_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">numeric_column</span><span class="p">(</span><span class="n">feature_name</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">())</span>
+        <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_col</span><span class="p">)</span>
+
+<span class="c1"># Add the numeric feature columns to the list of dataset feature columns</span>
+<span class="n">dataset_feature_columns</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">add_numeric_columns</span><span class="p">(</span><span class="n">dataset_feature_columns</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dataset_feature_columns</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">dataset_feature_columns</span><span class="p">)</span>
+<span class="c1"># help(tf.feature_column.numeric_column)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Indicator-Columns">Indicator Columns<a class="anchor-link" href="#Indicator-Columns">&#182;</a></h4><ul>
+<li>Process the indicator feature columns used for the machine learning model’s input layer<ul>
+<li>One-hot indicators<ul>
+<li>'IsHoliday' (0 and 1) </li>
+<li>'Type' (A, B, C)</li>
+</ul>
+</li>
+<li>Categorical column base</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Categorical columns for the &#39;IsHoliday&#39; and &#39;Type&#39; features.</span>
+
+<span class="n">type_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s1">&#39;Type&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+<span class="n">holiday_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+    <span class="s1">&#39;IsHoliday&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Converting categorical columns to indicator feature columns.</span>
+
+<span class="n">type_feature_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">type_col</span><span class="p">)</span>
+<span class="n">holiday_feature_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">holiday_col</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add the indicator feature columns to the list of feature columns</span>
+<span class="k">def</span> <span class="nf">add_indicator_columns</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">):</span>
+    <span class="n">indicator_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IsHoliday&#39;</span><span class="p">,</span> <span class="s1">&#39;Type&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">indicator_features</span><span class="p">:</span>
+        <span class="c1"># CODE HERE</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">int64</span> <span class="k">if</span> <span class="n">feature_name</span> <span class="o">==</span> <span class="s1">&#39;IsHoliday&#39;</span> <span class="k">else</span> <span class="n">tf</span><span class="o">.</span><span class="n">string</span>
+        <span class="n">vocab_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">vocab_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span><span class="n">feature_name</span><span class="p">,</span> <span class="n">vocab_list</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
+        <span class="n">feature_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">indicator_column</span><span class="p">(</span><span class="n">vocab_col</span><span class="p">)</span>
+        <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_col</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># help(tf.feature_column.indicator_column)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Embedding-Columns">Embedding Columns<a class="anchor-link" href="#Embedding-Columns">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[194]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stores</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">46</span><span class="p">))</span> <span class="c1"># There are 45 stores in the dataset, labeled from 1-45</span>
+<span class="n">stores_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span><span class="s1">&#39;StoreID&#39;</span><span class="p">,</span> <span class="n">stores</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+<span class="n">embedding_dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">45</span><span class="o">**</span><span class="mf">0.25</span><span class="p">)</span>  <span class="c1"># 4th root - </span>
+<span class="c1"># set the vector dimension to anything, but a good rule of thumb is to set it equal to the </span>
+<span class="c1"># 4th root of the size of the vocabulary list.</span>
+
+<span class="n">feature_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">embedding_column</span><span class="p">(</span><span class="n">stores_col</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[195]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Add the embedding feature columns to the list of feature columns</span>
+<span class="k">def</span> <span class="nf">add_embedding_columns</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">):</span>
+    <span class="n">embedding_features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Store&#39;</span><span class="p">,</span> <span class="s1">&#39;Dept&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">feature_name</span> <span class="ow">in</span> <span class="n">embedding_features</span><span class="p">:</span>
+        <span class="n">vocab_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">[</span><span class="n">feature_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+        <span class="n">vocab_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">categorical_column_with_vocabulary_list</span><span class="p">(</span>
+            <span class="n">feature_name</span><span class="p">,</span> <span class="n">vocab_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">embedding_dim</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vocab_list</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.25</span><span class="p">)</span>
+        
+        <span class="n">feature_col</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">embedding_column</span><span class="p">(</span><span class="n">vocab_col</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">)</span>
+        <span class="n">feature_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_col</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Model-Input-Layer">Model Input Layer<a class="anchor-link" href="#Model-Input-Layer">&#182;</a></h4><ul>
+<li>Aggregate the feature columns for the machine learning model’s input layer</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[197]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">create_feature_columns</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">):</span>
+    <span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">add_numeric_columns</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">)</span>
+    <span class="n">add_indicator_columns</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+    <span class="n">add_embedding_columns</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">feature_columns</span>
+
+<span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">(</span><span class="n">final_dataset</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">feature_columns</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -15357,7 +15628,15 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;MapDataset element_spec=({&#39;CPI&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None), &#39;Dept&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Fuel_Price&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None), &#39;IsHoliday&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Size&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Store&#39;: TensorSpec(shape=(), dtype=tf.int64, name=None), &#39;Temperature&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None), &#39;Type&#39;: TensorSpec(shape=(), dtype=tf.string, name=None), &#39;Unemployment&#39;: TensorSpec(shape=(), dtype=tf.float32, name=None)}, TensorSpec(shape=(), dtype=tf.float32, name=None))&gt;
+<pre>[NumericColumn(key=&#39;Size&#39;, shape=(), default_value=None, dtype=tf.float32, normalizer_fn=None),
+ NumericColumn(key=&#39;Temperature&#39;, shape=(), default_value=None, dtype=tf.float32, normalizer_fn=None),
+ NumericColumn(key=&#39;Fuel_Price&#39;, shape=(), default_value=None, dtype=tf.float32, normalizer_fn=None),
+ NumericColumn(key=&#39;CPI&#39;, shape=(), default_value=None, dtype=tf.float32, normalizer_fn=None),
+ NumericColumn(key=&#39;Unemployment&#39;, shape=(), default_value=None, dtype=tf.float32, normalizer_fn=None),
+ IndicatorColumn(categorical_column=VocabularyListCategoricalColumn(key=&#39;IsHoliday&#39;, vocabulary_list=(0, 1), dtype=tf.int64, default_value=-1, num_oov_buckets=0)),
+ IndicatorColumn(categorical_column=VocabularyListCategoricalColumn(key=&#39;Type&#39;, vocabulary_list=(&#39;A&#39;, &#39;B&#39;, &#39;C&#39;), dtype=tf.string, default_value=-1, num_oov_buckets=0)),
+ EmbeddingColumn(categorical_column=VocabularyListCategoricalColumn(key=&#39;Store&#39;, vocabulary_list=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45), dtype=tf.int64, default_value=-1, num_oov_buckets=0), dimension=2, combiner=&#39;mean&#39;, initializer=&lt;tensorflow.python.ops.init_ops.TruncatedNormal object at 0x7ff2601adbb0&gt;, ckpt_to_load_from=None, tensor_name_in_ckpt=None, max_norm=None, trainable=True, use_safe_embedding_lookup=True),
+ EmbeddingColumn(categorical_column=VocabularyListCategoricalColumn(key=&#39;Dept&#39;, vocabulary_list=(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 41, 42, 44, 45, 46, 47, 48, 49, 51, 52, 54, 55, 56, 58, 59, 60, 67, 71, 72, 74, 79, 80, 81, 82, 83, 85, 87, 90, 91, 92, 93, 94, 95, 97, 98, 78, 96, 99, 77, 39, 50, 43, 65), dtype=tf.int64, default_value=-1, num_oov_buckets=0), dimension=3, combiner=&#39;mean&#39;, initializer=&lt;tensorflow.python.ops.init_ops.TruncatedNormal object at 0x7ff260a2f8b0&gt;, ckpt_to_load_from=None, tensor_name_in_ckpt=None, max_norm=None, trainable=True, use_safe_embedding_lookup=True)]
 </pre>
 </div>
 </div>
@@ -15366,54 +15645,525 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-Predictions">Model Predictions<a class="anchor-link" href="#Model-Predictions">&#182;</a></h3><ul>
+<li>predicting weekly sales for various retail stores</li>
+</ul>
+<h4 id="Model-Layers">Model Layers<a class="anchor-link" href="#Model-Layers">&#182;</a></h4>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[133]:</div>
+<div class="prompt input_prompt">In&nbsp;[199]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">example_spec</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[133]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;Store&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
- &#39;Dept&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
- &#39;IsHoliday&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
- &#39;Size&#39;: FixedLenFeature(shape=(), dtype=tf.int64, default_value=None),
- &#39;Temperature&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
- &#39;Fuel_Price&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
- &#39;CPI&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
- &#39;Unemployment&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
- &#39;Weekly_Sales&#39;: FixedLenFeature(shape=(), dtype=tf.float32, default_value=None),
- &#39;Type&#39;: FixedLenFeature(shape=(), dtype=tf.string, default_value=None)}</pre>
 </div>
-
-</div>
-
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Regression-Function">Regression Function<a class="anchor-link" href="#Regression-Function">&#182;</a></h4>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Configure the dataset</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">cols</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[201]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        
+<span class="c1"># help(tf.compat.v1.feature_column.input_layer)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Training-mode">Training mode<a class="anchor-link" href="#Training-mode">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Evaluation-Mode">Evaluation Mode<a class="anchor-link" href="#Evaluation-Mode">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+        <span class="c1"># regression function’s evaluation code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">EVAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Prediction-Mode">Prediction Mode<a class="anchor-link" href="#Prediction-Mode">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+        <span class="c1"># regression function’s evaluation code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">EVAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+        <span class="c1"># regression function’s prediction code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">PREDICT</span><span class="p">:</span>
+            <span class="n">prediction_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">batch_predictions</span><span class="p">}</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="n">prediction_info</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Regression-Model">Regression Model<a class="anchor-link" href="#Regression-Model">&#182;</a></h4><ul>
+<li>create an Estimator object for the regression model</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+        <span class="c1"># regression function’s evaluation code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">EVAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+        <span class="c1"># regression function’s prediction code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">PREDICT</span><span class="p">:</span>
+            <span class="n">prediction_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">batch_predictions</span><span class="p">}</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="n">prediction_info</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">create_regression_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">):</span>
+        <span class="c1"># configuration for training logs the loss and global step values every 5000 training steps</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">RunConfig</span><span class="p">(</span><span class="n">log_step_count_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regression_fn</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">model_dir</span><span class="o">=</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regression_model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Model-Training">Model Training<a class="anchor-link" href="#Model-Training">&#182;</a></h4><ul>
+<li>Train the regression model using train.tfrecords file</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+        <span class="c1"># regression function’s evaluation code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">EVAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+        <span class="c1"># regression function’s prediction code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">PREDICT</span><span class="p">:</span>
+            <span class="n">prediction_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">batch_predictions</span><span class="p">}</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="n">prediction_info</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">create_regression_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">):</span>
+        <span class="c1"># configuration for training logs the loss and global step values every 5000 training steps</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">RunConfig</span><span class="p">(</span><span class="n">log_step_count_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regression_fn</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">model_dir</span><span class="o">=</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regression_model</span>
+    
+    <span class="k">def</span> <span class="nf">run_regression_training</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_training_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Setting steps to None will run training until is manually terminated</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_regression_model</span><span class="p">(</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="n">input_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span><span class="n">create_tensorflow_dataset</span><span class="p">(</span><span class="s1">&#39;train.tfrecords&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        <span class="n">regression_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">num_training_steps</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Model-Evaluation">Model Evaluation<a class="anchor-link" href="#Model-Evaluation">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+        <span class="c1"># regression function’s evaluation code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">EVAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+        <span class="c1"># regression function’s prediction code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">PREDICT</span><span class="p">:</span>
+            <span class="n">prediction_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">batch_predictions</span><span class="p">}</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="n">prediction_info</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">create_regression_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">):</span>
+        <span class="c1"># configuration for training logs the loss and global step values every 5000 training steps</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">RunConfig</span><span class="p">(</span><span class="n">log_step_count_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regression_fn</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">model_dir</span><span class="o">=</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regression_model</span>
+    
+    <span class="k">def</span> <span class="nf">run_regression_training</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_training_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Setting steps to None will run training until is manually terminated</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_regression_model</span><span class="p">(</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="n">input_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span><span class="n">create_tensorflow_dataset</span><span class="p">(</span><span class="s1">&#39;train.tfrecords&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        <span class="n">regression_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">num_training_steps</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">run_regression_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">):</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_regression_model</span><span class="p">(</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="n">input_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span><span class="n">create_tensorflow_dataset</span><span class="p">(</span><span class="s1">&#39;eval.tfrecords&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regression_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">input_fn</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Making-Predictions">Making Predictions<a class="anchor-link" href="#Making-Predictions">&#182;</a></h4><ul>
+<li>using regression model to make predictions on unlabeled test dataset</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[202]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">SalesModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span> <span class="o">=</span> <span class="n">hidden_layers</span>
+
+    <span class="k">def</span> <span class="nf">model_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">for</span> <span class="n">num_nodes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_layers</span><span class="p">:</span>
+            <span class="n">layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="n">batch_predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch_predictions</span>
+
+    <span class="k">def</span> <span class="nf">regression_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">feature_columns</span> <span class="o">=</span> <span class="n">create_feature_columns</span><span class="p">()</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">feature_column</span><span class="o">.</span><span class="n">input_layer</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">feature_columns</span><span class="p">)</span>
+        <span class="n">batch_predictions</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_layers</span><span class="p">(</span><span class="n">inputts</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">batch_predictions</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">absolute_difference</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="c1"># regression function’s training code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="c1"># to keep track of total number of training steps during different training runs</span>
+            <span class="n">global_step</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">get_or_create_global_step</span><span class="p">()</span>
+            <span class="c1"># minimize model&#39;s loss during training using ADAM optimization method</span>
+            <span class="n">adam</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">compat</span><span class="o">.</span><span class="n">v1</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">AdamOptimizer</span><span class="p">()</span>
+            <span class="n">train_op</span> <span class="o">=</span> <span class="n">adam</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">global_step</span><span class="o">=</span><span class="n">global_step</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span>
+        <span class="c1"># regression function’s evaluation code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">EVAL</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">)</span>
+        <span class="c1"># regression function’s prediction code</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">PREDICT</span><span class="p">:</span>
+            <span class="n">prediction_info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;predictions&#39;</span><span class="p">:</span> <span class="n">batch_predictions</span><span class="p">}</span>
+            <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">EstimatorSpec</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="n">prediction_info</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">create_regression_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">):</span>
+        <span class="c1"># configuration for training logs the loss and global step values every 5000 training steps</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">RunConfig</span><span class="p">(</span><span class="n">log_step_count_steps</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">Estimator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">regression_fn</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">model_dir</span><span class="o">=</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regression_model</span>
+    
+    <span class="k">def</span> <span class="nf">run_regression_training</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_training_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Setting steps to None will run training until is manually terminated</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_regression_model</span><span class="p">(</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="n">input_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span><span class="n">create_tensorflow_dataset</span><span class="p">(</span><span class="s1">&#39;train.tfrecords&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+        <span class="n">regression_model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">input_fn</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">num_training_steps</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">run_regression_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">):</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_regression_model</span><span class="p">(</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="n">input_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span><span class="n">create_tensorflow_dataset</span><span class="p">(</span><span class="s1">&#39;eval.tfrecords&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regression_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">input_fn</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">run_regression_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ckpt_dir</span><span class="p">,</span> <span class="n">data_file</span><span class="p">):</span>
+        <span class="n">regression_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_regression_model</span><span class="p">(</span><span class="n">ckpt_dir</span><span class="p">)</span>
+        <span class="n">input_fn</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span><span class="n">create_tensorflow_dataset</span><span class="p">(</span><span class="n">data_file</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">has_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">regression_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_fn</span><span class="p">)</span>
+        <span class="n">pred_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pred_dict</span> <span class="ow">in</span> <span class="n">predictions</span><span class="p">:</span>
+            <span class="n">pred_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pred_dict</span><span class="p">[</span><span class="s1">&#39;predictions&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">pred_list</span>
+    
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[204]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Execute it!!</span>
+
+<span class="c1"># run_regression_predict(&#39;test.tfrecords&#39;)</span>
+<span class="c1"># # Making Predictions</span>
+<span class="c1"># input_fn = lambda:create_tensorflow_dataset(&#39;test.tfrecords&#39;, 1, training=False, has_labels=False)</span>
+<span class="c1"># predictions = regression_model.predict(input_fn)</span>
 </pre></div>
 
     </div>
@@ -15449,75 +16199,17 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[203]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># (fast) ml_examples &gt;&gt; tensorboard --logdir=~/anaconda3/workingDir/learnings/ml_examples/</span>
 
-    </div>
-</div>
-</div>
+<span class="c1"># NOTE: Using experimental fast data loading logic. To disable, pass</span>
+<span class="c1">#     &quot;--load_fast=false&quot; and report issues on GitHub. More details:</span>
+<span class="c1">#     https://github.com/tensorflow/tensorboard/issues/4784</span>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<span class="c1"># Serving TensorBoard on localhost; to expose to the network, use a proxy or pass --bind_all</span>
+<span class="c1"># TensorBoard 2.8.0 at http://localhost:6006/ (Press CTRL+C to quit)</span>
 </pre></div>
 
     </div>
