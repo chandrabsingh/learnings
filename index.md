@@ -8,13 +8,13 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - [game of thrones - knowledge graph analysis using neo4j data science library](codes/neo4j_graph_datascience.html)
 - [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
 - [system design - aws - use cases](system_designs/aws_usecases.html)
-- [system design - use cases](system_designs/general_use_cases.html)
+- [system design - use cases](system_designs/design_general_use_cases.html)
 - [a primer on causal inference - randomized controlled tests](maths/causal_inference_learning.html)
 - [my .zshrc](codes/my_zshrc.html)
+- [>> store sales forecasting using tensorflow on kaggle walmart dataset](ml_examples/Store_Sales_Forecasting_With_Tensorflow.html)
 - [>> evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset
-- [>> store sales forecasting using tensorflow on kaggle walmart dataset](ml_examples/Store_Sales_Forecasting_With_Tensorflow.html)
 - weka visualization
 - mixture models using em algorithm
 
