@@ -15,6 +15,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - [>> evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset
+- [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
 - weka visualization
 - mixture models using em algorithm
 
@@ -35,9 +36,9 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### data science and distributed computing
   - [machine learning - conceptual brief](ml_examples/ml_glossary.html)
-  - [pytorch intro](pytorch_fastai/01_pytorch_intro.html)
-  - [fastai intro](pytorch_fastai/01_fastai_intro.html)
-  - [tensorflow intro](pytorch_fastai/01_tensorflow_intro.html)
+  - [pytorch intro](dl_examples/01_pytorch_intro.html)
+  - [fastai intro](dl_examples/01_fastai_intro.html)
+  - [tensorflow intro](dl_examples/01_tensorflow_intro.html)
   - [aws components intro](system_designs/aws_cloud_components.html)
   - [neo4j native graph database intro](codes/neo4j_basics.html)
   - cassandra
