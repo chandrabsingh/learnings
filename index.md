@@ -43,6 +43,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
   - [neo4j native graph database intro](codes/neo4j_basics.html)
   - cassandra
   - mongodb
+  - [deep learning - conceptual brief](dl_examples/dl_glossary.html)
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)

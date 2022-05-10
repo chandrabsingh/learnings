@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>graph_algos</title>
+<title>dl_glossary</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13117,837 +13117,120 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Adjacency-list">Adjacency list<a class="anchor-link" href="#Adjacency-list">&#182;</a></h3><ul>
-<li>useful in sparsely connected graphs</li>
-<li>space complexity O(V+E)
-<img src="images/adjacency_list.png" width=400 height=400>  </li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/adjacency_list.py</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">Add two container - one vertex, another graph object</span>
-<span class="sd">vertex - holds node and neighbors information</span>
-<span class="sd">graph - holds adds all vertices, edge/connection information</span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="k">class</span> <span class="nc">Vertex</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertex</span> <span class="o">=</span> <span class="n">vertex</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">def</span> <span class="nf">addNeighbor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertex</span><span class="p">,</span> <span class="n">edgeValue</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span> <span class="o">=</span> <span class="n">edgeValue</span>
-
-    <span class="k">def</span> <span class="nf">getEdges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span>
-
-    <span class="k">def</span> <span class="nf">getVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertex</span>
-
-    <span class="k">def</span> <span class="nf">getEdgeValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">neighbors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">vertex</span><span class="p">]</span>
-
-
-<span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">def</span> <span class="nf">addVertex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">vertex</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-
-    <span class="k">def</span> <span class="nf">addVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertexList</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">vertexList</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">addVertex</span><span class="p">(</span><span class="n">Vertex</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">addEdge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromToPair</span><span class="p">,</span> <span class="n">edgeValue</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        fromToPair: a tuple pair with &quot;from&quot; vertex information</span>
-<span class="sd">                    to &quot;to&quot; vertex information</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fromToPair</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fromToPair</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">addVertex</span><span class="p">(</span><span class="n">Vertex</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">fromToPair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">addNeighbor</span><span class="p">(</span><span class="n">fromToPair</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">edgeValue</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">getVertices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        This returns all the vertices keys of the graph object</span>
-<span class="sd">        :return: vertex keys</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-    <span class="k">def</span> <span class="nf">getVertexNeighbors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        This returns vertex neighbor information</span>
-<span class="sd">        :param v: vertex object</span>
-<span class="sd">        :return: dictionary of neighbor edges</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vertices</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">vertex</span><span class="p">]</span><span class="o">.</span><span class="n">getEdges</span><span class="p">()</span>
-
-    <span class="k">def</span> <span class="nf">addGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        An easier way to add elements into graph object</span>
-<span class="sd">        The dict parameter holds dictionary of vertices and its dictionary of edge elements</span>
-<span class="sd">        :param dict: a two-level nested dictionary, outer holds the vertex, inner holds the edge information</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">addVertex</span><span class="p">(</span><span class="n">Vertex</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">ek</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">addEdge</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">ek</span><span class="p">),</span> <span class="n">ev</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">getPossiblePaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromVertex</span><span class="p">,</span> <span class="n">toVertex</span><span class="p">):</span>
-        <span class="n">explorePaths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-
-        <span class="c1"># loop over connection universe starting from fromVertex</span>
-        <span class="c1"># knocking off the visitedVertex and exploring paths</span>
-
-        <span class="n">numberOfNodes</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="n">fromVertex</span>
-        <span class="n">neighborSet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVertexNeighbors</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">neighborSet</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">explorePaths</span><span class="o">.</span><span class="n">add</span><span class="p">(((</span><span class="n">root</span><span class="o">.</span><span class="n">vertex</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="p">(</span><span class="n">v</span><span class="p">,)))</span>
-
-        <span class="n">tempExplorePaths</span> <span class="o">=</span> <span class="n">explorePaths</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">explorePaths</span> <span class="ow">and</span> <span class="n">numberOfNodes</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getVertices</span><span class="p">())):</span>
-            <span class="n">explorePaths</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tempExplorePaths</span><span class="p">:</span>
-                <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVertexNeighbors</span><span class="p">(</span><span class="n">Vertex</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">l</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                    <span class="n">weights</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                    <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-                        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-                        <span class="n">weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-                        <span class="n">explorePaths</span><span class="o">.</span><span class="n">add</span><span class="p">(((</span><span class="nb">tuple</span><span class="p">(</span><span class="n">nodes</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">weights</span><span class="p">))))</span>
-            <span class="n">tempExplorePaths</span> <span class="o">=</span> <span class="n">explorePaths</span>
-            <span class="n">numberOfNodes</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">explorePaths</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">toVertex</span><span class="o">.</span><span class="n">vertex</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Path=</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">, Weight=</span><span class="si">{</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">, Sum=</span><span class="si">{</span><span class="nb">sum</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-
-<span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
-<span class="n">graphElements</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-    <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span>
-    <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span>
-    <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
-    <span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
-    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;e&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
-<span class="p">}</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">addGraph</span><span class="p">(</span><span class="n">graphElements</span><span class="p">)</span>
-<span class="c1"># print(graph.getVertexNeighbors(Vertex(&#39;a&#39;)))</span>
-<span class="n">graph</span><span class="o">.</span><span class="n">getPossiblePaths</span><span class="p">(</span><span class="n">Vertex</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">),</span> <span class="n">Vertex</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">))</span> <span class="c1">## Need to rework - not optimized</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Path=(&#39;a&#39;, &#39;c&#39;, &#39;b&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;), Weight=(2, 7, 8, 6, 3), Sum=26
-Path=(&#39;a&#39;, &#39;b&#39;, &#39;d&#39;, &#39;c&#39;, &#39;e&#39;, &#39;f&#39;), Weight=(5, 8, 4, 8, 3), Sum=28
-Path=(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;e&#39;, &#39;d&#39;, &#39;f&#39;), Weight=(5, 7, 8, 6, 4), Sum=30
-Path=(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;), Weight=(5, 7, 4, 6, 3), Sum=25
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Disjoint-sets---Quick-find">Disjoint sets - Quick find<a class="anchor-link" href="#Disjoint-sets---Quick-find">&#182;</a></h3><ul>
-<li>find and union are the important pieces of its implementation</li>
-<li>find method finds the root node of vertex. Time complexity O(1)</li>
-<li>union method combines and makes a common root node. Time complexity O(N)</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/disjoint_set.py</span>
-<span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    This implementation is of disjoint set - quick find</span>
-<span class="sd">    Hint: Instead of storing parent node in the array, store the root node</span>
-<span class="sd">    Then we won&#39;t need iteration from the leaf node to the parent root node</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Arr</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Return the element of the corresponding index</span>
-<span class="sd">        :param index: index of the array</span>
-<span class="sd">        :return: element</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        If the elements have a common root, no action is taken.</span>
-<span class="sd">        If the elements have different root, the root of node one is assigned to root of node two.</span>
-<span class="sd">        :param nodeOne: the first element</span>
-<span class="sd">        :param nodeTwo: the second element</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">rootOne</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span>
-        <span class="n">rootTwo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">rootOne</span><span class="p">,</span> <span class="n">rootTwo</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">rootOne</span> <span class="o">!=</span> <span class="n">rootTwo</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">)):</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">rootTwo</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N1:</span><span class="si">{</span><span class="n">nodeOne</span><span class="si">}</span><span class="s1">, N2:</span><span class="si">{</span><span class="n">nodeTwo</span><span class="si">}</span><span class="s1">, Arr:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Validates if the root node of element one and element two are same</span>
-<span class="sd">        :param nodeOne: node one</span>
-<span class="sd">        :param nodeTwo: node two</span>
-<span class="sd">        :return: true or false</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-
-
-<span class="n">ds</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Arr[0, 1, 2, 3, 4, 5, 6, 7]
-0 1
-N1:0, N2:1, Arr:[0, 0, 2, 3, 4, 5, 6, 7]
-0 3
-N1:0, N2:3, Arr:[0, 0, 2, 0, 4, 5, 6, 7]
-0 2
-N1:1, N2:2, Arr:[0, 0, 0, 0, 4, 5, 6, 7]
-4 5
-N1:4, N2:5, Arr:[0, 0, 0, 0, 4, 4, 6, 7]
-6 7
-N1:6, N2:7, Arr:[0, 0, 0, 0, 4, 4, 6, 6]
-True
-True
-False
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Disjoint-sets---Quick-union">Disjoint sets - Quick union<a class="anchor-link" href="#Disjoint-sets---Quick-union">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/disjoint_set_quick_union.py</span>
-<span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    This implementation is of disjoint set - quick union</span>
-<span class="sd">    As the worst case complexity of find and union each is O(n), generally it will perform better than n * O(n) &lt;= O(n^2)</span>
-<span class="sd">    So the quick union is more efficient than quick find method whose time complexity is n * O(n) = O(n^2)</span>
-<span class="sd">    Hint: Instead of storing parent node in the array, store the root node</span>
-<span class="sd">    Then we won&#39;t need iteration from the leaf node to the parent root node</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Arr</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n) is the worst case scenario</span>
-<span class="sd">        Return the element of the corresponding index</span>
-<span class="sd">        :param index: index of the array</span>
-<span class="sd">        :return: element</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">while</span> <span class="n">index</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">index</span>
-
-    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n) is the worst case scenario</span>
-<span class="sd">        If the elements have a common root, no action is taken.</span>
-<span class="sd">        If the elements have different root, the root of node one is assigned to root of node two.</span>
-<span class="sd">        :param nodeOne: the first element</span>
-<span class="sd">        :param nodeTwo: the second element</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">rootOne</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span>
-        <span class="n">rootTwo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">rootOne</span><span class="p">,</span> <span class="n">rootTwo</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">rootOne</span> <span class="o">!=</span> <span class="n">rootTwo</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N1:</span><span class="si">{</span><span class="n">nodeOne</span><span class="si">}</span><span class="s1">, N2:</span><span class="si">{</span><span class="n">nodeTwo</span><span class="si">}</span><span class="s1">, Arr:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n)</span>
-<span class="sd">        Validates if the root node of element one and element two are same</span>
-<span class="sd">        :param nodeOne: node one</span>
-<span class="sd">        :param nodeTwo: node two</span>
-<span class="sd">        :return: true if root nodes are the same, false otherwise</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-
-
-<span class="n">ds</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Arr[0, 1, 2, 3, 4, 5, 6, 7]
-0 1
-N1:0, N2:1, Arr:[0, 0, 2, 3, 4, 5, 6, 7]
-0 3
-N1:0, N2:3, Arr:[0, 0, 2, 0, 4, 5, 6, 7]
-0 2
-N1:1, N2:2, Arr:[0, 0, 0, 0, 4, 5, 6, 7]
-4 5
-N1:4, N2:5, Arr:[0, 0, 0, 0, 4, 4, 6, 7]
-6 7
-N1:6, N2:7, Arr:[0, 0, 0, 0, 4, 4, 6, 6]
-True
-True
-False
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Disjoint-sets---Union-by-rank">Disjoint sets - Union by rank<a class="anchor-link" href="#Disjoint-sets---Union-by-rank">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/disjoint_set_union_by_rank.py</span>
-<span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    This implementation is of disjoint set - quick union</span>
-<span class="sd">    Additionally maintain the rank/height of each vertex from the root</span>
-<span class="sd">    As the worst case complexity of find and union each is O(n), generally it will perform better than n * O(n) &lt;= O(n^2)</span>
-<span class="sd">    So the quick union is more efficient than quick find method whose time complexity is n * O(n) = O(n^2)</span>
-<span class="sd">    Hint: Instead of storing parent node in the array, store the root node</span>
-<span class="sd">    Then we won&#39;t need iteration from the leaf node to the parent root node</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">size</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Arr</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Height</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n) is the worst case scenario</span>
-<span class="sd">        Return the element of the corresponding index</span>
-<span class="sd">        :param index: index of the array</span>
-<span class="sd">        :return: element</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">while</span> <span class="n">index</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">index</span>
-
-    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n) is the worst case scenario</span>
-<span class="sd">        If the elements have a common root, no action is taken.</span>
-<span class="sd">        If the elements have different root, the root of node one is assigned to root of node two.</span>
-<span class="sd">        :param nodeOne: the first element</span>
-<span class="sd">        :param nodeTwo: the second element</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">rootOne</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span>
-        <span class="n">rootTwo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">rootOne</span><span class="p">,</span> <span class="n">rootTwo</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">rootOne</span> <span class="o">!=</span> <span class="n">rootTwo</span><span class="p">):</span>
-            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootTwo</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N1:</span><span class="si">{</span><span class="n">nodeOne</span><span class="si">}</span><span class="s1">, N2:</span><span class="si">{</span><span class="n">nodeTwo</span><span class="si">}</span><span class="s1">, Arr:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">, Height:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n)</span>
-<span class="sd">        Validates if the root node of element one and element two are same</span>
-<span class="sd">        :param nodeOne: node one</span>
-<span class="sd">        :param nodeTwo: node two</span>
-<span class="sd">        :return: true if root nodes are the same, false otherwise</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N1:</span><span class="si">{</span><span class="n">nodeOne</span><span class="si">}</span><span class="s1">, N2:</span><span class="si">{</span><span class="n">nodeTwo</span><span class="si">}</span><span class="s1">, IsConnected:</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">val</span>
-
-
-<span class="c1"># ds = DisjointSet(8)</span>
-<span class="c1"># ds.union(0,1)</span>
-<span class="c1"># ds.union(0,3)</span>
-<span class="c1"># ds.union(1,2)</span>
-<span class="c1"># ds.union(4,5)</span>
-<span class="c1"># ds.union(6,7)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-
-<span class="c1"># ds.isConnected(2,3)</span>
-<span class="c1"># ds.isConnected(2,3)</span>
-<span class="c1"># ds.isConnected(2,6)</span>
-
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="c1">#</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Arr[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Height[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-1 2
-N1:1, N2:2, Arr:[0, 1, 1, 3, 4, 5, 6, 7, 8, 9], Height:[1, 2, 1, 1, 1, 1, 1, 1, 1, 1]
-1 5
-N1:2, N2:5, Arr:[0, 1, 1, 3, 4, 1, 6, 7, 8, 9], Height:[1, 2, 1, 1, 1, 3, 1, 1, 1, 1]
-1 6
-N1:5, N2:6, Arr:[0, 1, 1, 3, 4, 1, 1, 7, 8, 9], Height:[1, 2, 1, 1, 1, 3, 3, 1, 1, 1]
-1 7
-N1:6, N2:7, Arr:[0, 1, 1, 3, 4, 1, 1, 1, 8, 9], Height:[1, 2, 1, 1, 1, 3, 3, 3, 1, 1]
-3 8
-N1:3, N2:8, Arr:[0, 1, 1, 3, 4, 1, 1, 1, 3, 9], Height:[1, 2, 1, 2, 1, 3, 3, 3, 1, 1]
-3 9
-N1:8, N2:9, Arr:[0, 1, 1, 3, 4, 1, 1, 1, 3, 3], Height:[1, 2, 1, 2, 1, 3, 3, 3, 1, 3]
-N1:1, N2:5, IsConnected:True
-N1:5, N2:7, IsConnected:True
-N1:4, N2:9, IsConnected:False
-3 4
-N1:9, N2:4, Arr:[0, 1, 1, 3, 3, 1, 1, 1, 3, 3], Height:[1, 2, 1, 2, 3, 3, 3, 3, 1, 3]
-N1:4, N2:9, IsConnected:True
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[7]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Disjoint-Sets---Path-Compression-Optimization">Disjoint Sets - Path Compression Optimization<a class="anchor-link" href="#Disjoint-Sets---Path-Compression-Optimization">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/disjoint_set_path_compression.py</span>
-<span class="k">class</span> <span class="nc">DisjointSet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    This implementation of disjoint set is an optimization method called path compression for find() method</span>
-<span class="sd">    Here the leaf and child nodes are directly connected to the root vertex node</span>
-<span class="sd">    The path compression is implemented in find() method using recursion</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">size</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Arr</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Height</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n) is the worst case scenario</span>
-<span class="sd">        Return the element of the corresponding index</span>
-<span class="sd">        :param index: index of the array</span>
-<span class="sd">        :return: element</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
-            <span class="k">return</span> <span class="n">index</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
-
-
-    <span class="k">def</span> <span class="nf">union</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n) is the worst case scenario</span>
-<span class="sd">        If the elements have a common root, no action is taken.</span>
-<span class="sd">        If the elements have different root, the root of node one is assigned to root of node two.</span>
-<span class="sd">        :param nodeOne: the first element</span>
-<span class="sd">        :param nodeTwo: the second element</span>
-<span class="sd">        :return: None</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">rootOne</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span>
-        <span class="n">rootTwo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">rootOne</span><span class="p">,</span> <span class="n">rootTwo</span><span class="p">)</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">rootOne</span> <span class="o">!=</span> <span class="n">rootTwo</span><span class="p">):</span>
-            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootTwo</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="p">[</span><span class="n">rootTwo</span><span class="p">]</span> <span class="o">=</span> <span class="n">rootOne</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="p">[</span><span class="n">rootOne</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N1:</span><span class="si">{</span><span class="n">nodeOne</span><span class="si">}</span><span class="s1">, N2:</span><span class="si">{</span><span class="n">nodeTwo</span><span class="si">}</span><span class="s1">, Arr:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rootArr</span><span class="si">}</span><span class="s1">, Height:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rankArr</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">isConnected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeOne</span><span class="p">,</span> <span class="n">nodeTwo</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Time complexity O(n)</span>
-<span class="sd">        Validates if the root node of element one and element two are same</span>
-<span class="sd">        :param nodeOne: node one</span>
-<span class="sd">        :param nodeTwo: node two</span>
-<span class="sd">        :return: true if root nodes are the same, false otherwise</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeOne</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">nodeTwo</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N1:</span><span class="si">{</span><span class="n">nodeOne</span><span class="si">}</span><span class="s1">, N2:</span><span class="si">{</span><span class="n">nodeTwo</span><span class="si">}</span><span class="s1">, IsConnected:</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">val</span>
-
-
-<span class="c1"># ds = DisjointSet(8)</span>
-<span class="c1"># ds.union(0,1)</span>
-<span class="c1"># ds.union(0,3)</span>
-<span class="c1"># ds.union(1,2)</span>
-<span class="c1"># ds.union(4,5)</span>
-<span class="c1"># ds.union(6,7)</span>
-<span class="n">ds</span> <span class="o">=</span> <span class="n">DisjointSet</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-
-<span class="c1"># ds.isConnected(2,3)</span>
-<span class="c1"># ds.isConnected(2,3)</span>
-<span class="c1"># ds.isConnected(2,6)</span>
-
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">ds</span><span class="o">.</span><span class="n">isConnected</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="c1">#</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Arr[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-Height[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-1 2
-N1:1, N2:2, Arr:[0, 1, 1, 3, 4, 5, 6, 7, 8, 9], Height:[1, 2, 1, 1, 1, 1, 1, 1, 1, 1]
-1 5
-N1:2, N2:5, Arr:[0, 1, 1, 3, 4, 1, 6, 7, 8, 9], Height:[1, 2, 1, 1, 1, 3, 1, 1, 1, 1]
-1 6
-N1:5, N2:6, Arr:[0, 1, 1, 3, 4, 1, 1, 7, 8, 9], Height:[1, 2, 1, 1, 1, 3, 3, 1, 1, 1]
-1 7
-N1:6, N2:7, Arr:[0, 1, 1, 3, 4, 1, 1, 1, 8, 9], Height:[1, 2, 1, 1, 1, 3, 3, 3, 1, 1]
-3 8
-N1:3, N2:8, Arr:[0, 1, 1, 3, 4, 1, 1, 1, 3, 9], Height:[1, 2, 1, 2, 1, 3, 3, 3, 1, 1]
-3 9
-N1:8, N2:9, Arr:[0, 1, 1, 3, 4, 1, 1, 1, 3, 3], Height:[1, 2, 1, 2, 1, 3, 3, 3, 1, 3]
-N1:1, N2:5, IsConnected:True
-N1:5, N2:7, IsConnected:True
-N1:4, N2:9, IsConnected:False
-3 4
-N1:9, N2:4, Arr:[0, 1, 1, 3, 3, 1, 1, 1, 3, 3], Height:[1, 2, 1, 2, 3, 3, 3, 3, 1, 3]
-N1:4, N2:9, IsConnected:True
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[2]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Valid-Graph-Tree">Valid Graph Tree<a class="anchor-link" href="#Valid-Graph-Tree">&#182;</a></h3><p>G is a tree iff:</p>
-<ul>
-<li>G is fully connected, that is, for every pair of nodes in G, there is a path between them</li>
-<li>G contains no cycles, that is, there is exactly onne path between each pair of nodes</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[95]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/valid_graph_tree2.py</span>
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Using iterated depth first search</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">validTree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
-        <span class="c1"># Check if number of edges is one less than number of nodes</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="c1"># Initialize and assign node neighbors in its corresponding index to create adjacency list</span>
-        <span class="c1"># adjList = [[]] * n</span>
-        <span class="n">adjList</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-        <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-            <span class="n">adjList</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-            <span class="n">adjList</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-
-        <span class="c1"># Create parent dictionary which holds parent node information. The first node is assigned -1 parent node</span>
-        <span class="n">parentDict</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}</span>
-
-        <span class="c1"># Create stack of adjacent neighbors</span>
-        <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="c1"># loop over all nodes adjacent neighbors starting with node 0 till all nodes are visited</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="c1"># Loop over all adjacent neighbor to corresponding stacked off node</span>
-            <span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">adjList</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-                <span class="c1"># Ignore the trivial cycles for example A-B-A of undirected graph</span>
-                <span class="k">if</span> <span class="n">neighbor</span> <span class="o">==</span> <span class="n">parentDict</span><span class="p">[</span><span class="n">node</span><span class="p">]:</span>
-                    <span class="k">continue</span>
-                <span class="c1"># If neighbor is already listed down in parent dictionary key, means there is a cycle in graph</span>
-                <span class="k">if</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">parentDict</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-                <span class="c1"># Append neighbor in the stack having observed them</span>
-                <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">neighbor</span><span class="p">)</span>
-                <span class="n">parentDict</span><span class="p">[</span><span class="n">neighbor</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
-        <span class="c1"># Return if valid graph will have the same number of nodes</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">parentDict</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span>
-
-
-<span class="n">nodes</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
-<span class="c1"># nodes = 8</span>
-<span class="c1"># edges = [[0, 1], [0, 3], [1, 2], [4, 5], [6, 7]]</span>
-<span class="c1"># nodes = 1</span>
-<span class="c1"># edges = []</span>
-<span class="c1"># nodes = 2</span>
-<span class="c1"># edges = []</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">validTree</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>True
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Depth-first-search-(DFS)">Depth-first search (DFS)<a class="anchor-link" href="#Depth-first-search-(DFS)">&#182;</a></h3><ul>
-<li>Given a graph, how can we find all of its vertices, and how can we find all paths between two vertices?</li>
-<li>DFS is generally used to:<ul>
-<li><strong>traverse all vertices</strong> </li>
-<li><strong>traverse all paths between any two vertices</strong></li>
-</ul>
-</li>
-<li><strong>adjacency list</strong> can be used to look up for the adjacent neighbors of a given node<ul>
-<li>best for cases where number of nodes is more than number of edges</li>
-</ul>
-</li>
-<li>linked list would not be a good choice here</li>
-<li><strong>search till we reach to the depth of graph</strong></li>
-<li>uses <strong>stack</strong> to solve - <strong>LIFO</strong><ul>
-<li>to go to the previous state, simply remove the current state and we will reach onto the previous state</li>
-<li>uses recursion to solve</li>
-</ul>
-</li>
-<li>algo - traversing all vertices<ul>
-<li>choose a node</li>
-<li>put in stack</li>
-<li>mark it as visited</li>
-<li>pop from stack</li>
-<li>check all the neighboring nodes</li>
-<li>put in stack</li>
-<li>and loop deeper and deeper before checking for the remaining neigboring nodes</li>
-<li>if all nodes are visited go back to the previous</li>
+<h3 id="TensorFlow">TensorFlow<a class="anchor-link" href="#TensorFlow">&#182;</a></h3><ul>
+<li>Google calls it <strong>"an open source software library for machine intelligence"</strong></li>
+<li>other deep learning libraries<ul>
+<li>PyTorch (<a href="https://pytorch.org/">https://pytorch.org/</a>), </li>
+<li>Caffe (<a href="https://caffe.berkeleyvision.org/">https://caffe.berkeleyvision.org/</a>), </li>
+<li>MxNet (<a href="https://mxnet.apache.org/">https://mxnet.apache.org/</a>)</li>
 </ul>
 </li>
 </ul>
-<h4 id="Iterative-depth-first-search">Iterative depth-first search<a class="anchor-link" href="#Iterative-depth-first-search">&#182;</a></h4><ul>
-<li>Undirected graph<ul>
-<li>Undirected graph contains trivial cycle as A - B - A, if there is an undirected edge between node A and node B</li>
-<li>So in undirected graph, detecting cycles should exclude trivial cycles<ul>
-<li>Delete the opp direction edge, that is when you follow A-B, delete the opp edge B-A</li>
+<h4 id="Features">Features<a class="anchor-link" href="#Features">&#182;</a></h4><ul>
+<li>have <strong>auto-differentiation</strong>, </li>
+<li>support for CPU/GPU option, </li>
+<li>have <strong>pretrained models</strong>, </li>
+<li>support commonly used NN architectures like recurrent neural networks, convolutional neural networks, and deep belief networks</li>
+<li>support for <strong>eager computation</strong> in TensorFlow 2.0, </li>
+<li>support for <strong>graph computation based on static graphs</strong></li>
+<li>Keras – a high-level neural network API that has been <strong>integrated with TensorFlow</strong> (in 2.0, Keras became the standard API for interacting with TensorFlow)</li>
+</ul>
+<h4 id="Changes-in-TensorFlow-2.0">Changes in TensorFlow 2.0<a class="anchor-link" href="#Changes-in-TensorFlow-2.0">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="PyTorch">PyTorch<a class="anchor-link" href="#PyTorch">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Keras">Keras<a class="anchor-link" href="#Keras">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="General-concepts">General concepts<a class="anchor-link" href="#General-concepts">&#182;</a></h3><h4 id="Perceptron-algorithm">Perceptron algorithm<a class="anchor-link" href="#Perceptron-algorithm">&#182;</a></h4><h4 id="Softmax-algorithm">Softmax algorithm<a class="anchor-link" href="#Softmax-algorithm">&#182;</a></h4><h4 id="Transfer-Learning">Transfer Learning<a class="anchor-link" href="#Transfer-Learning">&#182;</a></h4><ul>
+<li>Transfer learning (TL) is a research problem in machine learning (ML) that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem.</li>
+<li>How do you make an image classifier that can be trained in a few minutes on a CPU with very little data?<ul>
+<li>Use pre-trained models, i.e., models with known weights</li>
 </ul>
 </li>
 </ul>
-</li>
+<h4 id="Representation-Learning">Representation Learning<a class="anchor-link" href="#Representation-Learning">&#182;</a></h4><h4 id="Activation-function">Activation function<a class="anchor-link" href="#Activation-function">&#182;</a></h4><h4 id="ReLU">ReLU<a class="anchor-link" href="#ReLU">&#182;</a></h4><h4 id="Back-propagation">Back propagation<a class="anchor-link" href="#Back-propagation">&#182;</a></h4><h4 id="Forward-propagation">Forward propagation<a class="anchor-link" href="#Forward-propagation">&#182;</a></h4><h4 id="Cross-Entropy">Cross Entropy<a class="anchor-link" href="#Cross-Entropy">&#182;</a></h4><h4 id="Encoder-Decoder">Encoder-Decoder<a class="anchor-link" href="#Encoder-Decoder">&#182;</a></h4><h4 id="-"> <a class="anchor-link" href="#-">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="CNN">CNN<a class="anchor-link" href="#CNN">&#182;</a></h3><h4 id="General-Concepts">General Concepts<a class="anchor-link" href="#General-Concepts">&#182;</a></h4><h5 id="Convolution">Convolution<a class="anchor-link" href="#Convolution">&#182;</a></h5><h5 id="Max-Pooling">Max Pooling<a class="anchor-link" href="#Max-Pooling">&#182;</a></h5><h5 id="Average-Pooling">Average Pooling<a class="anchor-link" href="#Average-Pooling">&#182;</a></h5><h5 id="Fully-Connected">Fully Connected<a class="anchor-link" href="#Fully-Connected">&#182;</a></h5><h5 id="SOTA-Models">SOTA Models<a class="anchor-link" href="#SOTA-Models">&#182;</a></h5><h5 id="Differential-Learning-Rate">Differential Learning Rate<a class="anchor-link" href="#Differential-Learning-Rate">&#182;</a></h5><h5 id="Feature-Maps">Feature Maps<a class="anchor-link" href="#Feature-Maps">&#182;</a></h5><h4 id="ResNet">ResNet<a class="anchor-link" href="#ResNet">&#182;</a></h4><ul>
+<li>Deep Residual Learning for Image Recognition</li>
+</ul>
+<h4 id="VGG">VGG<a class="anchor-link" href="#VGG">&#182;</a></h4><ul>
+<li>Very Deep Convolutional Networks for Large-Scale Image Recognition</li>
+</ul>
+<h4 id="DenseNet">DenseNet<a class="anchor-link" href="#DenseNet">&#182;</a></h4><ul>
+<li>Densely Connected Convolutional Networks</li>
+<li>A DenseNet is a type of convolutional neural network that utilises dense connections between layers, through Dense Blocks, where we connect all layers (with matching feature-map sizes) directly with each other. To preserve the feed-forward nature, each layer obtains additional inputs from all preceding layers and passes on its own feature-maps to all subsequent layers.</li>
+</ul>
+<h4 id="AlexNet">AlexNet<a class="anchor-link" href="#AlexNet">&#182;</a></h4><ul>
+<li>ImageNet Classification with Deep Convolutional Neural Networks</li>
+</ul>
+<h4 id="VGG-16">VGG-16<a class="anchor-link" href="#VGG-16">&#182;</a></h4><ul>
+<li>Very Deep Convolutional Networks for Large-Scale Image Recognition</li>
+</ul>
+<h4 id="MobileNetV2">MobileNetV2<a class="anchor-link" href="#MobileNetV2">&#182;</a></h4><ul>
+<li>MobileNetV2: Inverted Residuals and Linear Bottlenecks</li>
+</ul>
+<h4 id="EfficientNet">EfficientNet<a class="anchor-link" href="#EfficientNet">&#182;</a></h4><ul>
+<li>EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks</li>
+</ul>
+<h4 id="Darknet-53">Darknet-53<a class="anchor-link" href="#Darknet-53">&#182;</a></h4><ul>
+<li>YOLOv3: An Incremental Improvement</li>
+</ul>
+<h4 id="ResNeXt">ResNeXt<a class="anchor-link" href="#ResNeXt">&#182;</a></h4><ul>
+<li>Aggregated Residual Transformations for Deep Neural Networks</li>
+</ul>
+<h4 id="GoogLeNet">GoogLeNet<a class="anchor-link" href="#GoogLeNet">&#182;</a></h4><ul>
+<li>Going Deeper with Convolutions</li>
+</ul>
+<h4 id="Xception">Xception<a class="anchor-link" href="#Xception">&#182;</a></h4><ul>
+<li>Xception: Deep Learning With Depthwise Separable Convolutions</li>
+</ul>
+<h4 id="SqueezeNet">SqueezeNet<a class="anchor-link" href="#SqueezeNet">&#182;</a></h4><ul>
+<li>SqueezeNet: AlexNet-level accuracy with 50x fewer parameters and &lt;0.5MB model size</li>
+</ul>
+<h4 id="Inception-v3">Inception-v3<a class="anchor-link" href="#Inception-v3">&#182;</a></h4><ul>
+<li>Rethinking the Inception Architecture for Computer Vision</li>
+</ul>
+<h4 id="CSPDarknet53">CSPDarknet53<a class="anchor-link" href="#CSPDarknet53">&#182;</a></h4><ul>
+<li>YOLOv4: Optimal Speed and Accuracy of Object Detection</li>
+</ul>
+<h4 id="Applications">Applications<a class="anchor-link" href="#Applications">&#182;</a></h4><h5 id="General-Classification---15.34%">General Classification - 15.34%<a class="anchor-link" href="#General-Classification---15.34%">&#182;</a></h5><h5 id="Image-Classification---14.81%">Image Classification - 14.81%<a class="anchor-link" href="#Image-Classification---14.81%">&#182;</a></h5><h5 id="Semantic-Segmentation---4.50%">Semantic Segmentation - 4.50%<a class="anchor-link" href="#Semantic-Segmentation---4.50%">&#182;</a></h5><ul>
+<li>Classify Each Pixel</li>
+<li>Fully-Convolutional Networks</li>
+<li>SegNet &amp; U-NET</li>
+<li>Faster R-CNN linked to Semantic Segmentation: Mask R-CNN</li>
+</ul>
+<h5 id="Object-Detection---3.44%">Object Detection - 3.44%<a class="anchor-link" href="#Object-Detection---3.44%">&#182;</a></h5><h5 id="Quantization---1.85%">Quantization - 1.85%<a class="anchor-link" href="#Quantization---1.85%">&#182;</a></h5><h5 id="Computed-Tomography-(CT)---1.59%">Computed Tomography (CT) - 1.59%<a class="anchor-link" href="#Computed-Tomography-(CT)---1.59%">&#182;</a></h5><h5 id="Domain-Adaptation---1.32%">Domain Adaptation - 1.32%<a class="anchor-link" href="#Domain-Adaptation---1.32%">&#182;</a></h5><h5 id="Out-of-Distribution-Detection---1.06%">Out-of-Distribution Detection - 1.06%<a class="anchor-link" href="#Out-of-Distribution-Detection---1.06%">&#182;</a></h5><h5 id="Language-Modelling---1.06%">Language Modelling - 1.06%<a class="anchor-link" href="#Language-Modelling---1.06%">&#182;</a></h5><h4 id="Evolution-of-R-CNN">Evolution of R-CNN<a class="anchor-link" href="#Evolution-of-R-CNN">&#182;</a></h4><ul>
+<li>Region based CNN</li>
+<li>Fast R-CNN</li>
+<li>Faster R-CNN</li>
+</ul>
+<h4 id="Fully-Convolutional-Networks-(FCN)">Fully-Convolutional Networks (FCN)<a class="anchor-link" href="#Fully-Convolutional-Networks-(FCN)">&#182;</a></h4><h4 id="U-NET">U-NET<a class="anchor-link" href="#U-NET">&#182;</a></h4><ul>
+<li>Long Skip Connections
+#### Model Compression
+##### Knowledge distillation
+##### Pruning
+##### Quantization
+##### Low-rank approximation and sparsity</li>
 </ul>
 
 </div>
@@ -13956,162 +13239,6 @@ N1:4, N2:9, IsConnected:True
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Find-if-path-exists-in-graph-using-DFS">Find if path exists in graph using DFS<a class="anchor-link" href="#Find-if-path-exists-in-graph-using-DFS">&#182;</a></h3><p><img src="images/pathExists.png" width=400 height=400></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/path_exists.py</span>
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">validPath</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Validate if the connection between two nodes exist</span>
-<span class="sd">        :param n: number of nodes in graph</span>
-<span class="sd">        :param edges: connections in the graph</span>
-<span class="sd">        :param start: start node</span>
-<span class="sd">        :param end: end node</span>
-<span class="sd">        :return: True if there is a valid path between the nodes otherwise False</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c1"># Create and initialize the adjacency list</span>
-        <span class="n">adjPath</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
-        <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-            <span class="n">adjPath</span><span class="p">[</span><span class="n">l</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-            <span class="n">adjPath</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-        <span class="c1"># Create a set to keep track of visited nodes</span>
-        <span class="n">seenSet</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-        <span class="c1"># Initialize stack to start with start node</span>
-        <span class="n">stack</span> <span class="o">=</span> <span class="p">[</span><span class="n">start</span><span class="p">]</span>
-        <span class="c1"># Loop over the stack</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">stack</span><span class="p">):</span>
-            <span class="c1"># Pop current node from the stack</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-            <span class="c1"># Check if the node is the end node</span>
-            <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="n">end</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="c1"># Validate if node is already visited</span>
-            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">seenSet</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="c1"># If end node not seen, add it into the set</span>
-            <span class="n">seenSet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-            <span class="c1"># Add neighbors into the stack</span>
-            <span class="n">stack</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">adjPath</span><span class="p">[</span><span class="n">node</span><span class="p">])</span>
-        <span class="c1"># The stack is empty and the end node is not connected</span>
-        <span class="k">return</span> <span class="kc">False</span>
-
-<span class="c1"># nodes = 5</span>
-<span class="c1"># edges = [[0,1],[0,2],[0,3],[1,4]]</span>
-<span class="c1"># start, end = 2, 3</span>
-<span class="n">nodes</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">edges</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
-<span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span>
-
-<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">validPath</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>False
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Possible-paths-in-DAG-using-DFS">Possible paths in DAG using DFS<a class="anchor-link" href="#Possible-paths-in-DAG-using-DFS">&#182;</a></h3><p><img src="images/possibleDAGpathUsingDFS.png" width=400 height=400></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/graphs/possible_dag_path_using_dfs.py</span>
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">allPaths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-            <span class="c1"># find all possible neighboring nodes to a node</span>
-            <span class="n">nextNodes</span> <span class="o">=</span> <span class="n">graph</span><span class="p">[</span><span class="n">node</span><span class="p">]</span>
-            <span class="c1"># Check if the current node is the last node of graph, then loop out</span>
-            <span class="k">if</span> <span class="n">node</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="c1"># Copy corresponding path into the main paths container</span>
-                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-                <span class="k">return</span>
-
-            <span class="c1"># loop over all the neighboring nodes and find dfs of it</span>
-            <span class="k">for</span> <span class="n">nextNode</span> <span class="ow">in</span> <span class="n">nextNodes</span><span class="p">:</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">nextNode</span><span class="p">)</span>
-                <span class="c1"># pop out the last element of connection</span>
-                <span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-
-        <span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">graph</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">paths</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">paths</span>
-
-
-<span class="n">graph</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[]]</span>  <span class="c1"># adjacency list</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">Solution</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">allPaths</span><span class="p">(</span><span class="n">graph</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[0, 1, 3], [0, 2, 3]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Breadth-first-search">Breadth-first search<a class="anchor-link" href="#Breadth-first-search">&#182;</a></h3><ul>
-<li>search layer by layer instead of going in depth</li>
-</ul>
-<p><img src="images/bfs_shortestPath.png" width=400 height=400></p>
 
 </div>
 </div>
@@ -14119,7 +13246,28 @@ N1:4, N2:9, IsConnected:True
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Find-if-path-exists-in-graph-using-BFS">Find if path exists in graph using BFS<a class="anchor-link" href="#Find-if-path-exists-in-graph-using-BFS">&#182;</a></h3>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
 </div>
 </div>
 </div>
