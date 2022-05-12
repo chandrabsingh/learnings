@@ -23,10 +23,10 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### computer science  
   - [python - conceptual snippets](codes/python_faqs.html)  
-  - [python - array algos](algos/array_algos.html)
-  - [python - graph algos](algos/graph_algos.html)
-  - [python - dynamic programming algos](algos/dp_algos.html)
-  - [c++ - algos](algos/cpp_algos.html)
+  - [python - array algos](algos/all_algos.html#Arrays)
+  - [python - graph algos](algos/all_algos.html#Graph)
+  - [python - dynamic programming algos](algos/all_algos.html#DP)
+  - [c++ - algos](algos/all_algos.html#C++)
   - python - artificial intelligence algos
   - [software engineering - conceptual brief](system_designs/software_engineering_concepts.html)
   - [system design - architecture and patterns](system_designs/design_patterns.html)
