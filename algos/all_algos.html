@@ -13117,6 +13117,44 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Number-of-solved-problems">Number of solved problems<a class="anchor-link" href="#Number-of-solved-problems">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>grep -o <span class="s1">&#39;%load&#39;</span> all_algos.ipynb <span class="p">|</span> wc -l
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>      30
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Python">Python<a class="anchor-link" href="#Python">&#182;</a></h1><h2 id="Arrays">Arrays<a class="anchor-link" href="#Arrays">&#182;</a></h2>
 </div>
 </div>
@@ -15437,7 +15475,286 @@ fib5 - Using matrix multiplication
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="C++">C++<a class="anchor-link" href="#C++">&#182;</a></h1><h2 id="Arrays---Sliding-Window">Arrays - Sliding Window<a class="anchor-link" href="#Arrays---Sliding-Window">&#182;</a></h2>
+<h2 id="CodeChef/CodeForces">CodeChef/CodeForces<a class="anchor-link" href="#CodeChef/CodeForces">&#182;</a></h2><h3 id="Good-Pairs">Good Pairs<a class="anchor-link" href="#Good-Pairs">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/general/GoodPair.py</span>
+<span class="k">class</span> <span class="nc">GoodPair</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    You are given arrays A and B of length N each. Determine the number of good pairs.</span>
+
+<span class="sd">    A pair (i,j) (1≤i,j≤N) is said to be good if all of the following conditions are satisfied:</span>
+<span class="sd">        i&lt;j;</span>
+<span class="sd">        A_i=B_j;</span>
+<span class="sd">        A_j=B_i;</span>
+
+<span class="sd">    Input Format</span>
+<span class="sd">        First line will contain T, the number of test cases. Then the test cases follow.</span>
+<span class="sd">    Description of each test case:</span>
+<span class="sd">        First line contains an integer N - denoting the length of the arrays.</span>
+<span class="sd">        Second line contains N space-separated integers A1,A2,…AN - denoting the array A.</span>
+<span class="sd">        Third line contains N space-separated integers B1,B2,…BN - denoting the array B.</span>
+<span class="sd">    Output Format</span>
+<span class="sd">        For each test case, output the number of good pairs.</span>
+<span class="sd">    Constraints</span>
+<span class="sd">        1 ≤ T ≤ 1000</span>
+<span class="sd">        2 ≤ N ≤ 10^5</span>
+<span class="sd">        1 ≤ A_i, B_i ≤ 10^9</span>
+<span class="sd">        Sum of N over all test cases does not exceed 2⋅10^5.</span>
+
+<span class="sd">    Sample Input 1</span>
+<span class="sd">        4</span>
+<span class="sd">        3</span>
+<span class="sd">        1 2 3</span>
+<span class="sd">        3 2 1</span>
+<span class="sd">        4</span>
+<span class="sd">        1 2 3 4</span>
+<span class="sd">        5 6 6 7</span>
+<span class="sd">        3</span>
+<span class="sd">        10 10 10</span>
+<span class="sd">        10 10 10</span>
+<span class="sd">        4</span>
+<span class="sd">        4 8 1 1</span>
+<span class="sd">        8 4 1 1</span>
+<span class="sd">    Sample Output 1</span>
+<span class="sd">        1</span>
+<span class="sd">        0</span>
+<span class="sd">        3</span>
+<span class="sd">        2</span>
+
+<span class="sd">    Explanation</span>
+<span class="sd">    Test Case 1: The only good pair (i,j) is (1,3). Here,</span>
+<span class="sd">        1&lt;3</span>
+<span class="sd">        A1=1 and B3=1. Thus, A1=B3.</span>
+<span class="sd">        A3=3 and B1=3. Thus, A3=B1.</span>
+<span class="sd">    Test Case 2: There are no good pairs.</span>
+<span class="sd">    Test Case 3: There are 3 good pairs (i,j). These are (1,2),(1,3), and (2,3).</span>
+<span class="sd">    Test Case 4: There are 2 good pairs (i,j). These are (1,2) and (3,4).</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">findPairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :type a: list A</span>
+<span class="sd">        :type b: list B</span>
+<span class="sd">        :rtype: number of pairs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">mp</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+            <span class="k">if</span> <span class="n">mp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">+</span> <span class="n">mp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P1:i=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:ans=</span><span class="si">{</span><span class="n">ans</span><span class="si">}</span><span class="s2">:map=</span><span class="si">{</span><span class="n">mp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">temp</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="n">mp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">mp</span><span class="p">[</span><span class="n">temp</span><span class="p">]</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P2:i=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:ans=</span><span class="si">{</span><span class="n">ans</span><span class="si">}</span><span class="s2">:map=</span><span class="si">{</span><span class="n">mp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mp</span><span class="p">[</span><span class="n">temp</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;P3:i=</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">:ans=</span><span class="si">{</span><span class="n">ans</span><span class="si">}</span><span class="s2">:map=</span><span class="si">{</span><span class="n">mp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ans</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">GoodPair</span><span class="p">()</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">findPairs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">findPairs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">findPairs</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>P3:i=0:ans=0:map={&#39;8 4&#39;: 1}
+P1:i=1:ans=1:map={&#39;8 4&#39;: 1}
+P3:i=1:ans=1:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1}
+P3:i=2:ans=1:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 1}
+P1:i=3:ans=2:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 1}
+P2:i=3:ans=2:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 2}
+P1:i=4:ans=4:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 2}
+P2:i=4:ans=4:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 3}
+P1:i=5:ans=7:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 3}
+P2:i=5:ans=7:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 4}
+P1:i=6:ans=11:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 4}
+P2:i=6:ans=11:map={&#39;8 4&#39;: 1, &#39;4 8&#39;: 1, &#39;1 1&#39;: 5}
+11
+P3:i=0:ans=0:map={&#39;3 1&#39;: 1}
+P3:i=1:ans=0:map={&#39;3 1&#39;: 1, &#39;2 2&#39;: 1}
+P1:i=2:ans=1:map={&#39;3 1&#39;: 1, &#39;2 2&#39;: 1}
+P3:i=2:ans=1:map={&#39;3 1&#39;: 1, &#39;2 2&#39;: 1, &#39;1 3&#39;: 1}
+1
+P3:i=0:ans=0:map={&#39;5 1&#39;: 1}
+P3:i=1:ans=0:map={&#39;5 1&#39;: 1, &#39;6 2&#39;: 1}
+P3:i=2:ans=0:map={&#39;5 1&#39;: 1, &#39;6 2&#39;: 1, &#39;6 3&#39;: 1}
+P3:i=3:ans=0:map={&#39;5 1&#39;: 1, &#39;6 2&#39;: 1, &#39;6 3&#39;: 1, &#39;7 4&#39;: 1}
+0
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Most-Similar-Words">Most Similar Words<a class="anchor-link" href="#Most-Similar-Words">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load ./pycharm/general/MostSimilarWords.py</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">MostSimilarWords</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    You are given 𝑛 words of equal length 𝑚, consisting of lowercase Latin alphabet letters. The 𝑖-th word is</span>
+<span class="sd">    denoted 𝑠𝑖.</span>
+
+<span class="sd">    In one move you can choose any position in any single word and change the letter at that position to the</span>
+<span class="sd">    previous or next letter in alphabetical order. For example:</span>
+<span class="sd">      - you can change &#39;e&#39; to &#39;d&#39; or to &#39;f&#39;;</span>
+<span class="sd">      - &#39;a&#39; can only be changed to &#39;b&#39;;</span>
+<span class="sd">      - &#39;z&#39; can only be changed to &#39;y&#39;.</span>
+
+<span class="sd">    The difference between two words is the minimum number of moves required to make them equal. For example, the</span>
+<span class="sd">    difference between &quot;best&quot; and &quot;cost&quot; is 1+10+0+0=11.</span>
+
+<span class="sd">    Find the minimum difference of 𝑠𝑖 and 𝑠𝑗 such that (𝑖&lt;𝑗). In other words, find the minimum difference over all</span>
+<span class="sd">    possible pairs of the 𝑛 words.</span>
+
+<span class="sd">    Input</span>
+<span class="sd">      The first line of the input contains a single integer 𝑡 (1 ≤ 𝑡 ≤ 100) — the number of test cases. The</span>
+<span class="sd">      description of test cases follows.</span>
+
+<span class="sd">      The first line of each test case contains 2 integers 𝑛 and 𝑚 (2 ≤ 𝑛 ≤ 50, 1 ≤ 𝑚 ≤ 8) — the number of strings</span>
+<span class="sd">      and their length respectively.</span>
+
+<span class="sd">      Then follows 𝑛 lines, the 𝑖-th of which containing a single string 𝑠𝑖 of length 𝑚, consisting of lowercase</span>
+<span class="sd">      Latin letters.</span>
+
+<span class="sd">    Output</span>
+<span class="sd">      For each test case, print a single integer — the minimum difference over all possible pairs of the</span>
+<span class="sd">      given strings.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Input:</span>
+<span class="sd">            6</span>
+<span class="sd">            2 4</span>
+<span class="sd">            best</span>
+<span class="sd">            cost</span>
+<span class="sd">            6 3</span>
+<span class="sd">            abb</span>
+<span class="sd">            zba</span>
+<span class="sd">            bef</span>
+<span class="sd">            cdu</span>
+<span class="sd">            ooo</span>
+<span class="sd">            zzz</span>
+<span class="sd">            2 7</span>
+<span class="sd">            aaabbbc</span>
+<span class="sd">            bbaezfe</span>
+<span class="sd">            3 2</span>
+<span class="sd">            ab</span>
+<span class="sd">            ab</span>
+<span class="sd">            ab</span>
+<span class="sd">            2 8</span>
+<span class="sd">            aaaaaaaa</span>
+<span class="sd">            zzzzzzzz</span>
+<span class="sd">            3 1</span>
+<span class="sd">            a</span>
+<span class="sd">            u</span>
+<span class="sd">            y</span>
+
+<span class="sd">        Output:</span>
+<span class="sd">            11</span>
+<span class="sd">            8</span>
+<span class="sd">            35</span>
+<span class="sd">            0</span>
+<span class="sd">            200</span>
+<span class="sd">            4</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">findWords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wordList</span><span class="p">):</span>
+        <span class="n">minDiffValue</span><span class="p">,</span> <span class="n">minDiffTuple</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">couple</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">wordList</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">wordDiff</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="nb">abs</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">ele1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">ord</span><span class="p">(</span><span class="n">ele2</span><span class="p">))</span> <span class="k">for</span> <span class="n">ele1</span><span class="p">,</span> <span class="n">ele2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">couple</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">list</span><span class="p">(</span><span class="n">couple</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span> <span class="p">])</span>
+            <span class="k">if</span> <span class="n">wordDiff</span> <span class="o">&lt;</span> <span class="n">minDiffValue</span><span class="p">:</span>
+                <span class="n">minDiffValue</span><span class="p">,</span> <span class="n">minDiffTuple</span> <span class="o">=</span> <span class="n">wordDiff</span><span class="p">,</span> <span class="n">couple</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">minDiffTuple</span><span class="p">:</span> <span class="n">minDiffValue</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">runner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wordList</span><span class="p">):</span>
+        <span class="n">retValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findWords</span><span class="p">(</span><span class="n">wordList</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">retValue</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">MostSimilarWords</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">runner</span><span class="p">([</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="s1">&#39;cost&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">runner</span><span class="p">([</span><span class="s1">&#39;abb&#39;</span><span class="p">,</span> <span class="s1">&#39;zba&#39;</span><span class="p">,</span> <span class="s1">&#39;bef&#39;</span><span class="p">,</span> <span class="s1">&#39;cdu&#39;</span><span class="p">,</span> <span class="s1">&#39;ooo&#39;</span><span class="p">,</span> <span class="s1">&#39;zzz&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">runner</span><span class="p">([</span><span class="s1">&#39;aaabbbc&#39;</span><span class="p">,</span> <span class="s1">&#39;bbaezfe&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">runner</span><span class="p">([</span><span class="s1">&#39;aaaaaaaa&#39;</span><span class="p">,</span> <span class="s1">&#39;zzzzzzzz&#39;</span><span class="p">])</span>
+<span class="n">s</span><span class="o">.</span><span class="n">runner</span><span class="p">([</span><span class="s1">&#39;ab&#39;</span><span class="p">,</span> <span class="s1">&#39;ab&#39;</span><span class="p">,</span> <span class="s1">&#39;ab&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{(&#39;best&#39;, &#39;cost&#39;): 11}
+{(&#39;abb&#39;, &#39;bef&#39;): 8}
+{(&#39;aaabbbc&#39;, &#39;bbaezfe&#39;): 35}
+{(&#39;aaaaaaaa&#39;, &#39;zzzzzzzz&#39;): 200}
+{(&#39;ab&#39;, &#39;ab&#39;): 0}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="C++">C++<a class="anchor-link" href="#C++">&#182;</a></h1><h2 id="Sliding-Window">Sliding Window<a class="anchor-link" href="#Sliding-Window">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -16319,9 +16636,267 @@ LL3 node: 3
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="TODO">TODO<a class="anchor-link" href="#TODO">&#182;</a></h2><h3 id="Cyclic-Sort">Cyclic Sort<a class="anchor-link" href="#Cyclic-Sort">&#182;</a></h3><h3 id="In-place-Reversal-of-LinkedList">In-place Reversal of LinkedList<a class="anchor-link" href="#In-place-Reversal-of-LinkedList">&#182;</a></h3><h3 id="Tree-Breadth-First-Search">Tree Breadth First Search<a class="anchor-link" href="#Tree-Breadth-First-Search">&#182;</a></h3><h3 id="Tree-Depth-First-Search">Tree Depth First Search<a class="anchor-link" href="#Tree-Depth-First-Search">&#182;</a></h3><h3 id="Two-Heaps">Two Heaps<a class="anchor-link" href="#Two-Heaps">&#182;</a></h3><h3 id="Subsets">Subsets<a class="anchor-link" href="#Subsets">&#182;</a></h3><h3 id="Modified-Binary-Search">Modified Binary Search<a class="anchor-link" href="#Modified-Binary-Search">&#182;</a></h3><h3 id="Bitwise-XOR">Bitwise XOR<a class="anchor-link" href="#Bitwise-XOR">&#182;</a></h3><h3 id="Top-K-Elements">Top K Elements<a class="anchor-link" href="#Top-K-Elements">&#182;</a></h3><h3 id="K-way-merge">K-way merge<a class="anchor-link" href="#K-way-merge">&#182;</a></h3><h3 id="Dynamic-Programming">Dynamic Programming<a class="anchor-link" href="#Dynamic-Programming">&#182;</a></h3><h3 id="Topological-Sort">Topological Sort<a class="anchor-link" href="#Topological-Sort">&#182;</a></h3>
+<h2 id="TODO">TODO<a class="anchor-link" href="#TODO">&#182;</a></h2><ul>
+<li>Cyclic Sort</li>
+<li>In-place Reversal of LinkedList</li>
+<li>Tree Breadth First Search</li>
+<li>Tree Depth First Search</li>
+<li>Two Heaps</li>
+<li>Subsets</li>
+<li>Modified Binary Search</li>
+<li>Bitwise XOR</li>
+<li>Top K Elements</li>
+<li>K-way merge</li>
+<li>Dynamic Programming</li>
+<li>Topological Sort</li>
+</ul>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="CodeForces">CodeForces<a class="anchor-link" href="#CodeForces">&#182;</a></h2><h3 id="Most-Similar-Words">Most Similar Words<a class="anchor-link" href="#Most-Similar-Words">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Java">Java<a class="anchor-link" href="#Java">&#182;</a></h1><h2 id="CodeChef">CodeChef<a class="anchor-link" href="#CodeChef">&#182;</a></h2><h3 id="GoodPairs">GoodPairs<a class="anchor-link" href="#GoodPairs">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>`# %load javaCodes/GoodPairs.java</p>
+<div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nn">javaCodes</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">GoodPairs</span>
+<span class="p">{</span>
+<span class="cm">/*</span>
+<span class="cm">    You are given arrays A and B of length N each. Determine the number of good pairs.</span>
+
+<span class="cm">    A pair (i,j) (1≤i,j≤N) is said to be good if all of the following conditions are satisfied:</span>
+<span class="cm">        i&lt;j;</span>
+<span class="cm">        A_i=B_j;</span>
+<span class="cm">        A_j=B_i;</span>
+
+<span class="cm">    Input Format</span>
+<span class="cm">        First line will contain T, the number of test cases. Then the test cases follow.</span>
+<span class="cm">    Description of each test case:</span>
+<span class="cm">        First line contains an integer N - denoting the length of the arrays.</span>
+<span class="cm">        Second line contains N space-separated integers A1,A2,…AN - denoting the array A.</span>
+<span class="cm">        Third line contains N space-separated integers B1,B2,…BN - denoting the array B.</span>
+<span class="cm">    Output Format</span>
+<span class="cm">        For each test case, output the number of good pairs.</span>
+<span class="cm">    Constraints</span>
+<span class="cm">        1 ≤ T ≤ 1000</span>
+<span class="cm">        2 ≤ N ≤ 10^5</span>
+<span class="cm">        1 ≤ A_i, B_i ≤ 10^9</span>
+<span class="cm">        Sum of N over all test cases does not exceed 2⋅10^5.</span>
+
+<span class="cm">    Sample Input 1</span>
+<span class="cm">        4</span>
+<span class="cm">        3</span>
+<span class="cm">        1 2 3</span>
+<span class="cm">        3 2 1</span>
+<span class="cm">        4</span>
+<span class="cm">        1 2 3 4</span>
+<span class="cm">        5 6 6 7</span>
+<span class="cm">        3</span>
+<span class="cm">        10 10 10</span>
+<span class="cm">        10 10 10</span>
+<span class="cm">        4</span>
+<span class="cm">        4 8 1 1</span>
+<span class="cm">        8 4 1 1</span>
+<span class="cm">    Sample Output 1</span>
+<span class="cm">        1</span>
+<span class="cm">        0</span>
+<span class="cm">        3</span>
+<span class="cm">        2</span>
+
+<span class="cm">    Explanation</span>
+<span class="cm">    Test Case 1: The only good pair (i,j) is (1,3). Here,</span>
+<span class="cm">        1&lt;3</span>
+<span class="cm">        A1=1 and B3=1. Thus, A1=B3.</span>
+<span class="cm">        A3=3 and B1=3. Thus, A3=B1.</span>
+<span class="cm">    Test Case 2: There are no good pairs.</span>
+<span class="cm">    Test Case 3: There are 3 good pairs (i,j). These are (1,2),(1,3), and (2,3).</span>
+<span class="cm">    Test Case 4: There are 2 good pairs (i,j). These are (1,2) and (3,4).</span>
+
+<span class="cm">*/</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span> <span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">Exception</span>
+    <span class="p">{</span>
+        <span class="n">Scanner</span> <span class="n">sc</span><span class="o">=</span> <span class="k">new</span> <span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">sc</span><span class="p">.</span><span class="na">hasNext</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">t</span><span class="o">--&gt;</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">sc</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">]</span><span class="p">;</span>
+                <span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">]</span><span class="p">;</span>
+
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">p</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">p</span><span class="o">++</span><span class="p">)</span> <span class="n">a</span><span class="o">[</span><span class="n">p</span><span class="o">]=</span><span class="n">sc</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">p</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">p</span><span class="o">++</span><span class="p">)</span> <span class="n">b</span><span class="o">[</span><span class="n">p</span><span class="o">]=</span><span class="n">sc</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+                <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+                <span class="kt">long</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="n">String</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">&quot;-&quot;</span><span class="o">+</span><span class="n">b</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+                    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">map</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">+</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+                                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;P1:i=&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;:ans=&quot;</span> <span class="o">+</span> <span class="n">ans</span> <span class="o">+</span> <span class="s">&quot;:map=&quot;</span> <span class="o">+</span> <span class="n">Collections</span><span class="p">.</span><span class="na">singletonList</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+                    <span class="p">}</span>
+                    <span class="n">temp</span> <span class="o">=</span> <span class="n">b</span><span class="o">[</span><span class="n">i</span><span class="o">]+</span><span class="s">&quot;-&quot;</span><span class="o">+</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span>
+                    <span class="k">if</span><span class="p">(</span> <span class="n">map</span><span class="p">.</span><span class="na">containsKey</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+                                <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span> <span class="n">temp</span><span class="p">,</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>  <span class="p">);</span>
+                                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;P2:i=&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;:ans=&quot;</span> <span class="o">+</span> <span class="n">ans</span> <span class="o">+</span> <span class="s">&quot;:map=&quot;</span> <span class="o">+</span> <span class="n">Collections</span><span class="p">.</span><span class="na">singletonList</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+                            <span class="p">}</span>
+                    <span class="k">else</span><span class="p">{</span> 
+                                <span class="n">map</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;P3:i=&quot;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;:ans=&quot;</span> <span class="o">+</span> <span class="n">ans</span> <span class="o">+</span> <span class="s">&quot;:map=&quot;</span> <span class="o">+</span> <span class="n">Collections</span><span class="p">.</span><span class="na">singletonList</span><span class="p">(</span><span class="n">map</span><span class="p">));</span>
+                            <span class="p">}</span>
+                <span class="p">}</span>
+
+                <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">ans</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span>(base) algos &gt;&gt; java javaCodes/GoodPairs
+1
+4
+1 1 1 1
+1 1 1 1
+P3:i=0:ans=0:map=[{1-1=1}]
+P1:i=1:ans=1:map=[{1-1=1}]
+P2:i=1:ans=1:map=[{1-1=2}]
+P1:i=2:ans=3:map=[{1-1=2}]
+P2:i=2:ans=3:map=[{1-1=3}]
+P1:i=3:ans=6:map=[{1-1=3}]
+P2:i=3:ans=6:map=[{1-1=4}]
+6
+
+
+(base) algos &gt;&gt; java javaCodes/GoodPairs
+1
+3
+1 2 3
+3 2 1
+P3:i=0:ans=0:map=[{3-1=1}]
+P3:i=1:ans=0:map=[{3-1=1, 2-2=1}]
+P1:i=2:ans=1:map=[{3-1=1, 2-2=1}]
+P3:i=2:ans=1:map=[{3-1=1, 2-2=1, 1-3=1}]
+1
+
+
+(base) algos &gt;&gt; java javaCodes/GoodPairs
+1
+4
+1 2 3 4
+5 6 6 7
+P3:i=0:ans=0:map=[{5-1=1}]
+P3:i=1:ans=0:map=[{5-1=1, 6-2=1}]
+P3:i=2:ans=0:map=[{5-1=1, 6-2=1, 6-3=1}]
+P3:i=3:ans=0:map=[{5-1=1, 6-2=1, 6-3=1, 7-4=1}]
+0
+
+
+(base) algos &gt;&gt; java javaCodes/GoodPairs
+1
+6
+4 8 1 1 1 1
+8 4 1 1 1 1
+P3:i=0:ans=0:map=[{8-4=1}]
+P1:i=1:ans=1:map=[{8-4=1}]
+P3:i=1:ans=1:map=[{8-4=1, 4-8=1}]
+P3:i=2:ans=1:map=[{1-1=1, 8-4=1, 4-8=1}]
+P1:i=3:ans=2:map=[{1-1=1, 8-4=1, 4-8=1}]
+P2:i=3:ans=2:map=[{1-1=2, 8-4=1, 4-8=1}]
+P1:i=4:ans=4:map=[{1-1=2, 8-4=1, 4-8=1}]
+P2:i=4:ans=4:map=[{1-1=3, 8-4=1, 4-8=1}]
+P1:i=5:ans=7:map=[{1-1=3, 8-4=1, 4-8=1}]
+P2:i=5:ans=7:map=[{1-1=4, 8-4=1, 4-8=1}]
+7
+
+
+(base) algos &gt;&gt;
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
