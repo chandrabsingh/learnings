@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "308.385px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "390.139px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13216,11 +13216,13 @@ $\tiny{\text{Wikipedia}}$</p>
 <p>The closed form solution for the $\theta$ that minimizes the cost function is</p>
 <blockquote>$$\theta = (X^{T}X)^{-1}X^{T}y$$
 </blockquote>
-<h4 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h4><p>The logistic regression is used to model the relationship between a set of independent and dependent variables. The dependent variables are categorical in nature, which is predicted based on the probabilities given some characteristics of class variables. The logistic regression uses sigmoid function to assign class labels.</p>
+<h4 id="Logistic-Regression">Logistic Regression<a class="anchor-link" href="#Logistic-Regression">&#182;</a></h4><p>Logistic regression models generate probabilities.</p>
+<p>The logistic regression is used to model the relationship between a set of independent and dependent variables. The dependent variables are categorical in nature, which is predicted based on the probabilities given some characteristics of class variables. The logistic regression uses sigmoid function to assign class labels.</p>
 <p>The logit function is defined as the logarithm of the log odds
-$$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
+$$ z = \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
+<p>$z$ is also referred to as the log-odds because the inverse of the sigmoid states that $z$ can be defined as the log of the probability of the $1$ label (e.g., "dog bark") divided by the probability of the $0$ label(e.g., "dog does not bark")</p>
 <p>A standard logistic sigmoid function is defined as the 
-$$ \sigma(x) = \frac{1}{1+e^{-x}} $$</p>
+$$ \sigma(z) = \frac{1}{1+e^{-z}} $$</p>
 <p>The linear part of the model predicts the log-odds of the dataset example in the form of probability using logistic sigmoid function.</p>
 <p>It tries to learn a function that approximates P(Y|X), by assuming that P(Y|X) can be approximated as a sigmoid
 function when applied to the linear combination of input features.<br>
@@ -13229,6 +13231,10 @@ where $z = \theta_{0} + \sum\limits_{i=1}^{m}\theta_{i}x_{i} $</p>
 <p>Similarly,
 $$ P(Y = 0|X = x) = 1 - \sigma(\theta^{T}x) $$</p>
 <p>The gradient descent is calculated as the partial derivative of logistic cost function wrt weight, which is used to maximize the logistic cost function.</p>
+<p>The loss function for logistic regression is Log Loss defined as</p>
+<p><img src="./images/logisticRegressionCostFun.png" width=500 height=500>
+<img src="./images/logisticRegressionCostFun2.png" width=500 height=500></p>
+<p>$\tiny{\text{towardsdatascience.com - Shuyu Luo}}$</p>
 <h4 id="Decision-Tree">Decision Tree<a class="anchor-link" href="#Decision-Tree">&#182;</a></h4><p><a href="#Decision-Tree">Link (above)</a></p>
 
 </div>
@@ -13366,7 +13372,42 @@ and $\zeta^{(i)} \gt 0$ for all $i \in \{1,..N\}$</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Dimensionality-Reduction-Algorithms">Dimensionality Reduction Algorithms<a class="anchor-link" href="#Dimensionality-Reduction-Algorithms">&#182;</a></h4><h4 id="Gradient-Boosting-algorithms">Gradient Boosting algorithms<a class="anchor-link" href="#Gradient-Boosting-algorithms">&#182;</a></h4><h5 id="GBM">GBM<a class="anchor-link" href="#GBM">&#182;</a></h5><h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><h5 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h5><h5 id="CatBoost">CatBoost<a class="anchor-link" href="#CatBoost">&#182;</a></h5>
+<h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Dimensionality-Reduction-Algorithms">Dimensionality Reduction Algorithms<a class="anchor-link" href="#Dimensionality-Reduction-Algorithms">&#182;</a></h4><h4 id="Gradient-Boosting-algorithms">Gradient Boosting algorithms<a class="anchor-link" href="#Gradient-Boosting-algorithms">&#182;</a></h4><p><a href="https://www.quora.com/What-is-boosting-in-ML/answer/Mike-West-99?ch=10&amp;oid=250818536&amp;share=4eb23b20&amp;srid=hM1JX&amp;target_type=answer">https://www.quora.com/What-is-boosting-in-ML/answer/Mike-West-99?ch=10&amp;oid=250818536&amp;share=4eb23b20&amp;srid=hM1JX&amp;target_type=answer</a></p>
+<p>Gradient boosting is a <strong>power technique for building predictive models</strong>. Gradient Boosting is about taking a model that by itself is a <strong>weak predictive model</strong> and <strong>combining that model with other models of the same type</strong> to produce a <strong>more accurate model</strong>. The idea is to <strong>compute a sequence of simple decisions trees</strong>, where <strong>each successive tree</strong> is built for the <strong>prediction residuals of the preceding tree</strong>.</p>
+<p>In gradient boosting the <strong>weak model</strong> is called a <strong>weak learner</strong>. The term used when <strong>combining various machine learning models</strong> is an <strong>ensemble</strong>. The <strong>weak learner in XGBoost is a decision tree</strong>.</p>
+<p>Therefore, we need to understand <strong>how a decision tree works</strong> before we can understand boosting.</p>
+<ul>
+<li><strong>Root node</strong> <ul>
+<li>The start of the tree is called the root node. </li>
+</ul>
+</li>
+<li><strong>Decision node</strong><ul>
+<li>After the initial split are decision nodes.</li>
+</ul>
+</li>
+<li><strong>leaf node</strong> <ul>
+<li>will often lead to the answer or to the predicted value  </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The Titanic dataset<ul>
+<li>some groups of people were more likely to survive than others. <ul>
+<li>The target variable, the attribute we want to <strong>predict is survived</strong>. </li>
+<li>Because the target variable is a 1 or a 0 this is a <strong>binary classification problem</strong>.</li>
+</ul>
+</li>
+<li><strong>How would a decision tree be applied</strong> to this dataset<ul>
+<li>look for the <strong>attribute that is the most important</strong> in the dataset.</li>
+<li>then <strong>analyze the second most import attribute</strong> in the dataset</li>
+<li>creating a tree involves <strong>deciding which features to choose</strong> and what <strong>conditions to use for splitting</strong>, along with knowing when to stop</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="GBM">GBM<a class="anchor-link" href="#GBM">&#182;</a></h5><h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><p><a href="https://logikbot.quora.com/XGBoost-The-King-of-the-Boosters-Why-should-you-be-using-XGBoost-The-simple-answer-is-that-nothing-beats-it-on-struc?ch=10&amp;oid=11410205&amp;share=956e2403&amp;srid=hM1JX&amp;target_type=post">https://logikbot.quora.com/XGBoost-The-King-of-the-Boosters-Why-should-you-be-using-XGBoost-The-simple-answer-is-that-nothing-beats-it-on-struc?ch=10&amp;oid=11410205&amp;share=956e2403&amp;srid=hM1JX&amp;target_type=post</a></p>
+<h5 id="LightGBM">LightGBM<a class="anchor-link" href="#LightGBM">&#182;</a></h5><h5 id="CatBoost">CatBoost<a class="anchor-link" href="#CatBoost">&#182;</a></h5>
 </div>
 </div>
 </div>
@@ -13393,6 +13434,9 @@ and $\zeta^{(i)} \gt 0$ for all $i \in \{1,..N\}$</p>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">Classification - Predict a class. Choose from binary (two-class) or multiclass algorithms.<a class="anchor-link" href="#Classification---Predict-a-class.-Choose-from-binary-(two-class)-or-multiclass-algorithms.">&#182;</a></h3><h4 id="Multiclass-Boosted-Decision-Tree">Multiclass Boosted Decision Tree<a class="anchor-link" href="#Multiclass-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Multiclass-Decision-Forest">Multiclass Decision Forest<a class="anchor-link" href="#Multiclass-Decision-Forest">&#182;</a></h4><h4 id="Multiclass-Logistic-Regression-(Softmax-Regression)">Multiclass Logistic Regression (Softmax Regression)<a class="anchor-link" href="#Multiclass-Logistic-Regression-(Softmax-Regression)">&#182;</a></h4><p>Softmax Regression is a generalization of logistic regression where we want to handle multiple classes instead of two classes $(y^{(i)} \in \{0,1\})$</p>
+<ul>
+<li><a href="https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/">https://eli.thegreenplace.net/2016/the-softmax-function-and-its-derivative/</a></li>
+</ul>
 <h4 id="Multiclass-Neural-Network">Multiclass Neural Network<a class="anchor-link" href="#Multiclass-Neural-Network">&#182;</a></h4><h4 id="One-vs.-All-Multiclass">One vs. All Multiclass<a class="anchor-link" href="#One-vs.-All-Multiclass">&#182;</a></h4><h4 id="One-vs.-One-Multiclass">One vs. One Multiclass<a class="anchor-link" href="#One-vs.-One-Multiclass">&#182;</a></h4><h4 id="Two-Class-Averaged-Perceptron">Two-Class Averaged Perceptron<a class="anchor-link" href="#Two-Class-Averaged-Perceptron">&#182;</a></h4><h4 id="Two-Class-Boosted-Decision-Tree">Two-Class Boosted Decision Tree<a class="anchor-link" href="#Two-Class-Boosted-Decision-Tree">&#182;</a></h4><h4 id="Two-Class-Decision-Forest">Two-Class Decision Forest<a class="anchor-link" href="#Two-Class-Decision-Forest">&#182;</a></h4><h4 id="Two-Class-Logistic-Regression">Two-Class Logistic Regression<a class="anchor-link" href="#Two-Class-Logistic-Regression">&#182;</a></h4><p><a href="#Logistic-Regression">Logistic Regression</a></p>
 <p>The hypothesis looks like</p>
 $$ h_{\theta}(x) = \frac{1}{1+e^{-\theta^{T}x}}$$<p>
@@ -13427,7 +13471,11 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Supervised-learning-(Classification,-Regression)">Supervised learning (Classification, Regression)<a class="anchor-link" href="#Supervised-learning-(Classification,-Regression)">&#182;</a></h3><h4 id="Decision-trees">Decision trees<a class="anchor-link" href="#Decision-trees">&#182;</a></h4><h4 id="Ensembles">Ensembles<a class="anchor-link" href="#Ensembles">&#182;</a></h4><h5 id="Bagging">Bagging<a class="anchor-link" href="#Bagging">&#182;</a></h5><h5 id="Boosting">Boosting<a class="anchor-link" href="#Boosting">&#182;</a></h5><h5 id="Random-forest">Random forest<a class="anchor-link" href="#Random-forest">&#182;</a></h5><h4 id="k-NN">k-NN<a class="anchor-link" href="#k-NN">&#182;</a></h4><h4 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="Artificial-neural-networks">Artificial neural networks<a class="anchor-link" href="#Artificial-neural-networks">&#182;</a></h4><h4 id="Logistic-regression">Logistic regression<a class="anchor-link" href="#Logistic-regression">&#182;</a></h4><h4 id="Perceptron">Perceptron<a class="anchor-link" href="#Perceptron">&#182;</a></h4><h4 id="Relevance-vector-machine-(RVM)">Relevance vector machine (RVM)<a class="anchor-link" href="#Relevance-vector-machine-(RVM)">&#182;</a></h4><h4 id="Support-vector-machine-(SVM)">Support vector machine (SVM)<a class="anchor-link" href="#Support-vector-machine-(SVM)">&#182;</a></h4>
+<h3 id="Supervised-learning-(Classification,-Regression)">Supervised learning (Classification, Regression)<a class="anchor-link" href="#Supervised-learning-(Classification,-Regression)">&#182;</a></h3><h4 id="Decision-trees">Decision trees<a class="anchor-link" href="#Decision-trees">&#182;</a></h4><h4 id="Ensembles">Ensembles<a class="anchor-link" href="#Ensembles">&#182;</a></h4><h5 id="Bagging">Bagging<a class="anchor-link" href="#Bagging">&#182;</a></h5><h5 id="Boosting">Boosting<a class="anchor-link" href="#Boosting">&#182;</a></h5><h5 id="Random-forest">Random forest<a class="anchor-link" href="#Random-forest">&#182;</a></h5><h4 id="k-NN">k-NN<a class="anchor-link" href="#k-NN">&#182;</a></h4><h4 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="Artificial-neural-networks">Artificial neural networks<a class="anchor-link" href="#Artificial-neural-networks">&#182;</a></h4><h4 id="Logistic-regression">Logistic regression<a class="anchor-link" href="#Logistic-regression">&#182;</a></h4><h4 id="Perceptron">Perceptron<a class="anchor-link" href="#Perceptron">&#182;</a></h4><p>The perceptron is an algorithm for learning a binary classifier called a threshold function: a function that maps its input $\mathbf {x}$ (a real-valued vector) to an output value $f(\mathbf {x} )$ (a single binary value):</p>
+$$ f(\mathbf {x} )={\begin{cases}1&amp;{\text{if }}\ \mathbf {w} \cdot \mathbf {x} +b&gt;0,\\0&amp;{\text{otherwise}}\end{cases}}$$<p>where $\mathbf {w}$  is a vector of real-valued weights, $ \mathbf {w} \cdot \mathbf {x} $ is the dot product $ \sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b is the bias. The bias shifts the decision boundary away from the origin and does not depend on any input value.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Perceptron_example.svg/1000px-Perceptron_example.svg.png" width=500 height=500>
+$\tiny\text{Wikipedia}$</p>
+<h4 id="Relevance-vector-machine-(RVM)">Relevance vector machine (RVM)<a class="anchor-link" href="#Relevance-vector-machine-(RVM)">&#182;</a></h4><h4 id="Support-vector-machine-(SVM)">Support vector machine (SVM)<a class="anchor-link" href="#Support-vector-machine-(SVM)">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13462,7 +13510,9 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Artificial-neural-network">Artificial neural network<a class="anchor-link" href="#Artificial-neural-network">&#182;</a></h3><h4 id="Autoencoder">Autoencoder<a class="anchor-link" href="#Autoencoder">&#182;</a></h4><h4 id="Cognitive-computing">Cognitive computing<a class="anchor-link" href="#Cognitive-computing">&#182;</a></h4><h4 id="Deep-learning">Deep learning<a class="anchor-link" href="#Deep-learning">&#182;</a></h4><h4 id="DeepDream">DeepDream<a class="anchor-link" href="#DeepDream">&#182;</a></h4><h4 id="Multilayer-perceptron">Multilayer perceptron<a class="anchor-link" href="#Multilayer-perceptron">&#182;</a></h4><h4 id="RNN">RNN<a class="anchor-link" href="#RNN">&#182;</a></h4><h5 id="LSTM">LSTM<a class="anchor-link" href="#LSTM">&#182;</a></h5><h5 id="GRU">GRU<a class="anchor-link" href="#GRU">&#182;</a></h5><h5 id="ESN">ESN<a class="anchor-link" href="#ESN">&#182;</a></h5><h4 id="Restricted-Boltzmann-machine">Restricted Boltzmann machine<a class="anchor-link" href="#Restricted-Boltzmann-machine">&#182;</a></h4><h4 id="GAN">GAN<a class="anchor-link" href="#GAN">&#182;</a></h4><h4 id="SOM">SOM<a class="anchor-link" href="#SOM">&#182;</a></h4><h4 id="Convolutional-neural-network">Convolutional neural network<a class="anchor-link" href="#Convolutional-neural-network">&#182;</a></h4><h5 id="U-Net">U-Net<a class="anchor-link" href="#U-Net">&#182;</a></h5><h4 id="Transformer-Vision">Transformer Vision<a class="anchor-link" href="#Transformer-Vision">&#182;</a></h4><h4 id="Spiking-neural-network">Spiking neural network<a class="anchor-link" href="#Spiking-neural-network">&#182;</a></h4><h4 id="Memtransistor">Memtransistor<a class="anchor-link" href="#Memtransistor">&#182;</a></h4><h4 id="Electrochemical-RAM-(ECRAM)">Electrochemical RAM (ECRAM)<a class="anchor-link" href="#Electrochemical-RAM-(ECRAM)">&#182;</a></h4>
+<h3 id="Artificial-neural-network">Artificial neural network<a class="anchor-link" href="#Artificial-neural-network">&#182;</a></h3><h4 id="Autoencoder">Autoencoder<a class="anchor-link" href="#Autoencoder">&#182;</a></h4><h4 id="Cognitive-computing">Cognitive computing<a class="anchor-link" href="#Cognitive-computing">&#182;</a></h4><h4 id="Deep-learning">Deep learning<a class="anchor-link" href="#Deep-learning">&#182;</a></h4><h4 id="DeepDream">DeepDream<a class="anchor-link" href="#DeepDream">&#182;</a></h4><h4 id="Multilayer-perceptron">Multilayer perceptron<a class="anchor-link" href="#Multilayer-perceptron">&#182;</a></h4><p>A <strong>perceptron</strong> was the name given to a model having one single linear layer and, if it has multiple layers, it is  called a <strong>multi-layer perceptron (MLP)</strong>. Note that the input and the output layers are visible from outside, while all the other layers in the middle are hidden – hence the name hidden layers. In this context, a single layer is simply a linear function and the MLP is therefore obtained by stacking multiple single layers one after the other:</p>
+<p><img src="https://www.researchgate.net/profile/Hassan-Afzaal/publication/338103191/figure/fig2/AS:838599264174093@1576949053675/The-multilayer-perceptron-MLP-model-for-various-input-variable-combinations.jpg" width=500 height=500></p>
+<h4 id="RNN">RNN<a class="anchor-link" href="#RNN">&#182;</a></h4><h5 id="LSTM">LSTM<a class="anchor-link" href="#LSTM">&#182;</a></h5><h5 id="GRU">GRU<a class="anchor-link" href="#GRU">&#182;</a></h5><h5 id="ESN">ESN<a class="anchor-link" href="#ESN">&#182;</a></h5><h4 id="Restricted-Boltzmann-machine">Restricted Boltzmann machine<a class="anchor-link" href="#Restricted-Boltzmann-machine">&#182;</a></h4><h4 id="GAN">GAN<a class="anchor-link" href="#GAN">&#182;</a></h4><h4 id="SOM">SOM<a class="anchor-link" href="#SOM">&#182;</a></h4><h4 id="Convolutional-neural-network">Convolutional neural network<a class="anchor-link" href="#Convolutional-neural-network">&#182;</a></h4><h5 id="U-Net">U-Net<a class="anchor-link" href="#U-Net">&#182;</a></h5><h4 id="Transformer-Vision">Transformer Vision<a class="anchor-link" href="#Transformer-Vision">&#182;</a></h4><h4 id="Spiking-neural-network">Spiking neural network<a class="anchor-link" href="#Spiking-neural-network">&#182;</a></h4><h4 id="Memtransistor">Memtransistor<a class="anchor-link" href="#Memtransistor">&#182;</a></h4><h4 id="Electrochemical-RAM-(ECRAM)">Electrochemical RAM (ECRAM)<a class="anchor-link" href="#Electrochemical-RAM-(ECRAM)">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13491,7 +13541,159 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="10-most-popular-deep-learning-algorithms">10 most popular deep learning algorithms<a class="anchor-link" href="#10-most-popular-deep-learning-algorithms">&#182;</a></h3><p><a href="https://www.simplilearn.com/tutorials/deep-learning-tutorial/deep-learning-algorithm">Link</a></p>
-<h4 id="Convolutional-Neural-Networks-(CNNs)">Convolutional Neural Networks (CNNs)<a class="anchor-link" href="#Convolutional-Neural-Networks-(CNNs)">&#182;</a></h4><h4 id="Long-Short-Term-Memory-Networks-(LSTMs)">Long Short Term Memory Networks (LSTMs)<a class="anchor-link" href="#Long-Short-Term-Memory-Networks-(LSTMs)">&#182;</a></h4><h4 id="Recurrent-Neural-Networks-(RNNs)">Recurrent Neural Networks (RNNs)<a class="anchor-link" href="#Recurrent-Neural-Networks-(RNNs)">&#182;</a></h4><h4 id="Generative-Adversarial-Networks-(GANs)">Generative Adversarial Networks (GANs)<a class="anchor-link" href="#Generative-Adversarial-Networks-(GANs)">&#182;</a></h4><h4 id="Radial-Basis-Function-Networks-(RBFNs)">Radial Basis Function Networks (RBFNs)<a class="anchor-link" href="#Radial-Basis-Function-Networks-(RBFNs)">&#182;</a></h4><h4 id="Multilayer-Perceptrons-(MLPs)">Multilayer Perceptrons (MLPs)<a class="anchor-link" href="#Multilayer-Perceptrons-(MLPs)">&#182;</a></h4><h4 id="Self-Organizing-Maps-(SOMs)">Self Organizing Maps (SOMs)<a class="anchor-link" href="#Self-Organizing-Maps-(SOMs)">&#182;</a></h4><h4 id="Deep-Belief-Networks-(DBNs)">Deep Belief Networks (DBNs)<a class="anchor-link" href="#Deep-Belief-Networks-(DBNs)">&#182;</a></h4><h4 id="Restricted-Boltzmann-Machines(-RBMs)">Restricted Boltzmann Machines( RBMs)<a class="anchor-link" href="#Restricted-Boltzmann-Machines(-RBMs)">&#182;</a></h4><h4 id="Autoencoders">Autoencoders<a class="anchor-link" href="#Autoencoders">&#182;</a></h4>
+<h4 id="Convolutional-Neural-Networks-(CNNs)">Convolutional Neural Networks (CNNs)<a class="anchor-link" href="#Convolutional-Neural-Networks-(CNNs)">&#182;</a></h4><ul>
+<li>Computer Vision with Deep Learning has been constructed and perfected with time, primarily over one particular algorithm — a <strong>Convolutional Neural Network(ConvNet/CNN)</strong>.</li>
+<li>Neural networks came to prominence in <strong>2012</strong> as machine learning expert <strong>Alex Krizhevsky</strong> utilized them to get <strong>first prize in the ImageNet competition</strong>.</li>
+<li>Applications<ul>
+<li>Facebook’s famous automatic tagging algorithm works? The answer is neural networks.</li>
+<li>product recommendation you get on Amazon and several other similar platforms is because of neural networks.</li>
+<li>Neural networks are the reason behind Google’s superb image searching abilities.</li>
+<li>Instagram’s solid search infrastructure is possible because the social media network uses neural networks.</li>
+</ul>
+</li>
+<li>A convolutional network <strong>ingests such images</strong> as three separate strata of color <strong>stacked one on top of the other</strong>. A normal color image is seen as a rectangular box whose width and height are measured by the number of pixels from those dimensions. The depth layers in the three layers of colours(RGB) interpreted by CNNs are referred to as channels.</li>
+<li>A ConvNet is able to successfully <strong>capture the Spatial and Temporal dependencies</strong> in an image through the application of relevant filters. </li>
+<li>The <strong>role of the ConvNet</strong> is to <strong>reduce the images</strong> into a form which is easier to process, <strong>without losing features</strong> which are critical for getting a good prediction.</li>
+<li>The objective of the Convolution Operation is to <strong>extract the high-level features</strong> such as edges, from the input image. ConvNets need not be limited to only one Convolutional Layer. Conventionally, the <strong>first ConvLayer</strong> is responsible for <strong>capturing the Low-Level features</strong> such as edges, color, gradient orientation, etc.</li>
+<li>CNN's have a <strong>ReLU layer</strong> to <strong>perform operations on elements</strong>. The output is a rectified feature map.</li>
+<li>the <strong>Pooling layer</strong> is responsible for <strong>reducing the spatial size of the Convolved Feature</strong>. This is to <strong>decrease the computational power required to process the data through dimensionality reduction</strong>. Furthermore, it is useful for <strong>extracting dominant features which are rotational and positional invariant</strong>, thus maintaining the process of effectively training of the model.</li>
+<li><strong>Adding a Fully-Connected layer</strong> is a (usually) <strong>cheap way of learning non-linear combinations of the high-level features</strong> as represented by the output of the convolutional layer. The Fully-Connected layer is learning a possibly non-linear function in that space.</li>
+<li>There are <strong>various architectures of CNNs available</strong> which have been key in building algorithms which power and shall power AI as a whole in the foreseeable future. Some of them have been listed below:<ul>
+<li>LeNet</li>
+<li>AlexNet</li>
+<li>VGGNet</li>
+<li>GoogLeNet</li>
+<li>ResNet</li>
+<li>ZFNet</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*qtinjiZct2w7Dr4XoFixnA.gif">
+$$\text{Convolutional Layer}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/1400/1*uAeANQIOQPqWZnnuH-VEyw.jpeg">
+$$\text{A CNN sequence to classify handwritten digits}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/850/1*GLQjM9k0gZ14nYF0XmkRWQ.png" width=500 height=500>
+$$\text{Flattened 3x3 image matrix 1 dimension}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/1052/1*GcI7G-JLAQiEoCON7xFbhg.gif" width=500 height=500>
+$$\text{Convolution Layer — The Kernel - Convoluting a 5x5x1 image(Green) with a 3x3x1 kernel(Yellow) to get a 3x3x1(Red) convolved feature}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/1400/1*ciDgQEjViWLnCbmX-EeSrA.gif">
+$$\text{Convolution operation on a MxNx3 image matrix with a 3x3x3 Kernel}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/790/1*1VJDP6qDY9-ExTuQVEOlVg.gif" width=500 height=500>
+$$\text{Convolution Operation with Stride Length = 2}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/790/1*nYf_cUIHFEWU1JXGwnz-Ig.gif" width=500 height=500>
+$$\text{SAME padding: 5x5x1 image is padded with 0s to create a 6x6x1 image}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/1192/1*KQIEqhxzICU7thjaQBfPBQ.png" width=500 height=500>
+$$\text{Types of Pooling}$$</p>
+<hr>
+<p><img src="https://miro.medium.com/max/1400/1*kToStLowjokojIQ7pY2ynQ.jpeg" width=500 height=500>
+$$\text{Classification — Fully Connected Layer (FC Layer)}$$</p>
+<hr>
+<ul>
+<li><a href="https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53">https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53</a></li>
+<li><a href="https://github.com/ss-is-master-chief/MNIST-Digit.Recognizer-CNNs/blob/master/MNIST-Hand.Written.Digit.Recognition-CNN.ipynb">https://github.com/ss-is-master-chief/MNIST-Digit.Recognizer-CNNs/blob/master/MNIST-Hand.Written.Digit.Recognition-CNN.ipynb</a></li>
+<li><a href="https://medium.datadriveninvestor.com/introduction-to-how-cnns-work-77e0e4cde99b">https://medium.datadriveninvestor.com/introduction-to-how-cnns-work-77e0e4cde99b</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Long-Short-Term-Memory-Networks-(LSTMs)">Long Short Term Memory Networks (LSTMs)<a class="anchor-link" href="#Long-Short-Term-Memory-Networks-(LSTMs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Recurrent-Neural-Networks-(RNNs)">Recurrent Neural Networks (RNNs)<a class="anchor-link" href="#Recurrent-Neural-Networks-(RNNs)">&#182;</a></h4><ul>
+<li><strong>Recurrent Neural Networks (RNNs)</strong> are widely used for data with some kind of <strong>sequential structure</strong>. For instance, <strong>time series data has an intrinsic ordering based on time</strong>. Sentences are also sequential, “I love dogs” has a different meaning than “Dogs I love.” Simply put, if the <strong>semantics of your data is altered by random permutation, you have a sequential dataset and RNNs may be used for your problem!</strong> To help solidify the types of problems RNNs can solve, here is a list of common applications :</li>
+<li><strong>Applications</strong><ul>
+<li>Speech Recognition</li>
+<li>Sentiment Classification</li>
+<li>Machine Translation (i.e. Chinese to English)</li>
+<li>Video Activity Recognition</li>
+<li>Name Entity Recognition — (i.e. Identifying names in a sentence)</li>
+</ul>
+</li>
+<li>What are RNNs<ul>
+<li>RNNs are <strong>different than the classical multi-layer perceptron (MLP) networks</strong> because of two main reasons: <ul>
+<li>1) They take into account what happened previously and </li>
+<li>2) they share parameters/weights.</li>
+</ul>
+</li>
+<li>A recurrent neural network is a neural network that is specialized for processing a sequence of data x(t)= x(1), . . . , x(τ) with the time step index t ranging from 1 to τ. For tasks that involve sequential inputs, such as speech and language, it is often better to use RNNs. In a NLP problem, if you want to predict the next word in a sentence it is important to know the words before it. RNNs are called recurrent because they perform the same task for every element of a sequence, with the output being depended on the previous computations. Another way to think about RNNs is that they have a “memory” which captures information about what has been calculated so far.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://pub.towardsai.net/whirlwind-tour-of-rnns-a11effb7808f">https://pub.towardsai.net/whirlwind-tour-of-rnns-a11effb7808f</a></li>
+<li><a href="https://towardsdatascience.com/recurrent-neural-networks-rnns-3f06d7653a85">https://towardsdatascience.com/recurrent-neural-networks-rnns-3f06d7653a85</a></li>
+<li><a href="https://github.com/javaidnabi31/RNN-from-scratch/blob/master/RNN_char_text%20generator.ipynb">https://github.com/javaidnabi31/RNN-from-scratch/blob/master/RNN_char_text%20generator.ipynb</a></li>
+<li><a href="https://www.deeplearningbook.org/contents/rnn.html">https://www.deeplearningbook.org/contents/rnn.html</a></li>
+<li><a href="https://gist.github.com/karpathy/d4dee566867f8291f086">https://gist.github.com/karpathy/d4dee566867f8291f086</a></li>
+<li><a href="https://www.coursera.org/learn/nlp-sequence-models/lecture/0h7gT/why-sequence-models">https://www.coursera.org/learn/nlp-sequence-models/lecture/0h7gT/why-sequence-models</a></li>
+<li><a href="https://arxiv.org/pdf/1610.02583.pdf">A Gentle Tutorial of Recurrent Neural Network with Error Backpropagation</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Generative-Adversarial-Networks-(GANs)">Generative Adversarial Networks (GANs)<a class="anchor-link" href="#Generative-Adversarial-Networks-(GANs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Radial-Basis-Function-Networks-(RBFNs)">Radial Basis Function Networks (RBFNs)<a class="anchor-link" href="#Radial-Basis-Function-Networks-(RBFNs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Multilayer-Perceptrons-(MLPs)">Multilayer Perceptrons (MLPs)<a class="anchor-link" href="#Multilayer-Perceptrons-(MLPs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Self-Organizing-Maps-(SOMs)">Self Organizing Maps (SOMs)<a class="anchor-link" href="#Self-Organizing-Maps-(SOMs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Deep-Belief-Networks-(DBNs)">Deep Belief Networks (DBNs)<a class="anchor-link" href="#Deep-Belief-Networks-(DBNs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Restricted-Boltzmann-Machines(-RBMs)">Restricted Boltzmann Machines( RBMs)<a class="anchor-link" href="#Restricted-Boltzmann-Machines(-RBMs)">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Autoencoders">Autoencoders<a class="anchor-link" href="#Autoencoders">&#182;</a></h4>
 </div>
 </div>
 </div>
@@ -13551,9 +13753,29 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Evaluation-Metrics---Classification">Evaluation Metrics - Classification<a class="anchor-link" href="#Evaluation-Metrics---Classification">&#182;</a></h3><h4 id="Confusion-Matrix">Confusion Matrix<a class="anchor-link" href="#Confusion-Matrix">&#182;</a></h4><p><img src="https://miro.medium.com/max/1220/1*ZRU18eG-F5Sjtcph9ru8Og.png" width=500 height=500></p>
-<p><img src="https://miro.medium.com/max/658/1*GJLE_YxjlSA5o_TJ9B_h5A.png" width=500 height=500></p>
-<p><img src="https://miro.medium.com/max/700/1*KPXQ6VBc1foXXWgkn1q4BA.png" width=500 height=500></p>
+<h3 id="Evaluation-Metrics---Classification">Evaluation Metrics - Classification<a class="anchor-link" href="#Evaluation-Metrics---Classification">&#182;</a></h3><h4 id="Classification-Threshold">Classification Threshold<a class="anchor-link" href="#Classification-Threshold">&#182;</a></h4><ul>
+<li>to map a logistic regression value to a binary category, a classification threshold (also called the decision threshold) is defined</li>
+<li>assuming that the classification threshold should always be 0.5 is not true and needs to be tuned<ul>
+<li>AUC helps us here</li>
+</ul>
+</li>
+<li>"Tuning" a threshold for logistic regression is different from tuning hyperparameters such as learning rate</li>
+</ul>
+<p><img src="./images/precisionRecallTugOfWar_ClassificationThreshold.png" width=500 height=500></p>
+<h4 id="Confusion-Matrix">Confusion Matrix<a class="anchor-link" href="#Confusion-Matrix">&#182;</a></h4><p><img src="https://miro.medium.com/max/1220/1*ZRU18eG-F5Sjtcph9ru8Og.png" width=500 height=500></p>
+<table>
+<thead><tr>
+<th>.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://miro.medium.com/max/658/1*GJLE_YxjlSA5o_TJ9B_h5A.png" width=500 height=300></td>
+<td><img src="https://miro.medium.com/max/700/1*KPXQ6VBc1foXXWgkn1q4BA.png" width=500 height=300></td>
+</tr>
+</tbody>
+</table>
 <h4 id="Precision/Positive-Predictive-Value(PPV)">Precision/Positive Predictive Value(PPV)<a class="anchor-link" href="#Precision/Positive-Predictive-Value(PPV)">&#182;</a></h4>$$\text{Precision} = \frac{t_{p}}{t_{p} + f_{p}}$$<h4 id="Sensitivity/Recall/Hit-Rate/TPR">Sensitivity/Recall/Hit Rate/TPR<a class="anchor-link" href="#Sensitivity/Recall/Hit-Rate/TPR">&#182;</a></h4><ul>
 <li>This tells us what percentage of people <strong>with</strong> heart disease were actually correctly identified</li>
 <li><strong>Sensitivity/Recall</strong> is same as <strong>True Positive Rate(TPR)</strong>
@@ -13564,7 +13786,13 @@ $$\text{True Positive Rate(TPR) = Sensitivity = Recall} = \frac{t_{p}}{t_{p} + f
 <li>Specificity is same as <strong>(1 - False Positive Rate)</strong>
 $$\text{Specificity} = \frac{t_{n}}{t_{n} + f_{p}}$$</li>
 </ul>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/350px-Precisionrecall.svg.png" width=500 height=500></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Precisionrecall.svg/350px-Precisionrecall.svg.png" width=300 height=300></p>
+<h4 id="Accuracy">Accuracy<a class="anchor-link" href="#Accuracy">&#182;</a></h4>$$\text{Accuracy} = \frac{TP + TN}{P + N}$$<ul>
+<li>Accuracy is a poor or misleading metric<ul>
+<li>Typical case includes class imbalance, when positives or negatives are extremely rare</li>
+</ul>
+</li>
+</ul>
 <h4 id="F1">F1<a class="anchor-link" href="#F1">&#182;</a></h4><ul>
 <li>F1 is an overall measure of a model’s accuracy that combines precision and recall</li>
 <li>A good F1 score means that you have low false positives and low false negatives, so you’re correctly identifying real threats and you are not disturbed by false alarms. </li>
@@ -13600,25 +13828,51 @@ $$\text{F1} = \frac{2 * \text{Precision} * \text{Recall}}{\text{Precision} + \te
 </ul>
 </li>
 </ul>
-<p><img src="https://miro.medium.com/max/700/1*HTVotuY5L-cZjXGAW2A6_A.png" width=500 height=500>
-<img src="https://miro.medium.com/max/700/1*s4tdBI_DQ7xxMmUQUu5wqw.png" width=500 height=500>
-<img src="https://miro.medium.com/max/693/1*6CxyxXxn9KhX_u-ZqxjbAA.png" width=500 height=500>
-<img src="https://miro.medium.com/max/700/1*5-1RHdhFO4TniI-U7-nKeA.png" width=500 height=500></p>
+<table>
+<thead><tr>
+<th>.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://miro.medium.com/max/700/1*HTVotuY5L-cZjXGAW2A6_A.png" width=500 height=500></td>
+<td><img src="https://miro.medium.com/max/700/1*s4tdBI_DQ7xxMmUQUu5wqw.png" width=500 height=500></td>
+</tr>
+<tr>
+<td><img src="https://miro.medium.com/max/693/1*6CxyxXxn9KhX_u-ZqxjbAA.png" width=500 height=500></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://miro.medium.com/max/700/1*5-1RHdhFO4TniI-U7-nKeA.png" width=500 height=500></p>
 <p><img src="https://miro.medium.com/max/700/1*-78-LvCmqxPyAmBIGJaoLw.png" width=500 height=500></p>
-<h4 id="Best-case-ROC-curve">Best-case ROC curve<a class="anchor-link" href="#Best-case-ROC-curve">&#182;</a></h4><ul>
-<li>AUC = 1
-<img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_a3639962.png" width=300 height=300></li>
-</ul>
-<h4 id="ROC-curve-with-no-predictive-power:">ROC curve with no predictive power:<a class="anchor-link" href="#ROC-curve-with-no-predictive-power:">&#182;</a></h4><ul>
-<li>AUC = 0.5
-<img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_f3d108a2.png" width=300 height=300></li>
-</ul>
-<h4 id="Worst-case-ROC-curve">Worst-case ROC curve<a class="anchor-link" href="#Worst-case-ROC-curve">&#182;</a></h4><ul>
-<li>AUC = 0
-<img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_90cc150b.png" width=300 height=300></li>
-</ul>
+<h4 id="ROC-curve-for-scenarios">ROC curve for scenarios<a class="anchor-link" href="#ROC-curve-for-scenarios">&#182;</a></h4><table>
+<thead><tr>
+<th style="text-align:center">Best-case ROC curve</th>
+<th style="text-align:center">ROC curve with no predictive power</th>
+<th style="text-align:center">Worst-case ROC curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AUC = 1</td>
+<td style="text-align:center">AUC = 0.5</td>
+<td style="text-align:center">AUC = 0</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_a3639962.png" width=300 height=300></td>
+<td style="text-align:center"><img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_f3d108a2.png" width=300 height=300></td>
+<td style="text-align:center"><img src="https://www.graphpad.com/guides/prism/latest/curve-fitting/images/hmfile_hash_90cc150b.png" width=300 height=300></td>
+</tr>
+</tbody>
+</table>
 <h4 id="Area-under-the-curve-(AUC)">Area under the curve (AUC)<a class="anchor-link" href="#Area-under-the-curve-(AUC)">&#182;</a></h4><ul>
-<li>gives the rate of successful classification by logistic model</li>
+<li><strong>Intuition:</strong> gives an aggregate measure of performance aggregated across all possible classification thresholds</li>
+<li><p>AUC measures the entire two-dimensional area underneath the entire ROC curve (think integral calculus) from (0,0) to (1,1).</p>
+</li>
+<li><p>gives the rate of successful classification by logistic model</p>
+</li>
 <li>higher the AUC, better the model is at predicting classes</li>
 <li>helps compare the ROC curve of different models</li>
 <li>is the probability that the classifier will be able to tell which one is which</li>
@@ -13626,17 +13880,90 @@ $$\text{F1} = \frac{2 * \text{Precision} * \text{Recall}}{\text{Precision} + \te
 <li>AUC = 0, implies a poor model, worst measure of separability</li>
 <li>AUC = 0.5, implies an no class separation capacity, a random classifier</li>
 </ul>
-<p><img src="https://www.ismiletechnologies.com/wp-content/uploads/2021/10/image-9.png" width=300 height=300>
-<img src="https://miro.medium.com/max/700/1*U3KzhfUE4FLy4CL_U-ygpg.png" width=500 height=500></p>
-<p><img src="https://miro.medium.com/max/1056/1*Uu-t4pOotRQFoyrfqEvIEg.png" width=500 height=500>
-<img src="https://miro.medium.com/max/1014/1*yF8hvKR9eNfqqej2JnVKzg.png" width=500 height=500>
-<img src="https://miro.medium.com/max/860/1*iLW_BrJZRI0UZSflfMrmZQ.png" width=500 height=500>
-<img src="https://miro.medium.com/max/1112/1*aUZ7H-Lw74KSucoLlj1pgw.png" width=500 height=500></p>
-<h4 id="Diagnostic-Testing-Diagram">Diagnostic Testing Diagram<a class="anchor-link" href="#Diagnostic-Testing-Diagram">&#182;</a></h4><p><img src="./images/confusionMatrixTests3.png"></p>
-<h4 id="Gini-Coefficient">Gini Coefficient<a class="anchor-link" href="#Gini-Coefficient">&#182;</a></h4><h4 id="Log-Loss-or-Cross-Entropy-Loss">Log Loss or Cross Entropy Loss<a class="anchor-link" href="#Log-Loss-or-Cross-Entropy-Loss">&#182;</a></h4><p><img src="https://miro.medium.com/max/1400/1*s5AmzAfKxh06ymdw1zkNkA.png" width=300 height=300></p>
+<p>AUC is desirable for the following two reasons:</p>
 <ul>
-<li>$\tiny{\text{towardsdatascience.com - Parul Pandey}}$</li>
-<li>$\tiny{\text{towardsdatascience.com - Sarang Narkhede}}$</li>
+<li>AUC is scale-invariant. <ul>
+<li>It measures how well predictions are ranked, rather than their absolute values.</li>
+<li>AUC is based on the relative predictions, so any transformation of the predictions that preserves the relative ranking has no effect on AUC</li>
+</ul>
+</li>
+<li>AUC is classification-threshold-invariant. <ul>
+<li>multiplying all of the predictions from a given model by 2.0 - No impact on AUC<ul>
+<li>It measures the quality of the model's predictions irrespective of what classification threshold is chosen.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead><tr>
+<th>.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://www.ismiletechnologies.com/wp-content/uploads/2021/10/image-9.png" width=300 height=300></td>
+<td><img src="https://miro.medium.com/max/700/1*U3KzhfUE4FLy4CL_U-ygpg.png" width=500 height=500></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead><tr>
+<th>.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="https://miro.medium.com/max/1056/1*Uu-t4pOotRQFoyrfqEvIEg.png" width=300 height=300></td>
+<td><img src="https://miro.medium.com/max/1014/1*yF8hvKR9eNfqqej2JnVKzg.png" width=300 height=300></td>
+</tr>
+<tr>
+<td><img src="https://miro.medium.com/max/860/1*iLW_BrJZRI0UZSflfMrmZQ.png" width=300 height=300></td>
+<td><img src="https://miro.medium.com/max/1112/1*aUZ7H-Lw74KSucoLlj1pgw.png" width=300 height=300></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Diagnostic-Testing-Diagram">Diagnostic Testing Diagram<a class="anchor-link" href="#Diagnostic-Testing-Diagram">&#182;</a></h4><p><img src="./images/confusionMatrixTests3.png"></p>
+<h4 id="Gini-Coefficient">Gini Coefficient<a class="anchor-link" href="#Gini-Coefficient">&#182;</a></h4><h4 id="Log-Loss-or-Cross-Entropy-Loss">Log Loss or Cross Entropy Loss<a class="anchor-link" href="#Log-Loss-or-Cross-Entropy-Loss">&#182;</a></h4><ul>
+<li>The loss function for linear regression is squared loss. </li>
+<li>The loss function for logistic regression is Log Loss, which is defined as follows</li>
+</ul>
+<p><img src="./images/logisticRegressionCostFun.png" width=500 height=500></p>
+<ul>
+<li>The cost function is defined as the sum across all the training examples as:</li>
+</ul>
+<p><img src="https://miro.medium.com/max/1400/1*s5AmzAfKxh06ymdw1zkNkA.png" width=500 height=500></p>
+<p>$\tiny{\text{towardsdatascience.com - Parul Pandey}}$<br>
+$\tiny{\text{towardsdatascience.com - Sarang Narkhede}}$<br>
+$\tiny{\text{towardsdatascience.com - Shuyu Luo}}$</p>
+<h4 id="Prediction-Bias">Prediction Bias<a class="anchor-link" href="#Prediction-Bias">&#182;</a></h4><ul>
+<li>quantity that measures how far apart those two averages are. <blockquote><p>Prediction Bias = Average of Predictions - Average of labels in dataset<br>
+"average of predictions" should $\approx$ "average of observations"</p>
+</blockquote>
+</li>
+</ul>
+<p>Possible root causes of prediction bias are:</p>
+<ul>
+<li>Incomplete feature set</li>
+<li>Noisy data set</li>
+<li>Buggy pipeline</li>
+<li>Biased training sample</li>
+<li>Overly strong regularization</li>
+</ul>
+<p>To examine prediction bias</p>
+<ul>
+<li>examine the prediction bias on a "bucket" of examples. <ul>
+<li>Linearly breaking up the target predictions.</li>
+<li>Forming quantiles</li>
+</ul>
+</li>
+<li>Plot Prediction bias curve <ul>
+<li>prediction vs label</li>
+<li>some subsets of the data set are noisier than others</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -13786,6 +14113,10 @@ $$\theta_{MAP} = arg \max\limits_{\theta}L(\theta; D)$$$$\theta_{MLE} = arg \max
 <h3 id="Mathematical-functions">Mathematical functions<a class="anchor-link" href="#Mathematical-functions">&#182;</a></h3><h4 id="Logistic/Sigmoid-function">Logistic/Sigmoid function<a class="anchor-link" href="#Logistic/Sigmoid-function">&#182;</a></h4>$$ f(x) = \frac{L}{1+e^{-k(x-x_{0})}} $$<blockquote><p>L - the curve’s maximum value<br>
 $x_{0}$ - the sigmoid’s midpoint<br>
 k - the logistic growth rate or steepness of curve</p>
+<ul>
+<li>they are asympotes, never reaches 0</li>
+<li>output always fall between 0 and 1</li>
+</ul>
 </blockquote>
 <h4 id="Standard-logistic-sigmoid-function">Standard logistic sigmoid function<a class="anchor-link" href="#Standard-logistic-sigmoid-function">&#182;</a></h4>$$ \sigma(x) = \frac{1}{1+e^{-x}} $$<blockquote><p>L = 1 - the curve’s maximum value<br>
 $x_{0}$ = 0 - the sigmoid’s midpoint<br>
@@ -13928,6 +14259,135 @@ $$BIC = -2 LL + d\ln{N} $$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Activation-Functions">Activation Functions<a class="anchor-link" href="#Activation-Functions">&#182;</a></h3><h4 id="Sigmoid-function">Sigmoid function<a class="anchor-link" href="#Sigmoid-function">&#182;</a></h4><ul>
+<li>Features<ul>
+<li>Sigmoid function gives an S-shaped curve </li>
+<li>used to map predicted values to probabilities</li>
+<li>function maps any real value into another value between 0 and 1</li>
+</ul>
+</li>
+<li>Function<ul>
+<li>Equation: $$ f(x) = s = \frac{1}{1+e^{-x}}$$</li>
+<li>Derivative: $$ f’(x) = s*(1-s) $$</li>
+<li>Range: (0,1)</li>
+</ul>
+</li>
+<li>Adv<ul>
+<li>function is differentiable. can find the slope of the sigmoid curve at any two points</li>
+<li>Output values bound between 0 and 1, which normalizes output of each neuron</li>
+</ul>
+</li>
+<li>DisAdv<ul>
+<li>Vanishing gradient — for very high or very low values of X, there is almost no change to the prediction</li>
+<li>due to vanishing gradient problem, sigmoids have slow convergence</li>
+<li>outputs are not zero centered</li>
+<li>computationally expensive</li>
+</ul>
+</li>
+</ul>
+<h4 id="Softmax">Softmax<a class="anchor-link" href="#Softmax">&#182;</a></h4><ul>
+<li>Features<ul>
+<li>calculates probability distribution of an event over ’n’ different events</li>
+</ul>
+</li>
+<li>Function<ul>
+<li>Equation: $$ f(x) = \frac{e^{x_{i}}}{\sum_{j=1}^{n} e^{x_{i}}} $$</li>
+<li>Probabilistic interpretation: $$ S_{j} = P(y=j|x) $$</li>
+<li>Range: (0, 1)</li>
+</ul>
+</li>
+<li>Adv<ul>
+<li>Able to handle multiple classes only one class in other activation functions <ul>
+<li>normalizes the outputs for each class between 0 and 1</li>
+</ul>
+</li>
+<li>useful for output neurons to classify inputs as probability of multiple categories.</li>
+</ul>
+</li>
+</ul>
+<h4 id="tanh-function">tanh function<a class="anchor-link" href="#tanh-function">&#182;</a></h4><ul>
+<li>Function<ul>
+<li>Equation: $$ f(x) = a = \tanh(x) =\frac{e^{x} - e^{-x}}{e^{x} + e^{-x}} $$</li>
+<li>Derivative: $$f’(x) = (1- a^{2})$$</li>
+<li>Range: (-1, 1)</li>
+</ul>
+</li>
+<li>Adv<ul>
+<li>zero centered <ul>
+<li>good for model that have strongly negative, neutral, and strongly positive values</li>
+</ul>
+</li>
+<li>function and its derivative both are monotonic</li>
+<li>works better than sigmoid function</li>
+</ul>
+</li>
+<li>DisAdv<ul>
+<li>vanishing gradient problem and hence slow convergence</li>
+</ul>
+</li>
+</ul>
+<h4 id="ReLU-(REctified-Linear-Unit)-function">ReLU (REctified Linear Unit) function<a class="anchor-link" href="#ReLU-(REctified-Linear-Unit)-function">&#182;</a></h4><ul>
+<li>Features<ul>
+<li>a simple non-linear function that chops off at non-zero </li>
+<li>the function is zero for negative values and it grows linearly for positive values. </li>
+<li>is very simple to implement (generally, three instructions are enough), while the sigmoid is a few orders of magnitude more. <ul>
+<li>This helped to squeeze the neural networks onto an early GPU</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Function<ul>
+<li>Equation: $$ f(x) = \max(x, 0) $$</li>
+<li>Derivative: $$ f'(x) = 1 \text{ if } x \gt 0 \text{ otherwise } 0 $$</li>
+<li>Range: [0, +$\infty$)</li>
+</ul>
+</li>
+<li>Adv<ul>
+<li>Computationally efficient <ul>
+<li>allows the network to converge very quickly</li>
+</ul>
+</li>
+<li>Non-linear <ul>
+<li>although it looks like a linear function, ReLU has a derivative function and allows for back-propagation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DisAdv<ul>
+<li>Dying ReLU problem <ul>
+<li>when inputs approach zero, or are negative, gradient of function becomes zero, network cannot perform back-propagation and cannot learn</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="ELU">ELU<a class="anchor-link" href="#ELU">&#182;</a></h4><h4 id="LeakyReLU">LeakyReLU<a class="anchor-link" href="#LeakyReLU">&#182;</a></h4><ul>
+<li>Features<ul>
+<li>variant of ReLU</li>
+</ul>
+</li>
+<li>Function<ul>
+<li>Equation: $$f(x)= a = \max(0.01x, x)$$</li>
+<li>Derivative: $$ f'(x) = 1 \text{ if } x \gt 0 \text{ otherwise } 0.01 $$</li>
+<li>Range: (0.01, +$\infty$)</li>
+</ul>
+</li>
+<li>Adv<ul>
+<li>Prevents dying ReLU problem <ul>
+<li>this variation of ReLU has a small positive slope in the negative area, so it does enable back-propagation, even for negative input values</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DisAdv<ul>
+<li>Results not consistent <ul>
+<li>leaky ReLU does not provide consistent predictions for negative input values.</li>
+<li>During the front propagation if the learning rate is set very high it will overshoot killing the neuron.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -13935,6 +14395,13 @@ $$BIC = -2 LL + d\ln{N} $$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Feature-Engineering">Feature Engineering<a class="anchor-link" href="#Feature-Engineering">&#182;</a></h3><h4 id="Mapping-RawData-to-Features">Mapping RawData to Features<a class="anchor-link" href="#Mapping-RawData-to-Features">&#182;</a></h4><h4 id="Has-Good-Feature-property">Has Good Feature property<a class="anchor-link" href="#Has-Good-Feature-property">&#182;</a></h4><h4 id="One-Hot-Encoding">One-Hot Encoding<a class="anchor-link" href="#One-Hot-Encoding">&#182;</a></h4><h4 id="Scaling-Feature-values">Scaling Feature values<a class="anchor-link" href="#Scaling-Feature-values">&#182;</a></h4><ul>
+<li>with mean and std deviation</li>
+<li>as z-values</li>
+</ul>
+<h4 id="Outlier-Treatment">Outlier Treatment<a class="anchor-link" href="#Outlier-Treatment">&#182;</a></h4><h4 id="Binning-by-values">Binning by values<a class="anchor-link" href="#Binning-by-values">&#182;</a></h4><h4 id="Binning-by-quantiles">Binning by quantiles<a class="anchor-link" href="#Binning-by-quantiles">&#182;</a></h4><h4 id="Scrubing">Scrubing<a class="anchor-link" href="#Scrubing">&#182;</a></h4><ul>
+<li>Data reliability</li>
+</ul>
 
 </div>
 </div>
@@ -13942,6 +14409,19 @@ $$BIC = -2 LL + d\ln{N} $$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Feature-Crosses">Feature Crosses<a class="anchor-link" href="#Feature-Crosses">&#182;</a></h3><ul>
+<li>a synthetic feature formed by multiplying (crossing) two or more feature<ul>
+<li>[A x B]: a feature cross formed by multiplying the values of two features.</li>
+<li>[A x B x C x D x E]: a feature cross formed by multiplying the values of five features.</li>
+<li>[A x A]: a feature cross formed by squaring a single feature.</li>
+</ul>
+</li>
+<li>logical conjunctions<ul>
+<li>country:usa AND language:spanish</li>
+</ul>
+</li>
+<li>$x_{1}x_{2}$</li>
+</ul>
 
 </div>
 </div>
@@ -13949,6 +14429,30 @@ $$BIC = -2 LL + d\ln{N} $$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Regularization---Simplicity">Regularization - Simplicity<a class="anchor-link" href="#Regularization---Simplicity">&#182;</a></h3><ul>
+<li>Not trusting your data too much</li>
+</ul>
+<h4 id="Early-stopping">Early stopping<a class="anchor-link" href="#Early-stopping">&#182;</a></h4><h4 id="Penalize-model-complexity">Penalize model complexity<a class="anchor-link" href="#Penalize-model-complexity">&#182;</a></h4><h4 id="Empirical-Risk-Minimization">Empirical Risk Minimization<a class="anchor-link" href="#Empirical-Risk-Minimization">&#182;</a></h4><ul>
+<li>aim for low training error<blockquote><p>minimize: Loss(Data|Model)</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="Structural-Risk-Minimization">Structural Risk Minimization<a class="anchor-link" href="#Structural-Risk-Minimization">&#182;</a></h4><ul>
+<li>aim for low training error</li>
+<li>while balance against complexity<blockquote><p>minimize: Loss(Data|Model) + Complexity(Model)</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="How-to-define-model-complexity">How to define model complexity<a class="anchor-link" href="#How-to-define-model-complexity">&#182;</a></h4><ul>
+<li>prefer smaller weights</li>
+</ul>
+<h4 id="Loss-Function-with-L2-Regularization">Loss Function with L2 Regularization<a class="anchor-link" href="#Loss-Function-with-L2-Regularization">&#182;</a></h4><ul>
+<li>the sum of the squares of all the feature weights</li>
+<li>this does not depend upon the data, but rely on weights</li>
+<li>will encourage many of the non-informative weights to be nearly (but not exactly) 0.0.</li>
+</ul>
+$$L_{2} = ||w||_{2}^{2} = w_{1}^{2} + w_{2}^{2} + w_{3}^{2} + w_{4}^{2}$$<h4 id="Regularization-Rate">Regularization Rate<a class="anchor-link" href="#Regularization-Rate">&#182;</a></h4><blockquote><p>minimize: Loss(Data|Model) + $\lambda$ Complexity(Model)</p>
+</blockquote>
 
 </div>
 </div>
@@ -13956,6 +14460,63 @@ $$BIC = -2 LL + d\ln{N} $$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Regularization---Sparsity">Regularization - Sparsity<a class="anchor-link" href="#Regularization---Sparsity">&#182;</a></h3><h4 id="Sparse-cross-feature">Sparse cross-feature<a class="anchor-link" href="#Sparse-cross-feature">&#182;</a></h4><ul>
+<li>Model size will be huge</li>
+<li>Noisy coefficients causing overfitting</li>
+</ul>
+<h4 id="Explicitly-zero-out-weights">Explicitly zero out weights<a class="anchor-link" href="#Explicitly-zero-out-weights">&#182;</a></h4><ul>
+<li>$L_{2}$ regularization encourages weights to be small, but doesn't force them to exactly 0.0</li>
+<li>$L_{0}$ regularization<ul>
+<li>penalize for non-zero weights</li>
+<li>but this is not convex and hard to optimize</li>
+</ul>
+</li>
+<li>Relax to $L_{1}$ regularization<ul>
+<li>Penalize sum of abs(weights)</li>
+<li>Convex problem</li>
+<li>Encourage sparsity unlike $L_{2}$</li>
+</ul>
+</li>
+</ul>
+<h4 id="L1-vs-L2-regularization">L1 vs L2 regularization<a class="anchor-link" href="#L1-vs-L2-regularization">&#182;</a></h4><ul>
+<li><p>$L_{2}$ and $L_{1}$ penalize weights differently:</p>
+<ul>
+<li>$L_{2}$ penalizes $weight^{2}$</li>
+<li>$L_{1}$ penalizes |weight|</li>
+</ul>
+</li>
+<li><p>Both $L_{2}$ and $L_{1}$ have different derivatives</p>
+<ul>
+<li>derivative of $L_{2}$ is 2 * weight.<ul>
+<li>derivative of $L_{2}$ is a force that removes x% of the weight every time</li>
+</ul>
+</li>
+<li>derivative of $L_{1}$ is k (a constant, whose value is independent of weight)<ul>
+<li>derivative of $L_{1}$ is a force that subtracts some constant from the weight every time</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="L1-regularization">L1 regularization<a class="anchor-link" href="#L1-regularization">&#182;</a></h4><ul>
+<li>will encourage most of the non-informative weights to be exactly 0.0.<ul>
+<li>$L_{1}$ regularization of sufficient lambda tends to encourage non-informative weights to become exactly 0.0. </li>
+<li>By doing so, these non-informative features leave the model.</li>
+</ul>
+</li>
+<li>$L_{1}$ regularization may cause informative features to get a weight of exactly 0.0.<ul>
+<li><strong>Be careful</strong> <ul>
+<li>L1 regularization may cause the following kinds of features to be given weights of exactly 0:<ul>
+<li>Weakly informative features.</li>
+<li>Strongly informative features on different scales.</li>
+<li>Informative features strongly correlated with other similarly informative features.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -13963,6 +14524,61 @@ $$BIC = -2 LL + d\ln{N} $$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Neural-Network">Neural Network<a class="anchor-link" href="#Neural-Network">&#182;</a></h3><ul>
+<li>Linear combination of linear function is still linear (Left below)</li>
+<li>To make NN non-linear, non-linear transformation needs to be introduced (Right below)</li>
+<li>neural networks generally use non-linear activation functions</li>
+</ul>
+<table>
+<thead><tr>
+<th>.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./images/nn_linearNN.png" width=400></td>
+<td><img style="float: right;" src="./images/nn_nonlinearNN.png" width=400></td>
+</tr>
+</tbody>
+</table>
+<h4 id="Linear-Regression-Model-vs-NN">Linear Regression Model vs NN<a class="anchor-link" href="#Linear-Regression-Model-vs-NN">&#182;</a></h4><ul>
+<li>A neural network without an activation function is just a linear regression model.</li>
+<li>Linear combination of linear function is still linear</li>
+<li>To make NN non-linear, non-linear transformation needs to be introduced</li>
+</ul>
+<h4 id="Why-use-activation-function">Why use activation function<a class="anchor-link" href="#Why-use-activation-function">&#182;</a></h4><ul>
+<li>without activation function the weights and bias would simply do a linear transformation</li>
+<li>A linear equation is simple to solve but is limited in its capacity to solve complex problems and have less power to learn complex functional mappings from data. </li>
+<li>A neural network without an activation function is just a linear regression model.</li>
+<li>neural networks use non-linear activation functions</li>
+</ul>
+<h4 id="Types-of-Activation-Function">Types of Activation Function<a class="anchor-link" href="#Types-of-Activation-Function">&#182;</a></h4><ul>
+<li>Linear or Identity Activation Function</li>
+<li>Non-linear Activation Functions</li>
+</ul>
+<h4 id="Linear-Activation-function">Linear Activation function<a class="anchor-link" href="#Linear-Activation-function">&#182;</a></h4><ul>
+<li>Activation function should be differentiable</li>
+<li>problem in using linear activation function<ul>
+<li>Back-propagation is not possible <ul>
+<li>The derivative of linear function is a constant, and has no relation to the input, X. </li>
+<li>It’s not possible to go back and understand which weights in the input neurons can provide a better prediction.</li>
+</ul>
+</li>
+<li>All layers of the neural network collapse into one <ul>
+<li>with linear activation functions, no matter how many layers in the neural network, the last layer will be a linear function of the first layer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Non-Linear-Activation-function">Non-Linear Activation function<a class="anchor-link" href="#Non-Linear-Activation-function">&#182;</a></h4><ul>
+<li>allow model to create complex mappings between the network’s inputs and outputs </li>
+<li>suited fir non-linear or high dimensionality models.</li>
+<li>almost any functional computation in a neural network is possible</li>
+<li>allow back-propagation because they have a derivative function which is related to the inputs.</li>
+<li>allow "stacking" of multiple layers of neurons to create a deep neural network</li>
+</ul>
 
 </div>
 </div>
