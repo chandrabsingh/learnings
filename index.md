@@ -16,6 +16,9 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset
 - [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
+- google user experience(ux) design certification
+- multiclass classification
+- multilabel classification
 - weka visualization
 - mixture models using em algorithm
 
@@ -31,7 +34,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
   - [software engineering - conceptual brief](system_designs/software_engineering_concepts.html)
   - [system design - architecture and patterns](system_designs/design_patterns.html)
   - [python - design patterns](system_designs/design_patterns_python.html)
-  - shell scripting
+  - [unix - shell commands](codes/unix_shell_script.html)
   - data structures
 
 - #### data science and distributed computing
