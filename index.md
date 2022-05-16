@@ -26,6 +26,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### computer science  
   - [python - conceptual snippets](codes/python_faqs.html)  
+  - [python - data analytics - snippets](codes/python_data_analytics.html)
   - [python - array algos](algos/all_algos.html#Arrays)
   - [python - graph algos](algos/all_algos.html#Graph)
   - [python - dynamic programming algos](algos/all_algos.html#DP)
