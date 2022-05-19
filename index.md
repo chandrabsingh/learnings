@@ -26,7 +26,6 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### computer science  
   - [python - conceptual snippets](codes/python_faqs.html)  
-  - [python - data analytics - snippets](codes/python_data_analytics.html)
   - [python - array algos](algos/all_algos.html#Arrays)
   - [python - graph algos](algos/all_algos.html#Graph)
   - [python - dynamic programming algos](algos/all_algos.html#DP)
@@ -40,6 +39,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### data science and distributed computing
   - [machine learning - conceptual brief](ml_examples/ml_glossary.html)
+  - [python - data analytics - snippets](codes/python_data_analytics.html)
   - [pytorch intro](dl_examples/01_pytorch_intro.html)
   - [fastai intro](dl_examples/01_fastai_intro.html)
   - [tensorflow intro](dl_examples/01_tensorflow_intro.html)
@@ -51,6 +51,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
+  - [probability simulations](math/probability_simulations.html)
   - statistics
   - statistical inference
   - causal inference
