@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13123,7 +13123,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[120]:</div>
+<div class="prompt input_prompt">In&nbsp;[108]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">birthdaySeries</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
@@ -13146,7 +13146,7 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[121]:</div>
+<div class="prompt input_prompt">In&nbsp;[113]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -13159,7 +13159,7 @@ $( document ).ready(function(){
 <span class="n">y</span> <span class="o">=</span> <span class="n">birthdaySeries</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     
 <span class="c1"># setting the plot</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># plot the function</span>
@@ -13175,34 +13175,46 @@ $( document ).ready(function(){
 <span class="c1"># plt.axvline(x=xVal, color=&#39;purple&#39;, ls=&#39;--&#39;, label=&#39;Prob: 100%({})&#39;.format(xVal))</span>
 
 <span class="c1"># place legend outside</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Birthday Problem&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of people&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Prob of a pair&#39;</span><span class="p">)</span>
 
-<span class="c1"># show the plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># show/save the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/birthdayProblem.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># plt.show()</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="probability_simulations_files/probability_simulations_2_0.png"
->
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='./images/birthdayProblem.png'></p>
 
 </div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Birthday-Problem---Simulation"><a href="https://en.wikipedia.org/wiki/Birthday_problem">Birthday Problem - Simulation</a><a class="anchor-link" href="#Birthday-Problem---Simulation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
+    </div>
 </div>
 </div>
 
@@ -13216,13 +13228,13 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[115]:</div>
+<div class="prompt input_prompt">In&nbsp;[106]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">comb</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">probSixDoesNotAppear</span><span class="p">(</span><span class="n">diceCount</span><span class="p">,</span> <span class="n">minSixCount</span><span class="p">):</span>
     <span class="n">prob</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="o">/</span><span class="mi">6</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">diceCount</span><span class="p">)</span>
@@ -13237,8 +13249,28 @@ $( document ).ready(function(){
 <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">))</span>
 <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">probSixDoesNotAppear</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># plot the function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prob&#39;</span><span class="p">)</span>
+
+<span class="c1"># plot the lines </span>
+<span class="n">yVal</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">yVal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Asym limit: (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yVal</span><span class="p">))</span>
+
+<span class="c1"># place legend </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Newton-Pepys Problem&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of 6n dice rolled&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Prob of atleast n 6s appear&#39;</span><span class="p">)</span>
+
+<span class="c1"># show/save the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/newtonPepysProblem.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># plt.show()</span>
+
 <span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
@@ -13252,21 +13284,7 @@ $( document ).ready(function(){
 
 <div class="output_area">
 
-    <div class="prompt"></div>
-
-
-
-
-<div class="output_png output_subarea ">
-<img src="probability_simulations_files/probability_simulations_4_0.png"
->
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[115]:</div>
+    <div class="prompt output_prompt">Out[106]:</div>
 
 
 
@@ -13280,6 +13298,14 @@ $( document ).ready(function(){
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/newtonPepysProblem.png"></p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13325,13 +13351,33 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[260]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[260]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6321205588285577</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -13345,17 +13391,113 @@ $( document ).ready(function(){
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[245]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Range 1 to n</span>
-<span class="n">k</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Sample size</span>
-<span class="n">runs</span> <span class="o">=</span> <span class="mi">50000</span>
-<span class="n">runResult</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">runs</span><span class="p">):</span>
-    <span class="n">sumResult</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">i</span><span class="o">==</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">())])</span>
-    <span class="n">runResult</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sumResult</span><span class="p">)</span>
-<span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">runResult</span><span class="p">)</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">runs</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">exp</span>
+
+<span class="k">def</span> <span class="nf">deMontmortMatchingProblem</span><span class="p">(</span><span class="n">minMatchCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Range 1 to n</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Sample size</span>
+    <span class="n">runs</span> <span class="o">=</span> <span class="mi">50000</span>
+
+    <span class="c1"># np.random.seed(5)</span>
+
+    <span class="n">runResult</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">runs</span><span class="p">):</span>
+        <span class="n">sampled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">runResult</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">sampled</span> <span class="o">==</span> <span class="n">index</span><span class="p">))</span>
+    <span class="n">runResultArr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">runResult</span><span class="p">)</span>
+    <span class="n">finalResult</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">runResultArr</span> <span class="o">&gt;=</span> <span class="n">minMatchCount</span><span class="p">)</span><span class="o">/</span><span class="n">runs</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">finalResult</span><span class="p">)</span>
+
+    <span class="n">stepSize</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">runs</span><span class="o">+</span><span class="n">stepSize</span><span class="p">,</span> <span class="n">stepSize</span><span class="p">)</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">subArr</span> <span class="o">=</span> <span class="n">runResultArr</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">y1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">subArr</span> <span class="o">&gt;=</span> <span class="n">minMatchCount</span><span class="p">)</span><span class="o">/</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+
+    <span class="c1"># setting the plot</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># plot the function</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Simulated: (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">finalResult</span><span class="p">))</span>
+
+    <span class="c1"># plot the lines </span>
+    <span class="n">yVal</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">yVal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prob: (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yVal</span><span class="p">))</span>
+
+    <span class="c1"># place legend </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;de Montmorts Matching Problem </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">noOfDoorsHostOpens</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Test&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cum Match Perc&#39;</span><span class="p">)</span>
+
+    <span class="c1"># show/save the plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/deMontmortMatching.png&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1">#     plt.show()</span>
+
+<span class="n">deMontmortMatchingProblem</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='./images/deMontmortMatching.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[336]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import numpy as np</span>
+<span class="c1"># import pandas as pd</span>
+<span class="c1"># import yfinance as yf</span>
+
+<span class="c1"># import matplotlib.pyplot as plt</span>
+<span class="c1"># import gif</span>
+
+<span class="c1"># # settings</span>
+<span class="c1"># plt.style.use(&quot;seaborn&quot;)</span>
+<span class="c1"># gif.options.matplotlib[&quot;dpi&quot;] = 300</span>
+
+<span class="c1"># df = yf.download(&quot;TSLA&quot;, </span>
+<span class="c1">#                  start=&quot;2019-01-01&quot;, </span>
+<span class="c1">#                  end=&quot;2021-12-31&quot;)</span>
+
+<span class="c1"># tsla_df = df[[&quot;Adj Close&quot;]].resample(&quot;M&quot;).last()</span>
+
+<span class="c1"># @gif.frame</span>
+<span class="c1"># def helper_plot_1(df, i):</span>
+<span class="c1">#     df = df.copy()</span>
+<span class="c1">#     df.iloc[i:] = np.nan</span>
+<span class="c1">#     ax = df.plot(title=&quot;Tesla&#39;s stock price&quot;, legend=False, style=&quot;o--&quot;)</span>
+<span class="c1">#     ax.set_xlabel(&quot;&quot;)</span>
+<span class="c1">#     ax.set_ylabel(&quot;Price ($)&quot;)</span>
+    
+<span class="c1"># frames = []</span>
+<span class="c1"># for i in range(1, len(tsla_df)):</span>
+<span class="c1">#     frames.append(helper_plot_1(tsla_df, i))</span>
+    
+
+<span class="c1"># gif.save(frames, &quot;./images/tesla_stock_price.gif&quot;, </span>
+<span class="c1">#          duration=15, unit=&quot;s&quot;, </span>
+<span class="c1">#          between=&quot;startend&quot;)</span>
 </pre></div>
 
     </div>
@@ -13368,58 +13510,300 @@ $( document ).ready(function(){
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[245]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.63266</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[*********************100%***********************]  1 of 1 completed
+</pre>
 </div>
-
 </div>
 
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Monty-Hall-Problem---Host-opens-p-of-n-doors---Simulation"><a href="https://en.wikipedia.org/wiki/Monty_Hall_problem#N_doors">Monty Hall Problem - Host opens p of n doors - Simulation</a><a class="anchor-link" href="#Monty-Hall-Problem---Host-opens-p-of-n-doors---Simulation">&#182;</a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[247]:</div>
+<div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # np.random.choice(n, n)</span>
-<span class="c1"># np.random.seed(5)</span>
-<span class="c1"># # runResult</span>
-<span class="c1"># n = 20 # Range 1 to n</span>
-<span class="c1"># k = 20 # Sample size</span>
-<span class="c1"># np.random.choice(n, k, replace = True)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">ordered_set</span> <span class="kn">import</span> <span class="n">OrderedSet</span>
+
+<span class="k">def</span> <span class="nf">montyHallProblem</span><span class="p">(</span><span class="n">switch</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="p">):</span>
+    <span class="n">winSwitchCt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">winNoSwitchCt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">loseSwitchCt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">loseNoSwitchCt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">doors</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">doorsCt</span><span class="p">)</span>
+
+    <span class="c1"># Randomly choose the door with car behind</span>
+    <span class="n">doorWithCar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">)</span>  
+    <span class="c1"># Host knows where the car is</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">doorWithCar</span>  
+    <span class="c1"># Player randomly chooses a door</span>
+    <span class="n">playerChoice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">)</span>
+    <span class="c1"># This was players original choice</span>
+    <span class="n">originalPlayerChoice</span> <span class="o">=</span> <span class="n">playerChoice</span>
+    <span class="c1"># Host opens door which neither player chose nor which has car behind</span>
+<span class="c1">#     openedDoor = switchFunction(host, doorsCt, playerChoice)</span>
+    <span class="n">hostOpenedDoorsList</span> <span class="o">=</span> <span class="n">switchFunction2</span><span class="p">([</span><span class="n">host</span><span class="p">],</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">playerChoice</span><span class="p">,</span> 
+                                          <span class="n">noOfDoorsOpenRequest</span><span class="o">=</span><span class="n">noOfDoorsHostOpens</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">switch</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># If player decides to switch</span>
+<span class="c1">#         playerChoice = switchFunction(openedDoor, doorsCt, playerChoice)</span>
+        <span class="n">playerChoice</span> <span class="o">=</span> <span class="n">switchFunction2</span><span class="p">(</span><span class="n">hostOpenedDoorsList</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">playerChoice</span><span class="p">,</span> 
+                                       <span class="n">noOfDoorsOpenRequest</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">playerChoice</span> <span class="o">==</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">switch</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="c1"># Player wins from not switching</span>
+        <span class="n">winNoSwitchCt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">playerChoice</span> <span class="o">==</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">switch</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Player wins from switching</span>
+        <span class="n">winSwitchCt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">playerChoice</span> <span class="o">!=</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">switch</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="c1"># Player lost from not switching</span>
+        <span class="n">loseNoSwitchCt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">playerChoice</span> <span class="o">!=</span> <span class="n">host</span> <span class="ow">and</span> <span class="n">switch</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Player lost from switching</span>
+        <span class="n">loseSwitchCt</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">if</span> <span class="n">switch</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">winSwitchCt</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">winNoSwitchCt</span>
+<span class="c1">#     return winNoSwitchCt, winSwitchCt, loseNoSwitchCt, loseSwitchCt</span>
+
+
+<span class="c1"># Let the player switch to another unopened door - first version</span>
+<span class="k">def</span> <span class="nf">switchFunction</span><span class="p">(</span><span class="n">openedDoor</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">playerChoice</span><span class="p">):</span>
+    <span class="n">nextPick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">doorsCt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">nextPick</span> <span class="ow">in</span> <span class="p">[</span><span class="n">openedDoor</span><span class="p">,</span> <span class="n">playerChoice</span><span class="p">]):</span>
+        <span class="n">nextPick</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">doorsCt</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nextPick</span>
+
+
+<span class="k">def</span> <span class="nf">switchFunction2</span><span class="p">(</span><span class="n">openedDoorsList</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">playerChoice</span><span class="p">,</span> <span class="n">noOfDoorsOpenRequest</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    This function takes a list of opened or known doors and returns a list of new </span>
+<span class="sd">    unopened doors ready to be opened. This new return list will not include known </span>
+<span class="sd">    input door or players choice door.</span>
+<span class="sd">    The count of return door list will match the requested doors to open</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            openedDoorsList (list)    : A list of known/opened doors</span>
+<span class="sd">            doorsCt (int)             : Number of doors count</span>
+<span class="sd">            playerChoice (int)        : Players choice door</span>
+<span class="sd">            noOfDoorsOpenRequest (int): (default 1) number of doors requested to open</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            returnDoorsList (list)    : List of unopened door</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">doorsLst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">assert</span> <span class="n">doorsCt</span> <span class="o">&gt;=</span> <span class="n">noOfDoorsOpenRequest</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">openedDoorsList</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">doorsLst</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">openedDoorsList</span><span class="p">)</span>
+    <span class="n">doorsLst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">playerChoice</span><span class="p">)</span>
+    
+    <span class="n">nextRandomPickList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">doorsCt</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">nextRandomPickSet</span> <span class="o">=</span> <span class="n">OrderedSet</span><span class="p">(</span><span class="n">nextRandomPickList</span><span class="p">)</span>
+    <span class="n">openedSet</span> <span class="o">=</span> <span class="n">OrderedSet</span><span class="p">(</span><span class="n">doorsLst</span><span class="p">)</span>
+    <span class="n">newUnopenedList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nextRandomPickSet</span> <span class="o">-</span> <span class="n">openedSet</span><span class="p">)[:</span><span class="n">noOfDoorsOpenRequest</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">newUnopenedList</span>
+
+<span class="k">def</span> <span class="nf">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="p">,</span> <span class="n">saveNameLocation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">switch</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">plotEveryTenth</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">winCt</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="p">):</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">retValue</span> <span class="o">=</span> <span class="n">montyHallProblem</span><span class="p">(</span><span class="n">switch</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="p">)</span>
+        <span class="n">winCt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">retValue</span><span class="p">)</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">winCt</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">i</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">plotEveryTenth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">y1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">winCt</span><span class="p">[:</span><span class="n">i</span><span class="p">])</span> <span class="o">/</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">switch</span><span class="p">:</span>
+        <span class="n">switchStr</span> <span class="o">=</span> <span class="s1">&#39;switches door&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">switchStr</span> <span class="o">=</span> <span class="s1">&#39;does not switch door&#39;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Monty Hall win percentage when host opens </span><span class="si">{</span><span class="n">noOfDoorsHostOpens</span><span class="si">}</span><span class="s1"> &#39;</span><span class="o">+</span>
+          <span class="sa">f</span><span class="s1">&#39;of </span><span class="si">{</span><span class="n">doorsCt</span><span class="si">}</span><span class="s1"> doors and player </span><span class="si">{</span><span class="n">switchStr</span><span class="si">}</span><span class="s1"> = </span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Plot the simulation</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Simulated: (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="c1"># Theoretical formula for switch door</span>
+    <span class="c1"># Theoretical formula for no switch door - MISSING (INCORRECT)</span>
+    <span class="n">yVal</span><span class="o">=</span><span class="nb">round</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">doorsCt</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">-</span><span class="n">noOfDoorsHostOpens</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="c1"># plot the calculated line     </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">yVal</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Theoretical Prob: (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yVal</span><span class="p">))</span>
+
+    <span class="c1"># Place legend </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Monty Hall Problem - Host opens </span><span class="si">{}</span><span class="s1"> of </span><span class="si">{}</span><span class="s1"> doors and player </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">noOfDoorsHostOpens</span><span class="p">,</span> <span class="n">doorsCt</span><span class="p">,</span> <span class="n">switchStr</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of Test&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cum Win Perc&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">saveNameLocation</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">saveNameLocation</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem3_1.png&#39;</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem3_1_NoSwitch.png&#39;</span><span class="p">,</span>
+                     <span class="n">switch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem4_2.png&#39;</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem4_2_NoSwitch.png&#39;</span><span class="p">,</span>
+                     <span class="n">switch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem4_1.png&#39;</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem10_8.png&#39;</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem10_3.png&#39;</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem10_3_NoSwitch.png&#39;</span><span class="p">,</span>
+                     <span class="n">switch</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plotMontyHallProblem</span><span class="p">(</span><span class="n">doorsCt</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">noOfDoorsHostOpens</span><span class="o">=</span><span class="mi">98</span><span class="p">,</span> <span class="n">noOfRuns</span><span class="o">=</span><span class="mi">5001</span><span class="p">,</span> 
+                     <span class="n">saveNameLocation</span><span class="o">=</span><span class="s1">&#39;./images/montyHallProblem100_98.png&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[246]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># # np.random.seed(5)</span>
-<span class="c1"># l2 = np.random.choice(n, k, replace = True).tolist()</span>
-<span class="c1"># print(l2)</span>
-<span class="c1"># l3 = [i==j for i,j in zip(range(n), l2)]</span>
-<span class="c1"># print(l3)</span>
-<span class="c1"># print(sum(l3))</span>
+<div class="output_wrapper">
+<div class="output">
 
-<span class="c1"># runResult</span>
-</pre></div>
 
-    </div>
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Monty Hall win percentage when host opens 1 of 3 doors and player switches door = 0.6666
+Monty Hall win percentage when host opens 1 of 3 doors and player does not switch door = 0.3276
+Monty Hall win percentage when host opens 2 of 4 doors and player switches door = 0.7516
+Monty Hall win percentage when host opens 2 of 4 doors and player does not switch door = 0.2516
+Monty Hall win percentage when host opens 1 of 4 doors and player switches door = 0.3752
+Monty Hall win percentage when host opens 8 of 10 doors and player switches door = 0.8956
+Monty Hall win percentage when host opens 3 of 10 doors and player switches door = 0.149
+Monty Hall win percentage when host opens 3 of 10 doors and player does not switch door = 0.0976
+Monty Hall win percentage when host opens 98 of 100 doors and player switches door = 0.9894
+</pre>
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/montyHallProblem3_1.png">
+<img src="./images/montyHallProblem3_1_NoSwitch.png">
+<img src="./images/montyHallProblem4_2.png">
+<img src="./images/montyHallProblem4_2_NoSwitch.png">
+<img src="./images/montyHallProblem4_1.png">
+<img src="./images/montyHallProblem10_8.png">
+<img src="./images/montyHallProblem10_3.png">
+<img src="./images/montyHallProblem10_3_NoSwitch.png">
+<img src="./images/montyHallProblem100_98.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Gambler's-Ruin">Gambler's Ruin<a class="anchor-link" href="#Gambler's-Ruin">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prosecutor's-fallacy">Prosecutor's fallacy<a class="anchor-link" href="#Prosecutor's-fallacy">&#182;</a></h3><h3 id="Simpson's-paradox">Simpson's paradox<a class="anchor-link" href="#Simpson's-paradox">&#182;</a></h3><h3 id="-"> <a class="anchor-link" href="#-">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Category:Probability_problems">https://en.wikipedia.org/wiki/Category:Probability_problems</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Category:Mathematical_problems">https://en.wikipedia.org/wiki/Category:Mathematical_problems</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Category:Probability_theory_paradoxes">https://en.wikipedia.org/wiki/Category:Probability_theory_paradoxes</a></li>
+</ul>
+<p>B
+Balls into bins problem
+Banach's matchbox problem
+Bertrand's ballot theorem
+Bertrand's box paradox
+Birthday problem
+Boy or Girl paradox
+Buffon's needle problem
+C
+Coupon collector's problem
+G
+Gambler's ruin
+German tank problem
+H
+Hamburger moment problem
+Hausdorff moment problem
+L
+Littlewood–Offord problem
+M
+Mabinogion sheep problem
+Moment problem
+Monty Hall problem
+N
+Newton–Pepys problem
+P
+Pill puzzle
+Problem of points
+S
+Secretary problem
+Siegel's paradox
+Sleeping Beauty problem
+Stieltjes moment problem
+Sunrise problem
+T
+Three Prisoners problem
+Trigonometric moment problem
+Two envelopes problem
+U
+Urn problem
+W
+Waldegrave problem</p>
+
+</div>
+</div>
 </div>
     </div>
   </div>
