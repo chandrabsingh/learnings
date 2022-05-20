@@ -51,7 +51,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
-  - [probability simulations](math/probability_simulations.html)
+  - [probability simulations](maths/probability_simulations.html)
   - statistics
   - statistical inference
   - causal inference
