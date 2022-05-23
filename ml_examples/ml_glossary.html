@@ -14130,14 +14130,47 @@ $$ \text{logit(p)} = \ln\frac{p}{1-p}$$</p>
 <li>It gives us a probabilistic prediction to the observed data. </li>
 <li>In terms of hypothesis testing, the likelihood function gives us the probability of varying outcomes given a set of parameters defined in the null hypothesis as $f(\theta \mid x)$ is to inference (finding the likely parameters given a specific outcome).</li>
 </ul>
-$$L(\theta | D) = P(D | \theta) = \prod\limits_{m}P(x_{m}| \theta) $$<p><img src="./images/mle_vs_prob.png" width=400 height=300></p>
-<h4 id="Log-Likelihood-function">Log-Likelihood function<a class="anchor-link" href="#Log-Likelihood-function">&#182;</a></h4><p>The log likelihood for logistic regression is given by 
+$$L(\theta | D) = P(D | \theta) = \prod\limits_{i}P(x_{i}| \theta) $$<p><img src="./images/mle_vs_prob.png" width=400 height=300></p>
+<ul>
+<li>The way of expressing how good a model is using the likelihood of the data given the model, which can be expressed as </li>
+</ul>
+$$L(\theta) = \prod\limits_{i}f(x_{i}|\theta)$$<ul>
+<li>It contains the product of probability densities of all of the samples, an aggregate measure of how probable the dataset is given the choice of specific model. The best model is expressed as</li>
+</ul>
+$$\theta^{*} = \text{argmax} L(\theta) = \text{argmax} \prod\limits_{i} f(x_{i}|\theta)$$<h4 id="Log-Likelihood-function">Log-Likelihood function<a class="anchor-link" href="#Log-Likelihood-function">&#182;</a></h4><p>The log likelihood for logistic regression is given by 
 $$ LL(\theta) = - \sum\limits_{i=0}^{n}\left[y^{(i)}\log\sigma(\theta^{T}x^{(i)}) + (1-y^{(i)}) \log[1-\sigma(\theta^{T}x^{(i)})]\right]  $$</p>
 <h4 id="Gradient-of-log-likelihood-function">Gradient of log likelihood function<a class="anchor-link" href="#Gradient-of-log-likelihood-function">&#182;</a></h4><p>It tries to choose values of $\theta$ that maximizes the function
 $$ \frac{\partial LL(\theta)}{\partial \theta_{j}} = \sum\limits_{i=0}^{n}\left[ y^{(i)} - \sigma(\theta^{T}x^{(i)}) \right]x_{j}^{(i)} $$</p>
+<h4 id="Negative-log-likelihood-function">Negative log likelihood function<a class="anchor-link" href="#Negative-log-likelihood-function">&#182;</a></h4><h4 id="Likelihood-vs-Log-Likelihood-function">Likelihood vs Log-Likelihood function<a class="anchor-link" href="#Likelihood-vs-Log-Likelihood-function">&#182;</a></h4><p><img src="./images/GMM_Likelihood.png"></p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -14516,6 +14549,13 @@ $$L_{2} = ||w||_{2}^{2} = w_{1}^{2} + w_{2}^{2} + w_{3}^{2} + w_{4}^{2}$$<h4 id=
 </li>
 </ul>
 </li>
+</ul>
+<h4 id="Elastic-Nets">Elastic Nets<a class="anchor-link" href="#Elastic-Nets">&#182;</a></h4><ul>
+<li>is an extension of linear regression that adds regularization penalties to the loss function during training</li>
+<li>the estimates from the elastic net method is defined as
+$$ \hat{\beta} = \text{argmin}_{\beta}(\| y - X\beta \|^{2} + \lambda_{2}\| \beta\|^{2} + \lambda_{1}\| \beta\|_{1}) $$</li>
+<li>the benefit of elastic net is that it allows balance of both the penalties as a weighted sum 
+$$\lambda_{1} + \lambda_{2} = 1$$</li>
 </ul>
 
 </div>
