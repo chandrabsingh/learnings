@@ -17,6 +17,8 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - build face recognizer with svm on scikit lfw people dataset
 - [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
 - google user experience(ux) design certification
+- simpson paradox resolution through bayesian hierarchical linear regression using pymc and theano
+- gaussian process regression
 - multiclass classification
 - multilabel classification
 - weka visualization
@@ -52,7 +54,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - #### mathematics-notes
   - [linear algebra](maths/linear_algebra.html)
   - [probability simulations](maths/probability_simulations.html)
-  - statistics
+  - [statistics - conceptual brief](maths/statistical_cheat_sheat.html)
   - statistical inference
   - causal inference
   - econometrics
