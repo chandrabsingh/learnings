@@ -55,6 +55,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
   - [linear algebra](maths/linear_algebra.html)
   - [probability simulations](maths/probability_simulations.html)
   - [statistics - conceptual brief](maths/statistical_cheat_sheat.html)
+  - [bayesian - probabilistic programming](maths/probabilistic_programming.html)
   - statistical inference
   - causal inference
   - econometrics
