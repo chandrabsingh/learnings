@@ -107,7 +107,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - #### stanford-ee364a-convex optimization 1-notes
   - [lec01 - introduction](ee364a_co1/lec01-Introduction.html)
 
-### [resume](Resume_Chandra_B_Singh.pdf)
+### [resume](interviews/Resume_Chandra_B_Singh.pdf)
 
 ### contact
 
