@@ -12,7 +12,7 @@ here are the notes and understanding of the tools i learnt during my sabbatical 
 - [a primer on causal inference - randomized controlled tests](maths/causal_inference_learning.html)
 - [my .zshrc](codes/my_zshrc.html)
 - [>> store sales forecasting using tensorflow on kaggle walmart dataset](ml_examples/Store_Sales_Forecasting_With_Tensorflow.html)
-- [>> evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
+- [evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset
 - [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
