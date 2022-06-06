@@ -13117,21 +13117,451 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Need-for-ML-Design-Patterns">The Need for ML Design Patterns<a class="anchor-link" href="#The-Need-for-ML-Design-Patterns">&#182;</a></h3><h3 id="Data-representation-design-patterns">Data representation design patterns<a class="anchor-link" href="#Data-representation-design-patterns">&#182;</a></h3><h4 id="#1-Hashed-Feature">#1 Hashed Feature<a class="anchor-link" href="##1-Hashed-Feature">&#182;</a></h4>
+<h3 id="The-Need-for-ML-Design-Patterns">The Need for ML Design Patterns<a class="anchor-link" href="#The-Need-for-ML-Design-Patterns">&#182;</a></h3><table>
+<thead><tr>
+<th>.</th>
+<th>. </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./images/mldp_data_representation.png"></td>
+<td><img src="./images/mldp_Reproducability.png"> </td>
+</tr>
+<tr>
+<td><img src="./images/mldp_ProbRepresentation.png"></td>
+<td><img src="./images/mldp_Resilience.png"> </td>
+</tr>
+<tr>
+<td><img src="./images/mldp_ModifyingTrainingLoop.png"></td>
+<td><img src="./images/mldp_ResponsibleAI.png"> </td>
+</tr>
+</tbody>
+</table>
+<p>$\tiny{\text{20200917 - Sara Robinson - Responsible-AI-patterns}}$</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="#2-Embedding">#2 Embedding<a class="anchor-link" href="##2-Embedding">&#182;</a></h4>
+<h3 id="Data-representation-design-patterns">Data representation design patterns<a class="anchor-link" href="#Data-representation-design-patterns">&#182;</a></h3><ul>
+<li>data representation<ul>
+<li>baby weight represented as boolean in the model</li>
+</ul>
+</li>
+<li>feature engineering<ul>
+<li>process of creating features</li>
+</ul>
+</li>
+<li>learnable data representation</li>
+<li>feature extraction<ul>
+<li>feature cross design pattern<ul>
+<li>a decision tree where each node can represent only one input variable reduces to a stepwise linear function, </li>
+<li>an oblique decision tree where each node can represent a linear combination of input variables reduces to a piecewise linear function</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Simple data representations<ul>
+<li>Numerical inputs<ul>
+<li>scaling say [-1,1]<ul>
+<li>optimizer works better</li>
+</ul>
+</li>
+<li>gradient descent <ul>
+<li>requires more steps to converge as curvature of loss function increases<ul>
+<li>derivative of features with large magnitude will be larger and will have abnormal weight</li>
+</ul>
+</li>
+<li>centering data within a range makes error function more spherical, will converge faster</li>
+</ul>
+</li>
+<li>lack of scaling <ul>
+<li>affects efficacy of L1/L2 regularization</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Linear scaling</p>
+<ul>
+<li>Min-max scaling</li>
+<li>Clipping<ul>
+<li>helps in solving outliers</li>
+</ul>
+</li>
+<li>Z-score normalization</li>
+<li>Winsorizing<ul>
+<li>use empirical distribution to clip dataset</li>
+<li>10 and 90 percentile</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Min-max and clipping</p>
+<ul>
+<li>best for uniformly distributed data</li>
+</ul>
+</li>
+<li>Z-score<ul>
+<li>best for normally distributed data</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>dont throw away outliers</li>
+</ul>
+<ul>
+<li>Non-linear transformations<ul>
+<li>distribution of number of views of Wikipedia pages is highly skewed</li>
+<li>transform using the logarithm, power function and linear scaling in succession</li>
+<li>histogram equalization<ul>
+<li>bins of histogram are chosen based on quantiles of raw distribution</li>
+</ul>
+</li>
+<li>Box-Cox transformation</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Categorical inputs<ul>
+<li>One-hot encoding</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="#3-Feature-Cross">#3 Feature Cross<a class="anchor-link" href="##3-Feature-Cross">&#182;</a></h4>
+<h4 id="#1-Hashed-Feature">#1 Hashed Feature<a class="anchor-link" href="##1-Hashed-Feature">&#182;</a></h4><ul>
+<li>Problem Statement: <ul>
+<li>incomplete vocabulary</li>
+<li>cardinality of model</li>
+<li>cold start</li>
+</ul>
+</li>
+<li>Solution<ul>
+<li>one-hot encoding categorical variable<ul>
+<li>Problem: pose problems for doctor_id of person delivering baby</li>
+<li>Potential Sol: <ul>
+<li>training data might not contain complete information of all hospitals/physicians<ul>
+<li>vocabulary is incomplete</li>
+</ul>
+</li>
+<li>categorical variables can have high cardinality<ul>
+<li>sparse dataset</li>
+</ul>
+</li>
+<li>cold start problem<ul>
+<li>new hired doctor</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Problem: Predict arrival delay of flight - 347 airport in US</li>
+<li>Process:<ul>
+<li>feature will be quite sparse</li>
+</ul>
+</li>
+<li>Potential Sol: <code>Hashed Feature design pattern</code><ul>
+<li>convert categorial input to unique string</li>
+<li>deterministic hashing algorithm (for training and testing)</li>
+<li>remainder of hash result as buckets<ul>
+<li>returns absolute value of modulo of hashed number, which can be negative</li>
+<li><code>farm_fingerprint</code> in BigQuery</li>
+<li><code>feature_column</code> in TensorFlow</li>
+</ul>
+</li>
+<li>choice of bucket size<ul>
+<li>10 buckets will have average of 35 airports<ul>
+<li>implying characteristics of airports will be shared</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>high cardinality<ul>
+<li>using small number of buckets makes the model practical</li>
+<li>this is lossy encoding - acceptable compromise</li>
+</ul>
+</li>
+<li>cold start<ul>
+<li>solves the problem </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Trade Offs/Alternatives<ul>
+<li>bucket collision<ul>
+<li>compromising on the ability of accurately representing data</li>
+<li>dont use if vocabulary is small and cold start is not a problem</li>
+</ul>
+</li>
+<li>Skew<ul>
+<li>Chicago airport is busiest, so all airports in the same bucket will be highly skewed</li>
+</ul>
+</li>
+<li>Aggregate feature<ul>
+<li>for every airport, <ul>
+<li>find probability of on-time flights </li>
+<li>add it as a feature of model</li>
+<li>this avoids losing information of airports while hashing</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hyperparameter tuning<ul>
+<li>choose number of buckets as hyperparameter</li>
+</ul>
+</li>
+<li>Crypotographic hash<ul>
+<li>by not using modulo in hashed feature<ul>
+<li>this becomes a binary encoding problem</li>
+</ul>
+</li>
+<li>binary encoding does not solve out-of-vocabulary or cold start problem<ul>
+<li>airports starting with letter O have nothing in common</li>
+<li>by not using modulo, encoding will have a spurious correlation between airports that start with same letter</li>
+<li>so binary encoding of farm fingerprint is not recommended</li>
+</ul>
+</li>
+<li>binary encoding of MD5 hash will not have spurious correlation<ul>
+<li>as the output of MD5 hash is uniformly distributed</li>
+<li>but this is not deterministic and not unique</li>
+</ul>
+</li>
+<li>fingerprint hashing algorithm is needed and not a cryptographic hashing algorithm<ul>
+<li>so as to produce deterministic and unique value</li>
+<li>cryptographic hash is not usable in a feature engineering context</li>
+</ul>
+</li>
+<li>MD5 is non-deterministic because of "salt"<ul>
+<li>salt is the string that is added to each password</li>
+<li>this ensures that two users using the same password, will have different hashed value</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Order of operation is also important<ul>
+<li>abs, mod, farm_fingerprint</li>
+</ul>
+</li>
+<li>empty hash buckets<ul>
+<li>possible</li>
+<li>use L2 regularization<ul>
+<li>weights associated with empty bucket will be driven to near-zero</li>
+<li>this ensures, out-of-vocabulary fall into empty bucket</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="#2-Embedding">#2 Embedding<a class="anchor-link" href="##2-Embedding">&#182;</a></h4><ul>
+<li>Problem Statement: <ul>
+<li>convert high cardinality data into low dimensional</li>
+<li>preserve the relevant information</li>
+</ul>
+</li>
+<li>Counterfactuals:<ul>
+<li>categorical data represented as one-hot encoding<ul>
+<li>does not represent plurality in dataset</li>
+</ul>
+</li>
+<li>one-hot encoding represents features are independent<ul>
+<li>closeness relationship is often required</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Solution:<ul>
+<li>embeddings capture closeness relationships in the input data</li>
+<li>use embedding layer/weights as replacement for <ul>
+<li>clustering technique (customer segmentation)</li>
+<li>dimensionality reduction method (PCA)</li>
+</ul>
+</li>
+<li>weights can be learned using gradient descent procedure</li>
+</ul>
+</li>
+<li>Text Embeddings<ul>
+<li>cardinality of vocabulary <ul>
+<li>large sparse matrix</li>
+</ul>
+</li>
+<li>Tokenization<ul>
+<li>lookup table that maps each word to an index</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Image Embeddings<ul>
+<li>text deals with sparse input</li>
+<li>image/audio deals with dense, high dimensional vectors<ul>
+<li>in CNNs, if the last softmax layer is removed<ul>
+<li>can be used to extract feature vector for an input</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Learned Embeddings<ul>
+<li>extracts inherent similarities between categories</li>
+<li>pretrained embeddings are referred as transfer learning</li>
+</ul>
+</li>
+<li>Trade-Offs/Alternatives:<ul>
+<li>Choosing the embedding dimension</li>
+<li>Autoencoders<ul>
+<li>Encoder<ul>
+<li>maps high-dimensional input into low-dimensional embedding layer</li>
+<li>auxillary learning task</li>
+</ul>
+</li>
+<li>Decoder<ul>
+<li>maps representation back into high-dimensional embedding layer</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Context language models<ul>
+<li>examples<ul>
+<li>Context language models <ul>
+<li>Word2Vec<ul>
+<li>Continuous Bag of Words (CBOW)</li>
+<li>skip-gram model</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Bidirectional Encoding Representations from Transformers<ul>
+<li>BERT<ul>
+<li>masked language model<ul>
+<li>- words are randomly masked from text 
+- model guesses what the missing words are</li>
+</ul>
+</li>
+<li>next sentence prediction<ul>
+<li>- classification task
+- whether or not two sentences follow each other</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pre-trained text embedding<ul>
+<li>like Word2Vec, NNLM, GLoVE, BERT</li>
+<li>can be added to ML model</li>
+<li>along with structured inputs</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Embeddings in a data warehouse<ul>
+<li>TensorFlow Hub: has pretrained models like Swivel</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Potential Project Work/Notes</strong>:<ul>
+<li>build a deep neural network (DNN) model in Keras that implements a simple embedding layer to transform the word integers into dense vectors</li>
+<li>CNN/NLP - image-to-text captioning <ul>
+<li>encoder produces low-dimensional embedding representation of image</li>
+<li>encoder is Image2Vec embedding machine</li>
+</ul>
+</li>
+<li>Read: TabNet</li>
+<li>TensorFlow Hub: has pretrained models like Swivel</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="#3-Feature-Cross">#3 Feature Cross<a class="anchor-link" href="##3-Feature-Cross">&#182;</a></h4><ul>
+<li>helps model learn relationships between input faster by explicitly making each combination of input values a separate feature</li>
+<li>suppose we need to create a binary classifier that separates the label into + and - classes</li>
+</ul>
+<p><img src="./images/featureCross.png" width=400 height=400></p>
+<ul>
+<li>its a commonly used feature engineering technique</li>
+<li>a featuree cross is a synthetic feature formed by concatenating two or more categorical features in order to capture interaction between them</li>
+<li>by joining two features, nonlinearity can be encoded into the model<ul>
+<li>the predictive abilities of features is extended</li>
+</ul>
+</li>
+<li>complex models like neural network and trees can learn feature crosses on their own</li>
+<li>explicit features are better than linear models</li>
+<li><p>speeds up model training and reduces model complexity</p>
+</li>
+<li><p>Trade-Offs and Alternatives</p>
+<ul>
+<li>Handling numerical features<ul>
+<li>feature cross cannot be used with continuous input<ul>
+<li>for m and n possible values, feature cross will be m*n elements</li>
+</ul>
+</li>
+<li>if data is continous, bucketize the data to make it categorical before applying feature cross<ul>
+<li>for example - latitude and longitude</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Handling high cardinality<ul>
+<li>feature cross leads to sparsity</li>
+<li>can be useful to pass a feature cross through an Embedding layer<ul>
+<li>this will create a lower-dimensional representation</li>
+<li>it will also allow to capture the closeness relationship</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Need for regularization<ul>
+<li>as feature cross introduce multiplicative cardinality, the number of category increases</li>
+<li>if individual features have too few items, model will not be able to generalize</li>
+<li>so feature cross can either<ul>
+<li>be paired with L1 regularization, which encourages sparsity of features</li>
+<li>or with L2 regularization, which limits overfitting</li>
+</ul>
+</li>
+<li>thus model will be able to ignore extraneous noise by synthetic features and combat overfitting</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
