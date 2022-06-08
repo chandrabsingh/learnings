@@ -6,11 +6,11 @@ Here are the project work, notes and understanding of the tools I learnt during 
 |------------|---|-----|------|----------------|------|-----|
 |Machine Learning|VertexAI|TensorFlow|Bayesian inference|DSA|IRC-CRM|Python|
 |Artificial Intelligence|BigQuery|Keras|Probability|Software Engineering|CCR|SQL/Oracle|
-|Deep Learning||PyTorch|Statistics|Design Patterns|Credit |C++|
-|Recommender systems||Neo4j GraphDB|Econometrics|System designs|Derivatives|Java|
+|Neural Network||PyTorch|Statistics|Design Patterns|Credit |Java|
+|Recommender systems||Neo4j GraphDB|Econometrics|System designs|Derivatives|C++|
 |Reinforcement Learning||Spark|Linear Algebra|ML Design Patterns|Market Risk|Shell Script|
-|CNN||NoSQL|Causal Inference|Unix||Jupyter|
-| ||| |Data Analytics||Git/VSS|
+|Deep Learning||NoSQL|Causal Inference|Unix||Jupyter|
+|CNN|||Optimization|Data Analytics||Git/VSS|
 | ||| |||CI/CD|
 
 
@@ -21,19 +21,27 @@ Here are the project work, notes and understanding of the tools I learnt during 
 - [>> store sales forecasting using tensorflow on kaggle walmart dataset](ml_examples/Store_Sales_Forecasting_With_Tensorflow.html)
 - [evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
 - build movie recommender with naive bayes on movielens dataset
-build face recognizer with svm on scikit lfw people dataset  
+- build face recognizer with svm on scikit lfw people dataset  
 - [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
 - [learnings from book on machine learning design patterns](ml_examples/ml_design_patterns.html)
+- k-means clustering using iris dataset
+- [decision tree classification using iris dataset](../ml_examples/decision_tree_classification.html)
 - gaussian process regression
 - multiclass classification
 - multilabel classification
 - multimodal classification
 - mixture models using em algorithm
+- hierarchical linear modeling/regression
+- mastering ml in python in 6 steps
+- l1/l2 regularization
 
 <h3 align="center">Artificial Intelligence</h3>
 
 - python - artificial intelligence algos
 - optimizer convergence rates
+
+<h3 align="center">Neural Network</h3>
+
 
 <h3 align="center">Deep Learning</h3>
 
@@ -76,6 +84,10 @@ build face recognizer with svm on scikit lfw people dataset
 
 - [linear algebra](maths/linear_algebra.html)
 
+<h3 align="center">Optimization</h3>
+
+- scipy optimization
+
 <h3 align="center">Data Structure and Algorithms (DSA)</h3>
 
 - data structures
@@ -92,7 +104,7 @@ build face recognizer with svm on scikit lfw people dataset
 <h3 align="center">Data Analytics</h3>
 
 - [python - data analytics - snippets](codes/python_data_analytics.html)
-- scipy optimization
+- scikit learn - analytics
 
 <h3 align="center">System designs</h3>
 
@@ -122,6 +134,7 @@ build face recognizer with svm on scikit lfw people dataset
 
 - cassandra
 - mongodb
+- spark
 
 <h3 align="center">Tensorflow</h3>
 
