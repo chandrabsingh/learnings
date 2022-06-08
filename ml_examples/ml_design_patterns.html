@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "372.594px"}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13568,7 +13568,64 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="#4-Multimodal-Input">#4 Multimodal Input<a class="anchor-link" href="##4-Multimodal-Input">&#182;</a></h4>
+<h4 id="#4-Multimodal-Input">#4 Multimodal Input<a class="anchor-link" href="##4-Multimodal-Input">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>represent different data types or data that can be expressed in complex ways by concatenating all the available data representations</li>
+<li>for example be able to combine image and text inputs in a model</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Tabular data multiple ways<ul>
+<li>group them in buckets  </li>
+</ul>
+</li>
+<li>Multimodal representation of text<ul>
+<li>Text data multiple ways<ul>
+<li>represent text as embeddings</li>
+<li>in BOW approach<ul>
+<li>the order of text is not preserved</li>
+<li>but it detects presence/absence of certain words </li>
+</ul>
+</li>
+<li>which approach to choose of BOW and embedding<ul>
+<li>Embeddings<ul>
+<li>provide extra information about word meaning<ul>
+<li>- not available in BOW</li>
+</ul>
+</li>
+<li>but embeddings require training</li>
+<li>identifies relationships between words</li>
+<li>encodes the frequency of words in text</li>
+</ul>
+</li>
+<li>BOW<ul>
+<li>use BOW with linear regression or decision tree </li>
+<li>providees strong signals for most significant words in the vocabulary</li>
+<li>treats presence of each word as boolean value</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Extracting tabular features from text<ul>
+<li>punctuation (question mark) influences the likelihood of answer</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Multimodal representation of images<ul>
+<li>Images as pixel values</li>
+<li>Images as tiled structures</li>
+<li>Combining different image representations</li>
+<li>Using images with metadata</li>
+</ul>
+</li>
+<li>Multimodal feature representations and model interpretability</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -13582,21 +13639,425 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="#5-Reframing">#5 Reframing<a class="anchor-link" href="##5-Reframing">&#182;</a></h4>
+<h4 id="#5-Reframing">#5 Reframing<a class="anchor-link" href="##5-Reframing">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>refers to changing the representation of the output of a machine learning problem</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution<ul>
+<li>Capturing uncertainty</li>
+<li>Changing the objective</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Bucketized outputs</li>
+<li>Other ways of capturing uncertainty</li>
+<li>Precision of predictions</li>
+<li>Restricting the prediction range</li>
+<li>Label bias</li>
+<li>Multitask learning</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="#6-Multilabel">#6 Multilabel<a class="anchor-link" href="##6-Multilabel">&#182;</a></h4>
+<h4 id="#6-Multilabel">#6 Multilabel<a class="anchor-link" href="##6-Multilabel">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>refers to problems where we can assign more than one label to a given training example</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution<ul>
+<li>SIGMOID VERSUS SOFTMAX ACTIVATION</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Sigmoid output for models with two classes</li>
+<li>Which loss function should we use?</li>
+<li>Parsing sigmoid results</li>
+<li>Dataset considerations</li>
+<li>Inputs with overlapping labels</li>
+<li>One versus rest</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="#7-Ensemble">#7 Ensemble<a class="anchor-link" href="##7-Ensemble">&#182;</a></h4><h4 id="#8-Cascade">#8 Cascade<a class="anchor-link" href="##8-Cascade">&#182;</a></h4><h4 id="#9-Neutral-Class">#9 Neutral Class<a class="anchor-link" href="##9-Neutral-Class">&#182;</a></h4><h4 id="#10-Rebalancing">#10 Rebalancing<a class="anchor-link" href="##10-Rebalancing">&#182;</a></h4><h3 id="Patterns-that-modify-model-training">Patterns that modify model training<a class="anchor-link" href="#Patterns-that-modify-model-training">&#182;</a></h3><h4 id="#11-Useful-overfitting">#11 Useful overfitting<a class="anchor-link" href="##11-Useful-overfitting">&#182;</a></h4><h4 id="#12-Checkpoints">#12 Checkpoints<a class="anchor-link" href="##12-Checkpoints">&#182;</a></h4><h4 id="#13-Transfer-Learning">#13 Transfer Learning<a class="anchor-link" href="##13-Transfer-Learning">&#182;</a></h4><h4 id="#14-Distribution-Strategy">#14 Distribution Strategy<a class="anchor-link" href="##14-Distribution-Strategy">&#182;</a></h4><h4 id="#15-Hyperparameter-Tuning">#15 Hyperparameter Tuning<a class="anchor-link" href="##15-Hyperparameter-Tuning">&#182;</a></h4><h3 id="Resilience-patterns">Resilience patterns<a class="anchor-link" href="#Resilience-patterns">&#182;</a></h3><h4 id="#16-Stateless-Serving-Function">#16 Stateless Serving Function<a class="anchor-link" href="##16-Stateless-Serving-Function">&#182;</a></h4><h4 id="#17-Batch-Serving">#17 Batch Serving<a class="anchor-link" href="##17-Batch-Serving">&#182;</a></h4><h4 id="#18-Continuous-Model-Evaluation">#18 Continuous Model Evaluation<a class="anchor-link" href="##18-Continuous-Model-Evaluation">&#182;</a></h4><h4 id="#19-Two-Phase-Predictions">#19 Two Phase Predictions<a class="anchor-link" href="##19-Two-Phase-Predictions">&#182;</a></h4><h4 id="#20-Keyed-Predictions">#20 Keyed Predictions<a class="anchor-link" href="##20-Keyed-Predictions">&#182;</a></h4><h3 id="Reproducibility-patterns">Reproducibility patterns<a class="anchor-link" href="#Reproducibility-patterns">&#182;</a></h3><h4 id="#21-Transform">#21 Transform<a class="anchor-link" href="##21-Transform">&#182;</a></h4><h4 id="#22-Repeatable-Sampling">#22 Repeatable Sampling<a class="anchor-link" href="##22-Repeatable-Sampling">&#182;</a></h4><h4 id="#23-Bridged-Schema">#23 Bridged Schema<a class="anchor-link" href="##23-Bridged-Schema">&#182;</a></h4><h4 id="#24-Windowed-Inference">#24 Windowed Inference<a class="anchor-link" href="##24-Windowed-Inference">&#182;</a></h4><h4 id="#25-Workflow-Pipeline">#25 Workflow Pipeline<a class="anchor-link" href="##25-Workflow-Pipeline">&#182;</a></h4><h4 id="#26-Feature-Store">#26 Feature Store<a class="anchor-link" href="##26-Feature-Store">&#182;</a></h4><h4 id="#27-Model-Versioning">#27 Model Versioning<a class="anchor-link" href="##27-Model-Versioning">&#182;</a></h4><h3 id="Responsible-AI">Responsible AI<a class="anchor-link" href="#Responsible-AI">&#182;</a></h3><h4 id="#28-Heuristic-benchmark">#28 Heuristic benchmark<a class="anchor-link" href="##28-Heuristic-benchmark">&#182;</a></h4><h4 id="#29-Explainable-Predictions">#29 Explainable Predictions<a class="anchor-link" href="##29-Explainable-Predictions">&#182;</a></h4><h4 id="#30-Fairness-Lens">#30 Fairness Lens<a class="anchor-link" href="##30-Fairness-Lens">&#182;</a></h4><h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3>
+<h4 id="#7-Ensembles">#7 Ensembles<a class="anchor-link" href="##7-Ensembles">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>refers to techniques in machine learning that combine multiple machine learning models and aggregate their results to make prediction</li>
+</ul>
+</li>
+<li>Problem<ul>
+<li>irreducible error<ul>
+<li>error inherent in the model, resulting from the noise in the dataset</li>
+</ul>
+</li>
+<li>reducible error<ul>
+<li>error due to bias<ul>
+<li>bias leads to inability to learn relationship about model's features and labels</li>
+<li>high bias will lead to underfit</li>
+</ul>
+</li>
+<li>error due to variance<ul>
+<li>variance leads to inability to generalize on new unseen examples</li>
+<li>high variance will lead to overfit</li>
+</ul>
+</li>
+<li>goal is to have low bias and low variance model<ul>
+<li>increasing model complexity <ul>
+<li>decreases bias but increases variance</li>
+</ul>
+</li>
+<li>decreasing model complexity <ul>
+<li>decreases variance but increases bias</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Solution<ul>
+<li>Bagging<ul>
+<li>bootstrap aggregating</li>
+</ul>
+</li>
+<li>Boosting<ul>
+<li>works by iteratively improving model to reduce prediction error</li>
+<li>model is punished more and more as per the residuals at each iteration step</li>
+<li>each new weak learner corrects for the mistakes of the previous prediction by modeling the residuals delta_i of each step</li>
+<li>AdaBoost, Gradient Boosting Machines, and XGBoost</li>
+<li>good for high bias sets</li>
+</ul>
+</li>
+<li>Stacking</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Increased training and design time</li>
+<li>Dropout as bagging</li>
+<li>Decreased model interpretability<ul>
+<li>explanation predictions can get difficult</li>
+<li>for example random forest</li>
+</ul>
+</li>
+<li>Choosing the right tool for the problem</li>
+<li>Other ensemble methods<ul>
+<li>incorporate Bayesian approach with neural architecture search and reinforcement learning, like Google’s AdaNet/AutoML </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="#8-Cascade">#8 Cascade<a class="anchor-link" href="##8-Cascade">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>addresses situation where a ML problem can be broken down into series of ML problem</li>
+<li>the output of one model is an input to the following model</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution<ul>
+<li>typically a ML problem can be solved by breaking it into 4 cascade problems<ul>
+<li>a classification model to identify the circumstance</li>
+<li>one model trained on unusual circumstances</li>
+<li>separate model trained on typical circumstances</li>
+<li>model to combine the output of the two separate models, because the output is a probabilistic combination of the two outputs</li>
+</ul>
+</li>
+<li>this pattern adds quite a bit of complexity in the workflow</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Deterministic inputs</li>
+<li>Single model<ul>
+<li>should not be used where a single model is eenough</li>
+</ul>
+</li>
+<li>Internal consistency</li>
+<li>Pre-trained models</li>
+<li>Reframing instead of Cascade</li>
+<li>Regression in rare situations</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="#9-Neutral-Class">#9 Neutral Class<a class="anchor-link" href="##9-Neutral-Class">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>train a binary classifier that outputs probability of an event, train a three-class classifier that outputs disjoint probabilities for Yes, No, and Maybe</li>
+<li>Maybe is a disjoint class and they don't overlap</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution<ul>
+<li>Synthetic data</li>
+<li>In real world</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>When human experts disagree</li>
+<li>Customer satisfaction</li>
+<li>As a way to improve embeddings</li>
+<li>Reframing with neutral class</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="#10-Rebalancing">#10 Rebalancing<a class="anchor-link" href="##10-Rebalancing">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>approaches for handling datasets that are inherently imbalanced</li>
+</ul>
+</li>
+<li>Problem<ul>
+<li>accuracy can be misleading on imbalanced datasest</li>
+</ul>
+</li>
+<li>Solution<ul>
+<li>Choosing an evaluation metric<ul>
+<li>use metrics like precision, recall, or F-measure</li>
+<li>F-measure ranges from 0 to 1, uses both precision and recall</li>
+<li>test class should have the same class balance as original dataset</li>
+<li>ROC curve (AUC)</li>
+</ul>
+</li>
+<li>Downsampling<ul>
+<li>changes the balance of our underlying dataset</li>
+</ul>
+</li>
+<li>Weighted classes<ul>
+<li>changes how model handles certain classes</li>
+</ul>
+</li>
+<li>Upsampling<ul>
+<li>duplicates examples from minority class, and </li>
+<li>apply augmentations to generate additional samples</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Reframing and Cascade</li>
+<li>Anomaly detection</li>
+<li>Number of minority class examples available</li>
+<li>Combining different techniques</li>
+<li>Choosing a model architecture</li>
+<li>Importance of explainability</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Model-training-patterns">Model training patterns<a class="anchor-link" href="#Model-training-patterns">&#182;</a></h3><ul>
+<li>iterative process</li>
+</ul>
+<h4 id="Typical-Training-Loop">Typical Training Loop<a class="anchor-link" href="#Typical-Training-Loop">&#182;</a></h4><ul>
+<li>Stochastic Gradient Descent(SGD)<ul>
+<li>error/loss needs to be monitored<ul>
+<li>not a closed form solution</li>
+</ul>
+</li>
+<li>extensions(de facto optimizer in modern day frameworks)<ul>
+<li>Adam</li>
+<li>Adagrad</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Keras Training Loop</li>
+</ul>
+<h4 id="#11-Useful-Overfitting">#11 Useful Overfitting<a class="anchor-link" href="##11-Useful-Overfitting">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>omit use of validation or testing dataset so as to intentionally overfit on the training dataset</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives<ul>
+<li>Interpolation and chaos theory</li>
+<li>Monte Carlo methods</li>
+<li>Data-driven discretizations</li>
+<li>Unbounded domains</li>
+<li>Distilling knowledge of neural network</li>
+<li>Overfitting a batch</li>
+</ul>
+</li>
+</ul>
+<h4 id="#12-Checkpoints">#12 Checkpoints<a class="anchor-link" href="##12-Checkpoints">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>store the full state of the model periodically, which can be accessed in partially trained models</li>
+<li>along with also use virtual epochs, wherein the inner loop of the fit() function is used, not on the full training dataset but on a fixed number of training examples</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#13-Transfer-Learning">#13 Transfer Learning<a class="anchor-link" href="##13-Transfer-Learning">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>use previously trained model, </li>
+<li>freeze the weights, and </li>
+<li>incorporate nontrainable layers into a new model that solves the same problem, but on a smaller dataset</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#14-Distribution-Strategy">#14 Distribution Strategy<a class="anchor-link" href="##14-Distribution-Strategy">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>training loop is carried out at scale over multiple workers, <ul>
+<li>often with caching, hardware acceleration, and parallelization</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#15-Hyperparameter-Tuning">#15 Hyperparameter Tuning<a class="anchor-link" href="##15-Hyperparameter-Tuning">&#182;</a></h4><ul>
+<li>Basic Idea<ul>
+<li>training loop is inserted into an optimization method to find the optimal set of model hyperparameters</li>
+</ul>
+</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Resilience-patterns">Resilience patterns<a class="anchor-link" href="#Resilience-patterns">&#182;</a></h3><h4 id="#16-Stateless-Serving-Function">#16 Stateless Serving Function<a class="anchor-link" href="##16-Stateless-Serving-Function">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#17-Batch-Serving">#17 Batch Serving<a class="anchor-link" href="##17-Batch-Serving">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#18-Continuous-Model-Evaluation">#18 Continuous Model Evaluation<a class="anchor-link" href="##18-Continuous-Model-Evaluation">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#19-Two-Phase-Predictions">#19 Two Phase Predictions<a class="anchor-link" href="##19-Two-Phase-Predictions">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#20-Keyed-Predictions">#20 Keyed Predictions<a class="anchor-link" href="##20-Keyed-Predictions">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h3 id="Reproducibility-patterns">Reproducibility patterns<a class="anchor-link" href="#Reproducibility-patterns">&#182;</a></h3><h4 id="#21-Transform">#21 Transform<a class="anchor-link" href="##21-Transform">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#22-Repeatable-Sampling">#22 Repeatable Sampling<a class="anchor-link" href="##22-Repeatable-Sampling">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#23-Bridged-Schema">#23 Bridged Schema<a class="anchor-link" href="##23-Bridged-Schema">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#24-Windowed-Inference">#24 Windowed Inference<a class="anchor-link" href="##24-Windowed-Inference">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#25-Workflow-Pipeline">#25 Workflow Pipeline<a class="anchor-link" href="##25-Workflow-Pipeline">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#26-Feature-Store">#26 Feature Store<a class="anchor-link" href="##26-Feature-Store">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#27-Model-Versioning">#27 Model Versioning<a class="anchor-link" href="##27-Model-Versioning">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h3 id="Responsible-AI">Responsible AI<a class="anchor-link" href="#Responsible-AI">&#182;</a></h3><h4 id="#28-Heuristic-benchmark">#28 Heuristic benchmark<a class="anchor-link" href="##28-Heuristic-benchmark">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#29-Explainable-Predictions">#29 Explainable Predictions<a class="anchor-link" href="##29-Explainable-Predictions">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h4 id="#30-Fairness-Lens">#30 Fairness Lens<a class="anchor-link" href="##30-Fairness-Lens">&#182;</a></h4><ul>
+<li>Basic Idea</li>
+<li>Problem</li>
+<li>Solution</li>
+<li>Trade-Offs and Alternatives</li>
+</ul>
+<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3>
 </div>
 </div>
 </div>
