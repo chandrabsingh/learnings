@@ -2,9 +2,9 @@ Here are the project work, notes and understanding of the tools I learnt during 
 
 <h2 align="center">SkillSet Summary</h2>
 
-|Data Science|GCP|CloudTools|Mathematics|Computer Science|Finance|Programming|
+|Data Science|GCP|Distributed Computing|Mathematics|Computer Science|Finance|Programming|
 |------------|---|-----|------|----------------|------|-----|
-|Machine Learning|VertexAI|TensorFlow|Bayesian inference|Algorithms|IRC-CRM|Python|
+|Machine Learning|VertexAI|TensorFlow|Bayesian inference|DSA|IRC-CRM|Python|
 |Artificial Intelligence|BigQuery|Keras|Probability|Software Engineering|CCR|SQL/Oracle|
 |Deep Learning||PyTorch|Statistics|Design Patterns|Credit |C++|
 |Recommender systems||Neo4j GraphDB|Econometrics|System designs|Derivatives|Java|
@@ -27,11 +27,13 @@ build face recognizer with svm on scikit lfw people dataset
 - gaussian process regression
 - multiclass classification
 - multilabel classification
+- multimodal classification
 - mixture models using em algorithm
 
 <h3 align="center">Artificial Intelligence</h3>
 
 - python - artificial intelligence algos
+- optimizer convergence rates
 
 <h3 align="center">Deep Learning</h3>
 
@@ -47,7 +49,7 @@ build face recognizer with svm on scikit lfw people dataset
 
 <h3 align="center">Bayesian inference</h3>
 
-- [bayesian - probabilistic programming](maths/probabilistic_programming.html)
+- [linear regression using bayesian - probabilistic programming pymc3](maths/probabilistic_programming.html)
 - simpson paradox resolution through bayesian hierarchical linear regression using pymc and theano
 
 <h3 align="center">Causal inference</h3>
@@ -58,7 +60,7 @@ build face recognizer with svm on scikit lfw people dataset
 
 <h3 align="center">Probability</h3>
 
-- [probability simulations](maths/probability_simulations.html)
+- [probability paradoxes - simulations](maths/probability_simulations.html)
 - probability
 - stochastic calculus
 
@@ -74,7 +76,7 @@ build face recognizer with svm on scikit lfw people dataset
 
 - [linear algebra](maths/linear_algebra.html)
 
-<h3 align="center">Algorithms</h3>
+<h3 align="center">Data Structure and Algorithms (DSA)</h3>
 
 - data structures
 - [python - conceptual snippets](codes/python_faqs.html)  
@@ -90,6 +92,7 @@ build face recognizer with svm on scikit lfw people dataset
 <h3 align="center">Data Analytics</h3>
 
 - [python - data analytics - snippets](codes/python_data_analytics.html)
+- scipy optimization
 
 <h3 align="center">System designs</h3>
 
@@ -103,6 +106,8 @@ build face recognizer with svm on scikit lfw people dataset
 <h3 align="center">Design Patterns</h3>
 
 - [python - design patterns](system_designs/design_patterns_python.html)
+- solid principles
+- architecture patterns with python
 
 <h3 align="center">ML Design Patterns</h3>
 
@@ -121,6 +126,8 @@ build face recognizer with svm on scikit lfw people dataset
 <h3 align="center">Tensorflow</h3>
 
 - [tensorflow intro](dl_examples/01_tensorflow_intro.html)
+- [>> store sales forecasting using tensorflow on kaggle walmart dataset](ml_examples/Store_Sales_Forecasting_With_Tensorflow.html)
+- [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
 
 <h3 align="center">GCP</h3>
 
@@ -137,7 +144,7 @@ build face recognizer with svm on scikit lfw people dataset
 - [pytorch intro](dl_examples/01_pytorch_intro.html)
 - [fastai intro](dl_examples/01_fastai_intro.html)
 
-<h3 align="center">Shell scripting</h3>
+<h3 align="center">Unix/Shell script</h3>
 
 - [my .zshrc](codes/my_zshrc.html)
 - [unix - shell commands](codes/unix_shell_script.html)
