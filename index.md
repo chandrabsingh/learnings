@@ -4,14 +4,14 @@ Here are the project work, notes and understanding of the tools I learnt during 
 
 |Data Science|GCP|Distributed Computing|Mathematics|Computer Science|Finance|Programming|
 |------------|---|-----|------|----------------|------|-----|
-|Machine Learning|VertexAI|TensorFlow|Bayesian inference|DSA|IRC-CRM|Python|
-|Artificial Intelligence|BigQuery|Keras|Probability|Software Engineering|CCR|SQL/Oracle|
-|Neural Network||PyTorch|Statistics|Design Patterns|Credit |Java|
+|Machine Learning|VertexAI|TensorFlow|Statistics|DSA|IRC-CRM|Python|
+|Artificial Intelligence|BigQuery|Keras|Linear Algebra|Software Engineering|CCR|SQL/Oracle|
+|Neural Network||PyTorch|Probability|Design Patterns|Credit |Java|
 |Recommender systems||Neo4j GraphDB|Econometrics|System designs|Derivatives|C++|
-|Reinforcement Learning||Spark|Linear Algebra|ML Design Patterns|Market Risk|Shell Script|
+|Reinforcement Learning||Spark|Bayesian Inference|ML Design Patterns|Market Risk|Shell Script|
 |Deep Learning||NoSQL|Causal Inference|Unix||Jupyter|
-|CNN|||Optimization|Data Analytics||Git/VSS|
-| ||| |||CI/CD|
+|CNN||Docker|Optimization|Data Analytics||Git/VSS|
+| ||Kubernetes| |||CI/CD|
 
 
 <h2 align="center">Project Work/Learnings</h2>
@@ -26,13 +26,14 @@ Here are the project work, notes and understanding of the tools I learnt during 
 - [learnings from book on machine learning design patterns](ml_examples/ml_design_patterns.html)
 - k-means clustering using iris dataset
 - [decision tree classification using iris dataset](../ml_examples/decision_tree_classification.html)
+- compare performance of standalone vs bagging decision tree model
 - gaussian process regression
 - multiclass classification
 - multilabel classification
 - multimodal classification
 - mixture models using em algorithm
 - hierarchical linear modeling/regression
-- mastering ml in python in 6 steps
+- mastering ml with python in 6 steps
 - l1/l2 regularization
 
 <h3 align="center">Artificial Intelligence</h3>
@@ -135,6 +136,10 @@ Here are the project work, notes and understanding of the tools I learnt during 
 - cassandra
 - mongodb
 - spark
+
+<h3 align="center">Docker</h3>
+
+- [notes on book - docker in action - by jeffrey nickoloff and stephen kuenzli](dockers/bk_docker_in_action_by_Jeffrey_Nickoloff_Stephen_Kuenzli.html)
 
 <h3 align="center">Tensorflow</h3>
 
