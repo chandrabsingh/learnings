@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "390.139px"}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {"height": "calc(100% - 180px)", "left": "10px", "top": "150px", "width": "390.139px"}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13277,16 +13277,26 @@ $\tiny{\text{www.analyticsvidhya.com}}$</p>
 <li>|      "gini" for the Gini impurity and "entropy" for the information gain.</li>
 </ul>
 </blockquote>
-<ul>
+<p><img src="https://miro.medium.com/max/1200/1*ZkQXt7mqI7MXuXhHrfvgtQ.png" width=400 height=400> 
+$\tiny{\text{miro.medium.com}}$</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Cart_tree_kyphosis.png">
+$\tiny{\text{Wikipedia}}$</p>
+<h5 id="Gini-Impurity">Gini Impurity<a class="anchor-link" href="#Gini-Impurity">&#182;</a></h5><ul>
 <li>Gini Impurity is the probability of incorrectly classifying a randomly chosen element in the dataset if it were randomly labeled according to the class distribution in the dataset. <ul>
 <li>If there are $C$ total classes and $p(i)$ is the probability of picking a datapoint with class i, then the Gini Impurity is calculated as</li>
 </ul>
 </li>
 </ul>
-$$I_G(p) = \sum\limits_{i=1}^{J}\left(p_i\sum_{k \ne i} p_k \right) = \sum\limits_{i=1}^{J}p_i\left(1 - p_i \right) = \sum\limits_{i=1}^{J}\left(p_i - p^2_i \right) = \sum\limits_{i=1}^{J}p_i - \sum\limits_{i=1}^{J}p^2_i = 1 - \sum\limits_{i=1}^{J}p^2_i$$<p><img src="https://miro.medium.com/max/1200/1*ZkQXt7mqI7MXuXhHrfvgtQ.png" width=400 height=400> 
-$\tiny{\text{miro.medium.com}}$</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/25/Cart_tree_kyphosis.png">
-$\tiny{\text{Wikipedia}}$</p>
+$$I_G(p) = \sum\limits_{i=1}^{J}\left(p_i\sum_{k \ne i} p_k \right) = \sum\limits_{i=1}^{J}p_i\left(1 - p_i \right) = \sum\limits_{i=1}^{J}\left(p_i - p^2_i \right) = \sum\limits_{i=1}^{J}p_i - \sum\limits_{i=1}^{J}p^2_i = 1 - \sum\limits_{i=1}^{J}p^2_i$$<h5 id="Entropy">Entropy<a class="anchor-link" href="#Entropy">&#182;</a></h5><ul>
+<li>Entropy is a measure of state of disorder, randomness, or uncertainty. It is used to represent the uncertainty associated with data</li>
+<li>If all the data points belong to a single class, then there is no real uncertainty, and will have a low entropy</li>
+<li>If all the data points are evenly distributed across the classes, there is lot of uncertainty, and will have a high entropy</li>
+</ul>
+$$H(Q_m) = -\sum\limits_{k}p_{mk}\log(p_{mk})$$<h5 id="Information-Gain">Information Gain<a class="anchor-link" href="#Information-Gain">&#182;</a></h5><ul>
+<li>measures reduction in entropy or surprise from an additional piece of information</li>
+<li>greater the reduction in uncertainty, more is the information gained
+$$IG(Y,X) = E(Y) - E(Y|X)$$</li>
+</ul>
 
 </div>
 </div>
@@ -13568,7 +13578,7 @@ $$ = -\left [ \sum\limits_{i=0}^{n}y^{(i)}\log h_{\theta}(x^{(i)}) + (1-y^{(i)})
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Supervised-learning-(Classification,-Regression)">Supervised learning (Classification, Regression)<a class="anchor-link" href="#Supervised-learning-(Classification,-Regression)">&#182;</a></h3><h4 id="Decision-trees">Decision trees<a class="anchor-link" href="#Decision-trees">&#182;</a></h4><h4 id="Regression-trees">Regression trees<a class="anchor-link" href="#Regression-trees">&#182;</a></h4><h4 id="Ensembles">Ensembles<a class="anchor-link" href="#Ensembles">&#182;</a></h4><h5 id="Bagging">Bagging<a class="anchor-link" href="#Bagging">&#182;</a></h5><h5 id="Boosting">Boosting<a class="anchor-link" href="#Boosting">&#182;</a></h5><h5 id="Random-forest">Random forest<a class="anchor-link" href="#Random-forest">&#182;</a></h5><h4 id="k-NN">k-NN<a class="anchor-link" href="#k-NN">&#182;</a></h4><h4 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="Artificial-neural-networks">Artificial neural networks<a class="anchor-link" href="#Artificial-neural-networks">&#182;</a></h4><h4 id="Logistic-regression">Logistic regression<a class="anchor-link" href="#Logistic-regression">&#182;</a></h4><h4 id="Perceptron">Perceptron<a class="anchor-link" href="#Perceptron">&#182;</a></h4><p>The perceptron is an algorithm for learning a binary classifier called a threshold function: a function that maps its input $\mathbf {x}$ (a real-valued vector) to an output value $f(\mathbf {x} )$ (a single binary value):</p>
+<h3 id="Supervised-learning-(Classification,-Regression)">Supervised learning (Classification, Regression)<a class="anchor-link" href="#Supervised-learning-(Classification,-Regression)">&#182;</a></h3><h4 id="Decision-trees">Decision trees<a class="anchor-link" href="#Decision-trees">&#182;</a></h4><h4 id="Regression-trees">Regression trees<a class="anchor-link" href="#Regression-trees">&#182;</a></h4><h4 id="Ensembles">Ensembles<a class="anchor-link" href="#Ensembles">&#182;</a></h4><h4 id="k-NN">k-NN<a class="anchor-link" href="#k-NN">&#182;</a></h4><h4 id="Linear-regression">Linear regression<a class="anchor-link" href="#Linear-regression">&#182;</a></h4><h4 id="Naive-Bayes">Naive Bayes<a class="anchor-link" href="#Naive-Bayes">&#182;</a></h4><h4 id="Artificial-neural-networks">Artificial neural networks<a class="anchor-link" href="#Artificial-neural-networks">&#182;</a></h4><h4 id="Logistic-regression">Logistic regression<a class="anchor-link" href="#Logistic-regression">&#182;</a></h4><h4 id="Perceptron">Perceptron<a class="anchor-link" href="#Perceptron">&#182;</a></h4><p>The perceptron is an algorithm for learning a binary classifier called a threshold function: a function that maps its input $\mathbf {x}$ (a real-valued vector) to an output value $f(\mathbf {x} )$ (a single binary value):</p>
 $$ f(\mathbf {x} )={\begin{cases}1&amp;{\text{if }}\ \mathbf {w} \cdot \mathbf {x} +b&gt;0,\\0&amp;{\text{otherwise}}\end{cases}}$$<p>where $\mathbf {w}$  is a vector of real-valued weights, $ \mathbf {w} \cdot \mathbf {x} $ is the dot product $ \sum _{i=1}^{m}w_{i}x_{i}$, where m is the number of inputs to the perceptron, and b is the bias. The bias shifts the decision boundary away from the origin and does not depend on any input value.</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Perceptron_example.svg/1000px-Perceptron_example.svg.png" width=500 height=500>
 $\tiny\text{Wikipedia}$</p>
@@ -13587,6 +13597,128 @@ $\tiny\text{Wikipedia}$</p>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Dimensionality-Reduction">Dimensionality Reduction<a class="anchor-link" href="#Dimensionality-Reduction">&#182;</a></h3><h4 id="Factor-analysis">Factor analysis<a class="anchor-link" href="#Factor-analysis">&#182;</a></h4><h4 id="CCA">CCA<a class="anchor-link" href="#CCA">&#182;</a></h4><h4 id="ICA">ICA<a class="anchor-link" href="#ICA">&#182;</a></h4><h4 id="LDA">LDA<a class="anchor-link" href="#LDA">&#182;</a></h4><h4 id="NMF">NMF<a class="anchor-link" href="#NMF">&#182;</a></h4><h4 id="PCA">PCA<a class="anchor-link" href="#PCA">&#182;</a></h4><h4 id="PGD">PGD<a class="anchor-link" href="#PGD">&#182;</a></h4><h4 id="t-SNE">t-SNE<a class="anchor-link" href="#t-SNE">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Ensemble-Methods">Ensemble Methods<a class="anchor-link" href="#Ensemble-Methods">&#182;</a></h3><ul>
+<li>An ensemble of classifiers is a classifier build upon some combination of weak learners</li>
+<li>strategy is to learn many weak classifiers and combine them in some way, instead of trying to learn a single strong classifier</li>
+<li>rationale is, it is easy to train several simple classifiers and combine them into a more complex classifier than to learn a single complex classifier</li>
+</ul>
+<h4 id="Bootstrap-aggregating-(Bagging)">Bootstrap aggregating (Bagging)<a class="anchor-link" href="#Bootstrap-aggregating-(Bagging)">&#182;</a></h4><ul>
+<li>sample with replacement from the dataset</li>
+<li>diversity in ensemble is ensured by the variation within bootstrap set</li>
+<li>best suited for small available training datasets</li>
+<li>reduces variance for those algorithms that have high variance, eg CART</li>
+</ul>
+<h4 id="Bagging-vs-Boosting">Bagging vs Boosting<a class="anchor-link" href="#Bagging-vs-Boosting">&#182;</a></h4><ul>
+<li>In bagging, <ul>
+<li>instances selected to train individual classifiers are bootstrapped replicas of the training data, <ul>
+<li>which means that each instance has equal chance of being in each training dataset. </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>In boosting, <ul>
+<li>the training dataset for each subsequent classifier increasingly focuses on instances misclassified by previously generated classifiers.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Boosting">Boosting<a class="anchor-link" href="#Boosting">&#182;</a></h4><ul>
+<li>Boosting, in binary class problems, creates sets of three weak classifiers at a time: <ul>
+<li>the first classifier (or hypothesis) h1 is trained on a random subset of the available training data, similar to bagging. </li>
+<li>te second classifier, h2, is trained on a different subset of the original dataset, precisely half of which is correctly identified by h1, and the other half is misclassified. Such a training subset is said to be the "most informative," given the decision of h1. </li>
+<li>the third classifier h3 is then trained with instances on which h1 and h2 disagree. </li>
+</ul>
+</li>
+<li>These three classifiers are then combined through a three-way majority vote. </li>
+<li>Schapire proved that the training error of this three-classifier ensemble is bounded above by $g(\epsilon) &lt; 3\epsilon^2 - 2\epsilon^3$, where $\epsilon$ is the error of any of the three classifiers, provided that each classifier has an error rate $\epsilon \lt 0.5$, the least we can expect from a classifier on a binary classification problem.</li>
+</ul>
+<h5 id="AdaBoost">AdaBoost<a class="anchor-link" href="#AdaBoost">&#182;</a></h5><ul>
+<li>AdaBoost(Adaptive Boosting) - Example of Boosting<ul>
+<li>extended the original boosting algorithm to multiple classes<ul>
+<li>multiple classes (AdaBoost.M1, AdaBost.M2)</li>
+<li>regression problems (AdaBoost.R)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2 fundamental differences<ul>
+<li>instances are drawn into subsequent datasets from an iteratively updated sample distribution of the training data</li>
+<li>classifiers are combined through weighted majority voting<ul>
+<li>voting weights are based on classifiers training errors </li>
+<li>the distribution weights of instances correctly classified by the current hypothesis are reduced by a factor</li>
+<li>whereas weights of misclassified instances are left unchanged</li>
+</ul>
+</li>
+<li>minimizes the exponential loss function that make algorithm sensitive to outlier</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/adaBoost_algo.png"></p>
+<h5 id="Gradient-Tree-Boosting">Gradient Tree Boosting<a class="anchor-link" href="#Gradient-Tree-Boosting">&#182;</a></h5><ul>
+<li>Gradient Tree Boosting or Gradient Boosted Decision Tree (GBDT)</li>
+<li>3 main components<ul>
+<li>additive model</li>
+<li>loss function<ul>
+<li>solves differentiable loss function</li>
+<li>can be used both for classification and regression problem</li>
+</ul>
+</li>
+<li>weak learner</li>
+</ul>
+</li>
+<li>at m-th step, fits a decision tree $h_m(x)$ to residuals</li>
+</ul>
+<h5 id="XGBoost">XGBoost<a class="anchor-link" href="#XGBoost">&#182;</a></h5><h4 id="Random-Forest">Random Forest<a class="anchor-link" href="#Random-Forest">&#182;</a></h4><h4 id="Stacking">Stacking<a class="anchor-link" href="#Stacking">&#182;</a></h4><h4 id="Bayes-optimal-classifier">Bayes optimal classifier<a class="anchor-link" href="#Bayes-optimal-classifier">&#182;</a></h4><h4 id="Bayesian-model-averaging-(BMA)">Bayesian model averaging (BMA)<a class="anchor-link" href="#Bayesian-model-averaging-(BMA)">&#182;</a></h4><h4 id="Bayesian-model-combination-(BMC)">Bayesian model combination (BMC)<a class="anchor-link" href="#Bayesian-model-combination-(BMC)">&#182;</a></h4><h4 id="Bucket-of-models">Bucket of models<a class="anchor-link" href="#Bucket-of-models">&#182;</a></h4><h4 id="Voting-(complement-of-Bagging)">Voting (complement of Bagging)<a class="anchor-link" href="#Voting-(complement-of-Bagging)">&#182;</a></h4><h4 id="Blending-(subtype-of-Stacking)">Blending (subtype of Stacking)<a class="anchor-link" href="#Blending-(subtype-of-Stacking)">&#182;</a></h4><h3 id="Ensemble-Learning-Techniques">Ensemble Learning Techniques<a class="anchor-link" href="#Ensemble-Learning-Techniques">&#182;</a></h3><h4 id="Type-of-models-used">Type of models used<a class="anchor-link" href="#Type-of-models-used">&#182;</a></h4><ul>
+<li>Homogeneous models</li>
+<li>Heterogeneous models</li>
+</ul>
+<h4 id="Data-Sampling">Data Sampling<a class="anchor-link" href="#Data-Sampling">&#182;</a></h4><ul>
+<li>With replacement</li>
+<li>Without replacement</li>
+<li>k-fold</li>
+</ul>
+<h4 id="Decision-Function">Decision Function<a class="anchor-link" href="#Decision-Function">&#182;</a></h4><ul>
+<li>Voting</li>
+<li>Average</li>
+<li>Meta Model</li>
+</ul>
+<h4 id="Types-of-learners">Types of learners<a class="anchor-link" href="#Types-of-learners">&#182;</a></h4><ul>
+<li>Weak learners<ul>
+<li>slightly better than random guess</li>
+</ul>
+</li>
+<li>Strong learners<ul>
+<li>very accurate predictions</li>
+</ul>
+</li>
+</ul>
+<h4 id="Types-of-ensemble-methods">Types of ensemble methods<a class="anchor-link" href="#Types-of-ensemble-methods">&#182;</a></h4><ul>
+<li>Decrease Variance - Bagging</li>
+<li>Decrease Bias - Boosting</li>
+<li>Improve Prediction - Stacking</li>
+</ul>
+<h4 id="Types-of-ensemble-learners">Types of ensemble learners<a class="anchor-link" href="#Types-of-ensemble-learners">&#182;</a></h4><ul>
+<li>Sequential Learners<ul>
+<li>mistakes of previous models are learned by their successors<ul>
+<li>e.g., AdaBoost</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Parallel Learners<ul>
+<li>exploits independence between models by averaging out their mistakes<ul>
+<li>e.g., Random Forest</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -14061,6 +14193,11 @@ $\tiny{\text{towardsdatascience.com - Shuyu Luo}}$</p>
 <li>some subsets of the data set are noisier than others</li>
 </ul>
 </li>
+</ul>
+<h4 id="Optimal-Predicted-Probability-Cutoff">Optimal Predicted Probability Cutoff<a class="anchor-link" href="#Optimal-Predicted-Probability-Cutoff">&#182;</a></h4><ul>
+<li>maximum vertical distance between ROC curve and diagonal line</li>
+<li>called as Youden's J index</li>
+<li>maximize the difference between True Positive and False Positive</li>
 </ul>
 
 </div>
