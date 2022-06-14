@@ -22,11 +22,14 @@ Here are the project work, notes and understanding of the tools I learnt during 
 - [evaluate performance of classification algorithms on adult income dataset](ml_examples/ClassificationProblem-PredictAdultIncome.html)
 - build movie recommender with naive bayes on movielens dataset
 - build face recognizer with svm on scikit lfw people dataset  
+
 - [hyperparameter optimization for handwritten digit classification with simple neural network using tensorflow keras and tensorboard](dl_examples/02_nn_tensorflow_keras_tensorboard.html)
 - [learnings from book on machine learning design patterns](ml_examples/ml_design_patterns.html)
 - k-means clustering using iris dataset
 - [decision tree classification using iris dataset](../ml_examples/decision_tree_classification.html)
 - compare performance of standalone vs bagging decision tree model
+- gradient boosting method
+- random forest
 - gaussian process regression
 - multiclass classification
 - multilabel classification
@@ -139,6 +142,7 @@ Here are the project work, notes and understanding of the tools I learnt during 
 
 <h3 align="center">Docker</h3>
 
+- [docker basics](cloud/docker_basics.html)
 - [notes on book - docker in action - by jeffrey nickoloff and stephen kuenzli](dockers/bk_docker_in_action_by_Jeffrey_Nickoloff_Stephen_Kuenzli.html)
 
 <h3 align="center">Tensorflow</h3>
