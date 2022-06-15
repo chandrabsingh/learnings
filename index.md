@@ -50,6 +50,7 @@ Here are the project work, notes and understanding of the tools I learnt during 
 <h3 align="center">Deep Learning</h3>
 
 - [deep learning - conceptual brief](dl_examples/dl_glossary.html)
+- [research paper - alexnet - summary](researchPapers/rp_AlexNet.html)
 
 <h3 align="center">Recommender systems</h3>
 
@@ -58,6 +59,7 @@ Here are the project work, notes and understanding of the tools I learnt during 
 <h3 align="center">Reinforcement Learning</h3>
 
 - [>> multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
+- peter the wolf using q-learning
 
 <h3 align="center">Bayesian inference</h3>
 
