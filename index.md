@@ -59,7 +59,7 @@ Here are the project work, notes and understanding of the tools I learnt during 
 <h3 align="center">Reinforcement Learning</h3>
 
 - [>> multi-armed bandits, thompson sampling, ab testing](why_how_what/mab_ts_ab.html)
-- peter the wolf using q-learning
+- peter the wolf using bellman equation
 
 <h3 align="center">Bayesian inference</h3>
 
