@@ -13372,6 +13372,17 @@ And must importantly, :q will quite the mode.</p>
 </blockquote>
 </li>
 </ol>
+<h4 id="Disk-usage">Disk usage<a class="anchor-link" href="#Disk-usage">&#182;</a></h4><ol>
+<li>Find the folder size of one folder in human readable format<blockquote><p><code>du -sh directory_name</code></p>
+</blockquote>
+</li>
+<li>Find the folder size of all folders in human readable format<blockquote><p><code>du -hd1 directory_name</code></p>
+</blockquote>
+</li>
+<li>Find all the big folders of particular size upto a limit<blockquote><p><code>du -hax gitrepos/dlwpt-code | grep '[0-9]M' | sort -nr</code></p>
+</blockquote>
+</li>
+</ol>
 
 </div>
 </div>
