@@ -86,7 +86,7 @@ Here are the project work, notes and understanding of the tools I learnt during 
 
 - econometrics - conceptual notes
 - multivariate time series analysis using facebook prophet
-- [forecasting using sarima model](econometrics/SARIMA_modeling_mine.html)
+- [sarima model analysis on m4 competition dataset](econometrics/SARIMA_modeling_mine.html)
 
 <h3 align="center">Linear Algebra</h3>
 

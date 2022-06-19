@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,13 +13117,7 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Theoretical-Aspects">Theoretical Aspects<a class="anchor-link" href="#Theoretical-Aspects">&#182;</a></h2><h3 id="M4-forecasting-competition---2018">M4 forecasting competition - 2018<a class="anchor-link" href="#M4-forecasting-competition---2018">&#182;</a></h3><ul>
-<li>single methods performed poorly</li>
-<li>combination methods did well</li>
-<li>machine learning did poorly</li>
-</ul>
-<p>Goals</p>
-<ul>
+<h2 id="Theoretical-Aspects">Theoretical Aspects<a class="anchor-link" href="#Theoretical-Aspects">&#182;</a></h2><h3 id="Goals">Goals<a class="anchor-link" href="#Goals">&#182;</a></h3><ul>
 <li>Extend understanding from ARMA models to SARIMA (Seasonal AutoRegressive Integrated Moving Average) models<ul>
 <li>time trends</li>
 <li>seasonal dummies</li>
@@ -13132,26 +13126,7 @@ $( document ).ready(function(){
 <li>differencing into unified framework</li>
 </ul>
 </li>
-<li>Additive Exponential Smoothing models<ul>
-<li>extremely simple to use estimate and forecast from</li>
-<li>adaptive - produce random walks that includes <ul>
-<li>random walk trends </li>
-<li>random walk seasonalities<ul>
-<li>useful for unstable series</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Theta forecasting methods<ul>
-<li>combination of 2 methods successful in M3 competition</li>
-</ul>
-</li>
-<li>CARD forecasting methods<ul>
-<li>combination of models introduced in M4 competition</li>
-</ul>
-</li>
+<li>Experiment with pmdarima package</li>
 </ul>
 
 </div>
@@ -13353,98 +13328,243 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Seasonal-Autoregression">Seasonal Autoregression<a class="anchor-link" href="#Seasonal-Autoregression">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<h3 id="Seasonal-Autoregression">Seasonal Autoregression<a class="anchor-link" href="#Seasonal-Autoregression">&#182;</a></h3><h4 id="Lag-operator">Lag operator<a class="anchor-link" href="#Lag-operator">&#182;</a></h4><ul>
+<li>Lag operator L is essential to understanding seasonal ARMAs</li>
+<li>Key properties</li>
+</ul>
+$$\begin{aligned}
+LX_t &amp;= X_{t-1} \\
+L^2X_t &amp;= L(LX_{t}) = LX_{t-1} = X_{t-2} \\
+L^pL^qX_t &amp;= L^{p+q}X_t = X_{t-(p+q)} \\
+\end{aligned}$$<ul>
+<li>Lag polynomials<ul>
+<li>AR(1)
+$$\begin{aligned}
+X_t &amp;= \phi_0 + \phi_1X_{t-1} + \epsilon_t \\
+X_t - \phi_1X_{t-1} &amp;= \phi_0 + \epsilon_t \\
+X_t - \phi_1LX_{t} &amp;= \phi_0 + \epsilon_t \\
+(1 - \phi_1L)X_{t} &amp;= \phi_0 + \epsilon_t \\
+\end{aligned}$$</li>
+<li>AR(p)
+$$\begin{aligned}
+(1 - \phi_1L - \phi_2L^2 - ... - \phi_pL^p)X_{t} &amp;= \phi_0 + \epsilon_t \\
+X_t &amp;= \phi_0 + \phi_1X_{t-1} + \phi_2X_{t-2} + ... + \phi_pX_{t-p} + \epsilon_t \\
+\end{aligned}$$</li>
+</ul>
+</li>
+</ul>
+<h4 id="Seasonal-AR-models">Seasonal AR models<a class="anchor-link" href="#Seasonal-AR-models">&#182;</a></h4><ul>
+<li>Pure seasonal AR
+$$\begin{aligned}
+(1 - \phi_mL^m)X_{t} &amp;= \phi_0 + \epsilon_t \\
+X_t &amp;= \phi_0 + \phi_mX_{t-m} + \epsilon_t \\
+\end{aligned}$$<ul>
+<li>m is the seasonal period of series</li>
+<li>such model is not plausible because it will have m unrelated AR1 models combined together</li>
+<li>what we need is to include short run dynamics</li>
+</ul>
+</li>
+<li>Seasonal AR with short-run dynamics
+$$\begin{aligned}
+(1 - \phi_1L)(1 - \phi_mL^m)X_{t} &amp;= \phi_0 + \epsilon_t \\
+(1 - \phi_1L - \phi_mL^m + \phi_1\phi_mL^{(m+1)})X_{t} &amp;= \phi_0 + \epsilon_t \\
+X_t &amp;= \phi_0 + \phi_1X_{t-1} + \phi_mX_{t-m} - \phi_1\phi_mX_{t-m-1} + \epsilon_t \\
+\end{aligned}$$<ul>
+<li>$\phi_1LX_{t}$ - AR(1) term</li>
+<li>$\phi_mL^mX_{t}$ - AR(m) seasonal term</li>
+<li>$\phi_1\phi_mL^{(m+1)}X_{t}$ - extra term in seasonal AR model</li>
+<li>Restricted AR(m+1) in two ways<ul>
+<li>lot of terms missing $\phi_2$, $\phi_3$, ..., $\phi_{m-1}$ </li>
+<li>negative $\phi_1\phi_mL^{(m+1)}X_{t}$ - extra term</li>
+</ul>
+</li>
+<li>SAR(1)x(1)<ul>
+<li>1st term (1) is the short run dynamics</li>
+<li>2nd term (1) is the seasonal dynamics</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Ignoring-the-restriction">Ignoring the restriction<a class="anchor-link" href="#Ignoring-the-restriction">&#182;</a></h4><ul>
+<li>can also estimate Unrestricted model as
+$$ X_t = \phi_0 + \phi_1X_{t-1} + \phi_mX_{t-m} + \phi_{m+1}X_{t-m-1} + \epsilon_t $$<ul>
+<li>ignore the restriction term</li>
+<li>much easier as it can be estimated using OLS, because we can then include<ul>
+<li>time trends</li>
+<li>seasonal dummies</li>
+<li>Fourier trends</li>
+<li>SAR terms</li>
+<li>and can estimate all using OLS</li>
+</ul>
+</li>
+<li>restricted model requires a constrained estimator as Non-Linear Least square(NLLS) where $\phi_{m+1} = - \phi_{1}\phi_{m}$<ul>
+<li>more complex</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Prediction-Intervals">Prediction Intervals<a class="anchor-link" href="#Prediction-Intervals">&#182;</a></h4><ul>
+<li>In SAR models prediction intervals are not constant</li>
+<li>In earlier models, the prediction intervals are constant for time trends or seasonality<ul>
+<li>but not for cyclical component</li>
+</ul>
+</li>
+<li>For SAR it depends on the horizon, on the model parameters and also on the model specification</li>
+</ul>
+<h4 id="Random-Walks-with-Seasonality">Random Walks with Seasonality<a class="anchor-link" href="#Random-Walks-with-Seasonality">&#182;</a></h4><ul>
+<li>A seasonal random walk has unit root at seasonal frequency
+$$(1-L^m)X_t = \epsilon_t$$<ul>
+<li>coefficient is 1 or unit root here</li>
+</ul>
+</li>
+<li>Add short run dynamics to make is plausible
+$$(1-\phi_1L)(1-L^m)X_t = \epsilon_t$$<ul>
+<li>short run dynamics is combined with seasonal unit root</li>
+</ul>
+</li>
+<li>Seasonal unit roots need <code>seasonal differencing</code>
+$$\Delta_mX_t = X_t - X_{t-m}$$<ul>
+<li>interested in seasonal growth rather than short run growth</li>
+</ul>
+</li>
+<li>Note that $\Delta^m$ and $\Delta_m$ are different
+$$\begin{aligned}
+\Delta^mX_t &amp;= \Delta(\Delta^{m-1})X_t = \Delta(\Delta(\Delta(...(\Delta X_t)))) \\
+\Delta_mX_t &amp;= X_t - X_{t-m} \\
+\Delta^2X_t &amp;= \Delta(X_t - X_{t-1}) = X_t - 2X_{t-1} + X_{t-2} \\
+\Delta_2X_t &amp;= X_t -  X_{t-2} \\
+\end{aligned}$$</li>
+</ul>
+<h4 id="Seasonal-Differencing">Seasonal Differencing<a class="anchor-link" href="#Seasonal-Differencing">&#182;</a></h4><ul>
+<li>Seasonal difference removes seasonal unit root
+$$\Delta_mX_t = X_t - X_{t-m} = (1-L^m)X_t $$</li>
+<li>Applying seasonal differencing term, we get
+$$\begin{aligned}
+(1-\phi_1L)(1-L^m)X_t &amp;= \epsilon_t \\
+(1-\phi_1L)\Delta_mX_t &amp;= \epsilon_t \\
+\Delta_mX_t &amp;= \phi_1\Delta_mX_{t-1} + \epsilon_t \\
+\tilde{X}_t &amp;= \phi_1\tilde{X}_{t-1} + \epsilon_t \\
+\end{aligned}$$<ul>
+<li>Remember the seasonal differencing term in forecasts</li>
+<li>there is no need of using seasonal differencing<ul>
+<li>if we had a dummy that happens every fourth quarter, when we take difference of a fourth quarter with the previous fourth quarter, then the level shift will be lost</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-    </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="ANOVA-(ANalysis-Of-VAriance)">ANOVA (ANalysis Of VAriance)<a class="anchor-link" href="#ANOVA-(ANalysis-Of-VAriance)">&#182;</a></h3><ul>
-<li>compare the means of more than 2 groups</li>
-<li>analyze variances</li>
-<li>uses variance based F-test to check group mean equality</li>
-<li>main types<ul>
-<li>One factor ANOVA</li>
-<li>Two factor ANOVA</li>
+<h3 id="SARIMA-Models">SARIMA Models<a class="anchor-link" href="#SARIMA-Models">&#182;</a></h3><h4 id="Seasonal-ARMA">Seasonal ARMA<a class="anchor-link" href="#Seasonal-ARMA">&#182;</a></h4><ul>
+<li>Seasonal ARMA$(P,Q)\text{x}(P_s,Q_s)$<ul>
+<li>$(P,Q)$ corresponds the time series lag</li>
+<li>$(P_s,Q_s)$ corresponds the seasonal lag</li>
 </ul>
 </li>
-<li>types of ANOVA<ul>
-<li>univariate ANOVA <ul>
-<li>one dependent variable</li>
+<li>Seasonal ARMA$(1,1)\text{x}(1,1)$
+$$(1-\phi_1L)(1-\phi_mL^m)X_t = (1+\theta_1L)(1+\theta_mL^m)\epsilon_t$$</li>
+</ul>
+<h4 id="Incorporate-the-differencing-parameter">Incorporate the differencing parameter<a class="anchor-link" href="#Incorporate-the-differencing-parameter">&#182;</a></h4><ul>
+<li>SARIMA - Seasonal Autoregression Integrated Moving Average
+$$(P,D,Q)\text{x}(P_s,D_s,Q_s)$$<ul>
+<li>$D$ - standard differencing operator<ul>
+<li>$\Delta X_t$</li>
 </ul>
 </li>
-<li>MANOVA<ul>
-<li>multiple dependent variable</li>
+<li>$D_s$ - seasonal differencing operator<ul>
+<li>$\Delta_m X_t$</li>
 </ul>
 </li>
-<li>ANCOVA<ul>
-<li>continuous independent variable</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>ANOVA assumptions<ul>
-<li>Residuals are normally distributed<ul>
-<li>Shapiro Wilks test</li>
-</ul>
-</li>
-<li>Homoscedasticity or Homogeneity of variances<ul>
-<li>variances are equal</li>
-<li>Levene’s, Bartlett’s, or Brown-Forsythe test</li>
-</ul>
-</li>
-<li>observations are sampled independently<ul>
-<li>no relation between groups</li>
-</ul>
-</li>
-<li>dependent variable are continous<ul>
-<li>if categorical/ordinal<ul>
-<li>violate assumption of normality and homogeneity of variance</li>
-<li>if violated use non-parametric tests<ul>
-<li>Mann-Whitney U test, Kruskal-Wallis test</li>
+<li>generally $D$ or $D_s$ is either <ul>
+<li>both 0 or </li>
+<li>either one is 0 and other 1</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-</li>
+<h4 id="Forecasting">Forecasting<a class="anchor-link" href="#Forecasting">&#182;</a></h4><ul>
+<li>order of integration matters for forecasting and prediction intervals</li>
+<li>for non-seasonal differenced series
+$$\hat{X}_{T+h|T} = X_T + \sum\limits_{i=1}^{h}E_T\left[\Delta X_{T+i} \right]$$</li>
+<li>Prediction intervals have the form
+$$PI = \left[ \hat{X}_{T+h|T} \pm 1.96 \tilde{\sigma}_h \right]$$<ul>
+<li>where
+$$\tilde{\sigma}^2_{h} = \sigma^2_{h} \sum\limits_{i=1}^{h}\left( 1 + \sum\limits_{j=1}^{i} \xi_j \right)^2$$</li>
 </ul>
 </li>
-<li>How does ANOVA work?<ul>
-<li>TODO READ</li>
 </ul>
+<h4 id="Forecasting-with-Seasonal-Differencing">Forecasting with Seasonal Differencing<a class="anchor-link" href="#Forecasting-with-Seasonal-Differencing">&#182;</a></h4><ul>
+<li><p>we model $\Delta_mX_t$
+$$\begin{aligned} \\
+E\left[X_{T+1}\right] &amp;= X_{T+1-m} + E_T\left[\Delta_m X_{T+1}\right] \\
+&amp;= X_{T+1-m} + E_T\left[ X_{T+1} \right] + E_T\left[ X_{T+1-m} \right] \\
+&amp;= E_T\left[ X_{T+1|T} \right] + X_{T+1-m} - X_{T+1-m|T} \\
+&amp;= E_T\left[ X_{T+1|T} \right] \\
+\end{aligned}$$</p>
+<ul>
+<li>Go back m periods from the time to forecast</li>
+<li>Add to that the change and the forecast horizon $E_T\left[\Delta_m X_{T+1}\right]$ which is 1-step from model</li>
+</ul>
+</li>
+<li><p>Generally,
+$$\hat{X}_{T+h|T} = X_{T+1-m} + \sum\limits_{i=1}^{h}E_T \left[ \Delta_m X_{T+h|T} \right]$$</p>
 </li>
 </ul>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Complete-Model">Complete Model<a class="anchor-link" href="#Complete-Model">&#182;</a></h4><ul>
+<li>Start by transforming $X_t$<ul>
+<li>Log or level</li>
+<li>Level, Difference, or Seasonal Difference
+$$\begin{aligned}
+Y_t &amp;= \text{Constant} \\
+&amp;+ \text{Trend} \\
+&amp;+ \text{Seasonal Dummies} \\ 
+&amp;+ \text{AR} + \text{Seasonal AR} \\
+&amp;+ \text{MA} + \text{Seasonal MA} + \epsilon_t \\
+\end{aligned}
+$$</li>
+<li>All the terms other than MA or Seasonal MA are common<ul>
+<li>and can be estimated using OLS</li>
+</ul>
+</li>
+<li>MA or Seasonal MA make the estimation difficult</li>
+</ul>
+</li>
+<li>Recommendations for forecasting<ul>
+<li>most of forecast component must come from trends and seasonal dummy</li>
+<li>AR components should more or less run out by then<ul>
+<li>especially for long horizon forecast</li>
+<li>for short horizon, they will play role</li>
+</ul>
+</li>
+<li>for differencing, the rule of thumb is, if you are close to unit root<ul>
+<li>use Augmented Dickey-Fuller test or some other</li>
+<li>even if you are close to unit root say like 0.9 or 0.95 or less<ul>
+<li>estimate model using differences</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-    </div>
 </div>
 </div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -13462,7 +13582,7 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -13473,15 +13593,36 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">)</span>
 <span class="c1"># These values are optimized for full-screen on a high-resolution monitor</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;figure&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;font&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">28</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="c1"># plt.rc(&quot;figure&quot;, figsize=(32,12))</span>
+<span class="c1"># plt.rc(&quot;font&quot;, size=28)</span>
+<span class="c1"># plt.rc(&quot;lines&quot;, linewidth=4)</span>
 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/statsmodels/tsa/base/tsa_model.py:7: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import (to_datetime, Int64Index, DatetimeIndex, Period,
+/Users/chandrasingh/opt/anaconda3/lib/python3.8/site-packages/statsmodels/tsa/base/tsa_model.py:7: FutureWarning: pandas.Float64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import (to_datetime, Int64Index, DatetimeIndex, Period,
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13495,7 +13636,7 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s2">&quot;./monthly-data.h5&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;nobs_432&quot;</span><span class="p">)</span>
@@ -13550,7 +13691,41 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># len(y)</span>
+<span class="mi">432</span><span class="o">/</span><span class="mi">6</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[3]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>72.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;M3276&quot;</span><span class="p">])</span>
@@ -13581,7 +13756,7 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ar1_trend</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;ct&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
@@ -13595,23 +13770,6 @@ $$\big[ \hat{X}_{T+h|T} \pm 1.96\sigma_h \big]$$<ul>
 <div class="output_wrapper">
 <div class="output">
 
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre> This problem is unconstrained.
-
- Line search cannot locate an adequate point after MAXLS
-  function and gradient evaluations.
-  Previous x, f and g restored.
- Possible causes: 1 error in function or gradient evaluation;
-                  2 rounding error dominate computation.
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
@@ -13653,7 +13811,24 @@ ABNORMAL_TERMINATION_IN_LNSRCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[18]:</div>
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> This problem is unconstrained.
+
+ Line search cannot locate an adequate point after MAXLS
+  function and gradient evaluations.
+  Previous x, f and g restored.
+ Possible causes: 1 error in function or gradient evaluation;
+                  2 rounding error dominate computation.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
 
 
 
@@ -13667,10 +13842,10 @@ ABNORMAL_TERMINATION_IN_LNSRCH
   <th>Model:</th>           <td>SARIMAX(1, 0, 0)</td> <th>  Log Likelihood     </th>  <td>828.258</td> 
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 17 Jun 2022</td> <th>  AIC                </th> <td>-1648.515</td>
+  <th>Date:</th>            <td>Sat, 18 Jun 2022</td> <th>  AIC                </th> <td>-1648.515</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>19:57:35</td>     <th>  BIC                </th> <td>-1632.242</td>
+  <th>Time:</th>                <td>19:08:20</td>     <th>  BIC                </th> <td>-1632.242</td>
 </tr>
 <tr>
   <th>Sample:</th>                  <td>0</td>        <th>  HQIC               </th> <td>-1642.091</td>
@@ -13730,7 +13905,7 @@ ABNORMAL_TERMINATION_IN_LNSRCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;M3276&quot;</span><span class="p">])</span>
@@ -13816,7 +13991,7 @@ ABNORMAL_TERMINATION_IN_LNSRCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
+    <div class="prompt output_prompt">Out[6]:</div>
 
 
 
@@ -13830,10 +14005,10 @@ ABNORMAL_TERMINATION_IN_LNSRCH
   <th>Model:</th>           <td>SARIMAX(1, 0, 1)</td> <th>  Log Likelihood     </th>  <td>871.818</td> 
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 17 Jun 2022</td> <th>  AIC                </th> <td>-1733.637</td>
+  <th>Date:</th>            <td>Sat, 18 Jun 2022</td> <th>  AIC                </th> <td>-1733.637</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>19:58:23</td>     <th>  BIC                </th> <td>-1713.295</td>
+  <th>Time:</th>                <td>19:08:21</td>     <th>  BIC                </th> <td>-1713.295</td>
 </tr>
 <tr>
   <th>Sample:</th>                  <td>0</td>        <th>  HQIC               </th> <td>-1725.606</td>
@@ -13897,7 +14072,7 @@ ABNORMAL_TERMINATION_IN_LNSRCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([[</span><span class="n">ar1_trend</span><span class="o">.</span><span class="n">aic</span><span class="p">,</span> <span class="n">ar1_trend</span><span class="o">.</span><span class="n">hqic</span><span class="p">,</span> <span class="n">ar1_trend</span><span class="o">.</span><span class="n">bic</span><span class="p">],</span>
@@ -13915,7 +14090,7 @@ ABNORMAL_TERMINATION_IN_LNSRCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[20]:</div>
+    <div class="prompt output_prompt">Out[7]:</div>
 
 
 
@@ -13969,7 +14144,7 @@ ABNORMAL_TERMINATION_IN_LNSRCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_forecast</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">forecast</span><span class="p">,</span> <span class="n">tail</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -13978,6 +14153,7 @@ ABNORMAL_TERMINATION_IN_LNSRCH
     <span class="k">if</span> <span class="n">tail</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
 <span class="n">plot_forecast</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">arma11_trend</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/datatrends03_ARMA11_forecast.png&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
@@ -14010,7 +14186,7 @@ $$<p>$\Delta Y_t$ is used since $d=1$.</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">arima_111</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
@@ -14044,7 +14220,28 @@ Machine precision = 2.220D-16
 At X0         0 variables are exactly at the bounds
 
 At iterate    0    f= -2.01907D+00    |proj g|=  3.12568D+00
+</pre>
+</div>
+</div>
 
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> This problem is unconstrained.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
 At iterate    5    f= -2.02078D+00    |proj g|=  1.18442D-01
 
 At iterate   10    f= -2.02103D+00    |proj g|=  2.32532D-01
@@ -14076,17 +14273,6 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre> This problem is unconstrained.
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -14108,7 +14294,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">arima_011</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
@@ -14200,7 +14386,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">arima_011_nc</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;n&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
@@ -14214,6 +14400,17 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> This problem is unconstrained.
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -14255,18 +14452,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre> This problem is unconstrained.
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[11]:</div>
 
 
 
@@ -14280,10 +14466,10 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
   <th>Model:</th>           <td>SARIMAX(0, 1, 1)</td> <th>  Log Likelihood     </th>  <td>871.865</td> 
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 17 Jun 2022</td> <th>  AIC                </th> <td>-1739.729</td>
+  <th>Date:</th>            <td>Sat, 18 Jun 2022</td> <th>  AIC                </th> <td>-1739.729</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>20:06:13</td>     <th>  BIC                </th> <td>-1731.597</td>
+  <th>Time:</th>                <td>19:08:22</td>     <th>  BIC                </th> <td>-1731.597</td>
 </tr>
 <tr>
   <th>Sample:</th>                  <td>0</td>        <th>  HQIC               </th> <td>-1736.518</td>
@@ -14330,7 +14516,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_forecast</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">arima_011_nc</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span>
@@ -14361,7 +14547,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;M25698&quot;</span><span class="p">])</span>
@@ -14397,7 +14583,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">seasonals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">24</span><span class="p">)</span>
@@ -14415,7 +14601,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt output_prompt">Out[14]:</div>
 
 
 
@@ -14466,7 +14652,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">get_dummies</span>
@@ -14485,7 +14671,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[31]:</div>
+    <div class="prompt output_prompt">Out[15]:</div>
 
 
 
@@ -14738,7 +14924,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ar1_seasonal_dummies</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">dummies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">maxiter</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
@@ -14864,7 +15050,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[32]:</div>
+    <div class="prompt output_prompt">Out[16]:</div>
 
 
 
@@ -14878,10 +15064,10 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
   <th>Model:</th>           <td>SARIMAX(1, 0, 0)</td> <th>  Log Likelihood     </th> <td>-107.374</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 17 Jun 2022</td> <th>  AIC                </th>  <td>242.749</td>
+  <th>Date:</th>            <td>Sat, 18 Jun 2022</td> <th>  AIC                </th>  <td>242.749</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>20:10:42</td>     <th>  BIC                </th>  <td>299.706</td>
+  <th>Time:</th>                <td>19:08:24</td>     <th>  BIC                </th>  <td>299.706</td>
 </tr>
 <tr>
   <th>Sample:</th>                  <td>0</td>        <th>  HQIC               </th>  <td>265.235</td>
@@ -14964,7 +15150,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">forecast</span> <span class="o">=</span> <span class="n">ar1_seasonal_dummies</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">dummies</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:])</span>
@@ -14981,7 +15167,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[33]:</div>
+    <div class="prompt output_prompt">Out[17]:</div>
 
 
 
@@ -15022,7 +15208,7 @@ Name: predicted_mean, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_forecast</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">forecast</span><span class="p">,</span> <span class="mi">72</span><span class="p">)</span>
@@ -15053,7 +15239,7 @@ $$ \Delta_{12} Y_t = \delta_0 + \epsilon_t $$
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">arima_000_010</span> <span class="o">=</span> <span class="n">SARIMAX</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">seasonal_order</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">trend</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
@@ -15067,6 +15253,17 @@ $$ \Delta_{12} Y_t = \delta_0 + \epsilon_t $$
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre> This problem is unconstrained.
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -15108,18 +15305,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre> This problem is unconstrained.
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[37]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
@@ -15133,10 +15319,10 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
   <th>Model:</th>           <td>SARIMAX(0, 1, 0, 12)</td> <th>  Log Likelihood     </th> <td>-210.775</td>
 </tr>
 <tr>
-  <th>Date:</th>              <td>Fri, 17 Jun 2022</td>   <th>  AIC                </th>  <td>425.550</td>
+  <th>Date:</th>              <td>Sat, 18 Jun 2022</td>   <th>  AIC                </th>  <td>425.550</td>
 </tr>
 <tr>
-  <th>Time:</th>                  <td>20:13:04</td>       <th>  BIC                </th>  <td>433.630</td>
+  <th>Time:</th>                  <td>19:08:24</td>       <th>  BIC                </th>  <td>433.630</td>
 </tr>
 <tr>
   <th>Sample:</th>                    <td>0</td>          <th>  HQIC               </th>  <td>428.743</td>
@@ -15183,7 +15369,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">forecast</span> <span class="o">=</span> <span class="n">arima_000_010</span><span class="o">.</span><span class="n">forecast</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
@@ -15200,7 +15386,7 @@ CONVERGENCE: REL_REDUCTION_OF_F_&lt;=_FACTR*EPSMCH
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[38]:</div>
+    <div class="prompt output_prompt">Out[20]:</div>
 
 
 
@@ -15241,7 +15427,7 @@ Name: predicted_mean, dtype: float64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_forecast</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">forecast</span><span class="p">,</span> <span class="mi">72</span><span class="p">)</span>
@@ -15258,6 +15444,206 @@ Name: predicted_mean, dtype: float64</pre>
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src='./images/datatrends09_sarima_single_diff_forecast.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="pmdarima">pmdarima<a class="anchor-link" href="#pmdarima">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+
+<span class="c1"># Author: Taylor Smith &lt;taylor.smith@alkaline-ml.com&gt;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pmdarima</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">from</span> <span class="nn">pmdarima</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="nn">pmdarima</span> <span class="kn">import</span> <span class="n">model_selection</span>
+<span class="kn">from</span> <span class="nn">pmdarima</span> <span class="kn">import</span> <span class="n">preprocessing</span> <span class="k">as</span> <span class="n">ppc</span>
+<span class="kn">from</span> <span class="nn">pmdarima</span> <span class="kn">import</span> <span class="n">arima</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pmdarima version: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">pm</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="c1"># Load the data and split it into separate pieces</span>
+<span class="c1"># data = pm.datasets.load_wineind()</span>
+<span class="c1"># train, test = model_selection.train_test_split(data, train_size=150)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mi">360</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s create a pipeline with multiple stages... the Wineind dataset is</span>
+<span class="c1"># seasonal, so we&#39;ll include a FourierFeaturizer so we can fit it without</span>
+<span class="c1"># seasonality</span>
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;fourier&quot;</span><span class="p">,</span> <span class="n">ppc</span><span class="o">.</span><span class="n">FourierFeaturizer</span><span class="p">(</span><span class="n">m</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">&quot;arima&quot;</span><span class="p">,</span> <span class="n">arima</span><span class="o">.</span><span class="n">AutoARIMA</span><span class="p">(</span><span class="n">stepwise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">error_action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span>
+                              <span class="n">seasonal</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># because we use Fourier</span>
+                              <span class="n">suppress_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="p">])</span>
+
+<span class="n">pipe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model fit:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pipe</span><span class="p">)</span>
+
+<span class="c1"># We can compute predictions the same way we would on a normal ARIMA object:</span>
+<span class="c1"># preds, conf_int = pipe.predict(n_periods=10, return_conf_int=True)</span>
+<span class="n">preds</span><span class="p">,</span> <span class="n">conf_int</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">n_periods</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">return_conf_int</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Forecasts:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s take a look at the actual vs. the predicted values:</span>
+<span class="c1"># fig, axes = plt.subplots(3, 1, figsize=(12, 8))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="c1"># Visualize goodness of fit</span>
+<span class="n">in_sample_preds</span><span class="p">,</span> <span class="n">in_sample_confint</span> <span class="o">=</span> \
+    <span class="n">pipe</span><span class="o">.</span><span class="n">predict_in_sample</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_conf_int</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">n_train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_train</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">in_sample_preds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="c1"># axes[0].fill_between(x0, in_sample_confint[:, 0], in_sample_confint[:, 1],</span>
+<span class="c1">#                      alpha=0.1, color=&#39;b&#39;)</span>
+<span class="c1"># axes[0].fill_between(x0, 5, 10,</span>
+<span class="c1">#                      alpha=0.1, color=&#39;b&#39;)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Actual train samples vs. in-sample predictions&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">x0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># Visualize actual + predicted</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_train</span> <span class="o">+</span> <span class="n">preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x1</span><span class="p">[:</span><span class="n">n_train</span><span class="p">],</span> <span class="n">train</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="c1"># axes[1].scatter(x[n_train:], preds, alpha=0.4, marker=&#39;o&#39;)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="n">n_train</span><span class="p">:],</span> <span class="n">test</span><span class="p">[:</span><span class="n">preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="n">n_train</span><span class="p">:],</span> <span class="n">conf_int</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">conf_int</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Actual test samples vs. forecasts&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># We can also call `update` directly on the pipeline object, which will update</span>
+<span class="c1"># the intermittent transformers, where necessary:</span>
+<span class="n">newly_observed</span><span class="p">,</span> <span class="n">still_test</span> <span class="o">=</span> <span class="n">test</span><span class="p">[:</span><span class="mi">15</span><span class="p">],</span> <span class="n">test</span><span class="p">[</span><span class="mi">15</span><span class="p">:]</span>
+<span class="n">pipe</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">newly_observed</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Calling predict will now predict from newly observed values</span>
+<span class="n">new_preds</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">still_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">new_preds</span><span class="p">)</span>
+
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">n_trained_on</span> <span class="o">=</span> <span class="n">n_train</span> <span class="o">+</span> <span class="n">newly_observed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[:</span><span class="n">n_train</span><span class="p">],</span> <span class="n">train</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">n_train</span><span class="p">:</span> <span class="n">n_trained_on</span><span class="p">],</span> <span class="n">newly_observed</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="c1"># axes[2].scatter(x2[n_trained_on:], new_preds, alpha=0.4, marker=&#39;o&#39;)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">n_trained_on</span><span class="p">:],</span> <span class="n">still_test</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Actual test samples vs. forecasts&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># plt.show()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/datatrends10_pmdarima.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Automatically created module for IPython interactive environment
+pmdarima version: 1.8.5
+Performing stepwise search to minimize aic
+ ARIMA(2,1,2)(0,0,0)[0] intercept   : AIC=261.587, Time=0.74 sec
+ ARIMA(0,1,0)(0,0,0)[0] intercept   : AIC=522.367, Time=0.06 sec
+ ARIMA(1,1,0)(0,0,0)[0] intercept   : AIC=401.618, Time=0.15 sec
+ ARIMA(0,1,1)(0,0,0)[0] intercept   : AIC=260.626, Time=0.36 sec
+ ARIMA(0,1,0)(0,0,0)[0]             : AIC=520.377, Time=0.14 sec
+ ARIMA(1,1,1)(0,0,0)[0] intercept   : AIC=257.600, Time=0.40 sec
+ ARIMA(2,1,1)(0,0,0)[0] intercept   : AIC=259.024, Time=0.60 sec
+ ARIMA(1,1,2)(0,0,0)[0] intercept   : AIC=260.318, Time=0.33 sec
+ ARIMA(0,1,2)(0,0,0)[0] intercept   : AIC=257.045, Time=0.51 sec
+ ARIMA(0,1,3)(0,0,0)[0] intercept   : AIC=258.163, Time=0.77 sec
+ ARIMA(1,1,3)(0,0,0)[0] intercept   : AIC=260.904, Time=0.74 sec
+ ARIMA(0,1,2)(0,0,0)[0]             : AIC=257.086, Time=0.24 sec
+
+Best model:  ARIMA(0,1,2)(0,0,0)[0] intercept
+Total fit time: 5.042 seconds
+Model fit:
+Pipeline(steps=[(&#39;fourier&#39;, FourierFeaturizer(k=4, m=12)),
+                (&#39;arima&#39;,
+                 AutoARIMA(error_action=&#39;ignore&#39;, seasonal=False, trace=1))])
+
+Forecasts:
+[7.21672048 7.47718895 7.70702211 7.50109376 7.39355039 7.28793713
+ 6.9482023  7.10384994 7.48193355 7.27584872 7.05523287 7.14032283
+ 7.20851927 7.49362725 7.72346026 7.51753185 7.40998855 7.30437519
+ 6.9646404  7.12028826 7.49837175 7.29228676 7.07167103 7.15676102]
+[7.43733959 7.39068654 7.27897048 6.93559394 7.09599306 7.47101792
+ 7.26720085 7.04661648 7.12045707 7.19253322 7.48399543 7.70290721
+ 7.50059684 7.40640341 7.29468726 6.95131075 7.11171009 7.48673483
+ 7.28291761 7.06233335 7.13617397 7.20825014 7.49971243 7.71862408
+ 7.51631363 7.42212029 7.31040403 6.96702756 7.12742711 7.50245174
+ 7.29863436 7.07805021 7.15189087 7.22396706 7.51542943 7.73434094
+ 7.53203043 7.43783716 7.3261208  6.98274436 7.14314414 7.51816865
+ 7.31435111 7.09376708 7.16760777 7.23968398 7.53114643 7.7500578
+ 7.54774722 7.45355404 7.34183757 6.99846117 7.15886117 7.53388556
+ 7.33006786 7.10948395 7.18332467]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='./images/datatrends10_pmdarima.png'></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pmdarima.utils</span> <span class="kn">import</span> <span class="n">tsdisplay</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">tsdisplay</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">lag_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./images/datatrends11_pmdarima_train_data.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">();</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src='./images/datatrends11_pmdarima_train_data.png'></p>
 
 </div>
 </div>
