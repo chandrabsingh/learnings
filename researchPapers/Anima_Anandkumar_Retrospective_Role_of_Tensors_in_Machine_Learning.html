@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>rp_ResNet</title>
+<title>Anima_Anandkumar_Retrospective_Role_of_Tensors_in_Machine_Learning</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13117,137 +13117,9 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ResNet">ResNet<a class="anchor-link" href="#ResNet">&#182;</a></h2><h3 id="Paper">Paper<a class="anchor-link" href="#Paper">&#182;</a></h3><ul>
-<li>Deep Residual Learning for Image Recognition<ul>
-<li>Authors: Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research)</li>
-<li>ILSVRC 2015</li>
-</ul>
-</li>
-</ul>
-<h3 id="Abstract">Abstract<a class="anchor-link" href="#Abstract">&#182;</a></h3><blockquote><p><em>"Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We explicitly reformulate the layers as learning residual functions with reference to the layer inputs, instead of learning unreferenced functions. We provide comprehensive empirical evidence showing that these residual networks are easier to optimize, and can gain accuracy from considerably increased depth. On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers—8×deeper than VGG nets [41] but still having lower complexity. An ensemble of these residual nets achieves 3.57% error on the ImageNet test set. This result won the 1st place on the ILSVRC 2015 classification task. We also present analysis on CIFAR-10 with 100 and 1000 layers.</em></p>
-<p><em>The depth of representations is of central importance for many visual recognition tasks. Solely due to our extremely deep representations, we obtain a 28% relative improvement on the COCO object detection dataset. Deep residual nets are foundations of our submissions to ILSVRC &amp; COCO 2015 competitions, where we also won the 1st places on the tasks of ImageNet detection, ImageNet localization, COCO detection, and COCO segmentation."</em></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h3><h4 id="Intro-and-Overview">Intro and Overview<a class="anchor-link" href="#Intro-and-Overview">&#182;</a></h4><ul>
-<li>Prior to this paper, everyone tried making bigger networks<ul>
-<li>because accuracy on ImageNet increased with bigger networks</li>
-</ul>
-</li>
-<li>reached to the limit of making bigger networks</li>
-<li>This paper was a revolution </li>
-<li>after this residual connection became a norm</li>
-<li>this is now used in<ul>
-<li>image recognition</li>
-<li>transformers</li>
-</ul>
-</li>
-</ul>
-<h4 id="The-Problem-with-Depth">The Problem with Depth<a class="anchor-link" href="#The-Problem-with-Depth">&#182;</a></h4><ul>
-<li>the norm was if depth of NN is increased<ul>
-<li>it performs better</li>
-<li>it generalizes better</li>
-<li>reaches lower training loss<ul>
-<li>but optimizing it was hard</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>generally there would be drop in learning rate and would reach a lower level<ul>
-<li>but if on further increasing the depth, <ul>
-<li>training error would increase, both for training and test error</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>this was not a problem of overfitting, <ul>
-<li>as training error is not increasing after it came down with increase of iterations</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/ResNet_01_ProblemWithDepth.png"></p>
-<h4 id="VGG-Style-Networks">VGG-Style Networks<a class="anchor-link" href="#VGG-Style-Networks">&#182;</a></h4><ul>
-<li>VGG nets were popular network earlier<ul>
-<li>An image would be input to convolutional layers<ul>
-<li>at first the layer will have a big resolution but with lower channel size</li>
-<li>then image resolution would be downscaled, with an increase in number of filter</li>
-<li>so more and more filters will be stacked, as resolution is down scaled<ul>
-<li>why?</li>
-<li>in image classification<ul>
-<li>at lower level  <ul>
-<li>edges are parsed</li>
-</ul>
-</li>
-<li>at higher level  <ul>
-<li>NN learns more of abstract features<ul>
-<li>- why?
-  - at higher levels, the exact localization of these features will be less and less important
-  - so if a car is present in the image,
-  - its not that important where it is
-    - for car
-      - lower levels will recognize the edges
-      - intermediate levels will recognize the geometric shapes of wheel and body
-      - higher levels will learn to combine the individual parts of each other</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>at higher levels, its more important to build more expressive features</li>
-<li>so the resolution was downscaled and number of filters were upscaled</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>this was a good hypothesis/heuristic</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>the question was <ul>
-<li>why does it gets worse if layers are added</li>
-</ul>
-</li>
-</ul>
-<h4 id="Overfitting-is-not-the-Problem">Overfitting is not the Problem<a class="anchor-link" href="#Overfitting-is-not-the-Problem">&#182;</a></h4><blockquote><p><em>"Unexpectedly, such degradation is not caused by overfitting, and adding more layers to a suitably deep model leads to higher training error, as reported in and thoroughly verified by our experiments."</em></p>
-<p><em>"The degradation (of training accuracy) indicates that not all systems are similarly easy to optimize. Let us consider a shallower architecture and its deeper counterpart that adds more layers onto it. There exists a solution by construction to the deeper model: the added layers are identity mapping, and the other layers are copied from the learned shallower model. The existence of this constructed solution indicates that a deeper model should produce no higher training error than its shallower counterpart"</em></p>
-</blockquote>
-<ul>
-<li>In a shallow model, like 5 layers that learns a particular function <ul>
-<li>then there also exists another deep model that learns the same function by copying over these 5 layers and also have another 5 layers which are basically identity function (10 layers)</li>
-<li>so if 5 layer network can be learned, that implies we can also train the 10 layer network with the same accuracy</li>
-<li>why because the additional 5 layers can simply learn the identity function</li>
-</ul>
-</li>
-</ul>
-<h4 id="Motivation-for-Residual-Connections">Motivation for Residual Connections<a class="anchor-link" href="#Motivation-for-Residual-Connections">&#182;</a></h4><ul>
-<li>so why is the identity function not learned?<ul>
-<li>because we initially initialize the zero weights (from a Gaussian distribution of some standard deviation but with a mean of zero)</li>
-<li>furthermore, the regularization or weight decay like L2, they bias the weight towards zero</li>
-<li>this implies that these network function learn the zero function really well<ul>
-<li>learning identity function is as difficult as any other function</li>
-</ul>
-</li>
-<li>in convolution network 3x3 filter, the identity function, 9 weights need to be learned</li>
-</ul>
-</li>
-<li>so the paper tries to find,<ul>
-<li>can the not use the zero weights function 
-$$X \rightarrow \text{learn from NN} \rightarrow \tilde{X}$$</li>
-<li>instead use the default function as the identity function<ul>
-<li>let X stay the X and then learn whatever we need to change</li>
-<li>X is a good default to not change much
-$$X \rightarrow \tilde{X} + \text{"some deviation that needs to be learned"}$$</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>the hypothesis that paper talks about is <ul>
-<li>by increasing the network layer, not much is learnt</li>
+<h3 id="Papers">Papers<a class="anchor-link" href="#Papers">&#182;</a></h3><ul>
+<li>Tensors<ul>
+<li>A. Anandkumar etal, Tensor Decompositions for Learning Latent Variable Models, JLMR 2014</li>
 </ul>
 </li>
 </ul>
@@ -13258,26 +13130,270 @@ $$X \rightarrow \tilde{X} + \text{"some deviation that needs to be learned"}$$</
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Residual-Blocks">Residual Blocks<a class="anchor-link" href="#Residual-Blocks">&#182;</a></h4><p><img src="./images/ResNet_02_Overfitting.png"></p>
+<h3 id="Presentation-Summary">Presentation-Summary<a class="anchor-link" href="#Presentation-Summary">&#182;</a></h3><ol>
+<li>Introduction<ul>
+<li>how did the idea came for?</li>
+</ul>
+</li>
+<li>Probabilistic Graphical Models - 2007/08<ul>
+<li>from signal processing</li>
+<li>sensor networks, now called as IoT</li>
+<li>large class of open fields<ul>
+<li>how to do learning in high dimensions</li>
+<li>statistically and computationally</li>
+<li>strength of relationships</li>
+</ul>
+</li>
+<li>interdisciplinary connections</li>
+<li>2011 - started incorporating hidden variables<ul>
+<li>to model such distributions</li>
+<li>some variables are hidden</li>
+<li>image has chair and table<ul>
+<li>image is outdoor (hidden variable)</li>
+</ul>
+</li>
+<li>how to learn hidden variable</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Unsupervised Learning - Topic Models<ul>
+<li>wide spread applicability</li>
+<li>text document <ul>
+<li>want to extract where did each word come from(topic)</li>
+<li>then calculate the proportion of different topics</li>
+<li>basic clustering cannot be used, as each document can have multiple topics in it<ul>
+<li>clustering requires one topic in a document</li>
+</ul>
+</li>
+<li>proportion of each topic</li>
+<li>simplicity of model comes from exchangability<ul>
+<li>order of words dont matter<ul>
+<li>first draw topics from proportion vector</li>
+<li>and then draw words from word-topic matrix</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>this is a graphical model and whats hidden are the topics</code></li>
+<li>this needs to be learned and is a challenge</li>
+</ul>
+</li>
+<li>Prior Art<ul>
+<li>standard approach to solve the problem <ul>
+<li>maximum likelihood (EM or variational inference)</li>
+<li>this is an NP-hard problem</li>
+<li>there is variance like Expectation Maximization<ul>
+<li>globally optimal solution not guaranted</li>
+</ul>
+</li>
+<li>failure in higher dimensions<ul>
+<li>cannot be scaled</li>
+<li>neither topics nor word-topic matrix</li>
+<li>not easy to parallelize</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Method of Moments<ul>
+<li>Alternative to Maximum Likelihood</li>
+<li><code>record the empirical moments of observed variables and then try to fit them</code><ul>
+<li>first order is the mean</li>
+<li>second order is the pairwise correlation</li>
+</ul>
+</li>
+<li>first compute and then find a suited distribution</li>
+<li>if you use two orders only <ul>
+<li>this is a Gaussian approximation</li>
+</ul>
+</li>
+<li>higher order moments are required</li>
+<li>for this <code>Tensors are required</code><ul>
+<li><code>when hidden variables are present</code></li>
+<li><code>to get good estimate of model,</code></li>
+<li><code>higher order moments are needed</code></li>
+</ul>
+</li>
+<li>this is even more needed in multivariate higher order moments </li>
+</ul>
+</li>
+<li>Tensor: Extension of Matrix<ul>
+<li>What tensors are</li>
+<li>what is the algebra behind it</li>
+<li>as tensors are generalization of matrices to higher dimensions<ul>
+<li>what property of matrix algebra is retained and what is different</li>
+<li>tensors are applied in lot of different areas</li>
+</ul>
+</li>
+<li>in quantum studies, this is the foundation and in many other areas</li>
+</ul>
+</li>
+<li>Matrix vs Tensor decomposition<ul>
+<li>tensor algebra is very different from matrix algebra</li>
+<li>to decompose tensors into rank 1 components<ul>
+<li>can have non-orthogonal components and still have uniqueness</li>
+</ul>
+</li>
+<li>uniquely identify decomposition<ul>
+<li>much less stringent conditions compared to matrix decomposition</li>
+</ul>
+</li>
+<li>to look at pairwise correlation matrix of topic model<ul>
+<li>with orthogonality, you wnat words to appear uniquely <ul>
+<li>only then can you guarantee identifiability of the underlying model</li>
+<li>this is not possible</li>
+</ul>
+</li>
+<li>with tensors, there is a mild condition for uniqueness<ul>
+<li>topic vector should be linearly independent</li>
+<li>topics are not representing something redundant in terms of linear independence</li>
+<li>tensors give lot more information than matrices<ul>
+<li>because they are modeling higher order moments</li>
+<li>and give deeper relationship between variables</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Tensors for Modeling<ul>
+<li>topic detection in text</li>
+<li>co-occurence of word<ul>
+<li>look at the average over the entire corpus<ul>
+<li>add correction terms and</li>
+<li>decompose that in rank-1 components <ul>
+<li>then recover the underlying topic</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tensor decomposition for topic discovery</li>
+</ul>
+</li>
+<li>Why Not Tensors<ul>
+<li>why did others not consider tensors<ul>
+<li>they cared about statistical efficiency worse than pairwise correlation</li>
+<li>for small data, tensors are not suited<ul>
+<li>loose efficiency</li>
+</ul>
+</li>
+<li>doing tensor decomposition is NP-hard<ul>
+<li>linear algebra has guaranteed solutions</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Why Tensors<ul>
+<li>Statistical reasons<ul>
+<li>higher order relationships in data can be incorporated</li>
+<li>hidden topics can be found</li>
+</ul>
+</li>
+<li>Computational reasons<ul>
+<li>can be parallelizable like linear algebra</li>
+<li>faster than other algos for LDA</li>
+<li>training and inference can be decomposed</li>
+<li>guaranteed to converge to global optimum under simple assumptions</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cloud Deployment at AWS<ul>
+<li>Mallet - open source topic modeling</li>
+<li>AWS sagemaker platform</li>
+</ul>
+</li>
+<li>Trinity of AI/ML<ul>
+<li>Algorithms, Compute, Data<ul>
+<li>earlier focusing on Algorithms only</li>
+</ul>
+</li>
+<li>in todays world,<ul>
+<li>data is multidimensional</li>
+<li>DL uses tensors to calculate moments but in implicit manner</li>
+<li>if models can calculate these moments in explicit manner<ul>
+<li>the hidden information is stored there much more efficiently</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>compute side<ul>
+<li>interesting find</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Tensor Primitives<ul>
+<li>Hardware<ul>
+<li>BLAS Level 1 - 1969 - Vector-Vector</li>
+<li>BLAS Level 2 - 1972 - Matrix-Vector</li>
+<li>BLAS Level 3 - 1980 - Matrix-Matrix</li>
+<li>BLAS Level 4 - Now? - Tensor-Tensor</li>
+</ul>
+</li>
+<li>Tensors are less expensive to compute in parallelized manner<ul>
+<li>tensoe- much cheaper if you have right primitives</li>
+<li>design these new primitives in hardware<ul>
+<li>GPU</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Computation with Tensors - Tensor Contraction Primitive<ul>
+<li>extends the notion of matrix product</li>
+</ul>
+</li>
+<li>New Primitive for Tensor Contractions<ul>
+<li>NVidia</li>
+<li>better alternative for tensor contractions<ul>
+<li>by doing strides in particular way, performance improves</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Nvidia Cutensor<ul>
+<li>high performance cuda-library for tensor primitives<ul>
+<li>transpose-free contractions</li>
+<li>arbitrary data layouts</li>
+<li>extensive mixed-precision support<ul>
+<li>better primitives for tensor library</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Tensorly: High level API for Tensor algebra<ul>
+<li>Jean Kossaifi<ul>
+<li>tensor decomposition</li>
+<li>tensor regression</li>
+<li>tensors + deep</li>
+</ul>
+</li>
+<li>basic tensor operations</li>
+<li>unified backend</li>
+<li>Keras</li>
+</ul>
+</li>
+<li>Tensors for Models<ul>
+<li>Standard CNN use linear algebra</li>
+</ul>
+</li>
+</ol>
 <ul>
-<li>The paper talks about having skip connections</li>
-<li>Say there is a function $H(x) := F(x) + x$<ul>
-<li>so whatever we meed to change about x</li>
-<li>or whatever we wnat the input to be changed to output<ul>
-<li>the weight layer tend towards the zero function</li>
-<li>so if $F(x)$ tends towards zero function, then $H(x)$ becomes identity function<ul>
-<li>so the default function of this network is identity function</li>
-<li>and what we learn is how to deviate from the identity function, which is a default function</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>at the bottom we see there is a relu function, which implies the total network is nonlinear function in total<ul>
-<li>but the default is the identity function</li>
-</ul>
-</li>
+<li>inductive biases</li>
 </ul>
 
 </div>
@@ -13286,195 +13402,6 @@ $$X \rightarrow \tilde{X} + \text{"some deviation that needs to be learned"}$$</
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="From-VGG-to-ResNet">From VGG to ResNet<a class="anchor-link" href="#From-VGG-to-ResNet">&#182;</a></h4><ul>
-<li>if these networks are chained, we get a residual network</li>
-</ul>
-<p><img src="./images/ResNet_03_VGG_to_ResNet.png"></p>
-<ul>
-<li>In VGG-19 network,<ul>
-<li>initially, image has 4 channels<ul>
-<li>upscale it to 64 channels and have resolution of 224</li>
-</ul>
-</li>
-<li>then use maxpools <ul>
-<li>which 1/2's the resolution to 112, but up the filters to 128</li>
-</ul>
-</li>
-<li>then use maxpools again<ul>
-<li>which 1/2's the resolution to 56, but up the filters to 256</li>
-</ul>
-</li>
-<li>this network has lot of parameters<ul>
-<li>needs lot of computation 19.6 billion FLOPs(floating point operations) for a forward pass</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>In residual network,<ul>
-<li>the network has lot less parameters/complexity compared to VGG<ul>
-<li>3.6 billion FLOPs</li>
-</ul>
-</li>
-<li>it is still much deeper</li>
-<li>trade-off<ul>
-<li>not that many parameters are needed</li>
-<li>succession of layers makes it learn lot more than having massive layers</li>
-<li>ResNets have much less amount of filters 64 compared to 256</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/ResNet_04_VGG_to_ResNet_filters.png"></p>
-<ul>
-<li><p>they also make a 34 layer network called plain</p>
-<ul>
-<li>with no pooling, but use stride to convolution(instead of maxpool or average pooling) to downscale</li>
-</ul>
-</li>
-<li><p>The paper first compares VGG19 to 34 layer plain</p>
-<ul>
-<li>we see that we loose performance, when the number of layers are increased</li>
-</ul>
-</li>
-<li>then it compares it to 34 layer plain to residual network<ul>
-<li>no extra parameters are introduced here, the only difference </li>
-<li>is it has the jumping/skip connections<ul>
-<li>the signal can travel as the identity function</li>
-</ul>
-</li>
-<li>the network becomes trainable<ul>
-<li>and deeper network better network</li>
-</ul>
-</li>
-<li>caveat is<ul>
-<li>output has to be of the same size as input<ul>
-<li>as input needs to be added onto the output</li>
-</ul>
-</li>
-<li>for example here the output is half the size of input, but the number of filter size is double</li>
-<li>it projects 64 filters to 128 filters</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/ResNet_06_VGG_to_ResNet_residual.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Experimental-Results">Experimental Results<a class="anchor-link" href="#Experimental-Results">&#182;</a></h4><ul>
-<li>On left hand side figure,<ul>
-<li>18 layer network has lower train and validation accuracy</li>
-<li>the solid line is the validation error of the center crops</li>
-<li>the training error will be higher, as they do different augmentation</li>
-<li>the training and validation error is higher in the deeper network(34 layer), if residual connection is not used<ul>
-<li>this is not due to overfitting</li>
-<li>this is because the deeper network cannot be trained<ul>
-<li>the solution space of 18 layer is a subspace of solution space of 34 layer</li>
-<li>we should be able to train equivalent to or lower than the accuracy of 18 layers<ul>
-<li>but we can't</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>On right hand side figure, in the residual connection<ul>
-<li>trend is exactly reversed<ul>
-<li>34 layer has much better training and validation error than thee 18 layer<ul>
-<li>with 18 layers, the residual network error is marginally better in plain network</li>
-<li>with 34 layers, the residual network error is lot better compared to plain network<ul>
-<li>residual connection help more and more, the deeper the network is </li>
-<li>more importantly, residual networks don't degrade the shallower network</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/ResNet_07_ExpResults_training.png"></p>
-<p><img src="./images/ResNet_08_ExpResults_result.png"></p>
-<ul>
-<li><p>the paper also compares the error with other networks</p>
-<ul>
-<li>ResNet-34 A<ul>
-<li>zero padding of projection</li>
-</ul>
-</li>
-<li>ResNet-34 B<ul>
-<li>having projections simply between where channels don't fit</li>
-<li>gives a quite a bit of boost</li>
-</ul>
-</li>
-<li>ResNet-34 C<ul>
-<li>having projections in every single residual connection </li>
-<li>does not give that much of a boost and introduces many more parameters</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>the paper also experiments deeper layer ResNets</p>
-<ul>
-<li>among ResNet-50, ResNet-101, ResNet-152<ul>
-<li>ResNet-152 was the best one and also implied that more depth to have better network</li>
-</ul>
-</li>
-<li>they made an ensemble of different models and won 2015 ImageNet competition</li>
-</ul>
-</li>
-</ul>
-<p><img src="./images/ResNet_09_ExpResults_comparison1.png">
-<img src="./images/ResNet_10_ExpResults_comparison2.png">
-<img src="./images/ResNet_11_ExpResults_comparison3.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Bottleneck-Blocks">Bottleneck Blocks<a class="anchor-link" href="#Bottleneck-Blocks">&#182;</a></h4><ul>
-<li>the paper introduced bottleneck blocks<ul>
-<li>on left hand side image<ul>
-<li>for 64 dimension image, </li>
-<li>it used 64 feature channels in convolution </li>
-<li>and had 64 dimension output</li>
-</ul>
-</li>
-<li>on right hand side image<ul>
-<li>for 256 dimension image, </li>
-<li>can save computation power, by projecting down to 64 first</li>
-<li>as the complexity of "3x3, 64" layer will be the same as left hand network layer</li>
-<li>and then project up again</li>
-<li>1x1 convolution is significantly lower computational intensive than the 3x3 convolution</li>
-<li>its 9 times less operation 
-<img src="./images/ResNet_12_BottleneckBlocks_comparison.png"></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Deeper-ResNets">Deeper ResNets<a class="anchor-link" href="#Deeper-ResNets">&#182;</a></h4><ul>
-<li>this model is still used as pretrained version</li>
-<li>used in segmentation applications</li>
-</ul>
 
 </div>
 </div>

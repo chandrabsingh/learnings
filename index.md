@@ -1,6 +1,6 @@
 Here are the project work, notes and understanding of the tools I learnt during my sabbatical work break
 
-<h2 align="center">SkillSet Summary</h2>
+<h2 align="center">SkillSet/Interest Summary</h2>
 
 |Data Science|GCP|Distributed Computing|Mathematics|Computer Science|Finance|Programming|
 |------------|---|-----|------|----------------|------|-----|
@@ -51,6 +51,11 @@ Here are the project work, notes and understanding of the tools I learnt during 
 
 - [deep learning - conceptual brief](dl_examples/dl_glossary.html)
 - [research paper - alexnet - summary](researchPapers/rp_AlexNet.html)
+- [research paper - resnet - summary](researchPapers/rp_ResNet.html)
+- mit 6.s191 - intro to tensorflow; music generation
+- mit 6.s191 - de-biasing facial recognition systems
+- mit 6.s191 - learning end-to-end self-driving control
+- [anima anandkumar presentation summary - retrospective - role of tensors in machine learning](Anima_Anandkumar_Retrospective_Role_of_Tensors_in_Machine_Learning.html)
 
 <h3 align="center">Recommender systems</h3>
 
@@ -222,6 +227,19 @@ Here are the project work, notes and understanding of the tools I learnt during 
 
 - [lec02 - image classification](cs231n_cnn/lec02-image-classification.html)    
 - [lec03 - loss function and optimization](cs231n_cnn/lec03-lossFun-optimization.html)  
+
+<h3 align="center">MIT 6.S191 Introduction to Deep Learning</h3>
+
+- lec01 - intro to deep learning
+- lec02 - Deep Sequence Modeling
+- lec03 - Deep Computer Vision
+- lec04 - Deep Generative Modeling
+- lec05 - Deep Reinforcement Learning
+- lec06 - Limitations and New Frontiers
+- lec07 - Autonomous Driving with LiDAR
+- lec08 - Uncertainty in Deep Learning
+- lec09 - AI 4 Science
+- lec10 - Speech Recognition
 
 <h3 align="center">Certifications/Online Coursework</h3>
 
