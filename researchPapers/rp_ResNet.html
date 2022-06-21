@@ -13172,18 +13172,18 @@ $( document ).ready(function(){
 </ul>
 <p><img src="./images/ResNet_01_ProblemWithDepth.png"></p>
 <h4 id="VGG-Style-Networks">VGG-Style Networks<a class="anchor-link" href="#VGG-Style-Networks">&#182;</a></h4><ul>
-<li>VGG nets were the popular network earlier<ul>
+<li>VGG nets were popular network earlier<ul>
 <li>An image would be input to convolutional layers<ul>
-<li>at first the layer will have a big resolution but increase the channel size</li>
-<li>then the image would be downscaled, with the increase in number of filter</li>
-<li>so more and more filters are stacked, as the resolution is down scaled<ul>
+<li>at first the layer will have a big resolution but with lower channel size</li>
+<li>then image resolution would be downscaled, with an increase in number of filter</li>
+<li>so more and more filters will be stacked, as resolution is down scaled<ul>
 <li>why?</li>
 <li>in image classification<ul>
-<li>at lower levels features <ul>
+<li>at lower level  <ul>
 <li>edges are parsed</li>
 </ul>
 </li>
-<li>at higher or abstract features <ul>
+<li>at higher level  <ul>
 <li>NN learns more of abstract features<ul>
 <li>- why?
   - at higher levels, the exact localization of these features will be less and less important
@@ -13203,7 +13203,7 @@ $( document ).ready(function(){
 </li>
 </ul>
 </li>
-<li>this was a good hypothesis</li>
+<li>this was a good hypothesis/heuristic</li>
 </ul>
 </li>
 </ul>
@@ -13213,13 +13213,44 @@ $( document ).ready(function(){
 </ul>
 </li>
 </ul>
-<h4 id="Overfitting-is-not-the-Problem">Overfitting is not the Problem<a class="anchor-link" href="#Overfitting-is-not-the-Problem">&#182;</a></h4><h4 id="Motivation-for-Residual-Connections">Motivation for Residual Connections<a class="anchor-link" href="#Motivation-for-Residual-Connections">&#182;</a></h4><h4 id="Residual-Blocks">Residual Blocks<a class="anchor-link" href="#Residual-Blocks">&#182;</a></h4><h4 id="From-VGG-to-ResNet">From VGG to ResNet<a class="anchor-link" href="#From-VGG-to-ResNet">&#182;</a></h4><h4 id="Experimental-Results">Experimental Results<a class="anchor-link" href="#Experimental-Results">&#182;</a></h4><h4 id="Bottleneck-Blocks">Bottleneck Blocks<a class="anchor-link" href="#Bottleneck-Blocks">&#182;</a></h4><h4 id="Deeper-ResNets">Deeper ResNets<a class="anchor-link" href="#Deeper-ResNets">&#182;</a></h4><h4 id="More-Results">More Results<a class="anchor-link" href="#More-Results">&#182;</a></h4><h4 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Overfitting-is-not-the-Problem">Overfitting is not the Problem<a class="anchor-link" href="#Overfitting-is-not-the-Problem">&#182;</a></h4><blockquote><p><em>"Unexpectedly, such degradation is not caused by overfitting, and adding more layers to a suitably deep model leads to higher training error, as reported in and thoroughly verified by our experiments."</em></p>
+<p><em>"The degradation (of training accuracy) indicates that not all systems are similarly easy to optimize. Let us consider a shallower architecture and its deeper counterpart that adds more layers onto it. There exists a solution by construction to the deeper model: the added layers are identity mapping, and the other layers are copied from the learned shallower model. The existence of this constructed solution indicates that a deeper model should produce no higher training error than its shallower counterpart"</em></p>
+</blockquote>
+<ul>
+<li>In a shallow model, like 5 layers that learns a particular function <ul>
+<li>then there also exists another deep model that learns the same function by copying over these 5 layers and also have another 5 layers which are basically identity function (10 layers)</li>
+<li>so if 5 layer network can be learned, that implies we can also train the 10 layer network with the same accuracy</li>
+<li>why because the additional 5 layers can simply learn the identity function</li>
+</ul>
+</li>
+</ul>
+<h4 id="Motivation-for-Residual-Connections">Motivation for Residual Connections<a class="anchor-link" href="#Motivation-for-Residual-Connections">&#182;</a></h4><ul>
+<li>so why is the identity function not learned?<ul>
+<li>because we initially initialize the zero weights (from a Gaussian distribution of some standard deviation but with a mean of zero)</li>
+<li>furthermore, the regularization or weight decay like L2, they bias the weight towards zero</li>
+<li>this implies that these network function learn the zero function really well<ul>
+<li>learning identity function is as difficult as any other function</li>
+</ul>
+</li>
+<li>in convolution network 3x3 filter, the identity function, 9 weights need to be learned</li>
+</ul>
+</li>
+<li>so the paper tries to find,<ul>
+<li>can the not use the zero weights function 
+$$X \rightarrow \text{learn from NN} \rightarrow \tilde{X}$$</li>
+<li>instead use the default function as the identity function<ul>
+<li>let X stay the X and then learn whatever we need to change</li>
+<li>X is a good default to not change much
+$$X \rightarrow \tilde{X} + \text{"some deviation that needs to be learned"}$$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>the hypothesis that paper talks about is <ul>
+<li>by increasing the network layer, not much is learnt</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -13227,6 +13258,27 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Residual-Blocks">Residual Blocks<a class="anchor-link" href="#Residual-Blocks">&#182;</a></h4><p><img src="./images/ResNet_02_Overfitting.png"></p>
+<ul>
+<li>The paper talks about having skip connections</li>
+<li>Say there is a function $H(x) := F(x) + x$<ul>
+<li>so whatever we meed to change about x</li>
+<li>or whatever we wnat the input to be changed to output<ul>
+<li>the weight layer tend towards the zero function</li>
+<li>so if $F(x)$ tends towards zero function, then $H(x)$ becomes identity function<ul>
+<li>so the default function of this network is identity function</li>
+<li>and what we learn is how to deviate from the identity function, which is a default function</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>at the bottom we see there is a relu function, which implies the total network is nonlinear function in total<ul>
+<li>but the default is the identity function</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div>
@@ -13234,7 +13286,192 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="From-VGG-to-ResNet">From VGG to ResNet<a class="anchor-link" href="#From-VGG-to-ResNet">&#182;</a></h4><ul>
+<li>if these networks are chained, we get a residual network</li>
+</ul>
+<p><img src="./images/ResNet_03_VGG_to_ResNet.png"></p>
+<ul>
+<li>In VGG-19 network,<ul>
+<li>initially, image has 4 channels<ul>
+<li>upscale it to 64 channels and have resolution of 224</li>
+</ul>
+</li>
+<li>then use maxpools <ul>
+<li>which 1/2's the resolution to 112, but up the filters to 128</li>
+</ul>
+</li>
+<li>then use maxpools again<ul>
+<li>which 1/2's the resolution to 56, but up the filters to 256</li>
+</ul>
+</li>
+<li>this network has lot of parameters<ul>
+<li>needs lot of computation 19.6 billion FLOPs(floating point operations) for a forward pass</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>In residual network,<ul>
+<li>the network has lot less parameters/complexity compared to VGG<ul>
+<li>3.6 billion FLOPs</li>
+</ul>
+</li>
+<li>it is still much deeper</li>
+<li>trade-off<ul>
+<li>not that many parameters are needed</li>
+<li>succession of layers makes it learn lot more than having massive layers</li>
+<li>ResNets have much less amount of filters 64 compared to 256</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/ResNet_04_VGG_to_ResNet_filters.png"></p>
+<ul>
+<li><p>they also make a 34 layer network called plain</p>
+<ul>
+<li>with no pooling, but use stride to convolution(instead of maxpool or average pooling) to downscale</li>
+</ul>
+</li>
+<li><p>The paper first compares VGG19 to 34 layer plain</p>
+<ul>
+<li>we see that we loose performance, when the number of layers are increased</li>
+</ul>
+</li>
+<li>then it compares it to 34 layer plain to residual network<ul>
+<li>no extra parameters are introduced here, the only difference </li>
+<li>is it has the jumping/skip connections<ul>
+<li>the signal can travel as the identity function</li>
+</ul>
+</li>
+<li>the network becomes trainable<ul>
+<li>and deeper network better network</li>
+</ul>
+</li>
+<li>caveat is<ul>
+<li>output has to be of the same size as input<ul>
+<li>as input needs to be added onto the output</li>
+</ul>
+</li>
+<li>for example here the output is half the size of input, but the number of filter size is double</li>
+<li>it projects 64 filters to 128 filters</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/ResNet_06_VGG_to_ResNet_residual.png"></p>
 
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Experimental-Results">Experimental Results<a class="anchor-link" href="#Experimental-Results">&#182;</a></h4><ul>
+<li>On left hand side figure,<ul>
+<li>18 layer network has lower train and validation accuracy</li>
+<li>the solid line is the validation error of the center crops</li>
+<li>the training error will be higher, as they do different augmentation</li>
+<li>the training and validation error is higher in the deeper network(34 layer), if residual connection is not used<ul>
+<li>this is not due to overfitting</li>
+<li>this is because the deeper network cannot be trained<ul>
+<li>the solution space of 18 layer is a subspace of solution space of 34 layer</li>
+<li>we should be able to train equivalent to or lower than the accuracy of 18 layers<ul>
+<li>but we can't</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>On right hand side figure, in the residual connection<ul>
+<li>trend is exactly reversed<ul>
+<li>34 layer has much better training and validation error than thee 18 layer<ul>
+<li>with 18 layers, the residual network error is marginally better in plain network</li>
+<li>with 34 layers, the residual network error is lot better compared to plain network<ul>
+<li>residual connection help more and more, the deeper the network is </li>
+<li>more importantly, residual networks don't degrade the shallower network</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/ResNet_07_ExpResults_training.png"></p>
+<p><img src="./images/ResNet_08_ExpResults_result.png"></p>
+<ul>
+<li><p>the paper also compares the error with other networks</p>
+<ul>
+<li>ResNet-34 A<ul>
+<li>zero padding of projection</li>
+</ul>
+</li>
+<li>ResNet-34 B<ul>
+<li>having projections simply between where channels don't fit</li>
+<li>gives a quite a bit of boost</li>
+</ul>
+</li>
+<li>ResNet-34 C<ul>
+<li>having projections in every single residual connection </li>
+<li>does not give that much of a boost and introduces many more parameters</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>the paper also experiments deeper layer ResNets</p>
+<ul>
+<li>among ResNet-50, ResNet-101, ResNet-152<ul>
+<li>ResNet-152 was the best one and also implied that more depth to have better network</li>
+</ul>
+</li>
+<li>they made an ensemble of different models and won 2015 ImageNet competition</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/ResNet_09_ExpResults_comparison1.png">
+<img src="./images/ResNet_10_ExpResults_comparison2.png">
+<img src="./images/ResNet_11_ExpResults_comparison3.png"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Bottleneck-Blocks">Bottleneck Blocks<a class="anchor-link" href="#Bottleneck-Blocks">&#182;</a></h4><ul>
+<li>the paper introduced bottleneck blocks<ul>
+<li>on left hand side image<ul>
+<li>for 64 dimension image, </li>
+<li>it used 64 feature channels in convolution </li>
+<li>and had 64 dimension output</li>
+</ul>
+</li>
+<li>on right hand side image<ul>
+<li>for 256 dimension image, </li>
+<li>can save computation power, by projecting down to 64 first</li>
+<li>as the complexity of "3x3, 64" layer will be the same as left hand network layer</li>
+<li>and then project up again</li>
+<li>1x1 convolution is significantly lower computational intensive than the 3x3 convolution</li>
+<li>its 9 times less operation 
+<img src="./images/ResNet_12_BottleneckBlocks_comparison.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Deeper-ResNets">Deeper ResNets<a class="anchor-link" href="#Deeper-ResNets">&#182;</a></h4><h4 id="More-Results">More Results<a class="anchor-link" href="#More-Results">&#182;</a></h4><h4 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h4>
 </div>
 </div>
 </div>
