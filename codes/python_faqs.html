@@ -15284,15 +15284,124 @@ reduce(...)
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="classmethod-vs-staticmethod-vs-instance-method">classmethod vs staticmethod vs instance method<a class="anchor-link" href="#classmethod-vs-staticmethod-vs-instance-method">&#182;</a></h3><ul>
+<li>instance method<ul>
+<li>the instance methods, using self parameter, <code>can freely access attributes and other methods</code> on the same object<ul>
+<li>it <code>can modify an object’s state</code></li>
+</ul>
+</li>
+<li>Not only can they modify object state, instance methods <code>can also access the class itself</code> through the self.__class__ attribute. <ul>
+<li>it <code>can also modify class state</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>@classmethod<ul>
+<li>it uses class methods take a cls parameter that <code>points to the class—and not the object instance</code>—when the method is called.</li>
+<li>Because the class method only has access to this cls argument, <ul>
+<li>it <code>can’t modify object instance state</code> </li>
+</ul>
+</li>
+<li>However, class methods can still modify class state that <code>applies across all instances of the class</code></li>
+</ul>
+</li>
+<li>@staticmethod<ul>
+<li>this type of method takes <code>neither a self nor a cls parameter</code> (but of course it’s free to accept an arbitrary number of other parameters)</li>
+<li>a static method <code>can neither modify object state nor class state</code>. Static methods are restricted in what data they can access - and they’re primarily a way to namespace your methods.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Final takeaways<ul>
+<li>Instance methods need a class instance and can access the instance through self.</li>
+<li>Class methods don’t need a class instance. They can’t access the instance (self) but they have access to the class itself via cls.<ul>
+<li>classmethod is a decorator, wrapping a function, and you can call the resulting object on a class or (equivalently) an instance thereof</li>
+<li>One of the main uses of classmethod is to define alternative constructors/factory method</li>
+<li>Class methods are different than C++ or Java static methods.</li>
+</ul>
+</li>
+<li>Static methods don’t have access to cls or self. They work like regular functions but belong to the class’s namespace.<ul>
+<li>Static methods in Python are similar to those found in Java or C++.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://stackoverflow.com/questions/1950414/what-is-the-purpose-of-classmethod-in-this-code/1950927#1950927">https://stackoverflow.com/questions/1950414/what-is-the-purpose-of-classmethod-in-this-code/1950927#1950927</a></li>
+</ul>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;instance method called&#39;</span><span class="p">,</span> <span class="bp">self</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">classmethod</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;class method called&#39;</span><span class="p">,</span> <span class="bp">cls</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">staticmethod</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s1">&#39;static method called&#39;</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;obj.method() - &#39;</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">method</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MyClass.method(obj) - &#39;</span><span class="p">,</span> <span class="n">MyClass</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+<span class="c1"># print(MyClass.method()) # fails with a TypeError</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;obj.classmethod() - &#39;</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">classmethod</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MyClass.classmethod() - &#39;</span><span class="p">,</span> <span class="n">MyClass</span><span class="o">.</span><span class="n">classmethod</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;obj.staticmethod() - &#39;</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">staticmethod</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MyClass.staticmethod() - &#39;</span><span class="p">,</span> <span class="n">MyClass</span><span class="o">.</span><span class="n">staticmethod</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>obj.method() -  (&#39;instance method called&#39;, &lt;__main__.MyClass object at 0x7fd3aef27610&gt;)
+MyClass.method(obj) -  (&#39;instance method called&#39;, &lt;__main__.MyClass object at 0x7fd3aef27610&gt;)
+obj.classmethod() -  (&#39;class method called&#39;, &lt;class &#39;__main__.MyClass&#39;&gt;)
+MyClass.classmethod() -  (&#39;class method called&#39;, &lt;class &#39;__main__.MyClass&#39;&gt;)
+obj.staticmethod() -  static method called
+MyClass.staticmethod() -  static method called
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -20347,6 +20456,79 @@ b=[[1], [], []]
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lists</span> <span class="o">=</span> <span class="p">[[]]</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lists</span><span class="p">)</span>
+
+<span class="n">lists</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lists</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[], [], []]
+[[3], [3], [3]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lists</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">lists</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">lists</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">lists</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">lists</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[27]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[[3], [5], [7]]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -20504,6 +20686,316 @@ The slowest run took 65.25 times longer than the fastest. This could mean that a
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">two_to_the_power_three</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">exp</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">two_to_the_power_three</span><span class="p">())</span> <span class="c1"># 3rd way </span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Magic/dunder/double-underscore-methods">Magic/dunder/double underscore methods<a class="anchor-link" href="#Magic/dunder/double-underscore-methods">&#182;</a></h3><h4 id="__init__">__init__<a class="anchor-link" href="#__init__">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span> <span class="c1">## Class initializer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">val</span>
+       
+    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+<span class="n">instance</span> <span class="o">=</span> <span class="n">TestClass</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+<span class="n">instance</span><span class="o">.</span><span class="n">speak</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Hello World!
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="__del__">__del__<a class="anchor-link" href="#__del__">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;temp.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;test data&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1">## class instance - deletion handler</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;temp.csv&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cleanup done!&quot;</span><span class="p">)</span>
+
+<span class="n">testObj</span> <span class="o">=</span> <span class="n">TestClass</span><span class="p">()</span>
+<span class="k">del</span> <span class="n">testObj</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Cleanup done!
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="__getattr__">__getattr__<a class="anchor-link" href="#__getattr__">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+    
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span> 
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        - declares attributes that dont exist</span>
+<span class="sd">        - will resolve the existing variables and </span>
+<span class="sd">            fallback to the special method when nothing is found</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">__name</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Test&quot;</span>
+        <span class="k">pass</span>
+
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">TestClass</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">number</span><span class="p">)</span> <span class="c1"># Will print `1`</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="c1"># Will print `&quot;Test&quot;`</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+Test
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="__getattribute__">__getattribute__<a class="anchor-link" href="#__getattribute__">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span> 
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        - runs first and doesn’t fall back to existing values in the class instance.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">__name</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Test&quot;</span>
+        <span class="k">pass</span>
+
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">TestClass</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">number</span><span class="p">)</span> <span class="c1"># `None`</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="c1"># `&quot;Test&quot;`</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>None
+Test
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="__getattr__-vs-__getattribute__">__getattr__ vs __getattribute__<a class="anchor-link" href="#__getattr__-vs-__getattribute__">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">TestClass</span><span class="p">:</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We need a &quot;try/except&quot; here, otherwise it will fail during</span>
+<span class="sd">        lookup of an invalid key</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">existingVal</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">__name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">existingVal</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">existingVal</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">__name</span> <span class="o">==</span> <span class="s2">&quot;string&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;Test&quot;</span>
+        <span class="k">pass</span>
+
+
+<span class="n">test</span> <span class="o">=</span> <span class="n">TestClass</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">number</span><span class="p">)</span> <span class="c1"># Will print `1`</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="c1"># Will print `&quot;Test&quot;`</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1
+Test
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>READ<ul>
+<li><a href="https://coderpad.io/blog/development/guide-to-python-magic-methods/">https://coderpad.io/blog/development/guide-to-python-magic-methods/</a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#typeiter">https://docs.python.org/3/library/stdtypes.html#typeiter</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
@@ -20511,6 +21003,93 @@ The slowest run took 65.25 times longer than the fastest. This could mean that a
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="__iter__-vs-range">__iter__ vs range<a class="anchor-link" href="#__iter__-vs-range">&#182;</a></h3><ul>
+<li><a href="https://docs.python.org/3/glossary.html#term-iterator">https://docs.python.org/3/glossary.html#term-iterator</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c1"># range is not an iterator</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;print printed this: &#39;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">b</span><span class="o">=</span><span class="nb">next</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;next printed this : &#39;</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>print printed this:  0
+next printed this :  1
+print printed this:  2
+next printed this :  3
+print printed this:  4
+next printed this :  5
+print printed this:  6
+next printed this :  7
+print printed this:  8
+next printed this :  9
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[22]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;range_iterator at 0x7fd3aed4d270&gt;</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -20527,60 +21106,6 @@ The slowest run took 65.25 times longer than the fastest. This could mean that a
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -20589,6 +21114,7 @@ The slowest run took 65.25 times longer than the fastest. This could mean that a
 <li><a href="https://referenceguide.dev/cheatsheet/python3.html">https://referenceguide.dev/cheatsheet/python3.html</a></li>
 <li><a href="https://docs.python.org/3/faq/design.html">https://docs.python.org/3/faq/design.html</a></li>
 <li><a href="https://docs.python.org/3/c-api/memory.html">https://docs.python.org/3/c-api/memory.html</a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html">https://docs.python.org/3/library/stdtypes.html</a></li>
 </ul>
 
 </div>

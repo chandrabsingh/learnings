@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>unix_shell_script</title>
+<title>ch02_repository_pattern</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13117,303 +13117,30 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="vi-commands">vi commands<a class="anchor-link" href="#vi-commands">&#182;</a></h3><h4 id="Editing">Editing<a class="anchor-link" href="#Editing">&#182;</a></h4><ul>
-<li>Add same string at the beginning of each line: <code>:%s/^/helloworld/</code></li>
-<li>Undo last commands: <code>:u</code></li>
-<li>Undo last 2 commands: <code>:2u</code></li>
-<li>Copy all the lines in buffer: <code>:%y+</code></li>
-<li>Delete all the lines in file: <code>:1,\$d</code></li>
-<li>Delete lines from cursor to specific line number: <code>:.,10d</code></li>
-<li>Delete current line: <code>:.d</code></li>
-<li>Exit without saving: <code>:q!</code></li>
-<li>Save and exit: <code>:wq</code></li>
-<li>Insert mode: <code>:I</code></li>
-<li>Copy next 2 lines: <code>2yy</code></li>
-<li>Paste copied items: <code>p</code></li>
-<li>Copy/Paste specific line numbers:<ul>
-<li>yank those lines in register:<blockquote><p><code>:364,757y</code></p>
-</blockquote>
-</li>
-<li>if you want to copy those lines and paste to some certain line, t is your friend. for example:<blockquote><p><code>:364,757t2</code>  - will copy those lines to under 2nd line.</p>
-</blockquote>
-</li>
-<li>if you want to copy them to right under your current line:<blockquote><p><code>:364,757t.</code></p>
-</blockquote>
-</li>
+<h3 id="Packages-used">Packages used<a class="anchor-link" href="#Packages-used">&#182;</a></h3><ul>
+<li><p>Packages</p>
+<ul>
+<li><p>app</p>
+<ul>
+<li>sqlalchemy</li>
+<li>flask</li>
+<li>psycopg2-binary</li>
+<li>redis</li>
 </ul>
 </li>
-<li>Undo last command: <code>u</code></li>
-<li>Undo last 2 commands: <code>2u</code></li>
-<li>For tab characters that appear 4-spaces-wide: <code>set tabstop=4</code></li>
-<li>If you're using actual tab character in your source code you probably also want these settings (these are actually the defaults, but you may want to set them defensively): <code>set softtabstop=0 noexpandtab</code></li>
-<li>Finally, if you want an indent to correspond to a single tab, you should also use: <code>set shiftwidth=4</code></li>
-<li>For indents that consist of 4 space characters but are entered with the tab key: <code>set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab</code></li>
-<li>Permanent setting in <code>~/.vimrc</code>:  <code>:set number</code>  </li>
-<li>Comment in ~/.vimrc <code>" This is comment</code></li>
-<li>to search for all occurences, with highlight<blockquote><p>set hlsearch<br>
-<code>/\cGoogle</code><br>
-set nohlsearch</p>
-</blockquote>
-</li>
-<li>Search and replace <code>:[range]s/{pattern}/{string}/[flags] [count]</code><ul>
-<li>To search for the first occurrence of the string ‘foo’ in the current line and replace it with ‘bar’, you would use: <code>:s/foo/bar/</code></li>
-<li>To replace all occurrences of the search pattern in the current line, add the g flag: <code>:s/foo/bar/g</code></li>
-<li>If you want to search and replace the pattern in the entire file, use the percentage character \% as a range. This character indicates a range from the first to the last line of the file: <code>:%s/foo/bar/g</code></li>
-<li>If the {string} part is omitted, it is considered as an empty string, and the matched pattern is deleted. The following command deletes all instances of the string ‘foo’ in the current line: <code>:s/foo//g</code></li>
-<li>Instead of the slash character (/), you can use any other non-alphanumeric single-byte character except as a delimiter. This option is useful when you have the ‘/’ character in the search pattern or the replacement string: <code>:s|foo|bar|</code></li>
-<li>To confirm each substitution, use the c flag: <code>:s/foo/bar/gc</code></li>
-<li>You can also use regular expressions as a search pattern. The command bellow replaces all lines starting with ‘foo’ with ‘Vim is the best’: <code>:%s/^foo.*/Vim is the best/gc</code></li>
-<li>By default, the search operation is case sensitive; searching for “FOO” will not match “Foo”. To ignore case for the search pattern, use the i flag: <code>:s/Foo/bar/gi</code></li>
-<li>To substitute all occurrences of 'foo' to 'bar' in all lines starting from line 3 to line 10 you would use(range is inclusive): <code>:3,10s/foo/bar/g</code></li>
-<li>The dot . character indicates the current line and \$ - the dollar sign the last line. To substitute ‘foo’ in all lines starting from the current line to the last one: `:.,$s/foo/bar/`</li>
-<li>To search for a whole word, type \&lt; to mark the beginning of a word, enter the search pattern, type &gt; to mark the end of a word: <code>:s/\&lt;foo\&gt;/bar/</code></li>
-<li>Comment lines (add # before the line) from 5 to 20: <code>:5,20s/^/#/</code></li>
-<li>Uncomment lines from 5 to 20, revert the previous changes: <code>:5,20s/^#//</code></li>
-<li>Replace all instances of ‘apple’, ‘orange’, and ‘mango’ with ‘fruit’: <code>:%s/apple\|orange\|mango/fruit/g</code></li>
-<li>Remove trailing whitespace at the end of each line: <code>:%s/\s\+$//e</code></li>
+<li><p>dev/tests</p>
+<ul>
+<li>pytest</li>
+<li>pytest-icdiff</li>
+<li>mypy <ul>
+<li>Type hints or Optional Static Typing</li>
 </ul>
 </li>
-<li>To run shell commands while on vim use <code>:!ls</code></li>
-<li>To run shell commands and copy the result of executed command into opened vim document <code>:.!ls</code></li>
-<li>To list directory names only: <code>ls -d */</code></li>
-<li>To try different characters: <code>dig</code></li>
-<li>To print foreign characters: <blockquote><p>Go in insert mode <code>a</code><br>
-Type <code>Ctrl k</code><br>
-Type in the combination of foreign letters learnt from dig, and press enter</p>
-</blockquote>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Motion/Navigation">Motion/Navigation<a class="anchor-link" href="#Motion/Navigation">&#182;</a></h4><ul>
-<li>Go to end of line <code>:\$</code></li>
-<li>Go to beginning of line:  <code>:0</code></li>
-<li>move to the top of the current window (high): <code>:H</code></li>
-<li>move to the middle of the current window (middle) <code>:M</code>    </li>
-<li>move to the bottom line of the current window (low) <code>:L</code>  </li>
-<li>move to the first line of the file <code>:1G</code></li>
-<li>move to the 20th line of the file <code>:20G</code>  </li>
-<li>move to the last line of the file <code>:G</code>    </li>
-<li>Moves screen up one line <code>Ctrl-y</code></li>
-<li>Moves screen down one line <code>Ctrl-e</code></li>
-<li>Moves cursor &amp; screen up ½ page <code>Ctrl-u</code> </li>
-<li>Moves cursor &amp; screen down ½ page <code>Ctrl-d</code> </li>
-<li>Moves screen up one page, cursor to last line <code>Ctrl-b</code> </li>
-<li>Moves screen down one page, cursor to first line <code>Ctrl-f</code> </li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="vi-settings">vi settings<a class="anchor-link" href="#vi-settings">&#182;</a></h4><ul>
-<li>set colorscheme <code>:colorscheme ron</code></li>
-<li>list colorschemes available <code>ls -l /usr/share/vim/vim*/colors/</code></li>
-<li>list current colorscheme <code>:echo g:colors_name</code></li>
-<li>turn syntax highlight  <code>:syntax on</code></li>
-<li>delete characters from the cursor to the end of the line <code>:d$</code></li>
-<li>repeat characters(Hello) in a line <code>:2Hello-Esc</code></li>
-<li>switch from vim to console<blockquote><ul>
-<li>When inside Vim editing my Python scripts, I simply hit <em>Ctrl Z</em> so as to return in console mode  </li>
-<li>Run my script with command \$ python my_script.py  </li>
-<li>When done, I enter \$ fg in the command line and that gets me back inside Vim, in the state I was before hitting <em>Ctrl Z</em>. (fg as in foreground)</li>
-</ul>
-</blockquote>
-</li>
-<li>download and extract file using wget command<blockquote><p>wget -c <a href="http://xyz.com.tar.gz">http://xyz.com.tar.gz</a> | tar -xz</p>
-</blockquote>
-</li>
-<li>go to previous commands entered<blockquote><p>Type : and press up or down arrow<br>
-q: will show you command history in Vim.<br>
-q/ will show you history of searches.<br>
-And must importantly, :q will quite the mode.</p>
-</blockquote>
-</li>
-<li>Set line number  <code>:set number</code> or <code>:set nu</code></li>
-<li>Set no line number <code>:set nonumber</code> or <code>:set number!</code> or <code>:set nu!</code></li>
-<li>Set relative line number  <code>:set relativenumber</code> or <code>:set rnu</code></li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="vi-extras">vi extras<a class="anchor-link" href="#vi-extras">&#182;</a></h4><ul>
-<li>Take input from commands and put it into new file<blockquote><p><code>echo "Test this" | vim -</code> # Reading from standard input</p>
-</blockquote>
-</li>
-<li>Other way would be<blockquote><p><code>vim '+ :.! echo "Test this" '</code><br>
-<code>vim "+ &lt;commands&gt;" &lt;file&gt;</code></p>
-</blockquote>
-</li>
-<li>marks in vim<ul>
-<li>To add mark for row <code>m&lt;id&gt;</code> for example <code>ma</code>, a is the mark</li>
-<li>To delete mark for row <code>dm&lt;id&gt;</code> for example <code>dma</code>, a is the mark</li>
-<li>to view all marks <code>:marks</code></li>
+<li>pylint</li>
+<li>requests</li>
+<li>tenacity</li>
 </ul>
 </li>
-<li>folds in vim</li>
-</ul>
-<h4 id="vi-csv">vi csv<a class="anchor-link" href="#vi-csv">&#182;</a></h4><ul>
-<li>view csv on shell<blockquote><p><code>column -s, -t &lt; somefile.csv | less -#2 -N -S</code></p>
-</blockquote>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Shell-commands">Shell commands<a class="anchor-link" href="#Shell-commands">&#182;</a></h3><h4 id="Mac-specific">Mac specific<a class="anchor-link" href="#Mac-specific">&#182;</a></h4><ol>
-<li>Search for files at command line with mdfind(Spotlight)<blockquote><p><code>mdfind -name Filename</code></p>
-</blockquote>
-</li>
-<li>Search for string from another search result<blockquote><p><code>mdfind -name Filename | grep "stri2"</code></p>
-</blockquote>
-</li>
-</ol>
-<h4 id="find-files/dir">find files/dir<a class="anchor-link" href="#find-files/dir">&#182;</a></h4><ol>
-<li>find all file recursively in current working directory<blockquote><p><code>find . -type f</code></p>
-</blockquote>
-</li>
-<li>find all directory recursively in current working directory<blockquote><p><code>find . -type d</code></p>
-</blockquote>
-</li>
-<li>find contents of files in current directory recursively <blockquote><p><code>find ./learnings -type f -exec grep -H 'xgboost' {} \;</code></p>
-</blockquote>
-</li>
-<li>find all files recursively in current working directory with case sensitive pattern and redirect into a file<blockquote><p><code>find . -type f -name "*Boost*"</code></p>
-</blockquote>
-</li>
-<li>find all files recursively in current working directory with case insensitive pattern and redirect into a file<blockquote><p><code>find . -type f -iname "*Boost*"</code><br>
-<code>find . -type f &gt; somefile.txt</code></p>
-</blockquote>
-</li>
-<li>copy buffer from/into mac terminal<blockquote><p><code>pbcopy/pbpaste</code></p>
-</blockquote>
-</li>
-<li>find all files recursively in current working directory and redirect into buffer<blockquote><p><code>find . -type f | pbcopy</code></p>
-</blockquote>
-</li>
-<li>find text in all files in current folder recursively<blockquote><p><code>grep -r 'vector'</code></p>
-</blockquote>
-</li>
-<li>find text in all files in current folder recursively, only file names<blockquote><p><code>grep -rl 'vector'</code></p>
-</blockquote>
-</li>
-<li>find text in all files in current folder recursively, only file names, only unique names<blockquote><p><code>grep -rle 'vector'</code> .</p>
-</blockquote>
-</li>
-<li>find text in all files in current folder recursively, only file names, only unique names, only cpp files<blockquote><p><code>grep --include="*.cpp" -rle 'vector' .</code></p>
-</blockquote>
-</li>
-</ol>
-<h4 id="Shell">Shell<a class="anchor-link" href="#Shell">&#182;</a></h4><ol>
-<li>How to check which sh am i using<blockquote><p><code>$SHELL --version</code></p>
-</blockquote>
-</li>
-<li>Print environment details<blockquote><p><code>printenv</code></p>
-</blockquote>
-</li>
-<li>List processes run<blockquote><p><code>ps -elf</code></p>
-</blockquote>
-</li>
-</ol>
-<h4 id="Important-folder/file-locations">Important folder/file locations<a class="anchor-link" href="#Important-folder/file-locations">&#182;</a></h4><ol>
-<li>Python packages installation directory<blockquote><p><code>ls ~/opt/anaconda3/envs/reco/lib/python3.8/site-packages/</code></p>
-</blockquote>
-</li>
-</ol>
-<h4 id="ls">ls<a class="anchor-link" href="#ls">&#182;</a></h4><ol>
-<li>List directory only<blockquote><p><code>ls -d */</code> or<br>
-<code>ls -l | grep '^d'</code> or<br>
-<code>ls -l | egrep '^d'</code></p>
-</blockquote>
-</li>
-<li>List last edited files in subdirectory recursively<blockquote><p><code>ls -lRt | less</code></p>
-</blockquote>
-</li>
-</ol>
-<h4 id="File-Content-Edits">File Content Edits<a class="anchor-link" href="#File-Content-Edits">&#182;</a></h4><ol>
-<li>Delete odd/even lines from file<ul>
-<li>keep odd lines<blockquote><p><code>sed 'n; d' infile &gt; outfile</code></p>
-</blockquote>
-</li>
-<li>keep even lines<blockquote><p><code>sed '1d; n; d' infile &gt; outfile</code></p>
-</blockquote>
-</li>
-<li>to remove the even numbered lines from the file(The -i option would cause the changes to be saved to the file in-place)<blockquote><p><code>sed -i '0~2d' filename</code></p>
-</blockquote>
-</li>
-<li>For removing odd numbered lines<blockquote><p><code>sed -i '1~2d' filename</code></p>
-</blockquote>
-</li>
-<li>Using awk - NR is the current line number<blockquote><p><code>awk 'NR%2==0' infile &gt; outfile</code></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>find the 3rd word in a sentence<blockquote><p><code>string1="this is just a dummy string"</code><br>
-<code>echo "$string1" | awk -F ' '  '{print $3}'</code></p>
-</blockquote>
-</li>
-<li>find the 2nd word in all sentences in a file<blockquote><p><code>awk -F ' '  '{print $2}' testFile3 &gt; testFile4</code></p>
-</blockquote>
-</li>
-</ol>
-<h4 id="Disk-usage">Disk usage<a class="anchor-link" href="#Disk-usage">&#182;</a></h4><ol>
-<li>Find the folder size of one folder in human readable format<blockquote><p><code>du -sh directory_name</code></p>
-</blockquote>
-</li>
-<li>Find the folder size of all folders in human readable format<blockquote><p><code>du -hd1 directory_name</code></p>
-</blockquote>
-</li>
-<li>Find all the big folders of particular size upto a limit<blockquote><p><code>du -hax gitrepos/dlwpt-code | grep '[0-9]M' | sort -nr</code></p>
-</blockquote>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="vi-cheat-sheet">vi cheat sheet<a class="anchor-link" href="#vi-cheat-sheet">&#182;</a></h3><p><img src="./images/vi-vim-cheat-sheet.gif" alt="vi-vim-cheat-sheet">
-<img src="./images/vi-vim-tutorial-1.gif" alt="vi-vim-tutorial-1">
-<img src="./images/vi-vim-tutorial-2.gif" alt="vi-vim-tutorial-2">
-<img src="./images/vi-vim-tutorial-3.gif" alt="vi-vim-tutorial-3">
-<img src="./images/vi-vim-tutorial-4.gif" alt="vi-vim-tutorial-4">
-<img src="./images/vi-vim-tutorial-5.gif" alt="vi-vim-tutorial-5">
-<img src="./images/vi-vim-tutorial-6.gif" alt="vi-vim-tutorial-6">
-<img src="./images/vi-vim-tutorial-7.gif" alt="vi-vim-tutorial-7"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="iTerm2">iTerm2<a class="anchor-link" href="#iTerm2">&#182;</a></h3><ul>
-<li>Vertical Split: <code>cmd + d</code> </li>
-<li>Horizontal split: <code>cmd + shift + d</code> </li>
-<li>To navigate between the vertical splits in left/right or up/down fashion: <code>cmd + [ and cmd + ]</code></li>
-<li><code>Alt/Option</code>: Mouse reporting will be disabled. If you're using vim and you can't make a selection, try holding down the alt key and see if that fixes it.<ul>
-<li><code>Alt + Cmd</code>: Make a rectangular selection.</li>
-<li><code>Shift</code>: Extend an existing selection.</li>
-<li><code>Alt + Shift</code>: Extend a rectangular selection.</li>
-<li><code>Cmd</code>: Make a discontinuous selection</li>
 </ul>
 </li>
 </ul>
@@ -13424,35 +13151,9 @@ And must importantly, :q will quite the mode.</p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Cassandra">Cassandra<a class="anchor-link" href="#Cassandra">&#182;</a></h3><ul>
-<li>To install Cassandra, java 8 or 11 is prerequisite </li>
-<li>To install Cassandra<blockquote><p><code>brew install cassandra</code></p>
-</blockquote>
-</li>
-<li>To check status of Cassandra<blockquote><p><code>brew info cassandra</code></p>
-</blockquote>
-</li>
-<li>To start Cassandra<blockquote><p><code>brew services start cassandra</code></p>
-</blockquote>
-</li>
-<li>To stop Cassandra<blockquote><p><code>brew services stop cassandra</code></p>
-</blockquote>
-</li>
-<li>Cassandra file locations  <blockquote><p>System file (INFO level): <code>/usr/local/var/log/cassandra/system.log</code><br>
-Debug file (DEBUG level): <code>/usr/local/var/log/cassandra/debug.log</code><br>
-Properties file: <code>/usr/local/etc/cassandra/cassandra.yaml</code><br>
-Data files: <code>/usr/local/var/lib/cassandra/data</code></p>
-</blockquote>
-</li>
-<li>Cassandra executables location<blockquote><p><code>cd /usr/local/opt/cassandra/bin/</code></p>
-</blockquote>
-</li>
-<li>Install cassandra-driver<blockquote><p><code>pip install cassandra-driver</code></p>
-</blockquote>
-</li>
-<li>Start CQLSH<blockquote><p><code>cqlsh localhost</code></p>
-</blockquote>
-</li>
+<h3 id="Repository-Pattern">Repository Pattern<a class="anchor-link" href="#Repository-Pattern">&#182;</a></h3><ul>
+<li>Apply dependency inversion to ORM</li>
+<li>Repository pattern is a simple abstraction around permanent storage</li>
 </ul>
 
 </div>
@@ -13461,509 +13162,649 @@ Data files: <code>/usr/local/var/lib/cassandra/data</code></p>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="PySpark">PySpark<a class="anchor-link" href="#PySpark">&#182;</a></h3><div class="alert alert-warning"> Check the active sh - bash or zsh, accordingly update ~/.bash_profile or ~/.zshrc</div><ul>
-<li>Renamed config.json to be able to switch to different venv<blockquote><p><code>cd ~/.jupyter/</code><br>
-<code>mv jupyter_notebook_config.json jupyter_notebook_config.json.bkp</code></p>
-</blockquote>
-</li>
-<li>Create new venv<blockquote><p><code>python --version</code>
-3.8.8<br>
-<code>conda create --name reco python=3.8.8</code><br>
-<code>conda activate reco</code></p>
-</blockquote>
-</li>
-<li>As a pre-requisite to installing the dependencies, if using Conda, make sure that Anaconda and the package manager Conda are both up to date<blockquote><p><code>conda update conda -n root</code><br>
-<code>conda install anaconda</code> since it is a new venv, otherwise <code>conda update anaconda</code><br>
-<code>pip install pyspark</code><br>
-Successfully installed py4j-0.10.9.3 pyspark-3.2.1</p>
-</blockquote>
-</li>
-<li><a href="https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac">How to install java on mac</a>  <blockquote><p><code>brew tap adoptopenjdk/openjdk</code><br>
-<code>brew install --cask adoptopenjdk8</code></p>
-</blockquote>
-</li>
-<li>NOTE Spark requires Java version 8 or 11. We support Spark versions 3.0 and 3.1, but versions 2.4+ with Java version 8 may also work.<blockquote><p><code>brew install --cask adoptopenjdk11</code></p>
-</blockquote>
-</li>
-<li>If you want to install/manage multiple version then you can use 'jenv':  <blockquote><p><code>echo 'export PATH="$HOME/.jenv/bin:$PATH"' &gt;&gt; ~/.bash_profile</code><br>
-<code>echo 'eval "$(jenv init -)"' &gt;&gt; ~/.bash_profile</code><br>
-<code>source ~/.bash_profile</code><br>
-This will change the venv to base. Switch/Activate the environment 
-<code>jenv doctor</code><br>
-No JAVA_HOME set</p>
-</blockquote>
-</li>
-<li>Add the installed java to jenv  <blockquote><p><code>jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home</code><br>
-<code>jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home</code><br>
-<code>jenv versions</code></p>
-</blockquote>
-</li>
-<li>Configure the java version which you want to use:  <blockquote><p><code>jenv global 11</code><br>
-<code>jenv versions</code></p>
-</blockquote>
-</li>
-<li>For v11<blockquote><p><code>echo 'export JAVA_HOME=$(/usr/libexec/java_home -v11)' &gt;&gt; ~/.bash_profile</code></p>
-</blockquote>
-</li>
-<li>or for v1.8<blockquote><p><code>echo 'export JAVA_HOME=$(/usr/libexec/java_home -v1.8)' &gt;&gt; ~/.bash_profile</code></p>
-</blockquote>
-</li>
-<li>If <code>jenv doctor</code> not set, use  <blockquote><p><code>echo 'eval "$(jenv init -)"' &gt;&gt; ~/.zshrc</code></p>
-</blockquote>
-</li>
-<li>Test <code>java --version</code> or <code>which java</code></li>
-<li>Setup PySpark<blockquote><p><code>RECO_ENV=$(conda env list | grep reco | awk '{print $NF}')</code><br>
-<code>mkdir -p $RECO_ENV/etc/conda/activate.d</code><br>
-<code>mkdir -p $RECO_ENV/etc/conda/deactivate.d</code></p>
-</blockquote>
-</li>
-<li>Then, create the file \$RECO_ENV/etc/conda/activate.d/env_vars.sh and add:<div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
-<span class="nv">RECO_ENV</span><span class="o">=</span><span class="k">$(</span>conda env list <span class="p">|</span> grep reco <span class="p">|</span> awk <span class="s1">&#39;{print $NF}&#39;</span><span class="k">)</span>
-<span class="nb">export</span> <span class="nv">PYSPARK_PYTHON</span><span class="o">=</span><span class="nv">$RECO_ENV</span>/bin/python
-<span class="nb">export</span> <span class="nv">PYSPARK_DRIVER_PYTHON</span><span class="o">=</span><span class="nv">$RECO_ENV</span>/bin/python
-<span class="nb">unset</span> SPARK_HOME
-</pre></div>
-</li>
-<li>This will export the variables every time we do <code>conda activate reco</code>. To unset these variables when we deactivate the environment, create the file $RECO_ENV/etc/conda/deactivate.d/env_vars.sh and add:<div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
-<span class="nb">unset</span> PYSPARK_PYTHON
-<span class="nb">unset</span> PYSPARK_DRIVER_PYTHON
-</pre></div>
-</li>
-<li>Register environment as kernel in Jupyter<blockquote><p><code>python -m ipykernel install --name reco --display-name "Python (reco)"</code></p>
-</blockquote>
-</li>
-<li>Clone recommenders repo<blockquote><p><code>git clone https://github.com/microsoft/recommenders</code></p>
-</blockquote>
-</li>
-<li>Change root directory of recommenders git folder where <code>setup.py</code> sits</li>
-<li>Install recommenders and additional package setups<blockquote><p><code>pip install -e .</code></p>
-</blockquote>
-</li>
-<li>To go back to older java version<blockquote><p><code>jenv local 1.8</code></p>
-</blockquote>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="llvm/clang">llvm/clang<a class="anchor-link" href="#llvm/clang">&#182;</a></h3><h4 id="Install-llvm">Install llvm<a class="anchor-link" href="#Install-llvm">&#182;</a></h4><p>To use the bundled libc++ please add the following LDFLAGS:<br>
-  LDFLAGS="-L/usr/local/opt/llvm/lib -Wl,-rpath,/usr/local/opt/llvm/lib"</p>
-<p>llvm is keg-only, which means it was not symlinked into /usr/local,<br>
-because macOS already provides this software and installing another version in<br>
-parallel can cause all kinds of trouble.</p>
-<p>If you need to have llvm first in your PATH, run:<br>
-  echo 'export PATH="/usr/local/opt/llvm/bin:$PATH"' &gt;&gt; ~/.zshrc</p>
-<p>For compilers to find llvm you may need to set:<br>
-  export LDFLAGS="-L/usr/local/opt/llvm/lib"<br>
-  export CPPFLAGS="-I/usr/local/opt/llvm/include"</p>
-<h4 id="clang-from-Xcode-vs-llvm">clang from Xcode vs llvm<a class="anchor-link" href="#clang-from-Xcode-vs-llvm">&#182;</a></h4><p>Cause<br>
-Thanks for the comments - the errors above are an indication of a Clang version that was built without module support. This is what Xcode comes with, i.e. by running xcode-select --install in a terminal.</p>
-<p>Solution<br>
-As suggested the solution has been to install Clang thru HomeBrew which is done as follows (tested on macOS Monterey):</p>
-<p>brew install llvm<br>
-Clang gets installed to /opt/homebrew/opt/llvm/bin/clang++. Confirm the running version as shown below:</p>
-<p>% /opt/homebrew/opt/llvm/bin/clang++ --version<br>
-Homebrew clang version 13.0.0<br>
-Target: arm64-apple-darwin21.1.0<br>
-Thread model: posix<br>
-InstalledDir: /opt/homebrew/opt/llvm/bin<br>
-Which is a different build from the Xcode system-wide default version:</p>
-<p>% clang++ --version<br>
-Apple clang version 13.0.0 (clang-1300.0.29.3)<br>
-Target: arm64-apple-darwin21.1.0<br>
-Thread model: posix<br>
-InstalledDir: /Library/Developer/CommandLineTools/usr/bin</p>
-<p>(base) chandrasingh@Chandras-MBP slidingWindow % clang --version<br>
-Homebrew clang version 13.0.1<br>
-Target: x86_64-apple-darwin21.2.0<br>
-Thread model: posix<br>
-InstalledDir: /usr/local/opt/llvm/bin</p>
-<h4 id="Run-clang-with-different-flags">Run clang with different flags<a class="anchor-link" href="#Run-clang-with-different-flags">&#182;</a></h4><blockquote><p>clang++ -Wall -std=c++11 SubArrayAverage.cpp -o SubArrayAverage</p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Jupyter-Notebook">Jupyter Notebook<a class="anchor-link" href="#Jupyter-Notebook">&#182;</a></h3><ol>
-<li>Convert notebook into interactive slide<blockquote><p>jupyter nbconvert slides-in-a-notebook.ipynb --to slides --ServePostProcessor.port=8910 --post serve<br>
-    this uses reveal.js</p>
-</blockquote>
-</li>
-<li>Convert notebook into html with toc<blockquote><p>jupyter nbconvert --to html_toc FILE.ipynb</p>
-</blockquote>
-</li>
-<li><a href="https://blog.kdheepak.com/jupyter-notebook-revealjs-and-github-pages">How to host using reveal.js</a></li>
-<li>Launch notebook in other env<blockquote><p>cd ~/anaconda/workingDir/<br>
-jupyter notebook --port 5656</p>
-</blockquote>
-</li>
-<li>Running without password<blockquote><p>../../bin/jupyter notebook --port 5657 --ip='*' --NotebookApp.token='' --NotebookApp.password=''</p>
-</blockquote>
-</li>
-<li>Jupyter magic line and cell commands<blockquote><p>%lsmagic</p>
-</blockquote>
-</li>
-<li>terminal commands<blockquote><p>! ls -l ../.</p>
-</blockquote>
-</li>
-<li>Help on any python command<blockquote><p>??pd.merge</p>
-</blockquote>
-</li>
-<li>Print script with code highlighting and syntax<blockquote><p>%load script.py</p>
-</blockquote>
-</li>
-<li>Print specific lines of a script with code highlighting and syntax<blockquote><p>%load -r 5-8,16 gradientDescent.py</p>
-</blockquote>
-</li>
-<li>Print script without code highlighting and syntax<blockquote><p>! cat script.py</p>
-</blockquote>
-</li>
-<li>Read this<blockquote><p>%load_ext autoreload</p>
-</blockquote>
-</li>
-<li>List of keyboard shortcuts<blockquote><p>Cmd + Shift + P</p>
-</blockquote>
-</li>
-<li>IPython Magic – %run: Execute python code<blockquote><p>%run ./two-histograms.ipynb</p>
-</blockquote>
-</li>
-<li>How to install nbconvert html_toc<blockquote><p>conda install -c conda-forge jupyter_nbextensions_configurator<br>
-conda install -c conda-forge "nbconvert=5.6.1" # This version only works</p>
-</blockquote>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="git">git<a class="anchor-link" href="#git">&#182;</a></h3><ol>
-<li>Check git version<blockquote><p>git version</p>
-</blockquote>
-</li>
-<li>Check user details<blockquote><p>git config --list</p>
-</blockquote>
-</li>
-<li>Check git configuration file<blockquote><p>cat ~/.gitconfig</p>
-</blockquote>
-</li>
-<li>Change git configuration<blockquote><p>git config --global user.name "Chandra"</p>
-</blockquote>
-</li>
-<li>To clone a repository<blockquote><p>git clone <a href="https://github.com/chandrabsingh/learnings">https://github.com/chandrabsingh/learnings</a></p>
-</blockquote>
-</li>
-<li>To check status of files<blockquote><p>Go inside the directory
-   git status</p>
-</blockquote>
-</li>
-<li>Lifecycle of status of file<blockquote><p><img src="https://git-scm.com/book/en/v2/images/lifecycle.png" alt="alt-text" title="Git file status"></p>
-</blockquote>
-</li>
-<li>Initialize a repository<blockquote><p>git init
-    this creates .git file in the folder</p>
-</blockquote>
-</li>
-<li>Local or Remote </li>
-<li>Add files<blockquote><p>touch index.html<br>
-git add index.html<br>
-    this adds the file in unstaged area</p>
-</blockquote>
-</li>
-<li>Delete files from git after deleting from fs<blockquote><p>git ls-files --deleted -z | xargs -0 git rm</p>
-</blockquote>
-</li>
-<li>To commit a files<blockquote><p>git commit -m "Commit message"</p>
-</blockquote>
-</li>
-<li>History of commits<blockquote><p>git log</p>
-</blockquote>
-</li>
-<li>New files added are called untracked files</li>
-<li>After updating file, it needs to be added as well<blockquote><p>git add index.html</p>
-</blockquote>
-</li>
-<li>To add all files at once<blockquote><p>git add .</p>
-</blockquote>
-</li>
-<li>How to undo git add before commit<blockquote><p>git reset filename</p>
-</blockquote>
-</li>
-<li>How to roll back<blockquote><p>git log<br>
-    Copy the hash of the version you want to
-git checkout xyz</p>
-</blockquote>
-</li>
-<li>To list local branches<blockquote><p>git branch</p>
-</blockquote>
-</li>
-<li>To list remote branches<blockquote><p>git branch -r</p>
-</blockquote>
-</li>
-<li>To list both local and remote branches<blockquote><p>git branch -a</p>
-</blockquote>
-</li>
-<li>To create a branch<blockquote><p>git branch colors</p>
-</blockquote>
-</li>
-<li>To merge branch into master<blockquote><p>Be on the master<br>
-    git merge colors<br>
-This updates colors changes onto master</p>
-</blockquote>
-</li>
-<li>push changes<blockquote><p>This will lead to changes onto the remote repository from local repository</p>
-</blockquote>
-</li>
-<li>pull changes<blockquote><p>This will lead to changes from the remote repository onto local repository</p>
-</blockquote>
-</li>
-<li>How does pull work<blockquote><p>git pull origin master<br>
-    is equivalent to<br>
-git fetch origin<br>
-git merge master origin/master<br>
-<img src="./images/git_fetch_merge.png" alt="alt-text" title="Git pull request"></p>
-</blockquote>
-</li>
-<li>How to compare two branches<blockquote><p>git diff origin/master master</p>
-</blockquote>
-</li>
-<li>Moving files<blockquote><p>Git does not explicitly track file changes<br>
-git mv file_from file_to</p>
-</blockquote>
-</li>
-<li>Better git log with git ls<blockquote>
-<pre><code>Add this to ~./gitconfig  
-</code></pre>
-<p>[alias]
- ls = log --graph --abbrev-commit --decorate --color=always --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) - %C(dim red)%an%C(reset)%C(bold yellow)%d%C(reset)' --all</p>
-</blockquote>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="conda">conda<a class="anchor-link" href="#conda">&#182;</a></h3><ol>
-<li>Display Conda environment information<blockquote><p>% conda info</p>
-</blockquote>
-</li>
-<li>List all existing environments<blockquote><p>(base) username % conda env list</p>
-</blockquote>
-</li>
-<li>Create a new environment<blockquote><p>(base) username % conda create --name project-env python=3.7</p>
-</blockquote>
-</li>
-<li>Activate your new environment<blockquote><p>(base) username % conda activate project-env
-(project-env) username %</p>
-</blockquote>
-</li>
-<li>Display all packages in this environment<blockquote><p>(project-env) username ~ % conda list</p>
-</blockquote>
-</li>
-<li>Display revision history<blockquote><p>(project-env) username ~ % conda list --revision</p>
-</blockquote>
-</li>
-<li>Change your active environment<blockquote><p>(project-env) username ~ % conda activate base
-(base) username ~ %</p>
-</blockquote>
-</li>
-<li>Deactivate your active environment<blockquote><p>(project-env) username ~ % conda deactivate
-(base) username ~ %</p>
-</blockquote>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="pip">pip<a class="anchor-link" href="#pip">&#182;</a></h3><ol>
-<li>Install specific version of package<blockquote><p><code>pip install "SomeProject==1.4"</code></p>
-</blockquote>
-</li>
-<li>Install using requirements file<blockquote><p><code>pip install -r requirements.txt</code></p>
-</blockquote>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Mac-Services">Mac Services<a class="anchor-link" href="#Mac-Services">&#182;</a></h3><ol>
-<li>list all services<blockquote><p>launchctl list</p>
-</blockquote>
-</li>
-<li>This command installs/add a service:<blockquote><p>launchctl load /Library/LaunchDaemons/com.ServiceExample.plist</p>
-</blockquote>
-</li>
-<li>This command enable a service to auto run after installed:<blockquote><p>launchctl enable system/com.ServiceExample</p>
-</blockquote>
-</li>
-<li>This command disable a installed service from auto-running:<blockquote><p>launchctl disable system/com.ServiceExample</p>
-</blockquote>
-</li>
-<li>This command start a service:<blockquote><p>launchctl start system/com.ServiceExample</p>
-</blockquote>
-</li>
-<li>This command stop a service:<blockquote><p>launchctl stop system/com.ServiceExample</p>
-</blockquote>
-</li>
-<li>This command remove a service:<blockquote><p>launchctl unload /Library/LaunchDaemons/com.ServiceExample.plist</p>
-</blockquote>
-</li>
-<li>This command force execution of a recent loaded service:<blockquote><p>launchctl kickstart -p /Library/LaunchDaemons/com.ServiceExample.plist</p>
-</blockquote>
-</li>
-<li>This command Stops and Disable a running service<blockquote><p>launchctl bootout system/com.ServiceExample</p>
-</blockquote>
-</li>
-</ol>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Makefile">Makefile<a class="anchor-link" href="#Makefile">&#182;</a></h3><p><img src="./images/make1.png">
-<img src="./images/make2.png"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="pytest">pytest<a class="anchor-link" href="#pytest">&#182;</a></h3><ul>
-<li><code>pytest --help | less</code></li>
-<li>CheatSheet<ul>
-<li><a href="https://gist.github.com/kwmiebach/3fd49612ef7a52b5ce3a">https://gist.github.com/kwmiebach/3fd49612ef7a52b5ce3a</a></li>
-</ul>
-</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="docker">docker<a class="anchor-link" href="#docker">&#182;</a></h3><ul>
-<li>List all running processes<blockquote><p><code>docker container ls</code><br>
-<code>docker ps</code></p>
-</blockquote>
-</li>
-<li><p>Stop process</p>
-<blockquote><p><code>docker stop &lt;containerid&gt;</code></p>
-</blockquote>
-</li>
-<li><p>Attach local standard input, output, and error streams to a running container</p>
-<blockquote><p><code>docker container attach</code></p>
-</blockquote>
-</li>
-<li>Create a new image from a container’s changes<blockquote><p><code>docker container commit</code></p>
-</blockquote>
-</li>
-<li>Copy files/folders between a container and the local filesystem<blockquote><p><code>docker container cp</code></p>
-</blockquote>
-</li>
-<li>Create a new container<blockquote><p><code>docker container create</code></p>
-</blockquote>
-</li>
-<li>Inspect changes to files or directories on a container’s filesystem<blockquote><p><code>docker container diff</code></p>
-</blockquote>
-</li>
-<li>Run a command in a running container<blockquote><p><code>docker container exec</code></p>
-</blockquote>
-</li>
-<li>Export a container’s filesystem as a tar archive<blockquote><p><code>docker container export</code></p>
-</blockquote>
-</li>
-<li>Display detailed information on one or more containers<blockquote><p><code>docker container inspect</code></p>
-</blockquote>
-</li>
-<li>Kill one or more running containers<blockquote><p><code>docker container kill</code></p>
-</blockquote>
-</li>
-<li>Fetch the logs of a container<blockquote><p><code>docker container logs</code></p>
-</blockquote>
-</li>
-<li>List containers<blockquote><p><code>docker container ls</code></p>
-</blockquote>
-</li>
-<li>Pause all processes within one or more containers<blockquote><p><code>docker container pause</code></p>
-</blockquote>
-</li>
-<li>List port mappings or a specific mapping for the container<blockquote><p><code>docker container port</code></p>
-</blockquote>
-</li>
-<li>Remove all stopped containers<blockquote><p><code>docker container prune</code></p>
-</blockquote>
-</li>
-<li>Rename a container<blockquote><p><code>docker container rename</code></p>
-</blockquote>
-</li>
-<li>Restart one or more containers<blockquote><p><code>docker container restart</code></p>
-</blockquote>
-</li>
-<li>Remove one or more containers<blockquote><p><code>docker container rm</code></p>
-</blockquote>
-</li>
-<li>Run a command in a new container<blockquote><p><code>docker container run</code></p>
-</blockquote>
-</li>
-<li>Start one or more stopped containers<blockquote><p><code>docker container start</code></p>
-</blockquote>
-</li>
-<li>Display a live stream of container(s) resource usage statistics<blockquote><p><code>docker container stats</code></p>
-</blockquote>
-</li>
-<li>Stop one or more running containers<blockquote><p><code>docker container stop</code></p>
-</blockquote>
-</li>
-<li>Display the running processes of a container<blockquote><p><code>docker container top</code></p>
-</blockquote>
-</li>
-<li>Unpause all processes within one or more containers<blockquote><p><code>docker container unpause</code></p>
-</blockquote>
-</li>
-<li>Update configuration of one or more containers<blockquote><p><code>docker container update</code></p>
-</blockquote>
-</li>
-<li>Block until one or more containers stop, then print their exit codes<blockquote><p><code>docker container wait</code></p>
-</blockquote>
-</li>
-</ul>
-
+<h3 id="Implementation">Implementation<a class="anchor-link" href="#Implementation">&#182;</a></h3><h4 id="model.py">model.py<a class="anchor-link" href="#model.py">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load model.py</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
+
+
+<span class="k">class</span> <span class="nc">OutOfStock</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">OrderLine</span><span class="p">,</span> <span class="n">batches</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Batch</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">batches</span><span class="p">)</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+        <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">batch</span><span class="o">.</span><span class="n">reference</span>
+    <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">OutOfStock</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Out of stock for sku </span><span class="si">{</span><span class="n">line</span><span class="o">.</span><span class="n">sku</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">unsafe_hash</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">OrderLine</span><span class="p">:</span>
+    <span class="n">orderid</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="k">class</span> <span class="nc">Batch</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sku</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">date</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="n">ref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sku</span> <span class="o">=</span> <span class="n">sku</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">=</span> <span class="n">eta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_purchased_quantity</span> <span class="o">=</span> <span class="n">qty</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_allocations</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># type: Set[OrderLine]</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;Batch </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Batch</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">reference</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">eta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">eta</span>
+
+    <span class="k">def</span> <span class="nf">allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">OrderLine</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_allocations</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">deallocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">OrderLine</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocations</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_allocations</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">allocated_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">qty</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allocations</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">available_quantity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_purchased_quantity</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">allocated_quantity</span>
+
+    <span class="k">def</span> <span class="nf">can_allocate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">:</span> <span class="n">OrderLine</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sku</span> <span class="o">==</span> <span class="n">line</span><span class="o">.</span><span class="n">sku</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">&gt;=</span> <span class="n">line</span><span class="o">.</span><span class="n">qty</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="orm.py">orm.py<a class="anchor-link" href="#orm.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load orm.py</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">ForeignKey</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">relationship</span>
+
+<span class="kn">import</span> <span class="nn">model</span>
+
+
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">()</span>
+
+<span class="n">order_lines</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s2">&quot;order_lines&quot;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;sku&quot;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;qty&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;orderid&quot;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="n">batches</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s2">&quot;batches&quot;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;reference&quot;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;sku&quot;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">255</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;_purchased_quantity&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;eta&quot;</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">allocations</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s2">&quot;allocations&quot;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;orderline_id&quot;</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;order_lines.id&quot;</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s2">&quot;batch_id&quot;</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;batches.id&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">start_mappers</span><span class="p">():</span>
+    <span class="n">lines_mapper</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">,</span> <span class="n">order_lines</span><span class="p">)</span>
+    <span class="n">mapper</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">,</span>
+        <span class="n">batches</span><span class="p">,</span>
+        <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;_allocations&quot;</span><span class="p">:</span> <span class="n">relationship</span><span class="p">(</span>
+                <span class="n">lines_mapper</span><span class="p">,</span> <span class="n">secondary</span><span class="o">=</span><span class="n">allocations</span><span class="p">,</span> <span class="n">collection_class</span><span class="o">=</span><span class="nb">set</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="repository.py">repository.py<a class="anchor-link" href="#repository.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load repository.py</span>
+<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">model</span>
+
+
+<span class="k">class</span> <span class="nc">AbstractRepository</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+
+<span class="k">class</span> <span class="nc">SqlAlchemyRepository</span><span class="p">(</span><span class="n">AbstractRepository</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">reference</span><span class="o">=</span><span class="n">reference</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="conftest.py">conftest.py<a class="anchor-link" href="#conftest.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load conftest.py</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span><span class="p">,</span> <span class="n">clear_mappers</span>
+
+<span class="kn">from</span> <span class="nn">orm</span> <span class="kn">import</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">start_mappers</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">in_memory_db</span><span class="p">():</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;sqlite:///:memory:&quot;</span><span class="p">)</span>
+    <span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">engine</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">session</span><span class="p">(</span><span class="n">in_memory_db</span><span class="p">):</span>
+    <span class="n">start_mappers</span><span class="p">()</span>
+    <span class="k">yield</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">in_memory_db</span><span class="p">)()</span>
+    <span class="n">clear_mappers</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="test_allocate.py">test_allocate.py<a class="anchor-link" href="#test_allocate.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load test_allocate.py</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">model</span> <span class="kn">import</span> <span class="n">allocate</span><span class="p">,</span> <span class="n">OrderLine</span><span class="p">,</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">OutOfStock</span>
+
+<span class="n">today</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="n">tomorrow</span> <span class="o">=</span> <span class="n">today</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">later</span> <span class="o">=</span> <span class="n">tomorrow</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_prefers_current_stock_batches_to_shipments</span><span class="p">():</span>
+    <span class="n">in_stock_batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;in-stock-batch&quot;</span><span class="p">,</span> <span class="s2">&quot;RETRO-CLOCK&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">shipment_batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;shipment-batch&quot;</span><span class="p">,</span> <span class="s2">&quot;RETRO-CLOCK&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">tomorrow</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;oref&quot;</span><span class="p">,</span> <span class="s2">&quot;RETRO-CLOCK&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="p">[</span><span class="n">in_stock_batch</span><span class="p">,</span> <span class="n">shipment_batch</span><span class="p">])</span>
+
+    <span class="k">assert</span> <span class="n">in_stock_batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">90</span>
+    <span class="k">assert</span> <span class="n">shipment_batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">100</span>
+
+
+<span class="k">def</span> <span class="nf">test_prefers_earlier_batches</span><span class="p">():</span>
+    <span class="n">earliest</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;speedy-batch&quot;</span><span class="p">,</span> <span class="s2">&quot;MINIMALIST-SPOON&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">today</span><span class="p">)</span>
+    <span class="n">medium</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;normal-batch&quot;</span><span class="p">,</span> <span class="s2">&quot;MINIMALIST-SPOON&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">tomorrow</span><span class="p">)</span>
+    <span class="n">latest</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;slow-batch&quot;</span><span class="p">,</span> <span class="s2">&quot;MINIMALIST-SPOON&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">later</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;MINIMALIST-SPOON&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="p">[</span><span class="n">medium</span><span class="p">,</span> <span class="n">earliest</span><span class="p">,</span> <span class="n">latest</span><span class="p">])</span>
+
+    <span class="k">assert</span> <span class="n">earliest</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">90</span>
+    <span class="k">assert</span> <span class="n">medium</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">100</span>
+    <span class="k">assert</span> <span class="n">latest</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">100</span>
+
+
+<span class="k">def</span> <span class="nf">test_returns_allocated_batch_ref</span><span class="p">():</span>
+    <span class="n">in_stock_batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;in-stock-batch-ref&quot;</span><span class="p">,</span> <span class="s2">&quot;HIGHBROW-POSTER&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">shipment_batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;shipment-batch-ref&quot;</span><span class="p">,</span> <span class="s2">&quot;HIGHBROW-POSTER&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">tomorrow</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;oref&quot;</span><span class="p">,</span> <span class="s2">&quot;HIGHBROW-POSTER&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">allocation</span> <span class="o">=</span> <span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="p">[</span><span class="n">in_stock_batch</span><span class="p">,</span> <span class="n">shipment_batch</span><span class="p">])</span>
+    <span class="k">assert</span> <span class="n">allocation</span> <span class="o">==</span> <span class="n">in_stock_batch</span><span class="o">.</span><span class="n">reference</span>
+
+
+<span class="k">def</span> <span class="nf">test_raises_out_of_stock_exception_if_cannot_allocate</span><span class="p">():</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-FORK&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">today</span><span class="p">)</span>
+    <span class="n">allocate</span><span class="p">(</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-FORK&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">[</span><span class="n">batch</span><span class="p">])</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">OutOfStock</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s2">&quot;SMALL-FORK&quot;</span><span class="p">):</span>
+        <span class="n">allocate</span><span class="p">(</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order2&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-FORK&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">[</span><span class="n">batch</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="test_batches.py">test_batches.py<a class="anchor-link" href="#test_batches.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load test_batches.py</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="kn">from</span> <span class="nn">model</span> <span class="kn">import</span> <span class="n">Batch</span><span class="p">,</span> <span class="n">OrderLine</span>
+
+
+<span class="k">def</span> <span class="nf">test_allocating_to_a_batch_reduces_the_available_quantity</span><span class="p">():</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch-001&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-TABLE&quot;</span><span class="p">,</span> <span class="n">qty</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">())</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order-ref&quot;</span><span class="p">,</span> <span class="s2">&quot;SMALL-TABLE&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">18</span>
+
+
+<span class="k">def</span> <span class="nf">make_batch_and_line</span><span class="p">(</span><span class="n">sku</span><span class="p">,</span> <span class="n">batch_qty</span><span class="p">,</span> <span class="n">line_qty</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch-001&quot;</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">batch_qty</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()),</span>
+        <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order-123&quot;</span><span class="p">,</span> <span class="n">sku</span><span class="p">,</span> <span class="n">line_qty</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_can_allocate_if_available_greater_than_required</span><span class="p">():</span>
+    <span class="n">large_batch</span><span class="p">,</span> <span class="n">small_line</span> <span class="o">=</span> <span class="n">make_batch_and_line</span><span class="p">(</span><span class="s2">&quot;ELEGANT-LAMP&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">large_batch</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">small_line</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_cannot_allocate_if_available_smaller_than_required</span><span class="p">():</span>
+    <span class="n">small_batch</span><span class="p">,</span> <span class="n">large_line</span> <span class="o">=</span> <span class="n">make_batch_and_line</span><span class="p">(</span><span class="s2">&quot;ELEGANT-LAMP&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">small_batch</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">large_line</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">test_can_allocate_if_available_equal_to_required</span><span class="p">():</span>
+    <span class="n">batch</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span> <span class="n">make_batch_and_line</span><span class="p">(</span><span class="s2">&quot;ELEGANT-LAMP&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_cannot_allocate_if_skus_do_not_match</span><span class="p">():</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch-001&quot;</span><span class="p">,</span> <span class="s2">&quot;UNCOMFORTABLE-CHAIR&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">different_sku_line</span> <span class="o">=</span> <span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order-123&quot;</span><span class="p">,</span> <span class="s2">&quot;EXPENSIVE-TOASTER&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">can_allocate</span><span class="p">(</span><span class="n">different_sku_line</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">test_allocation_is_idempotent</span><span class="p">():</span>
+    <span class="n">batch</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span> <span class="n">make_batch_and_line</span><span class="p">(</span><span class="s2">&quot;ANGULAR-DESK&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">18</span>
+
+
+<span class="k">def</span> <span class="nf">test_deallocate</span><span class="p">():</span>
+    <span class="n">batch</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span> <span class="n">make_batch_and_line</span><span class="p">(</span><span class="s2">&quot;EXPENSIVE-FOOTSTOOL&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">deallocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">20</span>
+
+
+<span class="k">def</span> <span class="nf">test_can_only_deallocate_allocated_lines</span><span class="p">():</span>
+    <span class="n">batch</span><span class="p">,</span> <span class="n">unallocated_line</span> <span class="o">=</span> <span class="n">make_batch_and_line</span><span class="p">(</span><span class="s2">&quot;DECORATIVE-TRINKET&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">deallocate</span><span class="p">(</span><span class="n">unallocated_line</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">available_quantity</span> <span class="o">==</span> <span class="mi">20</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="test_orm.py">test_orm.py<a class="anchor-link" href="#test_orm.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load test_orm.py</span>
+<span class="kn">import</span> <span class="nn">model</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+
+
+<span class="k">def</span> <span class="nf">test_orderline_mapper_can_load_lines</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO order_lines (orderid, sku, qty) VALUES &quot;</span>
+        <span class="s1">&#39;(&quot;order1&quot;, &quot;RED-CHAIR&quot;, 12),&#39;</span>
+        <span class="s1">&#39;(&quot;order1&quot;, &quot;RED-TABLE&quot;, 13),&#39;</span>
+        <span class="s1">&#39;(&quot;order2&quot;, &quot;BLUE-LIPSTICK&quot;, 14)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;RED-CHAIR&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;RED-TABLE&quot;</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order2&quot;</span><span class="p">,</span> <span class="s2">&quot;BLUE-LIPSTICK&quot;</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="o">==</span> <span class="n">expected</span>
+
+
+<span class="k">def</span> <span class="nf">test_orderline_mapper_can_save_lines</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">new_line</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;DECORATIVE-WIDGET&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new_line</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT orderid, sku, qty FROM &quot;order_lines&quot;&#39;</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">rows</span> <span class="o">==</span> <span class="p">[(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;DECORATIVE-WIDGET&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">test_retrieving_batches</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO batches (reference, sku, _purchased_quantity, eta)&quot;</span>
+        <span class="s1">&#39; VALUES (&quot;batch1&quot;, &quot;sku1&quot;, 100, null)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO batches (reference, sku, _purchased_quantity, eta)&quot;</span>
+        <span class="s1">&#39; VALUES (&quot;batch2&quot;, &quot;sku2&quot;, 200, &quot;2011-04-11&quot;)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;sku1&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch2&quot;</span><span class="p">,</span> <span class="s2">&quot;sku2&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="n">date</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
+    <span class="p">]</span>
+
+    <span class="k">assert</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="o">==</span> <span class="n">expected</span>
+
+
+<span class="k">def</span> <span class="nf">test_saving_batches</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;sku1&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s1">&#39;SELECT reference, sku, _purchased_quantity, eta FROM &quot;batches&quot;&#39;</span>
+    <span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="p">[(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;sku1&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">test_saving_allocations</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;sku1&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;sku1&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">allocate</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT orderline_id, batch_id FROM &quot;allocations&quot;&#39;</span><span class="p">))</span>
+    <span class="k">assert</span> <span class="n">rows</span> <span class="o">==</span> <span class="p">[(</span><span class="n">batch</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">id</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">test_retrieving_allocations</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s1">&#39;INSERT INTO order_lines (orderid, sku, qty) VALUES (&quot;order1&quot;, &quot;sku1&quot;, 12)&#39;</span>
+    <span class="p">)</span>
+    <span class="p">[[</span><span class="n">olid</span><span class="p">]]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;SELECT id FROM order_lines WHERE orderid=:orderid AND sku=:sku&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">orderid</span><span class="o">=</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="n">sku</span><span class="o">=</span><span class="s2">&quot;sku1&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO batches (reference, sku, _purchased_quantity, eta)&quot;</span>
+        <span class="s1">&#39; VALUES (&quot;batch1&quot;, &quot;sku1&quot;, 100, null)&#39;</span>
+    <span class="p">)</span>
+    <span class="p">[[</span><span class="n">bid</span><span class="p">]]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;SELECT id FROM batches WHERE reference=:ref AND sku=:sku&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="n">sku</span><span class="o">=</span><span class="s2">&quot;sku1&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO allocations (orderline_id, batch_id) VALUES (:olid, :bid)&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">olid</span><span class="o">=</span><span class="n">olid</span><span class="p">,</span> <span class="n">bid</span><span class="o">=</span><span class="n">bid</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">batch</span><span class="o">.</span><span class="n">_allocations</span> <span class="o">==</span> <span class="p">{</span><span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;sku1&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="test_repository.py">test_repository.py<a class="anchor-link" href="#test_repository.py">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %load test_repository.py</span>
+<span class="c1"># pylint: disable=protected-access</span>
+<span class="kn">import</span> <span class="nn">model</span>
+<span class="kn">import</span> <span class="nn">repository</span>
+
+
+<span class="k">def</span> <span class="nf">test_repository_can_save_a_batch</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;RUSTY-SOAPDISH&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="n">SqlAlchemyRepository</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="n">repo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s1">&#39;SELECT reference, sku, _purchased_quantity, eta FROM &quot;batches&quot;&#39;</span>
+    <span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">==</span> <span class="p">[(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;RUSTY-SOAPDISH&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="kc">None</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">insert_order_line</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO order_lines (orderid, sku, qty)&quot;</span>
+        <span class="s1">&#39; VALUES (&quot;order1&quot;, &quot;GENERIC-SOFA&quot;, 12)&#39;</span>
+    <span class="p">)</span>
+    <span class="p">[[</span><span class="n">orderline_id</span><span class="p">]]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;SELECT id FROM order_lines WHERE orderid=:orderid AND sku=:sku&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">orderid</span><span class="o">=</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="n">sku</span><span class="o">=</span><span class="s2">&quot;GENERIC-SOFA&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">orderline_id</span>
+
+
+<span class="k">def</span> <span class="nf">insert_batch</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">batch_id</span><span class="p">):</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO batches (reference, sku, _purchased_quantity, eta)&quot;</span>
+        <span class="s1">&#39; VALUES (:batch_id, &quot;GENERIC-SOFA&quot;, 100, null)&#39;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">batch_id</span><span class="o">=</span><span class="n">batch_id</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="p">[[</span><span class="n">batch_id</span><span class="p">]]</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s1">&#39;SELECT id FROM batches WHERE reference=:batch_id AND sku=&quot;GENERIC-SOFA&quot;&#39;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">batch_id</span><span class="o">=</span><span class="n">batch_id</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">batch_id</span>
+
+
+<span class="k">def</span> <span class="nf">insert_allocation</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">orderline_id</span><span class="p">,</span> <span class="n">batch_id</span><span class="p">):</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO allocations (orderline_id, batch_id)&quot;</span>
+        <span class="s2">&quot; VALUES (:orderline_id, :batch_id)&quot;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">orderline_id</span><span class="o">=</span><span class="n">orderline_id</span><span class="p">,</span> <span class="n">batch_id</span><span class="o">=</span><span class="n">batch_id</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">test_repository_can_retrieve_a_batch_with_allocations</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+    <span class="n">orderline_id</span> <span class="o">=</span> <span class="n">insert_order_line</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="n">batch1_id</span> <span class="o">=</span> <span class="n">insert_batch</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="s2">&quot;batch1&quot;</span><span class="p">)</span>
+    <span class="n">insert_batch</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="s2">&quot;batch2&quot;</span><span class="p">)</span>
+    <span class="n">insert_allocation</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">orderline_id</span><span class="p">,</span> <span class="n">batch1_id</span><span class="p">)</span>
+
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="n">SqlAlchemyRepository</span><span class="p">(</span><span class="n">session</span><span class="p">)</span>
+    <span class="n">retrieved</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">)</span>
+
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Batch</span><span class="p">(</span><span class="s2">&quot;batch1&quot;</span><span class="p">,</span> <span class="s2">&quot;GENERIC-SOFA&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">retrieved</span> <span class="o">==</span> <span class="n">expected</span>  <span class="c1"># Batch.__eq__ only compares reference</span>
+    <span class="k">assert</span> <span class="n">retrieved</span><span class="o">.</span><span class="n">sku</span> <span class="o">==</span> <span class="n">expected</span><span class="o">.</span><span class="n">sku</span>
+    <span class="k">assert</span> <span class="n">retrieved</span><span class="o">.</span><span class="n">_purchased_quantity</span> <span class="o">==</span> <span class="n">expected</span><span class="o">.</span><span class="n">_purchased_quantity</span>
+    <span class="k">assert</span> <span class="n">retrieved</span><span class="o">.</span><span class="n">_allocations</span> <span class="o">==</span> <span class="p">{</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">OrderLine</span><span class="p">(</span><span class="s2">&quot;order1&quot;</span><span class="p">,</span> <span class="s2">&quot;GENERIC-SOFA&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Run-tests---pytest">Run tests - pytest<a class="anchor-link" href="#Run-tests---pytest">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pytest -v  
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre><span class="ansi-bold">============================= test session starts ==============================</span>
+platform darwin -- Python 3.8.8, pytest-6.2.5, py-1.11.0, pluggy-1.0.0 -- /Users/chandrasingh/opt/anaconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/chandrasingh/anaconda3/workingDir/learnings/system_designs/architecture_patterns_with_python/chapter_02_repository
+plugins: anyio-3.5.0, icdiff-0.5
+collected 20 items                                                             
+
+test_allocate.py::test_prefers_current_stock_batches_to_shipments <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [  5%]</span>
+test_allocate.py::test_prefers_earlier_batches <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                    [ 10%]</span>
+test_allocate.py::test_returns_allocated_batch_ref <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                [ 15%]</span>
+test_allocate.py::test_raises_out_of_stock_exception_if_cannot_allocate <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [ 20%]</span>
+test_batches.py::test_allocating_to_a_batch_reduces_the_available_quantity <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [ 25%]</span>
+test_batches.py::test_can_allocate_if_available_greater_than_required <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [ 30%]</span>
+test_batches.py::test_cannot_allocate_if_available_smaller_than_required <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [ 35%]</span>
+test_batches.py::test_can_allocate_if_available_equal_to_required <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [ 40%]</span>
+test_batches.py::test_cannot_allocate_if_skus_do_not_match <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">        [ 45%]</span>
+test_batches.py::test_allocation_is_idempotent <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                    [ 50%]</span>
+test_batches.py::test_deallocate <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                                  [ 55%]</span>
+test_batches.py::test_can_only_deallocate_allocated_lines <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">         [ 60%]</span>
+test_orm.py::test_orderline_mapper_can_load_lines <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                 [ 65%]</span>
+test_orm.py::test_orderline_mapper_can_save_lines <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                 [ 70%]</span>
+test_orm.py::test_retrieving_batches <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                              [ 75%]</span>
+test_orm.py::test_saving_batches <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                                  [ 80%]</span>
+test_orm.py::test_saving_allocations <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                              [ 85%]</span>
+test_orm.py::test_retrieving_allocations <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">                          [ 90%]</span>
+test_repository.py::test_repository_can_save_a_batch <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg">              [ 95%]</span>
+test_repository.py::test_repository_can_retrieve_a_batch_with_allocations <span class="ansi-green-fg">PASSED</span><span class="ansi-green-fg"> [100%]</span>
+
+<span class="ansi-green-fg">============================== </span><span class="ansi-green-intense-fg ansi-bold">20 passed</span><span class="ansi-green-fg"> in 0.13s</span><span class="ansi-green-fg"> ==============================</span>
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
