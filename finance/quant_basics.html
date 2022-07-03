@@ -13117,58 +13117,299 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Stochastic-Process">Stochastic Process<a class="anchor-link" href="#Stochastic-Process">&#182;</a></h2><h3 id="Brownian-Motion">Brownian Motion<a class="anchor-link" href="#Brownian-Motion">&#182;</a></h3><h4 id="Weiner-process">Weiner process<a class="anchor-link" href="#Weiner-process">&#182;</a></h4><h4 id="independent">independent<a class="anchor-link" href="#independent">&#182;</a></h4><h4 id="independent-and-identically-distributed-(iid)">independent and identically distributed (iid)<a class="anchor-link" href="#independent-and-identically-distributed-(iid)">&#182;</a></h4><h4 id="Random-walk">Random walk<a class="anchor-link" href="#Random-walk">&#182;</a></h4><h4 id="Stationary-increments">Stationary increments<a class="anchor-link" href="#Stationary-increments">&#182;</a></h4><h3 id="Diffusion-process">Diffusion process<a class="anchor-link" href="#Diffusion-process">&#182;</a></h3><h4 id="Ito-diffusion">Ito diffusion<a class="anchor-link" href="#Ito-diffusion">&#182;</a></h4><h4 id="Jump-diffusion">Jump diffusion<a class="anchor-link" href="#Jump-diffusion">&#182;</a></h4><h4 id="Poisson-process">Poisson process<a class="anchor-link" href="#Poisson-process">&#182;</a></h4><h3 id="Martingale">Martingale<a class="anchor-link" href="#Martingale">&#182;</a></h3><h4 id="Martingale-property-of-conditional-expectations">Martingale property of conditional expectations<a class="anchor-link" href="#Martingale-property-of-conditional-expectations">&#182;</a></h4><h3 id="Markov-process">Markov process<a class="anchor-link" href="#Markov-process">&#182;</a></h3><h4 id="Markov-chain">Markov chain<a class="anchor-link" href="#Markov-chain">&#182;</a></h4><h3 id="Quadratic-Variation">Quadratic Variation<a class="anchor-link" href="#Quadratic-Variation">&#182;</a></h3><h3 id="Total-Variation">Total Variation<a class="anchor-link" href="#Total-Variation">&#182;</a></h3><h3 id="Stopping-Time">Stopping Time<a class="anchor-link" href="#Stopping-Time">&#182;</a></h3><h3 id="Ito's-Lemma">Ito's Lemma<a class="anchor-link" href="#Ito's-Lemma">&#182;</a></h3><h3 id="Stochastic-Differential-Equation-(SDE)">Stochastic Differential Equation (SDE)<a class="anchor-link" href="#Stochastic-Differential-Equation-(SDE)">&#182;</a></h3><h4 id="Lebesgue-measure">Lebesgue measure<a class="anchor-link" href="#Lebesgue-measure">&#182;</a></h4><h3 id="Ornstein-Uhlenbeck-Process">Ornstein-Uhlenbeck Process<a class="anchor-link" href="#Ornstein-Uhlenbeck-Process">&#182;</a></h3><h3 id="Gaussian-Process">Gaussian Process<a class="anchor-link" href="#Gaussian-Process">&#182;</a></h3><h3 id="Feynman-Kac-Formula">Feynman-Kac Formula<a class="anchor-link" href="#Feynman-Kac-Formula">&#182;</a></h3><h3 id="Change-of-Probability-Measure">Change of Probability Measure<a class="anchor-link" href="#Change-of-Probability-Measure">&#182;</a></h3><h3 id="Girsanov&#8217;s-Theorem">Girsanov&#8217;s Theorem<a class="anchor-link" href="#Girsanov&#8217;s-Theorem">&#182;</a></h3><h3 id="Forward-Measure">Forward Measure<a class="anchor-link" href="#Forward-Measure">&#182;</a></h3>
+<h2 id="Derivative-Products---Options">Derivative Products - Options<a class="anchor-link" href="#Derivative-Products---Options">&#182;</a></h2><h3 id="Replication">Replication<a class="anchor-link" href="#Replication">&#182;</a></h3><h4 id="Static-Replication">Static Replication<a class="anchor-link" href="#Static-Replication">&#182;</a></h4><ul>
+<li>weights don't change over time</li>
+</ul>
+<h4 id="Dynamic-Replication">Dynamic Replication<a class="anchor-link" href="#Dynamic-Replication">&#182;</a></h4><ul>
+<li>components and weights of replicating portfolio change over time</li>
+<li>future scenarios for underliers, interest rates, etc</li>
+<li>set of portfolio weights</li>
+<li>factors affecting replication strategy<ul>
+<li>bid-ask spreads</li>
+<li>illiquidity</li>
+<li>market impact<ul>
+<li>financing cost</li>
+<li>transaction cost</li>
+<li>operational risk</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>future volatility of option underlier</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Financial-Models">Financial Models<a class="anchor-link" href="#Financial-Models">&#182;</a></h2><h3 id="Binomial-options-pricing-model">Binomial options pricing model<a class="anchor-link" href="#Binomial-options-pricing-model">&#182;</a></h3><h3 id="Black&#8211;Derman&#8211;Toy">Black&#8211;Derman&#8211;Toy<a class="anchor-link" href="#Black&#8211;Derman&#8211;Toy">&#182;</a></h3><h3 id="Black&#8211;Karasinski">Black&#8211;Karasinski<a class="anchor-link" href="#Black&#8211;Karasinski">&#182;</a></h3><h3 id="Black&#8211;Scholes">Black&#8211;Scholes<a class="anchor-link" href="#Black&#8211;Scholes">&#182;</a></h3><h3 id="Constant-elasticity-of-variance-(CEV)">Constant elasticity of variance (CEV)<a class="anchor-link" href="#Constant-elasticity-of-variance-(CEV)">&#182;</a></h3><h3 id="Cox&#8211;Ingersoll&#8211;Ross-(CIR)">Cox&#8211;Ingersoll&#8211;Ross (CIR)<a class="anchor-link" href="#Cox&#8211;Ingersoll&#8211;Ross-(CIR)">&#182;</a></h3><h3 id="Heath&#8211;Jarrow&#8211;Morton-(HJM)">Heath&#8211;Jarrow&#8211;Morton (HJM)<a class="anchor-link" href="#Heath&#8211;Jarrow&#8211;Morton-(HJM)">&#182;</a></h3><h3 id="Heston">Heston<a class="anchor-link" href="#Heston">&#182;</a></h3><h3 id="Ho&#8211;Lee">Ho&#8211;Lee<a class="anchor-link" href="#Ho&#8211;Lee">&#182;</a></h3><h3 id="Hull&#8211;White">Hull&#8211;White<a class="anchor-link" href="#Hull&#8211;White">&#182;</a></h3><h3 id="LIBOR-market">LIBOR market<a class="anchor-link" href="#LIBOR-market">&#182;</a></h3><h3 id="SABR-volatility">SABR volatility<a class="anchor-link" href="#SABR-volatility">&#182;</a></h3><h3 id="Vasicek">Vasicek<a class="anchor-link" href="#Vasicek">&#182;</a></h3>
+<h3 id="Options">Options<a class="anchor-link" href="#Options">&#182;</a></h3><h4 id="Call">Call<a class="anchor-link" href="#Call">&#182;</a></h4><h4 id="Put">Put<a class="anchor-link" href="#Put">&#182;</a></h4><h4 id="Payoff">Payoff<a class="anchor-link" href="#Payoff">&#182;</a></h4><p><img src="./images/optionPayoff.png" width=500 height=500></p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Time-series-model">Time series model<a class="anchor-link" href="#Time-series-model">&#182;</a></h2><h3 id="Autoregressive-conditional-heteroskedasticity-(ARCH)-model">Autoregressive conditional heteroskedasticity (ARCH) model<a class="anchor-link" href="#Autoregressive-conditional-heteroskedasticity-(ARCH)-model">&#182;</a></h3><h3 id="Autoregressive-integrated-moving-average-(ARIMA)-model">Autoregressive integrated moving average (ARIMA) model<a class="anchor-link" href="#Autoregressive-integrated-moving-average-(ARIMA)-model">&#182;</a></h3><h3 id="Autoregressive-(AR)-model">Autoregressive (AR) model<a class="anchor-link" href="#Autoregressive-(AR)-model">&#182;</a></h3><h3 id="Autoregressive&#8211;moving-average-(ARMA)-model">Autoregressive&#8211;moving-average (ARMA) model<a class="anchor-link" href="#Autoregressive&#8211;moving-average-(ARMA)-model">&#182;</a></h3><h3 id="Generalized-autoregressive-conditional-heteroskedasticity-(GARCH)-model">Generalized autoregressive conditional heteroskedasticity (GARCH) model<a class="anchor-link" href="#Generalized-autoregressive-conditional-heteroskedasticity-(GARCH)-model">&#182;</a></h3><h3 id="Moving-average-(MA)-model">Moving-average (MA) model<a class="anchor-link" href="#Moving-average-(MA)-model">&#182;</a></h3>
+<h4 id="Intrinsic-Value">Intrinsic Value<a class="anchor-link" href="#Intrinsic-Value">&#182;</a></h4><h4 id="Time-Value-of-Option">Time Value of Option<a class="anchor-link" href="#Time-Value-of-Option">&#182;</a></h4><h4 id="Moneyness">Moneyness<a class="anchor-link" href="#Moneyness">&#182;</a></h4><ul>
+<li>is represented as $K/S$ or forward moneyness as $K/S_F$</li>
+</ul>
+<h5 id="ATM">ATM<a class="anchor-link" href="#ATM">&#182;</a></h5><h5 id="ITM">ITM<a class="anchor-link" href="#ITM">&#182;</a></h5><h5 id="OTM">OTM<a class="anchor-link" href="#OTM">&#182;</a></h5><h4 id="Implied-volatility">Implied volatility<a class="anchor-link" href="#Implied-volatility">&#182;</a></h4><h4 id="Put-Call-parity">Put-Call parity<a class="anchor-link" href="#Put-Call-parity">&#182;</a></h4><h3 id="Greeks---First-Order">Greeks - First Order<a class="anchor-link" href="#Greeks---First-Order">&#182;</a></h3><h4 id="Delta">Delta<a class="anchor-link" href="#Delta">&#182;</a></h4><h4 id="Vega">Vega<a class="anchor-link" href="#Vega">&#182;</a></h4><h4 id="Rho">Rho<a class="anchor-link" href="#Rho">&#182;</a></h4><h4 id="Theta">Theta<a class="anchor-link" href="#Theta">&#182;</a></h4><h3 id="Greeks---Second-Order">Greeks - Second Order<a class="anchor-link" href="#Greeks---Second-Order">&#182;</a></h3><h4 id="Gamma">Gamma<a class="anchor-link" href="#Gamma">&#182;</a></h4><h3 id="European-vs-American-products">European vs American products<a class="anchor-link" href="#European-vs-American-products">&#182;</a></h3><h4 id="Dividends">Dividends<a class="anchor-link" href="#Dividends">&#182;</a></h4><h4 id="Early-Exercise">Early Exercise<a class="anchor-link" href="#Early-Exercise">&#182;</a></h4><h3 id="Hedging">Hedging<a class="anchor-link" href="#Hedging">&#182;</a></h3><h4 id="Delta-Hedging">Delta Hedging<a class="anchor-link" href="#Delta-Hedging">&#182;</a></h4><h4 id="Gamma-Hedging">Gamma Hedging<a class="anchor-link" href="#Gamma-Hedging">&#182;</a></h4><h4 id="Delta-Gamma-Neutral">Delta-Gamma Neutral<a class="anchor-link" href="#Delta-Gamma-Neutral">&#182;</a></h4><h4 id="Dynamic-Hedging">Dynamic Hedging<a class="anchor-link" href="#Dynamic-Hedging">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Financial-Derivatives">Financial Derivatives<a class="anchor-link" href="#Financial-Derivatives">&#182;</a></h2><h3 id="Options">Options<a class="anchor-link" href="#Options">&#182;</a></h3><h4 id="Call">Call<a class="anchor-link" href="#Call">&#182;</a></h4><h4 id="Put">Put<a class="anchor-link" href="#Put">&#182;</a></h4><h4 id="Intrinsic-Value">Intrinsic Value<a class="anchor-link" href="#Intrinsic-Value">&#182;</a></h4><h4 id="Time-Value-of-Option">Time Value of Option<a class="anchor-link" href="#Time-Value-of-Option">&#182;</a></h4><h4 id="Moneyness">Moneyness<a class="anchor-link" href="#Moneyness">&#182;</a></h4><h5 id="ATM">ATM<a class="anchor-link" href="#ATM">&#182;</a></h5><h5 id="ITM">ITM<a class="anchor-link" href="#ITM">&#182;</a></h5><h5 id="OTM">OTM<a class="anchor-link" href="#OTM">&#182;</a></h5><h4 id="Implied-volatility">Implied volatility<a class="anchor-link" href="#Implied-volatility">&#182;</a></h4><h4 id="Put-Call-parity">Put-Call parity<a class="anchor-link" href="#Put-Call-parity">&#182;</a></h4><h3 id="Greeks---First-Order">Greeks - First Order<a class="anchor-link" href="#Greeks---First-Order">&#182;</a></h3><h4 id="Delta">Delta<a class="anchor-link" href="#Delta">&#182;</a></h4><h4 id="Vega">Vega<a class="anchor-link" href="#Vega">&#182;</a></h4><h4 id="Rho">Rho<a class="anchor-link" href="#Rho">&#182;</a></h4><h4 id="Theta">Theta<a class="anchor-link" href="#Theta">&#182;</a></h4><h3 id="Greeks---Second-Order">Greeks - Second Order<a class="anchor-link" href="#Greeks---Second-Order">&#182;</a></h3><h4 id="Gamma">Gamma<a class="anchor-link" href="#Gamma">&#182;</a></h4><h3 id="European-vs-American-products">European vs American products<a class="anchor-link" href="#European-vs-American-products">&#182;</a></h3><h4 id="Dividends">Dividends<a class="anchor-link" href="#Dividends">&#182;</a></h4><h4 id="Early-Exercise">Early Exercise<a class="anchor-link" href="#Early-Exercise">&#182;</a></h4><h3 id="Hedging">Hedging<a class="anchor-link" href="#Hedging">&#182;</a></h3><h4 id="Delta-Hedging">Delta Hedging<a class="anchor-link" href="#Delta-Hedging">&#182;</a></h4><h4 id="Gamma-Hedging">Gamma Hedging<a class="anchor-link" href="#Gamma-Hedging">&#182;</a></h4><h4 id="Delta-Gamma-Neutral">Delta-Gamma Neutral<a class="anchor-link" href="#Delta-Gamma-Neutral">&#182;</a></h4><h4 id="Dynamic-Hedging">Dynamic Hedging<a class="anchor-link" href="#Dynamic-Hedging">&#182;</a></h4><h3 id="Black-Scholes-Merton-Model">Black-Scholes-Merton Model<a class="anchor-link" href="#Black-Scholes-Merton-Model">&#182;</a></h3><h4 id="Intrinsic-Value-of-Option">Intrinsic Value of Option<a class="anchor-link" href="#Intrinsic-Value-of-Option">&#182;</a></h4><h4 id="Time-Value-of-Option">Time Value of Option<a class="anchor-link" href="#Time-Value-of-Option">&#182;</a></h4><h4 id="Assumptions-underlying-BS-Model">Assumptions underlying BS Model<a class="anchor-link" href="#Assumptions-underlying-BS-Model">&#182;</a></h4><h4 id="4-Variables/Components-of-BS-Model">4 Variables/Components of BS Model<a class="anchor-link" href="#4-Variables/Components-of-BS-Model">&#182;</a></h4><h4 id="5th-Variables/Components-of-BS-Model">5th Variables/Components of BS Model<a class="anchor-link" href="#5th-Variables/Components-of-BS-Model">&#182;</a></h4><h4 id="Weighted-Probability">Weighted Probability<a class="anchor-link" href="#Weighted-Probability">&#182;</a></h4><h4 id="N(d1)">N(d1)<a class="anchor-link" href="#N(d1)">&#182;</a></h4><h4 id="N(d2)">N(d2)<a class="anchor-link" href="#N(d2)">&#182;</a></h4><h4 id="Derivation">Derivation<a class="anchor-link" href="#Derivation">&#182;</a></h4><h4 id="Risk-neutral-pricing">Risk-neutral pricing<a class="anchor-link" href="#Risk-neutral-pricing">&#182;</a></h4>
+<h3 id="Black-Scholes-Merton-Model">Black-Scholes-Merton Model<a class="anchor-link" href="#Black-Scholes-Merton-Model">&#182;</a></h3><h4 id="Assumptions">Assumptions<a class="anchor-link" href="#Assumptions">&#182;</a></h4><ul>
+<li>movement of underlying stock price is continous, with constant volatility and no jumps</li>
+<li>can hedge continuously by taking long or short position</li>
+<li>no bid-ask spreads</li>
+<li>no transaction costs</li>
+<li>no forced unwinding of positions</li>
+<li>no dividends are paid out during the life of the option.</li>
+<li>risk-free rate and volatility of the underlying asset are known and constant.</li>
+<li>returns on the underlying asset are log-normally distributed.</li>
+</ul>
+<h4 id="Intrinsic-Value-of-Option">Intrinsic Value of Option<a class="anchor-link" href="#Intrinsic-Value-of-Option">&#182;</a></h4><h4 id="Time-Value-of-Option">Time Value of Option<a class="anchor-link" href="#Time-Value-of-Option">&#182;</a></h4><h4 id="Assumptions-underlying-BS-Model">Assumptions underlying BS Model<a class="anchor-link" href="#Assumptions-underlying-BS-Model">&#182;</a></h4><h4 id="4-Variables/Components-of-BS-Model">4 Variables/Components of BS Model<a class="anchor-link" href="#4-Variables/Components-of-BS-Model">&#182;</a></h4><h4 id="5th-Variables/Components-of-BS-Model">5th Variables/Components of BS Model<a class="anchor-link" href="#5th-Variables/Components-of-BS-Model">&#182;</a></h4><h4 id="Weighted-Probability">Weighted Probability<a class="anchor-link" href="#Weighted-Probability">&#182;</a></h4><ul>
+<li><a href="https://financetrainingcourse.com/education/2011/03/option-pricing-black-scholes-probabilities-explained-understanding-nd1-vs-nd2/#:~:text=In%20linking%20it%20with%20the,takes%20on%20the%20expiry%20date">https://financetrainingcourse.com/education/2011/03/option-pricing-black-scholes-probabilities-explained-understanding-nd1-vs-nd2/#:~:text=In%20linking%20it%20with%20the,takes%20on%20the%20expiry%20date</a>.</li>
+</ul>
+<p><img src="https://financetrainingcourse.com/education/wp-content/uploads/2011/03/nd1nd211.gif"></p>
+<h4 id="N(d1)">N(d1)<a class="anchor-link" href="#N(d1)">&#182;</a></h4><h4 id="N(d2)">N(d2)<a class="anchor-link" href="#N(d2)">&#182;</a></h4><h4 id="Derivation">Derivation<a class="anchor-link" href="#Derivation">&#182;</a></h4><ul>
+<li><p>Taylor series expansion of call prices
+$$C(S + dS, t + dt) = C(S, t) + \frac{\partial C}{\partial t}dt + \frac{\partial C}{\partial S}dS + \frac{\partial^2 C}{\partial S^2}dS^2 + ... $$</p>
+</li>
+<li><p>For small $dt$, terms involving $dt^2$ or $dSdt$ and any higher terms will be extremely small and considered negligible</p>
+</li>
+<li><p>Applying greeks
+$$\Theta = \frac{\partial C}{\partial t}$$
+$$\Delta = \frac{\partial C}{\partial S}$$
+$$\Gamma = \frac{\partial^2 C}{\partial S^2}$$</p>
+</li>
+<li><p>The equation becomes
+$$C(S + dS, t + dt) = C(S, t) + \Theta dt + \Delta dS + \frac{1}{2}\Gamma dS^2 $$</p>
+</li>
+<li><p>A delta hedged portfolio
+$$V = C(S, t) - \Delta S$$</p>
+</li>
+<li><p>So the equation above becomes
+$$dV(S, t) = \Theta dt + \frac{1}{2}\Gamma S^2 dt$$</p>
+</li>
+<li><p>or equivalently
+$$dV(S, t) = \Theta dt + \frac{1}{2}\Gamma dS^2 $$</p>
+</li>
+<li><p>cont..</p>
+</li>
+<li><p>BSM Final Equation
+$$\frac{\partial C}{\partial t} + rS \frac{\partial C}{\partial S} + \frac{1}{2}\sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} = rC$$</p>
+</li>
+<li><p>Vanilla European call option on stock is</p>
+</li>
+</ul>
+$$\begin{aligned}
+C(S,K,\tau,\sigma,r) &amp;= SN(d_1) - Ke^{-r\tau}N(d_2) \\
+d_{1,2} &amp;= \frac{\ln\left(\frac{S}{K}\right) + \left(r \pm \frac{\sigma^2}{2}\right)\tau}{\sigma\sqrt{\tau}} \\
+N(z) &amp;= \frac{1}{\sqrt{2\pi}}\int_{-\infty}^z e^{-\frac{1}{2}y^2} dy  \\
+\end{aligned}$$<h4 id="Risk-neutral-pricing">Risk-neutral pricing<a class="anchor-link" href="#Risk-neutral-pricing">&#182;</a></h4>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Interest-Rate-Curves.">Interest Rate Curves.<a class="anchor-link" href="#Interest-Rate-Curves.">&#182;</a></h2><h3 id="Zero-rates-and-instantaneous-interest-rates.">Zero rates and instantaneous interest rates.<a class="anchor-link" href="#Zero-rates-and-instantaneous-interest-rates.">&#182;</a></h3><h3 id="Forward-rates.">Forward rates.<a class="anchor-link" href="#Forward-rates.">&#182;</a></h3><h3 id="Continuously-and-discretely-compounded-interest">Continuously and discretely compounded interest<a class="anchor-link" href="#Continuously-and-discretely-compounded-interest">&#182;</a></h3><h3 id="Term-structure-of-interest-rates">Term structure of interest rates<a class="anchor-link" href="#Term-structure-of-interest-rates">&#182;</a></h3><h4 id="Shape">Shape<a class="anchor-link" href="#Shape">&#182;</a></h4><h5 id="Normal">Normal<a class="anchor-link" href="#Normal">&#182;</a></h5><h5 id="Flat">Flat<a class="anchor-link" href="#Flat">&#182;</a></h5><h5 id="Inverted">Inverted<a class="anchor-link" href="#Inverted">&#182;</a></h5><h2 id="Bond-Pricing">Bond Pricing<a class="anchor-link" href="#Bond-Pricing">&#182;</a></h2><h3 id="Discounted-Cash-Flow">Discounted Cash Flow<a class="anchor-link" href="#Discounted-Cash-Flow">&#182;</a></h3><h3 id="Yield-of-a-Bond">Yield of a Bond<a class="anchor-link" href="#Yield-of-a-Bond">&#182;</a></h3><h4 id="Shifts-in-yield-curve">Shifts in yield curve<a class="anchor-link" href="#Shifts-in-yield-curve">&#182;</a></h4><h5 id="Level">Level<a class="anchor-link" href="#Level">&#182;</a></h5><h5 id="Slope">Slope<a class="anchor-link" href="#Slope">&#182;</a></h5><h5 id="Curvature">Curvature<a class="anchor-link" href="#Curvature">&#182;</a></h5><h4 id="Factors-affecting-bond-yield">Factors affecting bond yield<a class="anchor-link" href="#Factors-affecting-bond-yield">&#182;</a></h4><h5 id="current-interest-rate">current interest rate<a class="anchor-link" href="#current-interest-rate">&#182;</a></h5><h5 id="expected-future-interest-rates">expected future interest rates<a class="anchor-link" href="#expected-future-interest-rates">&#182;</a></h5><h5 id="term-premium">term premium<a class="anchor-link" href="#term-premium">&#182;</a></h5><ul>
+<h2 id="Interest-Rate-Curves">Interest Rate Curves<a class="anchor-link" href="#Interest-Rate-Curves">&#182;</a></h2><h3 id="Spot-rates">Spot rates<a class="anchor-link" href="#Spot-rates">&#182;</a></h3><h3 id="Zero-rates-and-instantaneous-interest-rates">Zero rates and instantaneous interest rates<a class="anchor-link" href="#Zero-rates-and-instantaneous-interest-rates">&#182;</a></h3><h3 id="Forward-rates">Forward rates<a class="anchor-link" href="#Forward-rates">&#182;</a></h3><h3 id="Yield-curve">Yield curve<a class="anchor-link" href="#Yield-curve">&#182;</a></h3><h3 id="Continuously-and-discretely-compounded-interest">Continuously and discretely compounded interest<a class="anchor-link" href="#Continuously-and-discretely-compounded-interest">&#182;</a></h3><h3 id="Term-structure">Term structure<a class="anchor-link" href="#Term-structure">&#182;</a></h3><ul>
+<li>The term structure is the set of interest rates for various terms to maturity embodied in the prices of default-free zero-coupon bonds.</li>
+</ul>
+<h3 id="Term-structure-of-interest-rates">Term structure of interest rates<a class="anchor-link" href="#Term-structure-of-interest-rates">&#182;</a></h3><h4 id="Shape">Shape<a class="anchor-link" href="#Shape">&#182;</a></h4><h5 id="Normal">Normal<a class="anchor-link" href="#Normal">&#182;</a></h5><h5 id="Flat">Flat<a class="anchor-link" href="#Flat">&#182;</a></h5><h5 id="Inverted">Inverted<a class="anchor-link" href="#Inverted">&#182;</a></h5><h3 id="Interest-Rate-Parity">Interest Rate Parity<a class="anchor-link" href="#Interest-Rate-Parity">&#182;</a></h3><h4 id="Real-rate">Real rate<a class="anchor-link" href="#Real-rate">&#182;</a></h4><ul>
+<li>real rate is compensation for postponing consumption from this period to the next. </li>
+</ul>
+<h4 id="Nominal-rate">Nominal rate<a class="anchor-link" href="#Nominal-rate">&#182;</a></h4><ul>
+<li>The nominal interest rate has two components--<ul>
+<li>the real interest rate, and </li>
+<li>the rate of inflation</li>
+</ul>
+</li>
+<li>(1 + Nominal rate) = (1+ Real rate)(1 + Inflation rate)</li>
+<li>or approximately, Nominal rate = Real rate + Inflation rate</li>
+</ul>
+<h4 id="Difference">Difference<a class="anchor-link" href="#Difference">&#182;</a></h4><ul>
+<li>rate of inflation</li>
+<li>The inflation rate reflects the change in purchasing power over time and must be added to the real rate because loans are denominated in dollars, and not in units of consumption</li>
+<li>the higher the expected inflation in a country, the more compensation investors will demand when investing in a particular currency</li>
+</ul>
+<h3 id="Arbitrage-due-to-rate-difference">Arbitrage due to rate difference<a class="anchor-link" href="#Arbitrage-due-to-rate-difference">&#182;</a></h3><p><img src="./images/arbitrage_forwardRates.png">
+$\tiny\text{webpage.pace.edu - P.V. Viswanath - Term structure of interest rates}$</p>
+<h3 id="Liquidity-premium">Liquidity premium<a class="anchor-link" href="#Liquidity-premium">&#182;</a></h3><p><img src="./images/liquidityPremium.png">
+$\tiny\text{webpage.pace.edu - P.V. Viswanath - Term structure of interest rates}$</p>
+<h3 id="Slope-of-yield-curve-wrt-expected-short-rates">Slope of yield curve wrt expected short rates<a class="anchor-link" href="#Slope-of-yield-curve-wrt-expected-short-rates">&#182;</a></h3><table>
+<thead><tr>
+<th>.</th>
+<th>.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./images/upwardSlopingWithConstantExpShortRate.png"></td>
+<td><img src="./images/upwardSlopingWithFallingExpShortRate.png"></td>
+</tr>
+<tr>
+<td><img src="./images/humpedSlopingWithFallingExpShortRate.png"></td>
+<td><img src="./images/upwardSlopingWithRisingExpShortRate.png"></td>
+</tr>
+</tbody>
+</table>
+<p>$\tiny\text{webpage.pace.edu - P.V. Viswanath - Term structure of interest rates}$</p>
+<h3 id="Funding-rate-curve">Funding rate curve<a class="anchor-link" href="#Funding-rate-curve">&#182;</a></h3><ol>
+<li>What are the funding curves?</li>
+</ol>
+<ul>
+<li><p>A funding curve crystallizes the  funding spreads over the market rates for the bank. Usually you will find that these spreads are over the O/N rate and the funding curve is often in USD.</p>
+</li>
+<li><p>That curve represents the cost to the bank to fund their positions. When it needs to be expressed in different currencies the current approach is to ratio discount factors: Df(XXX funding curve)/Df(USD funding curve)=Df(XXX/USD basis curve)/Df(USD OIS curve). The assumption behind is that swap points are a constant.  So you end up with the discount factor you’re after (Df(XXX funding curve) as Df(XXX/USD basis curve)*Df(USD funding curve)/Df(USD OIS curve).</p>
+</li>
+</ul>
+<ol>
+<li>How to set them up?</li>
+</ol>
+<ul>
+<li>In Murex, this can be setup using the Automatic CSA curve setting. You’ll need to define a CSA category (such as No collateral) and attach the proper curve assignment to USD (assuming you’re using USD for funding).</li>
+</ul>
+<ol>
+<li>When are they used?</li>
+</ol>
+<ul>
+<li>Trades can be collateralized or not. To be collateralized, they need to be covered by an agreement with your counterpart and in that case, any large market value for that transaction will trigger a margin call and thus limit the risk for both sides.</li>
+<li>When the trades are not collateralized, this is when you want to use the funding curves as the bank is much more exposed and the returns expected are higher.</li>
+<li>In terms of pricing, this also means that when trading with a non collateralized counterparty, the prices will be worse given the increased rates.</li>
+</ul>
+<ol>
+<li>Anything else? Risk management maybe?</li>
+</ol>
+<ul>
+<li>This is where the funding desk comes into the picture. The role of that desk is to determine the funding spreads but also to manage the risk coming from these curves. For traders, they will also look at their portfolios as if all trades were fully collateralized BUT any trade with a counterparty with no agreement will effectively use the funding desk as an intermediary : the funding desk trades the same trade back to back, with the counterpart using the funding curves and with the trading desk using normal curves (OIS or basis curves).</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bond-Pricing">Bond Pricing<a class="anchor-link" href="#Bond-Pricing">&#182;</a></h2><h3 id="Discounted-Cash-Flow">Discounted Cash Flow<a class="anchor-link" href="#Discounted-Cash-Flow">&#182;</a></h3><h3 id="Yield-of-a-Bond">Yield of a Bond<a class="anchor-link" href="#Yield-of-a-Bond">&#182;</a></h3><h4 id="Shifts-in-yield-curve">Shifts in yield curve<a class="anchor-link" href="#Shifts-in-yield-curve">&#182;</a></h4><h5 id="Level">Level<a class="anchor-link" href="#Level">&#182;</a></h5><h5 id="Slope">Slope<a class="anchor-link" href="#Slope">&#182;</a></h5><h5 id="Curvature">Curvature<a class="anchor-link" href="#Curvature">&#182;</a></h5><h4 id="Factors-affecting-bond-yield">Factors affecting bond yield<a class="anchor-link" href="#Factors-affecting-bond-yield">&#182;</a></h4><h5 id="current-interest-rate">current interest rate<a class="anchor-link" href="#current-interest-rate">&#182;</a></h5><h5 id="expected-future-interest-rates">expected future interest rates<a class="anchor-link" href="#expected-future-interest-rates">&#182;</a></h5><h5 id="term-premium">term premium<a class="anchor-link" href="#term-premium">&#182;</a></h5><ul>
 <li>difference between yield on a bond and the market’s expectation of future interest rates over the life of the bond</li>
 </ul>
-<h3 id="Bond-Duration">Bond Duration<a class="anchor-link" href="#Bond-Duration">&#182;</a></h3><h4 id="ZCB-vs-CB">ZCB vs CB<a class="anchor-link" href="#ZCB-vs-CB">&#182;</a></h4><h3 id="Bond-Convexity">Bond Convexity<a class="anchor-link" href="#Bond-Convexity">&#182;</a></h3><h4 id="ZCB-vs-CB">ZCB vs CB<a class="anchor-link" href="#ZCB-vs-CB">&#182;</a></h4><h3 id="Macaulay">Macaulay<a class="anchor-link" href="#Macaulay">&#182;</a></h3><h3 id="Coupons">Coupons<a class="anchor-link" href="#Coupons">&#182;</a></h3><h4 id="Zero-coupon-bonds">Zero coupon bonds<a class="anchor-link" href="#Zero-coupon-bonds">&#182;</a></h4><h4 id="Coupon-bearing-bonds">Coupon-bearing bonds<a class="anchor-link" href="#Coupon-bearing-bonds">&#182;</a></h4><h3 id="Time">Time<a class="anchor-link" href="#Time">&#182;</a></h3><h4 id="Shorter-term-bond">Shorter-term bond<a class="anchor-link" href="#Shorter-term-bond">&#182;</a></h4><h4 id="Longer-term-bond">Longer-term bond<a class="anchor-link" href="#Longer-term-bond">&#182;</a></h4><h3 id="Bond-Riskiness">Bond Riskiness<a class="anchor-link" href="#Bond-Riskiness">&#182;</a></h3><h4 id="Government-bonds">Government bonds<a class="anchor-link" href="#Government-bonds">&#182;</a></h4><h4 id="Corporate-bonds">Corporate bonds<a class="anchor-link" href="#Corporate-bonds">&#182;</a></h4><h4 id="T-bills">T-bills<a class="anchor-link" href="#T-bills">&#182;</a></h4><h3 id="Expectation-Hypothesis">Expectation Hypothesis<a class="anchor-link" href="#Expectation-Hypothesis">&#182;</a></h3><h3 id="Numerical-implementation-of-bond-mathematics.">Numerical implementation of bond mathematics.<a class="anchor-link" href="#Numerical-implementation-of-bond-mathematics.">&#182;</a></h3><h2 id="LIBOR-vs-SOFR">LIBOR vs SOFR<a class="anchor-link" href="#LIBOR-vs-SOFR">&#182;</a></h2>
+<h3 id="Bond-Duration">Bond Duration<a class="anchor-link" href="#Bond-Duration">&#182;</a></h3><h4 id="ZCB-vs-CB">ZCB vs CB<a class="anchor-link" href="#ZCB-vs-CB">&#182;</a></h4><h3 id="Bond-Convexity">Bond Convexity<a class="anchor-link" href="#Bond-Convexity">&#182;</a></h3><h4 id="ZCB-vs-CB">ZCB vs CB<a class="anchor-link" href="#ZCB-vs-CB">&#182;</a></h4><h3 id="Macaulay">Macaulay<a class="anchor-link" href="#Macaulay">&#182;</a></h3><h3 id="Coupons">Coupons<a class="anchor-link" href="#Coupons">&#182;</a></h3><h4 id="Zero-coupon-bonds">Zero coupon bonds<a class="anchor-link" href="#Zero-coupon-bonds">&#182;</a></h4><h4 id="Coupon-bearing-bonds">Coupon-bearing bonds<a class="anchor-link" href="#Coupon-bearing-bonds">&#182;</a></h4><h3 id="Time">Time<a class="anchor-link" href="#Time">&#182;</a></h3><h4 id="Shorter-term-bond">Shorter-term bond<a class="anchor-link" href="#Shorter-term-bond">&#182;</a></h4><h4 id="Longer-term-bond">Longer-term bond<a class="anchor-link" href="#Longer-term-bond">&#182;</a></h4><h3 id="Bond-Riskiness">Bond Riskiness<a class="anchor-link" href="#Bond-Riskiness">&#182;</a></h3><h4 id="Government-bonds">Government bonds<a class="anchor-link" href="#Government-bonds">&#182;</a></h4><h4 id="Corporate-bonds">Corporate bonds<a class="anchor-link" href="#Corporate-bonds">&#182;</a></h4><h4 id="T-bills">T-bills<a class="anchor-link" href="#T-bills">&#182;</a></h4><h3 id="Expectation-Hypothesis">Expectation Hypothesis<a class="anchor-link" href="#Expectation-Hypothesis">&#182;</a></h3><h3 id="Numerical-implementation-of-bond-mathematics.">Numerical implementation of bond mathematics.<a class="anchor-link" href="#Numerical-implementation-of-bond-mathematics.">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mathematics">Mathematics<a class="anchor-link" href="#Mathematics">&#182;</a></h2><h3 id="Probability">Probability<a class="anchor-link" href="#Probability">&#182;</a></h3><h4 id="Mean">Mean<a class="anchor-link" href="#Mean">&#182;</a></h4><h4 id="Variance">Variance<a class="anchor-link" href="#Variance">&#182;</a></h4><h4 id="Covariance">Covariance<a class="anchor-link" href="#Covariance">&#182;</a></h4><h4 id="Correlation">Correlation<a class="anchor-link" href="#Correlation">&#182;</a></h4><h4 id="Standard-Deviation">Standard Deviation<a class="anchor-link" href="#Standard-Deviation">&#182;</a></h4><h4 id="Probability-Distribution-Function">Probability Distribution Function<a class="anchor-link" href="#Probability-Distribution-Function">&#182;</a></h4><h4 id="Cumulative-Distribution-Function">Cumulative Distribution Function<a class="anchor-link" href="#Cumulative-Distribution-Function">&#182;</a></h4><h4 id="Standard-Normal-Variable">Standard Normal Variable<a class="anchor-link" href="#Standard-Normal-Variable">&#182;</a></h4><h4 id="Box-Muller-method">Box Muller method<a class="anchor-link" href="#Box-Muller-method">&#182;</a></h4><h4 id="Margalia-Polar-method">Margalia Polar method<a class="anchor-link" href="#Margalia-Polar-method">&#182;</a></h4><h4 id="Normal-random-variable">Normal random variable<a class="anchor-link" href="#Normal-random-variable">&#182;</a></h4><h3 id="Change-of-density-function">Change of density function<a class="anchor-link" href="#Change-of-density-function">&#182;</a></h3><h4 id="Lognormal-random-variables">Lognormal random variables<a class="anchor-link" href="#Lognormal-random-variables">&#182;</a></h4><h3 id="Power-Series">Power Series<a class="anchor-link" href="#Power-Series">&#182;</a></h3><h4 id="Taylor-Series">Taylor Series<a class="anchor-link" href="#Taylor-Series">&#182;</a></h4><h3 id="ODE">ODE<a class="anchor-link" href="#ODE">&#182;</a></h3><h3 id="PDE">PDE<a class="anchor-link" href="#PDE">&#182;</a></h3><h3 id="Calculus">Calculus<a class="anchor-link" href="#Calculus">&#182;</a></h3><h4 id="Chain-Rule">Chain Rule<a class="anchor-link" href="#Chain-Rule">&#182;</a></h4><h4 id="Change-of-Variable">Change of Variable<a class="anchor-link" href="#Change-of-Variable">&#182;</a></h4><h4 id="Integrating-density-function-of-standard-normal-variable">Integrating density function of standard normal variable<a class="anchor-link" href="#Integrating-density-function-of-standard-normal-variable">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Type-of-Options">Type of Options<a class="anchor-link" href="#Type-of-Options">&#182;</a></h2><h3 id="Vanilla-Options">Vanilla Options<a class="anchor-link" href="#Vanilla-Options">&#182;</a></h3><h3 id="Exotic-Options">Exotic Options<a class="anchor-link" href="#Exotic-Options">&#182;</a></h3><h3 id="Barrier-Options">Barrier Options<a class="anchor-link" href="#Barrier-Options">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Interest-Rate-Swaps">Interest Rate Swaps<a class="anchor-link" href="#Interest-Rate-Swaps">&#182;</a></h2><h3 id="Payer/Receiver">Payer/Receiver<a class="anchor-link" href="#Payer/Receiver">&#182;</a></h3><h3 id="Fixed/Floating">Fixed/Floating<a class="anchor-link" href="#Fixed/Floating">&#182;</a></h3><ul>
+<li>IRS has a number of parameters that must be specified for each leg:<ul>
+<li>the notional principal amount (or varying notional schedule);</li>
+<li>the start and end dates, value-, trade- and settlement dates, and date scheduling (date rolling);</li>
+<li>the fixed rate (i.e. "swap rate", sometimes quoted as a "swap spread" over a benchmark);</li>
+<li>the chosen floating interest rate index tenor;</li>
+<li>the day count conventions for interest calculations</li>
+</ul>
+</li>
+</ul>
+<h3 id="Swap-Rate">Swap Rate<a class="anchor-link" href="#Swap-Rate">&#182;</a></h3><ul>
+<li>the fixed interest rate that receiver demands in exchange for uncertainty of having to pay the short-term LIBOR (floating) rate over time</li>
+<li>incorporates <ul>
+<li>snapshot of forward expectations for LIBOR</li>
+<li>market perception of liquidity, supply, demand dynamics, credit quality of bank</li>
+</ul>
+</li>
+</ul>
+<h3 id="Swap-Spread">Swap Spread<a class="anchor-link" href="#Swap-Spread">&#182;</a></h3><ul>
+<li>the difference between the swap rate and the equivalent local government bond yield for the same maturity</li>
+</ul>
+<h3 id="Swap-Curve">Swap Curve<a class="anchor-link" href="#Swap-Curve">&#182;</a></h3><ul>
+<li>generally positive and is higher than </li>
+<li>swaps can trade higher or lower than sovereign yields with corresponding maturities</li>
+<li>Historically the spread tended to be positive across maturities, reflecting the higher credit risk of banks versus sovereigns. </li>
+<li>However, other factors, including liquidity, and supply and demand dynamics, mean that in the U.S. today the swap spread is negative at longer maturities.</li>
+</ul>
+<h3 id="Example">Example<a class="anchor-link" href="#Example">&#182;</a></h3><p><img src="./images/eg_IRS.png" width=500 height=500>
+$\tiny\text{Options, Futures, and Derivatives - John C Hull}$</p>
+<h3 id="Zero-Rate-Curve-(Spot-Rate-Curve)">Zero Rate Curve (Spot Rate Curve)<a class="anchor-link" href="#Zero-Rate-Curve-(Spot-Rate-Curve)">&#182;</a></h3><ul>
+<li>Zero rate curves, also called spot rate curves, are special and dominant type of yield curves. By definition, a zero rate curve is the term structure of the yields-to-maturity of zero coupon bonds. Given a zero rate, we can derive discount factor easily as:</li>
+</ul>
+$$D(t,T) = \exp(-rT)$$<ul>
+<li>where $D(t,T)$ is the discount factor at time t for maturity T and r is the continuously compounded zero rate or spot rate between time t and T</li>
+</ul>
+<h3 id="LIBOR-vs-SOFR">LIBOR vs SOFR<a class="anchor-link" href="#LIBOR-vs-SOFR">&#182;</a></h3><h3 id="Why-would-company-need-to-enter-into-interest-rate-swap">Why would company need to enter into interest rate swap<a class="anchor-link" href="#Why-would-company-need-to-enter-into-interest-rate-swap">&#182;</a></h3><ul>
+<li>to hedge against volatility</li>
+<li>to reduce uncertainty<ul>
+<li>interest rate changes during the duration of loan</li>
+<li>to eliminate this uncertainty<ul>
+<li>company enters into IRS to make fixed payments instead of floating/variable payments</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>to shrink cost of loan</li>
+</ul>
+<h3 id="How-do-company-hedge-interest-rate-exposure">How do company hedge interest rate exposure<a class="anchor-link" href="#How-do-company-hedge-interest-rate-exposure">&#182;</a></h3><h3 id="Types-of-IRS">Types of IRS<a class="anchor-link" href="#Types-of-IRS">&#182;</a></h3><ul>
+<li>"Vanilla" fixed for floating</li>
+<li>Basis swap</li>
+<li>Cross currency basis swaps</li>
+<li>Amortising swap</li>
+<li>Zero coupon swap</li>
+<li>Constant maturity swap</li>
+<li>Overnight indexed swap</li>
+<li>Currency swaps<ul>
+<li>Fixed-for-fixed currency swaps</li>
+<li>Fixed-for-floating currency swap</li>
+<li>combination of fixed-for-fixed and fixed-for-floating<ul>
+<li>is called cross-currency interest rate swap</li>
+</ul>
+</li>
+<li>Floating-for-floating currency swap<ul>
+<li>floating rate in one currency is exchanged for floating rate of another currency</li>
+<li>Quanto/Diff swap<ul>
+<li>3month US LIBOR vs 3month UK LIBOR</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Equity Swap<ul>
+<li>exchange of total return (dividends and capital gains) on equity index for fixed/floating rate of interest<ul>
+<li>total returns of SnP might be exchanged for LIBOR</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Extendable swap</li>
+<li>Putable swap</li>
+<li>Options on swap<ul>
+<li>Swaptions</li>
+</ul>
+</li>
+<li>Commodity swap</li>
+<li>Volatility swap</li>
+</ul>
+<h4 id="OIS">OIS<a class="anchor-link" href="#OIS">&#182;</a></h4><ul>
+<li>An overnight indexed swap (OIS) is an interest rate swap (IRS) over some given term, e.g. 10Y, where the periodic fixed payments are tied to a given fixed rate while the periodic floating payments are tied to a floating rate calculated from a daily compounded overnight rate over the floating coupon period.</li>
+<li>Note: OIS term is not overnight; it is the underlying reference rate that is an overnight rate. The exact compounding formula depends on the type of such overnight rate</li>
+<li>The index rate is typically the rate for overnight lending between banks, either non-secured or secured, for example <ul>
+<li>the Federal funds rate or SOFR for US dollar, </li>
+<li>€STR (formerly EONIA) for Euro or </li>
+<li>SONIA for sterling. </li>
+</ul>
+</li>
+<li>The fixed rate of OIS is typically an interest rate considered less risky than the corresponding interbank rate (LIBOR) because there is limited counterparty risk</li>
+</ul>
+<h3 id="Types-of-spread">Types of spread<a class="anchor-link" href="#Types-of-spread">&#182;</a></h3><h4 id="LIBOR&#8211;OIS-spread">LIBOR&#8211;OIS spread<a class="anchor-link" href="#LIBOR&#8211;OIS-spread">&#182;</a></h4><ul>
+<li>LIBOR–OIS spread is the difference between IRS rates, based on the LIBOR, and OIS rates, based on overnight rates, for the same term. The spread between the two rates is considered to be a measure of health of the banking system. It is an important measure of risk and liquidity in the money market</li>
+<li>3-month LIBOR is generally a floating rate of financing, which fluctuates depending on how risky a lending bank feels about a borrowing bank. The OIS is a swap derived from the overnight rate, which is generally fixed by the local central bank. The OIS allows LIBOR-based banks to borrow at a fixed rate of interest over the same period. In the United States, the spread is based on the LIBOR Eurodollar rate and the Federal Reserve's Fed Funds rate</li>
+<li>LIBOR is risky in the sense that the lending bank loans cash to the borrowing bank, and the OIS is stable in the sense that both counterparties only swap the floating rate of interest for the fixed rate of interest. The spread between the two is, therefore, a measure of how likely borrowing banks will default. This reflects counterparty credit risk premiums in contrast to liquidity risk premiums. However, given the mismatch in the tenor of the funding, it also reflects worries about liquidity risk as well</li>
+</ul>
 
 </div>
 </div>
@@ -13176,6 +13417,14 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Swaptions">Swaptions<a class="anchor-link" href="#Swaptions">&#182;</a></h2><h3 id="LIBOR">LIBOR<a class="anchor-link" href="#LIBOR">&#182;</a></h3><p><img src="./images/LIBOR.png">
+$\tiny\text{columbia.edu - Prof. Martin Haugh - Term Structure Models}$</p>
+<h3 id="Black-Formula-for-Caplets">Black Formula for Caplets<a class="anchor-link" href="#Black-Formula-for-Caplets">&#182;</a></h3><p><img src="./images/BlackFormulaForCaplets.png">
+$\tiny\text{columbia.edu - Prof. Martin Haugh - Term Structure Models}$</p>
+<h3 id="Swap-Rates">Swap Rates<a class="anchor-link" href="#Swap-Rates">&#182;</a></h3><p><img src="./images/SwapRates.png">
+$\tiny\text{columbia.edu - Prof. Martin Haugh - Term Structure Models}$</p>
+<h3 id="Black's-Formula-for-Swaptions">Black's Formula for Swaptions<a class="anchor-link" href="#Black's-Formula-for-Swaptions">&#182;</a></h3><p><img src="./images/BlackFormulaForSwaptions.png">
+$\tiny\text{columbia.edu - Prof. Martin Haugh - Term Structure Models}$</p>
 
 </div>
 </div>
@@ -13183,6 +13432,70 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Volatility">Volatility<a class="anchor-link" href="#Volatility">&#182;</a></h2><ul>
+<li>in BSM formula, the volatility is the futture volatility of stock<ul>
+<li>this is unknown</li>
+</ul>
+</li>
+</ul>
+<h3 id="Term-structure-of-volatility">Term structure of volatility<a class="anchor-link" href="#Term-structure-of-volatility">&#182;</a></h3><h3 id="Volatility-Swap">Volatility Swap<a class="anchor-link" href="#Volatility-Swap">&#182;</a></h3><ul>
+<li>is a forward contract on realized volatility</li>
+<li>at expiration, it pays the difference between realized return volatility over lifetime of contract $\sigma_R$ and previously agreed upon delivery volatility $\sigma_K$
+$$\pi = N(\sigma_R - \sigma_K)$$</li>
+</ul>
+<h3 id="Variance-Swap">Variance Swap<a class="anchor-link" href="#Variance-Swap">&#182;</a></h3><ul>
+<li>is a forward contract on realized variance
+$$\pi = N(\sigma_R^2 - \sigma_K^2)$$</li>
+</ul>
+<h3 id="Volatility-Smile">Volatility Smile<a class="anchor-link" href="#Volatility-Smile">&#182;</a></h3><ul>
+<li>for a given underlier and expiration date is a function or graph that maps the strikes of options to their BSM implied volatilities</li>
+<li>have lower implied vol near ATM strike</li>
+<li><p>have higher implied vol for both lower and higher strikes</p>
+</li>
+<li><p>as per BSM model,</p>
+<ul>
+<li>stock must have definite volatility </li>
+<li>vol smile should be perfectly flat</li>
+</ul>
+</li>
+<li>in reality,<ul>
+<li>it varies with time to expiration</li>
+<li>this is called implied vol term structure</li>
+</ul>
+</li>
+</ul>
+<h3 id="Volatility-skew">Volatility skew<a class="anchor-link" href="#Volatility-skew">&#182;</a></h3><ul>
+<li>popular quotable spread for options<ul>
+<li>10-year-2-year spread</li>
+</ul>
+</li>
+<li>other way is in terms of spread between options with definite deltas</li>
+</ul>
+<h3 id="Delta-vs-Implied-Vol">Delta vs Implied Vol<a class="anchor-link" href="#Delta-vs-Implied-Vol">&#182;</a></h3><ul>
+<li>the longer an option has until expiration or higher the vol of underlying stock<ul>
+<li>the more likely the underlying price is to move further away from its current level</li>
+</ul>
+</li>
+<li>by normalizing the implied volatilities across strikes and expiration <ul>
+<li>the function $\frac{\ln{(K/S_F)}}{\sigma\sqrt{\tau}}$, measures<ul>
+<li>the number of lognormal standard deviations between the forward price and the strike</li>
+<li>in BSM, $\Delta$ is is a function of the variable $d_1$<ul>
+<li>every option has a delta</li>
+<li>the x-axis is standardized <ul>
+<li>for call varies between 0 and 1</li>
+<li>for put varies between 0 and -1</li>
+</ul>
+</li>
+<li>delta for given implied vol immediately indicates the number of shares to hedge the option in BSM model</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="./images/delta_vs_impliedVol.png">
+$\tiny\text{The Volatility Smile - by Emanuel Derman, Michael B. Miller}$</p>
 
 </div>
 </div>
@@ -13190,6 +13503,53 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Financial-Models">Financial Models<a class="anchor-link" href="#Financial-Models">&#182;</a></h2><h3 id="Binomial-options-pricing-model">Binomial options pricing model<a class="anchor-link" href="#Binomial-options-pricing-model">&#182;</a></h3><h3 id="Short-rate-models">Short rate models<a class="anchor-link" href="#Short-rate-models">&#182;</a></h3><ul>
+<li>Short rate models are mathematical models used in the evaluation of interest rate derivatives to illustrate the evolution of interest rates over time by identifying the evolution of the short rate r(t) over time.</li>
+<li>One-factor short rate models work under the assumption that the future evolution of the interest rates is dependent on only one stochastic factor. </li>
+<li>Multiple-factor short rate models work under the assumption that more than one stochastic factor affect the future evolution of the interest rates.</li>
+</ul>
+<h3 id="One-factor-short-rate-models">One-factor short rate models<a class="anchor-link" href="#One-factor-short-rate-models">&#182;</a></h3><ul>
+<li>#### Merton's model (1973)</li>
+<li>Merton's model (1973) explains the short rate as $r_t = r_{0}+at+\sigma W^{*}_{t}$: where $W^{*}_{t}$ is a one-dimensional Brownian motion under the spot martingale measure.</li>
+</ul>
+<h4 id="Vasicek-model-(1977)">Vasicek model (1977)<a class="anchor-link" href="#Vasicek-model-(1977)">&#182;</a></h4><ul>
+<li>The Vasicek model (1977) models the short rate as $dr_t = (\theta-\alpha r_t)\,dt + \sigma \, dW_t$; it is often written $dr_{t}=a(b-r_{t})\,dt+\sigma \,dW_{t}$</li>
+</ul>
+<h4 id="Rendleman&#8211;Bartter-model-(1980)">Rendleman&#8211;Bartter model (1980)<a class="anchor-link" href="#Rendleman&#8211;Bartter-model-(1980)">&#182;</a></h4><ul>
+<li>The Rendleman–Bartter model (1980) explains the short rate as $dr_t = \theta r_t\, dt + \sigma r_t\, dW_t$</li>
+</ul>
+<h4 id="Cox&#8211;Ingersoll&#8211;Ross-model-(1985)">Cox&#8211;Ingersoll&#8211;Ross model (1985)<a class="anchor-link" href="#Cox&#8211;Ingersoll&#8211;Ross-model-(1985)">&#182;</a></h4><ul>
+<li>The Cox–Ingersoll–Ross model (1985) supposes $dr_t = (\theta-\alpha r_t)\,dt + \sqrt{r_t}\,\sigma\, dW_t$, it is often written $dr_t = a(b-r_t)\, dt  + \sqrt{r_t}\,\sigma\, dW_t$. The $\sigma {\sqrt  {r_{t}}}$ factor precludes (generally) the possibility of negative interest rates</li>
+</ul>
+<h4 id="Ho&#8211;Lee-model-(1986)">Ho&#8211;Lee model (1986)<a class="anchor-link" href="#Ho&#8211;Lee-model-(1986)">&#182;</a></h4><ul>
+<li>The Ho–Lee model (1986) models the short rate as $dr_t = \theta_t\, dt + \sigma\, dW_t$</li>
+</ul>
+<h4 id="Hull&#8211;White-model-(1990)">Hull&#8211;White model (1990)<a class="anchor-link" href="#Hull&#8211;White-model-(1990)">&#182;</a></h4><ul>
+<li>The Hull–White model (1990)—also called the extended Vasicek model—posits $dr_t = (\theta_t-\alpha r_t)\,dt + \sigma_t \, dW_t$. In many presentations one or more of the parameters $\theta$, $\alpha$ and $\sigma$  are not time-dependent. The model may also be applied as lognormal. Lattice-based implementation is usually trinomial</li>
+</ul>
+<h4 id="Black&#8211;Derman&#8211;Toy-model-(1990)">Black&#8211;Derman&#8211;Toy model (1990)<a class="anchor-link" href="#Black&#8211;Derman&#8211;Toy-model-(1990)">&#182;</a></h4><ul>
+<li>The Black–Derman–Toy model (1990) has $d\ln(r) = [\theta_t + \frac{\sigma '_t}{\sigma_t}\ln(r)]dt + \sigma_t\, dW_t$  for time-dependent short rate volatility and $d\ln(r) = \theta_t\, dt + \sigma \, dW_t$  otherwise; the model is lognormal</li>
+</ul>
+<h4 id="Black&#8211;Karasinski-model-(1991)">Black&#8211;Karasinski model (1991)<a class="anchor-link" href="#Black&#8211;Karasinski-model-(1991)">&#182;</a></h4><ul>
+<li>The Black–Karasinski model (1991), which is lognormal, has $d\ln(r)=[\theta _{t}-\phi _{t}\ln(r)]\,dt+\sigma _{t}\,dW_{t}$. The model may be seen as the lognormal application of Hull–White; its lattice-based implementation is similarly trinomial (binomial requiring varying time-steps)</li>
+</ul>
+<h4 id="Kalotay&#8211;Williams&#8211;Fabozzi-model-(1993)">Kalotay&#8211;Williams&#8211;Fabozzi model (1993)<a class="anchor-link" href="#Kalotay&#8211;Williams&#8211;Fabozzi-model-(1993)">&#182;</a></h4><ul>
+<li>The Kalotay–Williams–Fabozzi model (1993) has the short rate as $d \ln(r_t) = \theta_t\, dt + \sigma\, dW_t$, a lognormal analogue to the Ho–Lee model, and a special case of the Black–Derman–Toy model. This approach is effectively similar to “the original Salomon Brothers model" (1987), also a lognormal variant on Ho-Lee.</li>
+</ul>
+<h3 id="Multi-factor-short-rate-models">Multi-factor short-rate models<a class="anchor-link" href="#Multi-factor-short-rate-models">&#182;</a></h3><h4 id="Longstaff&#8211;Schwartz-model-(1992)">Longstaff&#8211;Schwartz model (1992)<a class="anchor-link" href="#Longstaff&#8211;Schwartz-model-(1992)">&#182;</a></h4><ul>
+<li>uses 2 sources of uncertainty</li>
+<li>The Longstaff–Schwartz model (1992) supposes the short rate dynamics are given by
+$${\begin{aligned}dX_{t}&amp;=(a_{t}-bX_{t})\,dt+{\sqrt {X_{t}}}\,c_{t}\,dW_{1t},\\[3pt]dY_{t}&amp;=(d_{t}-eY_{t})\,dt+{\sqrt {Y_{t}}}\,f_{t}\,dW_{2t},\end{aligned}}$$<ul>
+<li>where the short rate is defined as
+$$ dr_{t}=(\mu X+\theta Y)\,dt+\sigma _{t}{\sqrt {Y}}\,dW_{3t}$$.</li>
+</ul>
+</li>
+</ul>
+<h4 id="Chen-model-(1996)">Chen model (1996)<a class="anchor-link" href="#Chen-model-(1996)">&#182;</a></h4><ul>
+<li>uses 3 sources of uncertainty</li>
+<li>The Chen model (1996) which has a stochastic mean and volatility of the short rate, is given by
+$${\begin{aligned}dr_{t}&amp;=(\theta _{t}-\alpha _{t})\,dt+{\sqrt {r_{t}}}\,\sigma _{t}\,dW_{t},\\[3pt]d\alpha _{t}&amp;=(\zeta _{t}-\alpha _{t})\,dt+{\sqrt {\alpha _{t}}}\,\sigma _{t}\,dW_{t},\\[3pt]d\sigma _{t}&amp;=(\beta _{t}-\sigma _{t})\,dt+{\sqrt {\sigma _{t}}}\,\eta _{t}\,dW_{t}.\end{aligned}}$$</li>
+</ul>
 
 </div>
 </div>
@@ -13197,6 +13557,29 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Forward-rate-model">Forward rate model<a class="anchor-link" href="#Forward-rate-model">&#182;</a></h3><h3 id="Heath&#8211;Jarrow&#8211;Morton-(HJM)-model">Heath&#8211;Jarrow&#8211;Morton (HJM) model<a class="anchor-link" href="#Heath&#8211;Jarrow&#8211;Morton-(HJM)-model">&#182;</a></h3><ul>
+<li>model the evolution of interest rate curves – <code>instantaneous forward rate curves</code> in particular (as opposed to simple forward rates). </li>
+<li>When the volatility and drift of the instantaneous forward rate are assumed to be <code>deterministic</code>, this is known as the Gaussian Heath–Jarrow–Morton (HJM) model of forward rates.</li>
+<li>For direct modeling of <code>simple forward rates</code> the <code>Brace–Gatarek–Musiela(BGM) model</code> represents an example.</li>
+<li>they focus on <code>unobservable instantaneous interest rates</code>.</li>
+</ul>
+<h3 id="LIBOR-Market-model-or-BGM-Model">LIBOR Market model or BGM Model<a class="anchor-link" href="#LIBOR-Market-model-or-BGM-Model">&#182;</a></h3><ul>
+<li>Brace–Gatarek–Musiela(BGM) model</li>
+<li>is used for <code>pricing interest rate derivatives</code>, especially <code>exotic derivatives</code> like Bermudan swaptions, ratchet caps and floors, target redemption notes, autocaps, zero coupon swaptions, constant maturity swaps and spread options, among many others. </li>
+<li>The quantities that are modeled, rather than the short rate or instantaneous forward rates (like in the Heath–Jarrow–Morton framework) are a <code>set of forward rates</code> (also called <code>forward LIBORs</code>), which have the advantage of being <code>directly observable in the market</code>, and whose volatilities are naturally linked to traded contracts. </li>
+<li>Each forward rate is <code>modeled by a lognormal process under its forward measure</code>, i.e. a Black model leading to a <code>Black formula for interest rate caps</code>. This formula is the market standard to quote cap prices in terms of implied volatilities, hence the term "market model"</li>
+<li>directly <code>modeling observable market rates</code> such as LIBOR and swap rates</li>
+</ul>
+<h3 id="Black&#8211;Scholes">Black&#8211;Scholes<a class="anchor-link" href="#Black&#8211;Scholes">&#182;</a></h3><h3 id="Constant-elasticity-of-variance-(CEV)">Constant elasticity of variance (CEV)<a class="anchor-link" href="#Constant-elasticity-of-variance-(CEV)">&#182;</a></h3><h3 id="Cox&#8211;Ingersoll&#8211;Ross-(CIR)">Cox&#8211;Ingersoll&#8211;Ross (CIR)<a class="anchor-link" href="#Cox&#8211;Ingersoll&#8211;Ross-(CIR)">&#182;</a></h3><h3 id="Heston">Heston<a class="anchor-link" href="#Heston">&#182;</a></h3><h3 id="SABR-volatility">SABR volatility<a class="anchor-link" href="#SABR-volatility">&#182;</a></h3><h3 id="Black-model">Black model<a class="anchor-link" href="#Black-model">&#182;</a></h3><h3 id="Smile-Models">Smile Models<a class="anchor-link" href="#Smile-Models">&#182;</a></h3><h3 id="Local-Volatility-Models">Local Volatility Models<a class="anchor-link" href="#Local-Volatility-Models">&#182;</a></h3><h3 id="Stochastic-Volatility-Models---Smile-for-Zero-Correlation">Stochastic Volatility Models - Smile for Zero Correlation<a class="anchor-link" href="#Stochastic-Volatility-Models---Smile-for-Zero-Correlation">&#182;</a></h3><h3 id="Stochastic-Volatility-Models---Smile-with-Mean-Reversion-and-Correlation">Stochastic Volatility Models - Smile with Mean Reversion and Correlation<a class="anchor-link" href="#Stochastic-Volatility-Models---Smile-with-Mean-Reversion-and-Correlation">&#182;</a></h3><h3 id="Jump-Diffusion-Models">Jump Diffusion Models<a class="anchor-link" href="#Jump-Diffusion-Models">&#182;</a></h3><h3 id="Full-Jump-Diffusion-Models">Full Jump-Diffusion Models<a class="anchor-link" href="#Full-Jump-Diffusion-Models">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="FRA">FRA<a class="anchor-link" href="#FRA">&#182;</a></h2><ul>
+<li>A swap can be characterized as portfolio of forward rate agreements</li>
+</ul>
 
 </div>
 </div>
@@ -13204,6 +13587,29 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ABS">ABS<a class="anchor-link" href="#ABS">&#182;</a></h2><ul>
+<li>Asset Backed Security</li>
+<li>A portfolio of income-producing assets such as loans is sold by the originating banks to a special purpose vehicle (SPV) and the cash flows from the assets are then allocated to tranches</li>
+<li>SPV ( say portfolio of 100 mil)<ul>
+<li>Senior tranche<ul>
+<li>Principal: 80 mil</li>
+<li>LIBOR + 60bp</li>
+</ul>
+</li>
+<li>Mezzanine tranche<ul>
+<li>Principal: 15 mil</li>
+<li>LIBOR + 250bp</li>
+</ul>
+</li>
+<li>Equity tranche<ul>
+<li>Principal: 5 mil</li>
+<li>LIBOR + 1000bp</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Rating agencies such as Moody’s, S&amp;P, and Fitch played a key role in securitization</li>
+</ul>
 
 </div>
 </div>
@@ -13211,6 +13617,24 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mathematics">Mathematics<a class="anchor-link" href="#Mathematics">&#182;</a></h2><h3 id="Probability">Probability<a class="anchor-link" href="#Probability">&#182;</a></h3><h4 id="Mean">Mean<a class="anchor-link" href="#Mean">&#182;</a></h4><h4 id="Variance">Variance<a class="anchor-link" href="#Variance">&#182;</a></h4><h4 id="Covariance">Covariance<a class="anchor-link" href="#Covariance">&#182;</a></h4><h4 id="Correlation">Correlation<a class="anchor-link" href="#Correlation">&#182;</a></h4><h4 id="Standard-Deviation">Standard Deviation<a class="anchor-link" href="#Standard-Deviation">&#182;</a></h4><h4 id="Probability-Distribution-Function">Probability Distribution Function<a class="anchor-link" href="#Probability-Distribution-Function">&#182;</a></h4><h4 id="Cumulative-Distribution-Function">Cumulative Distribution Function<a class="anchor-link" href="#Cumulative-Distribution-Function">&#182;</a></h4><h4 id="Standard-Normal-Variable">Standard Normal Variable<a class="anchor-link" href="#Standard-Normal-Variable">&#182;</a></h4><h4 id="Box-Muller-method">Box Muller method<a class="anchor-link" href="#Box-Muller-method">&#182;</a></h4><h4 id="Margalia-Polar-method">Margalia Polar method<a class="anchor-link" href="#Margalia-Polar-method">&#182;</a></h4><h4 id="Normal-random-variable">Normal random variable<a class="anchor-link" href="#Normal-random-variable">&#182;</a></h4><h3 id="Change-of-density-function">Change of density function<a class="anchor-link" href="#Change-of-density-function">&#182;</a></h3><h4 id="Lognormal-random-variables">Lognormal random variables<a class="anchor-link" href="#Lognormal-random-variables">&#182;</a></h4><h3 id="Power-Series">Power Series<a class="anchor-link" href="#Power-Series">&#182;</a></h3><h4 id="Taylor-Series">Taylor Series<a class="anchor-link" href="#Taylor-Series">&#182;</a></h4><h3 id="ODE">ODE<a class="anchor-link" href="#ODE">&#182;</a></h3><h3 id="PDE">PDE<a class="anchor-link" href="#PDE">&#182;</a></h3><h3 id="Calculus">Calculus<a class="anchor-link" href="#Calculus">&#182;</a></h3><h4 id="Chain-Rule">Chain Rule<a class="anchor-link" href="#Chain-Rule">&#182;</a></h4><h4 id="Change-of-Variable">Change of Variable<a class="anchor-link" href="#Change-of-Variable">&#182;</a></h4><h4 id="Integrating-density-function-of-standard-normal-variable">Integrating density function of standard normal variable<a class="anchor-link" href="#Integrating-density-function-of-standard-normal-variable">&#182;</a></h4><h2 id="Stochastic-Process">Stochastic Process<a class="anchor-link" href="#Stochastic-Process">&#182;</a></h2><h3 id="Brownian-Motion">Brownian Motion<a class="anchor-link" href="#Brownian-Motion">&#182;</a></h3><h4 id="Weiner-process">Weiner process<a class="anchor-link" href="#Weiner-process">&#182;</a></h4><h4 id="independent">independent<a class="anchor-link" href="#independent">&#182;</a></h4><h4 id="independent-and-identically-distributed-(iid)">independent and identically distributed (iid)<a class="anchor-link" href="#independent-and-identically-distributed-(iid)">&#182;</a></h4><h4 id="Random-walk">Random walk<a class="anchor-link" href="#Random-walk">&#182;</a></h4><h4 id="Stationary-increments">Stationary increments<a class="anchor-link" href="#Stationary-increments">&#182;</a></h4><h3 id="Diffusion-process">Diffusion process<a class="anchor-link" href="#Diffusion-process">&#182;</a></h3><h4 id="Ito-diffusion">Ito diffusion<a class="anchor-link" href="#Ito-diffusion">&#182;</a></h4><h4 id="Jump-diffusion">Jump diffusion<a class="anchor-link" href="#Jump-diffusion">&#182;</a></h4><h4 id="Poisson-process">Poisson process<a class="anchor-link" href="#Poisson-process">&#182;</a></h4><h3 id="Martingale">Martingale<a class="anchor-link" href="#Martingale">&#182;</a></h3><h4 id="Martingale-property-of-conditional-expectations">Martingale property of conditional expectations<a class="anchor-link" href="#Martingale-property-of-conditional-expectations">&#182;</a></h4><h3 id="Markov-process">Markov process<a class="anchor-link" href="#Markov-process">&#182;</a></h3><h4 id="Markov-chain">Markov chain<a class="anchor-link" href="#Markov-chain">&#182;</a></h4><h3 id="Quadratic-Variation">Quadratic Variation<a class="anchor-link" href="#Quadratic-Variation">&#182;</a></h3><h3 id="Total-Variation">Total Variation<a class="anchor-link" href="#Total-Variation">&#182;</a></h3><h3 id="Stopping-Time">Stopping Time<a class="anchor-link" href="#Stopping-Time">&#182;</a></h3><h3 id="Ito's-Lemma">Ito's Lemma<a class="anchor-link" href="#Ito's-Lemma">&#182;</a></h3><h3 id="Stochastic-Differential-Equation-(SDE)">Stochastic Differential Equation (SDE)<a class="anchor-link" href="#Stochastic-Differential-Equation-(SDE)">&#182;</a></h3><h4 id="Lebesgue-measure">Lebesgue measure<a class="anchor-link" href="#Lebesgue-measure">&#182;</a></h4><h3 id="Ornstein-Uhlenbeck-Process">Ornstein-Uhlenbeck Process<a class="anchor-link" href="#Ornstein-Uhlenbeck-Process">&#182;</a></h3><h3 id="Gaussian-Process">Gaussian Process<a class="anchor-link" href="#Gaussian-Process">&#182;</a></h3><h3 id="Feynman-Kac-Formula">Feynman-Kac Formula<a class="anchor-link" href="#Feynman-Kac-Formula">&#182;</a></h3><h3 id="Change-of-Probability-Measure">Change of Probability Measure<a class="anchor-link" href="#Change-of-Probability-Measure">&#182;</a></h3><h3 id="Girsanov&#8217;s-Theorem">Girsanov&#8217;s Theorem<a class="anchor-link" href="#Girsanov&#8217;s-Theorem">&#182;</a></h3><h3 id="Forward-Measure">Forward Measure<a class="anchor-link" href="#Forward-Measure">&#182;</a></h3><h2 id="Time-series-model">Time series model<a class="anchor-link" href="#Time-series-model">&#182;</a></h2><h3 id="Autoregressive-conditional-heteroskedasticity-(ARCH)-model">Autoregressive conditional heteroskedasticity (ARCH) model<a class="anchor-link" href="#Autoregressive-conditional-heteroskedasticity-(ARCH)-model">&#182;</a></h3><h3 id="Autoregressive-integrated-moving-average-(ARIMA)-model">Autoregressive integrated moving average (ARIMA) model<a class="anchor-link" href="#Autoregressive-integrated-moving-average-(ARIMA)-model">&#182;</a></h3><h3 id="Autoregressive-(AR)-model">Autoregressive (AR) model<a class="anchor-link" href="#Autoregressive-(AR)-model">&#182;</a></h3><h3 id="Autoregressive&#8211;moving-average-(ARMA)-model">Autoregressive&#8211;moving-average (ARMA) model<a class="anchor-link" href="#Autoregressive&#8211;moving-average-(ARMA)-model">&#182;</a></h3><h3 id="Generalized-autoregressive-conditional-heteroskedasticity-(GARCH)-model">Generalized autoregressive conditional heteroskedasticity (GARCH) model<a class="anchor-link" href="#Generalized-autoregressive-conditional-heteroskedasticity-(GARCH)-model">&#182;</a></h3><h3 id="Moving-average-(MA)-model">Moving-average (MA) model<a class="anchor-link" href="#Moving-average-(MA)-model">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Financial-Products">Financial Products<a class="anchor-link" href="#Financial-Products">&#182;</a></h2><h3 id="Vanilla-Options">Vanilla Options<a class="anchor-link" href="#Vanilla-Options">&#182;</a></h3><h3 id="Exotic-Options">Exotic Options<a class="anchor-link" href="#Exotic-Options">&#182;</a></h3><h3 id="Barrier-Options">Barrier Options<a class="anchor-link" href="#Barrier-Options">&#182;</a></h3><h3 id="IRS">IRS<a class="anchor-link" href="#IRS">&#182;</a></h3><h3 id="FRA">FRA<a class="anchor-link" href="#FRA">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="CCR">CCR<a class="anchor-link" href="#CCR">&#182;</a></h2><h4 id="Credit-Risk-vs-Counterparty-Risk">Credit Risk vs Counterparty Risk<a class="anchor-link" href="#Credit-Risk-vs-Counterparty-Risk">&#182;</a></h4><ul>
+<li>Credit risk is the risk for holding a risky bond</li>
+<li>Counterparty risk is the risk that the counterparty will not be able to meet its contractual obligations if the credit event occur</li>
+</ul>
 
 </div>
 </div>
@@ -13218,35 +13642,21 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h2 id="BofA---CCR---Backtesting">BofA - CCR - Backtesting<a class="anchor-link" href="#BofA---CCR---Backtesting">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
+<h2 id="BofA---MR---VaR">BofA - MR - VaR<a class="anchor-link" href="#BofA---MR---VaR">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-
+<h2 id="BofA---IRCCRM">BofA - IRCCRM<a class="anchor-link" href="#BofA---IRCCRM">&#182;</a></h2>
 </div>
 </div>
 </div>
