@@ -1,6 +1,6 @@
 Here are the project work, notes and understanding of the tools I learnt during my sabbatical work break
 
-<h2 align="center">SkillSet/Interest Summary</h2>
+<h2 align="center">Interests</h2>
 
 |Data Science|GCP|Distributed Computing|Mathematics|Computer Science|Finance|Programming|
 |------------|---|-----|------|----------------|------|-----|
@@ -127,6 +127,7 @@ Here are the project work, notes and understanding of the tools I learnt during 
 - [system design - google cloud - use cases](system_designs/googlecloud_use_cases.html)
 - [system design - aws - use cases](system_designs/aws_usecases.html)
 - [system design - use cases](system_designs/design_general_use_cases.html)
+- [system design - aws financial services cloud symposium 2022 - case study](system_designs/awscloud_financial_symposium_2022.html)
 
 <h3 align="center">Design Patterns</h3>
 
