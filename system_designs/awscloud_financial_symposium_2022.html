@@ -13102,7 +13102,7 @@ div#notebook {
 <script>
 $( document ).ready(function(){
 
-            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": true};
+            var cfg = {"base_numbering": 1, "nav_menu": {}, "number_sections": true, "sideBar": true, "skip_h1_title": false, "title_cell": "Table of Contents", "title_sidebar": "Contents", "toc_cell": false, "toc_position": {}, "toc_section_display": true, "toc_window_display": false};
 
             // fire the main function with these parameters
             require(['nbextensions/toc2/toc2'], function (toc2) {
@@ -13155,12 +13155,34 @@ $( document ).ready(function(){
 </ul>
 <h4 id="AWS-Serverless-options-for-data-analytics">AWS Serverless options for data analytics<a class="anchor-link" href="#AWS-Serverless-options-for-data-analytics">&#182;</a></h4><ul>
 <li>AWS Glue <ul>
-<li>data integration, ETL, Catalog</li>
+<li>serverless ETL engine</li>
+<li>allows users to bring code and run in fully managed AWS clusters</li>
+<li>feature of crawler<ul>
+<li>scans data on S3 and populates data catalog</li>
+<li>data catalog is integrated with Amazon Athena</li>
 </ul>
 </li>
-<li>Amazon L</li>
 </ul>
-<p align="center"><img src="./images/nomura_serverless_data_analytics.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - AWS serverless options for data analytics}}$</p>
+</li>
+<li>Amazon Athena<ul>
+<li>serverless SQL engine which can scale to massive volumes of data</li>
+</ul>
+</li>
+<li>Amazon Kinesis and Amazon MSK(Managed Services for Kafka)<ul>
+<li>streaming services</li>
+</ul>
+</li>
+</ul>
+<p align="center"><img src="./images/nomura_serverless_data_analytics.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<h4 id="Serverless-analytics-pipeline-using-Glue-and-Athena">Serverless analytics pipeline using Glue and Athena<a class="anchor-link" href="#Serverless-analytics-pipeline-using-Glue-and-Athena">&#182;</a></h4><ul>
+<li>use Glue to connect to on-prem datasources and query using JDBC/ODBC</li>
+<li>inject files using Glue and transfer using AWS DataSync</li>
+<li>once data comes in S3 buckets, Glue can be used to cleanse, enrich and transform the data<ul>
+<li>then can be consumed in downstream ML or other applications</li>
+</ul>
+</li>
+</ul>
+<p align="center"><img src="./images/nomura_serverless_pipeline.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
 
 </div>
 </div>
@@ -13168,35 +13190,222 @@ $( document ).ready(function(){
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Vision-for-infrastructure-platform-at-Nomura">Vision for infrastructure platform at Nomura<a class="anchor-link" href="#Vision-for-infrastructure-platform-at-Nomura">&#182;</a></h3>
+<h3 id="Vision-for-infrastructure-platform-at-Nomura">Vision for infrastructure platform at Nomura<a class="anchor-link" href="#Vision-for-infrastructure-platform-at-Nomura">&#182;</a></h3><h4 id="Introduction-to-Nomura">Introduction to Nomura<a class="anchor-link" href="#Introduction-to-Nomura">&#182;</a></h4><h4 id="In-2010,-Vision-for-the-platform">In 2010, Vision for the platform<a class="anchor-link" href="#In-2010,-Vision-for-the-platform">&#182;</a></h4><ul>
+<li>measuring/checks but threw the data away</li>
+<li>identify hot-spots in the infrastructure and assist with root-cause analysis</li>
+<li>forward looking capacity planning</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Journey-and-lessons-learned">Journey and lessons learned<a class="anchor-link" href="#Journey-and-lessons-learned">&#182;</a></h3>
+<h3 id="Journey-and-lessons-learned">Journey and lessons learned<a class="anchor-link" href="#Journey-and-lessons-learned">&#182;</a></h3><h4 id="Overview-of-platform-design">Overview of platform design<a class="anchor-link" href="#Overview-of-platform-design">&#182;</a></h4><ul>
+<li>Data collection<ul>
+<li>gather data globally from all systems</li>
+<li>metrics baseline</li>
+</ul>
+</li>
+<li>ETL<ul>
+<li>standard format</li>
+</ul>
+</li>
+<li>Processing and Analysis<ul>
+<li>statistical analysis</li>
+</ul>
+</li>
+<li>Storage</li>
+<li>Query and Visualization</li>
+</ul>
+<h4 id="Evolving-with-infrastructure-estate">Evolving with infrastructure estate<a class="anchor-link" href="#Evolving-with-infrastructure-estate">&#182;</a></h4><ul>
+<li>In 2010 <ul>
+<li>focussed on the KPIs of servers only (CPU, memory usage, cores of CPU, network and disk/IO statistics)</li>
+<li>about 8 billion data points every day</li>
+</ul>
+</li>
+<li>In 2015<ul>
+<li>focused on both servers and desktop states</li>
+<li>abc</li>
+</ul>
+</li>
+<li>In 2022<ul>
+<li>abc</li>
+</ul>
+</li>
+</ul>
+<p align="center"><img src="./images/nomura_infrastructure_evolution.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<h4 id="Phase-1---Initial-launch-of-the-platform---2010">Phase 1 - Initial launch of the platform - 2010<a class="anchor-link" href="#Phase-1---Initial-launch-of-the-platform---2010">&#182;</a></h4><ul>
+<li>load of Java batch job for ETL and processing</li>
+<li>SQL to query it, Spring MVC application</li>
+<li>KPIs were presented in charts and unified manner, which was very helpful in times of failures especially</li>
+<li>added value, so started making predictions</li>
+</ul>
+<p align="center"><img src="./images/nomura_infrastructure_phase1.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<h4 id="Phase-2---Evolving-to-big-data---2015">Phase 2 - Evolving to big data - 2015<a class="anchor-link" href="#Phase-2---Evolving-to-big-data---2015">&#182;</a></h4><ul>
+<li>batch processes were vertically scaling</li>
+<li>number of regional jobs were taking more than 8 products</li>
+<li>open up the metric platform, open for everyone "as-a-service"</li>
+<li>realized opening up database resulted in poor architecture/practices around </li>
+<li>moved into Hadoop</li>
+<li>moved processing into Scala running in Spark</li>
+<li>moved from mySQL to time-series OpenTSDB and querying using REST protocol</li>
+<li>x22 times improvement</li>
+</ul>
+<p align="center"><img src="./images/nomura_infrastructure_phase2.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<ul>
+<li>opened metric platform as <strong>"metric-as-a-service"</strong></li>
+</ul>
+<p align="center"><img src="./images/nomura_infrastructure_metric-as-a-service.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Current-architecture-on-AWS">Current architecture on AWS<a class="anchor-link" href="#Current-architecture-on-AWS">&#182;</a></h3>
+<h3 id="Current-architecture-on-AWS">Current architecture on AWS<a class="anchor-link" href="#Current-architecture-on-AWS">&#182;</a></h3><h4 id="Goals-for-cloud-transformation">Goals for cloud transformation<a class="anchor-link" href="#Goals-for-cloud-transformation">&#182;</a></h4><ul>
+<li>Hadoop ecosystem were cumbersome to manage</li>
+<li>move towards serverless architecture</li>
+<li>scaling servers meant to buy and maintain servers</li>
+<li>disc failures would lead to backlog of data in the pipelines</li>
+<li>opening up as metric-as-a-service made multi-tenancy at storage layer where everything was going through one pipeline<ul>
+<li>there was a need to break this out</li>
+</ul>
+</li>
+</ul>
+<h4 id="Transforming-to-public-cloud---2022">Transforming to public cloud - 2022<a class="anchor-link" href="#Transforming-to-public-cloud---2022">&#182;</a></h4><ul>
+<li>changes were at the 3 middle layers</li>
+<li>moved ETL to Lambda/Python</li>
+<li>moved processing/analytics into AWS Glue</li>
+<li>moved storage into AWS S3 and Athena</li>
+</ul>
+<p align="center"><img src="./images/nomura_infrastructure_phase3.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<h4 id="High-level-logical-architecture">High level logical architecture<a class="anchor-link" href="#High-level-logical-architecture">&#182;</a></h4><p align="center"><img src="./images/nomura_infrastructure_high-level-arch.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<h4 id="Detailed-logical-pipeline-view">Detailed logical pipeline view<a class="anchor-link" href="#Detailed-logical-pipeline-view">&#182;</a></h4><ul>
+<li>In the ETL pipeline<ul>
+<li>the first lambda processes bundles of files from data producers<ul>
+<li>this is processed and put onto queue</li>
+</ul>
+</li>
+<li>the second lambda unbundles these files and processes them into chunks of JSONs<ul>
+<li>JSONs are then put onto another queue</li>
+</ul>
+</li>
+<li>the third lambda aggregates them into Parquet files</li>
+</ul>
+</li>
+<li>this triggers the Glue jobs which scales the number of workers based on how much data needs to be processed<ul>
+<li>aggegation is done at minute, hour and day level of aggregation -- this dataset is queried using Athena</li>
+<li>Athena is not exposed directly but is done using lambda and loadbalancer in front</li>
+</ul>
+</li>
+<li>infrastructure and application level of data is processed using different pipelines</li>
+</ul>
+<p align="center"><img src="./images/nomura_infrastructure_detailed-logical-pipeline-arch.png" width=500></p><p>$\tiny{\text{AWS Symposium 2022 - Nomura}}$</p>
+<h4 id="Thinking-differently-in-cloud">Thinking differently in cloud<a class="anchor-link" href="#Thinking-differently-in-cloud">&#182;</a></h4><ul>
+<li>started the journey while migrating to Hadoop<ul>
+<li>decomposing the architecture</li>
+</ul>
+</li>
+<li>moving to AWS brought in serverless capability</li>
+<li>kept control of how people will query the system<ul>
+<li>observability and monitoring how people are querying/behaving is important</li>
+<li>keep control of it</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Future-plans">Future plans<a class="anchor-link" href="#Future-plans">&#182;</a></h3>
+<h3 id="Future-plans">Future plans<a class="anchor-link" href="#Future-plans">&#182;</a></h3><ul>
+<li>data collection has not changed<ul>
+<li>modernization of data collection is next in plan</li>
+</ul>
+</li>
+<li>on-premise infrastructure are leveraging AWS services<ul>
+<li>unify the tools of on-premise and cloud data infrastructures management</li>
+</ul>
+</li>
+<li>along with metrics, logs and traces are planned to manage centrally</li>
+<li>apply machine learning tools to apply on data stored on S3</li>
+</ul>
+
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Q&amp;A">Q&amp;A<a class="anchor-link" href="#Q&amp;A">&#182;</a></h3>
+<h3 id="Q&amp;A">Q&amp;A<a class="anchor-link" href="#Q&amp;A">&#182;</a></h3><ul>
+<li>Why are there 3 lambdas in ETL <ul>
+<li>looked at Kinesis as alternative and other ways of combining this</li>
+<li>this seemed to be the best for us</li>
+<li>can also be done through step function</li>
+<li>step function works well when there is a complex chain of processes and decision chain of processes</li>
+<li>this was a case of linear </li>
+</ul>
+</li>
+<li>What is the data volume, how are the metrics pulled in, what type of metrics<ul>
+<li>35 billion data point on infrastructure side<ul>
+<li>400,000 datapoint per second</li>
+</ul>
+</li>
+<li>2TB of files that arrive in the pipeline<ul>
+<li>this translates to 4TB of JSONs </li>
+<li>this translates to 40G of parquet files </li>
+</ul>
+</li>
+<li>the data is pulled using different mechanism<ul>
+<li>infrastructure data is pulled in, </li>
+<li>stored in regional hubs as part of monitoring system responsibility</li>
+<li>this is then fetched in periodically</li>
+<li>these buckets of data are then fetched in</li>
+<li>for non-infrastructure, endpoints are provided <ul>
+<li>people push in data</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>is it custom metrics, cost controls as these things can blow-out<ul>
+<li>on-premise service and desktop metrics<ul>
+<li>virtualization and group information</li>
+<li>cost control - indirectly<ul>
+<li>request each consumer can make</li>
+<li>no usage of select * allowed</li>
+</ul>
+</li>
+<li>based on query pattern <ul>
+<li>change what will be allowed and not</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>how many dimensions do you have for a metric, does the service scale<ul>
+<li>limits on number of dimension</li>
+<li>dont store raw data, only store min, max or other aggregated result<ul>
+<li>all have different retention period based on aggregation</li>
+</ul>
+</li>
+<li>max of 10 per entity</li>
+</ul>
+</li>
+<li>what is SQS used for<ul>
+<li>SQS is used before using the Glue job</li>
+<li>used to allow the flow control</li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
 </div>
